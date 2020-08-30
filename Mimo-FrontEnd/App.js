@@ -1,19 +1,28 @@
 import React from 'react';
-import { 
+import {
   createAppContainer,
   createSwitchNavigator,
 } from 'react-navigation';
 
+import { setNavigator } from './src/navigationRef';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+//Homes
+import HomePageScreen from './src/screens/users/HomeScreen';
+import ComHomeScreen from './src/screens/commerces/ComHomeScreen';
+
+// authScreens
+import SignInScreen from './src/screens/authScreens/SignInScreen';
+import SignUpScreen from './src/screens/authScreens/SignUpScreen';
+import StartScreen from './src/screens/authScreens/StartScreen';
+
 //Imports de comercio
 import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComFoodScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComHomeScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
@@ -44,11 +53,96 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const switchNavigator = createSwitchNavigator({
+
+  loginFlow: createStackNavigator({
+    Start: StartScreen,
+    Signup: SignUpScreen,
+    Signin: SignInScreen
+  }),
+
+  mainFlow: createBottomTabNavigator(
+    {
+
+      Account: createStackNavigator(
+        {
+          UserSettings: UserSettingsScreen,
+          UserProfile: UserProfileScreen,
+          Notifications: NotificationsScreen,
+        },
+        {
+          defaComHomeScreenultNavigationOptions: {
+            headerShown: false
+          }
+        }
+      ),
+
+      Home: createStackNavigator({
+        HomePage: HomePageScreen,
+        Accesories: AccesoriesScreen,
+        Veterinaries: VeterinariesScreen,
+        Food: FoodScreen,
+        Services: ServicesScreen
+      },
+        {
+          defaultNavigationOptions: {
+            headerShown: false
+          }
+        }),
+      History: UserSettingsScreen
+    },
+
+    {
+      initialRouteName: 'Home',
+      defaultNavigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, horizontal, tintColor }) => {
+          const { routeName } = navigation.state;
+          if (routeName === 'Home') {
+            return (
+              <MaterialCommunityIcons
+                name="home"
+                color={tintColor}
+                size={26}
+              />
+            );
+          }
+          if (routeName === 'Gallery') {
+            return (
+              <MaterialCommunityIcons
+                name="history"
+                size={26}
+                color={tintColor}
+              />
+            );
+          }
+          if (routeName === 'Account') {
+            return (
+              <MaterialCommunityIcons
+                name="face-profile"
+                size={26}
+                color={tintColor}
+              />
+            );
+          }
+        },
+      }),
+      tabBarOptions: {
+        activeTintColor: '#FFFFFF',
+        inactiveTintColor: '#9d9fa3',
+        tabStyle: {
+          backgroundColor: "#5C5A59",
+          borderTopColor: "transparent"
+        },
+      },
+    }
+  )
+})
+
+
+const App = createAppContainer(switchNavigator);
+
+export default () => {
+  return (
+    <App ref={(navigator) => { setNavigator(navigator) }} />
+  );
+}
