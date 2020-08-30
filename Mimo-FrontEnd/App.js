@@ -37,11 +37,12 @@ import PetsScreen from './src/screens/users/pets/PetsScreen';
 //products
 import AccesoriesScreen from './src/screens/users/products/AccesoriesScreen';
 import FoodScreen from './src/screens/users/products/FoodScreen';
-import ProductDetails from './src/screens/users/products/ProductDetails';
+import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
 //profile 
 import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
+import HistoryScreen from './src/screens/users/profile/HistoryScreen';
 //services
 import GroomingScreen from './src/screens/users/services/GroomingScreen';
 import MassagesScreen from './src/screens/users/services/MassagesScreen';
@@ -69,9 +70,12 @@ const switchNavigator = createSwitchNavigator({
           UserSettings: UserSettingsScreen,
           UserProfile: UserProfileScreen,
           Notifications: NotificationsScreen,
+          AddPet: AddPetScreen,
+          Pets: PetsScreen
+
         },
         {
-          defaComHomeScreenultNavigationOptions: {
+          defaultNavigationOptions: {
             headerShown: false
           }
         }
@@ -82,14 +86,21 @@ const switchNavigator = createSwitchNavigator({
         Accesories: AccesoriesScreen,
         Veterinaries: VeterinariesScreen,
         Food: FoodScreen,
-        Services: ServicesScreen
+        Services: ServicesScreen,
+        ProductDetails: ProductDetailsScreen,
+        Grooming: GroomingScreen,
+        Massages: MassagesScreen,
+        PetSitting: PetSittingScreen,
+        PetWalker: PetWalkerScreen,
+        ServiceDetails:ServiceDetailsScreen,
+        VeterinaryProfile: VeterinaryProfileScreen
       },
         {
           defaultNavigationOptions: {
             headerShown: false
           }
         }),
-      History: UserSettingsScreen
+      History: HistoryScreen
     },
 
     {

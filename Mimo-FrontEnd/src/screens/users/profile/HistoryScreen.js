@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const PetsScreen = () => {
+const HistoryScreen = () => {
     return (
         <View>
-            <Text>Pantalla de PetsScreen</Text>
+            <Text>Pantalla de HistoryScreen</Text>
         </View>
     )
 }
 
-export default PetsScreen
+export default HistoryScreen
