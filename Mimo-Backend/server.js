@@ -5,21 +5,15 @@ const app = express();
 
 connectDB();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 //Connect Database
-app.get('/', (req, res) =>
-	res.send('API Running')
-);
+app.get('/', (req, res) => res.send('API Running'));
 
 //Define Routes
-app.use(
-	'/api/testingRoute',
-	require('./routes/api/testingRoute')
-);
+app.use('/api/testingRoute', require('./routes/api/testingRoute'));
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () =>
-	console.log(
-		`Servidor en el puerto ${PORT}`
-	)
-);
+app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
