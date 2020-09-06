@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Product = require('../models/Product');
+const Product = mongoose.model('Product');
 
 const router = express.Router();
 
@@ -18,6 +18,7 @@ router.post('/save', async (req, res) => {
     console.log(req.body);
 
     try {
+        console.log("hola");
         const product = new Product({
             category,
             name,
@@ -25,8 +26,10 @@ router.post('/save', async (req, res) => {
             photo,
             description
         });
+        console.log("hola");
+        console.log(product);
         await product.save();
-        res.json(product);
+        res.send({ product });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });
     }

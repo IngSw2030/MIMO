@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+require('./src/models/Product');
 
 const app = express();
 
