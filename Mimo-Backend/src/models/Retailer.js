@@ -31,6 +31,11 @@ const RetailerSchema = new mongoose.Schema({
 			required: false,
 		},
 	],
+	Veterinaria: {
+		type: [mongoose.Schema.Types.ObjectId],
+		ref: 'Vet',
+		required: false,
+	},
 });
 
 mongoose.model('Retailer', RetailerSchema);
