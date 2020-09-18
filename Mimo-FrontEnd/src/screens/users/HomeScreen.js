@@ -7,7 +7,7 @@ const HomeScreen = () => {
         <View>
             <Image style = {styles.imageStyle}  source= {imgSource} />
             <Text style={styles.textStyle}> Que buscas hoy? </Text> 
-            <View>
+            <View style={styles.generalView}>
                 <TouchableOpacity >
                     <View style={styles.viewStyle1}/>
                 </TouchableOpacity>
@@ -15,7 +15,7 @@ const HomeScreen = () => {
                     <View style={styles.viewStyle2}/>
                 </TouchableOpacity>
             </View>
-            <View>
+            <View style={styles.generalView}>
                 <TouchableOpacity >
                     <View style={styles.viewStyle1}/>
                 </TouchableOpacity>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     generalView:{
-        
+        flexDirection: 'row'
     }
 
 });
