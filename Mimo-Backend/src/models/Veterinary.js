@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
-const ProductSchema = new mongoose.Schema({
-    category: {
-        type: String,
-        required: true,
-    },
+const VeterinarySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
-    price: {
-        type: Number,
+    animals: {
+        type: [ String ],
         required: true,
     },
     photo: {
         type: String,
+        required: false,
+    },
+    address: {
+        type: String,
         required: true,
     },
-    description:{
-        type: String,
+    avgScore: {
+        type: Number,
         required: true,
     },
     idUser: {
@@ -28,4 +28,4 @@ const ProductSchema = new mongoose.Schema({
     },
 });
 
-mongoose.model('Product', ProductSchema);
+mongoose.model('Veterinary', VeterinarySchema);
