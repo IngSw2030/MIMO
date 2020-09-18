@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  createAppContainer,
-  createSwitchNavigator,
-} from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import { setNavigator } from './src/navigationRef';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -18,6 +15,9 @@ import ComHomeScreen from './src/screens/commerces/ComHomeScreen';
 import SignInScreen from './src/screens/authScreens/SignInScreen';
 import SignUpScreen from './src/screens/authScreens/SignUpScreen';
 import StartScreen from './src/screens/authScreens/StartScreen';
+
+// Chat
+import ChatScreen from './src/screens/chat/ChatScreen';
 
 //Imports de comercio
 import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
@@ -38,7 +38,7 @@ import PetsScreen from './src/screens/users/pets/PetsScreen';
 import AccesoriesScreen from './src/screens/users/products/AccesoriesScreen';
 import FoodScreen from './src/screens/users/products/FoodScreen';
 import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
-//profile 
+//profile
 import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
@@ -55,105 +55,104 @@ import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScr
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
 
 const switchNavigator = createSwitchNavigator({
+	loginFlow: createStackNavigator({
+		Start: StartScreen,
+		Signup: SignUpScreen,
+		Signin: SignInScreen,
+		Chat: ChatScreen,
+	}),
 
-  loginFlow: createStackNavigator({
-    Start: StartScreen,
-    Signup: SignUpScreen,
-    Signin: SignInScreen
-  }),
+	mainFlow: createBottomTabNavigator(
+		{
+			Account: createStackNavigator(
+				{
+					UserSettings: UserSettingsScreen,
+					UserProfile: UserProfileScreen,
+					Notifications: NotificationsScreen,
+					AddPet: AddPetScreen,
+					Pets: PetsScreen,
+				},
+				{
+					defaultNavigationOptions: {
+						headerShown: false,
+					},
+				}
+			),
 
-  mainFlow: createBottomTabNavigator(
-    {
+			Home: createStackNavigator(
+				{
+					HomePage: HomePageScreen,
+					Accesories: AccesoriesScreen,
+					Veterinaries: VeterinariesScreen,
+					Food: FoodScreen,
+					Services: ServicesScreen,
+					ProductDetails: ProductDetailsScreen,
+					Grooming: GroomingScreen,
+					Massages: MassagesScreen,
+					PetSitting: PetSittingScreen,
+					PetWalker: PetWalkerScreen,
+					ServiceDetails: ServiceDetailsScreen,
+					VeterinaryProfile: VeterinaryProfileScreen,
+				},
+				{
+					defaultNavigationOptions: {
+						headerShown: false,
+					},
+				}
+			),
+			History: HistoryScreen,
+		},
 
-      Account: createStackNavigator(
-        {
-          UserSettings: UserSettingsScreen,
-          UserProfile: UserProfileScreen,
-          Notifications: NotificationsScreen,
-          AddPet: AddPetScreen,
-          Pets: PetsScreen
-
-        },
-        {
-          defaultNavigationOptions: {
-            headerShown: false
-          }
-        }
-      ),
-
-      Home: createStackNavigator({
-        HomePage: HomePageScreen,
-        Accesories: AccesoriesScreen,
-        Veterinaries: VeterinariesScreen,
-        Food: FoodScreen,
-        Services: ServicesScreen,
-        ProductDetails: ProductDetailsScreen,
-        Grooming: GroomingScreen,
-        Massages: MassagesScreen,
-        PetSitting: PetSittingScreen,
-        PetWalker: PetWalkerScreen,
-        ServiceDetails:ServiceDetailsScreen,
-        VeterinaryProfile: VeterinaryProfileScreen
-      },
-        {
-          defaultNavigationOptions: {
-            headerShown: false
-          }
-        }),
-      History: HistoryScreen
-    },
-
-    {
-      initialRouteName: 'Home',
-      defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, horizontal, tintColor }) => {
-          const { routeName } = navigation.state;
-          if (routeName === 'Home') {
-            return (
-              <MaterialCommunityIcons
-                name="home"
-                color={tintColor}
-                size={26}
-              />
-            );
-          }
-          if (routeName === 'Gallery') {
-            return (
-              <MaterialCommunityIcons
-                name="history"
-                size={26}
-                color={tintColor}
-              />
-            );
-          }
-          if (routeName === 'Account') {
-            return (
-              <MaterialCommunityIcons
-                name="face-profile"
-                size={26}
-                color={tintColor}
-              />
-            );
-          }
-        },
-      }),
-      tabBarOptions: {
-        activeTintColor: '#FFFFFF',
-        inactiveTintColor: '#9d9fa3',
-        tabStyle: {
-          backgroundColor: "#5C5A59",
-          borderTopColor: "transparent"
-        },
-      },
-    }
-  )
-})
-
+		{
+			initialRouteName: 'Home',
+			defaultNavigationOptions: ({ navigation }) => ({
+				tabBarIcon: ({ focused, horizontal, tintColor }) => {
+					const { routeName } = navigation.state;
+					if (routeName === 'Home') {
+						return (
+							<MaterialCommunityIcons name='home' color={tintColor} size={26} />
+						);
+					}
+					if (routeName === 'Gallery') {
+						return (
+							<MaterialCommunityIcons
+								name='history'
+								size={26}
+								color={tintColor}
+							/>
+						);
+					}
+					if (routeName === 'Account') {
+						return (
+							<MaterialCommunityIcons
+								name='face-profile'
+								size={26}
+								color={tintColor}
+							/>
+						);
+					}
+				},
+			}),
+			tabBarOptions: {
+				activeTintColor: '#FFFFFF',
+				inactiveTintColor: '#9d9fa3',
+				tabStyle: {
+					backgroundColor: '#5C5A59',
+					borderTopColor: 'transparent',
+				},
+			},
+		}
+	),
+});
 
 const App = createAppContainer(switchNavigator);
 
 export default () => {
-  return (
-    <App ref={(navigator) => { setNavigator(navigator) }} />
-  );
-}
+	return (
+		<App
+			ref={navigator => {
+				setNavigator(navigator);
+			}}
+		/>
+	);
+};
