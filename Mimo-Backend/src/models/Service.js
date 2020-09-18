@@ -21,7 +21,7 @@ const ServiceSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description:{
+    description: {
         type: String,
         required: true,
     },
@@ -29,7 +29,7 @@ const ServiceSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    },
+    }
 });
 
 mongoose.model('Service', ServiceSchema);

@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const PetSchema = new mongoose.Schema({
-	name: {
-		type: String,
-		required: true,
-	},
-	age: {
+    name: {
+        type: String,
+        required: true,
+    },
+    age: {
         type: Number,
         required: false,
     },
@@ -20,6 +20,12 @@ const PetSchema = new mongoose.Schema({
     photo: {
         type: String,
         default: "",
-    }
+    },
+    idUser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+
 });
 mongoose.model('Pet', PetSchema);
