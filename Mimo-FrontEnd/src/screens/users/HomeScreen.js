@@ -21,25 +21,29 @@ const HomeScreen = ({ navigation }) => {
 				>
 					<Image style={styles.iconStyle} source={servicesIcon} />
 				</TouchableOpacity>
+
 				<TouchableOpacity
 					style={styles.vetStyle}
 					onPress={() => navigation.navigate('Veterinaries')}
 				>
 					<Image style={styles.iconStyle} source={vetIcon} />
 				</TouchableOpacity>
-				<TouchableOpacity
+			</View>
+            <View style={styles.generalView}>
+            <TouchableOpacity
 					style={styles.accesoriesStyle}
 					onPress={() => navigation.navigate('Accesories')}
 				>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 				</TouchableOpacity>
+
 				<TouchableOpacity
 					style={styles.foodStyle}
 					onPress={() => navigation.navigate('Food')}
 				>
 					<Image style={styles.iconStyle} source={foodIcon} />
 				</TouchableOpacity>
-			</View>
+            </View>
 		</View>
 	);
 };
@@ -96,9 +100,8 @@ const styles = StyleSheet.create({
 	generalView: {
 		justifyContent: 'center',
 		flexDirection: 'row',
-		flexWrap: 'wrap',
-		marginTop: 50,
-		marginBottom: 120,
+		//flexWrap: 'wrap',
+		//marginTop: 50,
 		marginHorizontal: 20,
 		flexGrow: 1,
 	},
