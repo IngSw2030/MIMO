@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/vetPaw.png');
 	const foodIcon = require('../../../assets/food.png');
@@ -14,16 +15,28 @@ const HomeScreen = () => {
 				<Text style={styles.questionStyle}> Que buscas hoy? </Text>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.servicesStyle}>
+				<TouchableOpacity
+					style={styles.servicesStyle}
+					onPress={() => navigation.navigate('Services')}
+				>
 					<Image style={styles.iconStyle} source={servicesIcon} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.vetStyle}>
+				<TouchableOpacity
+					style={styles.vetStyle}
+					onPress={() => navigation.navigate('Veterinaries')}
+				>
 					<Image style={styles.iconStyle} source={vetIcon} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.accesoriesStyle}>
+				<TouchableOpacity
+					style={styles.accesoriesStyle}
+					onPress={() => navigation.navigate('Accesories')}
+				>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.foodStyle}>
+				<TouchableOpacity
+					style={styles.foodStyle}
+					onPress={() => navigation.navigate('Food')}
+				>
 					<Image style={styles.iconStyle} source={foodIcon} />
 				</TouchableOpacity>
 			</View>
@@ -90,4 +103,4 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 	},
 });
-export default HomeScreen;
+export default withNavigation(HomeScreen);
