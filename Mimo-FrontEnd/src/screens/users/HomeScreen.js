@@ -2,62 +2,92 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const HomeScreen = () => {
-    const imgSource = require('../../../assets/mimo.png')
-    return (
-        <View>
-            <Image style = {styles.imageStyle}  source= {imgSource} />
-            <Text style={styles.textStyle}> Que buscas hoy? </Text> 
-            <View style={styles.generalView}>
-                <TouchableOpacity >
-                    <View style={styles.viewStyle1}/>
-                </TouchableOpacity>
-                <TouchableOpacity >
-                    <View style={styles.viewStyle2}/>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.generalView}>
-                <TouchableOpacity >
-                    <View style={styles.viewStyle1}/>
-                </TouchableOpacity>
-                <TouchableOpacity >
-                    <View style={styles.viewStyle2}/>
-                </TouchableOpacity>
-            </View>
-        </View>
-    )
-}
+	const mimoIcon = require('../../../assets/mimo.png');
+	const vetIcon = require('../../../assets/vetPaw.png');
+	const foodIcon = require('../../../assets/food.png');
+	const accesoriesIcon = require('../../../assets/toy.png');
+	const servicesIcon = require('../../../assets/wrench.png');
+	return (
+		<View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
+			<View>
+				<Image style={styles.logoStyle} source={mimoIcon} />
+				<Text style={styles.questionStyle}> Que buscas hoy? </Text>
+			</View>
+			<View style={styles.generalView}>
+				<TouchableOpacity style={styles.servicesStyle}>
+					<Image style={styles.iconStyle} source={servicesIcon} />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.vetStyle}>
+					<Image style={styles.iconStyle} source={vetIcon} />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.accesoriesStyle}>
+					<Image style={styles.iconStyle} source={accesoriesIcon} />
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.foodStyle}>
+					<Image style={styles.iconStyle} source={foodIcon} />
+				</TouchableOpacity>
+			</View>
+		</View>
+	);
+};
 const styles = StyleSheet.create({
-    imageStyle:{
-        height: 255,
-        width:255,
-        alignSelf:'center'
-    },
-    textStyle:{
-        fontSize: 20,
-        fontWeight:'bold',
-        marginLeft:15
-    },
-    viewStyle1:
-    {
-        marginLeft:15,
-        marginTop:15,
-        height:150,
-        width:150,
-        backgroundColor: 'red',
-        borderRadius: 15,
-    },
-    viewStyle2:
-    {
-        marginLeft:15,
-        marginTop:15,
-        height:150,
-        width:150,
-        backgroundColor: 'blue',
-        borderRadius: 15,
-    },
-    generalView:{
-        flexDirection: 'row'
-    }
-
+	logoStyle: {
+		height: 255,
+		width: 255,
+		alignSelf: 'center',
+	},
+	questionStyle: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginLeft: 15,
+		alignSelf: 'stretch',
+	},
+	iconStyle: {
+		height: 100,
+		width: 100,
+		alignSelf: 'center',
+		flexGrow: 1,
+	},
+	servicesStyle: {
+		backgroundColor: 'rgba(159, 202, 226, 0.81)',
+		borderRadius: 25,
+		height: 150,
+		width: 150,
+		margin: 10,
+		flexGrow: 1,
+	},
+	vetStyle: {
+		height: 150,
+		width: 150,
+		backgroundColor: 'rgba(188,219,137,1)',
+		borderRadius: 25,
+		margin: 10,
+		flexGrow: 1,
+	},
+	accesoriesStyle: {
+		height: 150,
+		width: 150,
+		backgroundColor: 'rgba(255, 154, 162, 0.4);',
+		borderRadius: 25,
+		margin: 10,
+		flexGrow: 1,
+	},
+	foodStyle: {
+		height: 150,
+		width: 150,
+		backgroundColor: '#E8916C',
+		borderRadius: 25,
+		margin: 10,
+		flexGrow: 1,
+	},
+	generalView: {
+		justifyContent: 'center',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		marginTop: 50,
+		marginBottom: 120,
+		marginHorizontal: 20,
+		flexGrow: 1,
+	},
 });
-export default HomeScreen
+export default HomeScreen;
