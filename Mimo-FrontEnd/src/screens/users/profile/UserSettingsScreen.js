@@ -1,12 +1,18 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { View, Text } from 'react-native';
 
 const UserSettingsScreen = () => {
-    return (
-        <View>
-            <Text>Pantalla de UserSettingsScreen</Text>
-        </View>
-    )
-}
+	return (
+		<View
+			style={
+				({ height: '100%' },
+				{ flexWrap: 'wrap' },
+				{ backgroundColor: '#EDDF98' })
+			}
+		>
+			<Text>Pantalla de UserSettingsScreen</Text>
+		</View>
+	);
+};
 
-export default UserSettingsScreen
+export default UserSettingsScreen;
