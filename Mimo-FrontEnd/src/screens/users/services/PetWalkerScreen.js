@@ -9,18 +9,19 @@ const PetWalkerScreen = () => {
             <ServiceList 
                 id = '1000'
                 nombre= 'McLovin'
-                calificacion='3'
+                calificacion='5'
                 imageSource={imageSource}
             />
             <ServiceList 
                 id = '1003'
                 nombre= 'dr. P. Lankton'
-                calificacion='5'
+                calificacion='1'
                 imageSource={imageSource}
             />
         </View>
     )
 }
+
 const styles = StyleSheet.create({
     viewStyle:{
         backgroundColor: 'rgba(159, 202, 226, 0.89)'

@@ -4,10 +4,10 @@ import { withNavigation } from 'react-navigation';
 
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
-	const vetIcon = require('../../../assets/vetPaw.png');
-	const foodIcon = require('../../../assets/food.png');
-	const accesoriesIcon = require('../../../assets/toy.png');
-	const servicesIcon = require('../../../assets/wrench.png');
+	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
+	const foodIcon = require('../../../assets/mimoIconComida.png');
+	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
+	const servicesIcon = require('../../../assets/mimoIconServicios.png');
 	return (
 		<View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
 			<View>
