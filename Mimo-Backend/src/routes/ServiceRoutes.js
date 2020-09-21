@@ -35,4 +35,54 @@ router.post('/save', async (req, res) => {
     }
 });
 
+router.post('/update', async (req, res) => {
+    try {
+
+        const { 
+            name,
+            priceMax,
+            priceMin,
+            photo,
+            description,
+            id 
+        } = req.body;
+
+        const service = await Service.findOne({_id: id});
+
+        let newName, newPriceMax, newPriceMin, newDescription, newPhoto;
+
+        !name ? newName = service.name : newName = name;
+
+        !priceMax ? newPriceMax = service.priceMax : newPriceMax = priceMax;
+
+        !priceMin ? newPriceMin = service.priceMin : newPriceMin = priceMin;
+
+        !description ? newDescription = service.description : newDescription = description;
+        
+        !photo ? newPhoto = service.photo : newPhoto = photo;
+
+        await Service.findOneAndUpdate({ _id: id }, { $set: { 
+            "name": newName,
+            "priceMin": newPriceMin,
+            "priceMax": newPriceMax,
+            "description": newDescription,
+            "photo": newPhoto 
+        }}, { useFindAndModify: false });
+        res.send("Modificado satisfactoriamente");
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
+});
+
+router.get('/delete', async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        await Service.findByIdAndDelete(id);
+        res.send("Servicio borrado satisfactoriamente");
+    } catch (error) {
+        return res.status(422).send({ error: 'Error eliminando la mascota' });
+    }
+});
+
 module.exports = router;

@@ -10,6 +10,11 @@ const PurchaseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Product',
         required: true,
+    },
+    datePurchased:{
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 

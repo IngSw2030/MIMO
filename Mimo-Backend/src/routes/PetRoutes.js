@@ -5,7 +5,6 @@ const requireAuth = require('../middlewares/requireAuth');
 const Pet = mongoose.model('Pet');
 
 const router = express.Router();
-
 router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
@@ -30,6 +29,54 @@ router.post('/save', async (req, res) => {
         res.send({ pet });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido guardar la mascota" });
+    }
+});
+
+router.post('/update', async (req, res) => {
+    try {
+
+        const { 
+            name,
+            age,
+            species,
+            photo,
+            id
+        } = req.body;
+
+        const pet = await Pet.findOne({_id: id});
+        
+
+        let newName, newAge, newSpecies, newPhoto;
+
+        !name ? newName = pet.name : newName = name;
+
+        !age ? newAge = pet.age : newAge = age;
+
+        !species ? newSpecies = pet.species : newSpecies = species;
+
+        !photo ? newPhoto = pet.photo : newPhoto = photo;
+        
+
+        await Pet.findOneAndUpdate({ _id: id }, { $set: { 
+            "name": newName,
+            "age": newAge,
+            "species": newSpecies,
+            "photo": newPhoto,
+        }}, { useFindAndModify: false });
+        res.send("Modificado satisfactoriamente");
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
+});
+
+router.get('/delete', async (req, res) => {
+    const { id } = req.body;
+
+    try {
+        await Pet.findByIdAndDelete(id);
+        res.send("Mascota borrada satisfactoriamente");
+    } catch (error) {
+        return res.status(422).send({ error: 'Error eliminando la mascota' });
     }
 });
 

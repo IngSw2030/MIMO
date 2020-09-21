@@ -27,6 +27,14 @@ const ProductSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    retailName:{
+		type: String,
+		required: false,
+    },
+    available:{
+        type: Boolean,
+        required: true,
+    }
 });
 
 mongoose.model('Product', ProductSchema);

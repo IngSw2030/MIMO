@@ -18,6 +18,11 @@ const ReviewSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Veterinary',
         required: true,
+    },
+    dateReview:{
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 

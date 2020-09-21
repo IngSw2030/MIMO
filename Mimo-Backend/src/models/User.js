@@ -18,6 +18,18 @@ const UserSchema = new mongoose.Schema({
 		type: String,
 		required: false,
 	},
+	retailName:{
+		type: String,
+		required: false,
+	},
+	address:{
+		type: String,
+		required: false,
+	},
+	photo : {
+        type: String,
+        default: ""
+    },
 	userType: {
 		type: Boolean,
 		required: true,
