@@ -9,7 +9,7 @@ const ChatScreen = () => {
 
 	//same as componentWillMount
 	useEffect(() => {
-		socket.current = io('http://192.168.0.10:3001');
+		socket.current = io('http://192.168.1.57:3001');
 		socket.current.on('message', message => {
 			setRecvMessages(prevState => GiftedChat.append(prevState, message));
 		});

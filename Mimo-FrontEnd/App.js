@@ -66,8 +66,8 @@ const switchNavigator = createSwitchNavigator({
 		{
 			Account: createStackNavigator(
 				{
-					UserSettings: UserSettingsScreen,
 					UserProfile: UserProfileScreen,
+					UserSettings: UserSettingsScreen,
 					Notifications: NotificationsScreen,
 					AddPet: AddPetScreen,
 					Pets: PetsScreen,

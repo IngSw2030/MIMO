@@ -1,3 +1,6 @@
 node_modules/
 Entidades.txt
 .vscode/launch.json
+# macOS
+.DS_Store
+
