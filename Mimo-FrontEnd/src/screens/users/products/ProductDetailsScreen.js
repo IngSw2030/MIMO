@@ -1,12 +1,14 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image} from 'react-native'
+import { withNavigation } from 'react-navigation';
 
-const ProductDetailsScreen = () => {
+const ProductDetailsScreen = (props) => {
     return (
         <View>
-            <Text>Pantalla de ProductDetailsScreen</Text>
+            <Text>Pantalla de ServiceDetailsScreen</Text>
         </View>
+
     )
 }
 
-export default ProductDetailsScreen
+export default withNavigation(ProductDetailsScreen)

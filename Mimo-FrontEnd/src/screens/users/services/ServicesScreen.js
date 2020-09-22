@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { withNavigation } from 'react-navigation';
 
 const ServicesScreen = ({navigation}) => {
     const mimoIcon = require('../../../../assets/mimo.png');
@@ -82,4 +83,4 @@ const styles = StyleSheet.create({
     },
     
 });
-export default ServicesScreen
+export default withNavigation(ServicesScreen)

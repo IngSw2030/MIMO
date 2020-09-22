@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
+import { withNavigation } from 'react-navigation';
 
 const serviceList = (props)=> {
     const src = require('../../assets/mimo.png');
@@ -8,7 +9,8 @@ const serviceList = (props)=> {
     return(
         <View>
             <TouchableOpacity
-                style= {styles.viewStyle}>
+                style= {styles.viewStyle}
+                onPress = {() => props.navigation.navigate('ServiceDetails',{data: props.tipo})}>
             <View>
                 <Image source={src} style= {styles.imageStyle}/>
             </View>
@@ -72,4 +74,4 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
-export default serviceList;
+export default withNavigation(serviceList)
