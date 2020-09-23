@@ -29,4 +29,15 @@ router.post('/save', async (req, res) => {
     }
 });
 
+//Query para encontrar mis mascotas
+router.get('/vetsReview', async (req, res) => {
+    const { idVet } = req.body
+    try {
+        const reviews = await Review.find({idVet: idVet});
+        res.send({ reviews });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
 module.exports = router;

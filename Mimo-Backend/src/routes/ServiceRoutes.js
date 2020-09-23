@@ -35,6 +35,42 @@ router.post('/save', async (req, res) => {
     }
 });
 
+//Query para encontrar todas las veterinarias por nombre
+router.get('/allServices', async (req, res) => {
+    const {name, description, category} = req.body;
+
+    let newName, newDescription;
+
+    if(!description){
+        if(!name){
+            newName = "";
+        }
+        else{
+            newName = name;
+        }
+    }
+    else{
+        newName = "-1";
+    }
+
+    !description ? newDescription = "-1" : newDescription = description;
+
+    try {
+        const services = await Service.find(({$or: 
+            [
+                {$and: [
+                    { name : { "$regex": newName, "$options": "i" }},
+                    { category: category }
+                ]},
+                { description : { "$regex": newDescription, "$options": "i" }}
+            ]
+        })).limit(25);
+        res.send({ services });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
 router.post('/update', async (req, res) => {
     try {
 

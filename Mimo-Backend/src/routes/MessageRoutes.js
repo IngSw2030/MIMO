@@ -26,4 +26,18 @@ router.post('/save', async (req, res) => {
     }
 });
 
+//Query para encontrar mis mascotas
+router.get('/chat', async (req, res) => {
+    const {idUserRecieve}
+    try {
+        const messages = await Message.find({$and:[
+            {idUserRecieve: idUserRecieve}, 
+            {idUserSend:req.user._id}
+        ]});
+        res.send({ messages });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
 module.exports = router;

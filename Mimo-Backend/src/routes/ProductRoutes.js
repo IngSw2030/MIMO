@@ -15,6 +15,7 @@ router.post('/save', async (req, res) => {
         price,
         photo,
         description,
+        pets,
         available
     } = req.body;
     
@@ -27,12 +28,52 @@ router.post('/save', async (req, res) => {
             description,
             retailName: req.user.retailName,
             available,
+            pets,
             idUser: req.user._id,
         });
         await product.save();
         res.send({ product });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido guardar el producto" });
+    }
+});
+
+//Query para encontrar todas las veterinarias por nombre
+router.get('/allProducts', async (req, res) => {
+    const {name, description, pets, category} = req.body;
+
+    let newName, newPets, newDescription;
+
+    if(!description && !pets){
+        if(!name){
+            newName = "";
+        }
+        else{
+            newName = name;
+        }
+    }
+    else{
+        newName = "-1";
+    }
+
+    !pets ? newPets = "-1" : newPets = pets;
+
+    !description ? newDescription = "-1" : newDescription = description;
+
+    try {
+        const products = await Product.find(({$or: 
+            [
+                {$and: [
+                    { name : { "$regex": newName, "$options": "i" }},
+                    { category: category }
+                ]},
+                { description : { "$regex": newDescription, "$options": "i" }},
+                { pets : newPets},
+            ]
+        })).limit(25);
+        res.send({ products });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
     }
 });
 

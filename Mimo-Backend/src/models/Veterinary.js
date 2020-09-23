@@ -21,6 +21,10 @@ const VeterinarySchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    description:{
+        type: String,
+        required: false,
+    },
     idUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',

@@ -34,6 +34,10 @@ const ProductSchema = new mongoose.Schema({
     available:{
         type: Boolean,
         required: true,
+    },
+    pets: {
+        type: [String],
+        required: false,
     }
 });
 

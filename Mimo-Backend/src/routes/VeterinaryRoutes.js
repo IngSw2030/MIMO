@@ -14,6 +14,7 @@ router.post('/save', async (req, res) => {
         animals,
         photo,
         address,
+        description,
         avgScore,
     } = req.body;
 
@@ -24,6 +25,7 @@ router.post('/save', async (req, res) => {
             photo,
             address,
             avgScore,
+            description,
             idUser: req.user._id,
         });
         await veterinary.save();
@@ -42,12 +44,13 @@ router.post('/update', async (req, res) => {
             photo,
             address,
             avgScore,
+            description,
             id 
         } = req.body;
 
         const veterinary = await Veterinary.findOne({_id: id});
 
-        let newName, newAnimals, newAddress, newAvgScore, newPhoto;
+        let newName, newAnimals, newAddress, newAvgScore, newPhoto, newDescription;
 
         !name ? newName = veterinary.name : newName = name;
 
@@ -59,16 +62,92 @@ router.post('/update', async (req, res) => {
         
         !photo ? newPhoto = veterinary.photo : newPhoto = photo;
 
+        !description ? newDescription = veterinary.description : newDescription = description;
+
         await Veterinary.findOneAndUpdate({ _id: id }, { $set: { 
             "name": newName,
             "animals": newAnimals,
             "address": newAddress,
             "avgScore": newAvgScore,
-            "photo": newPhoto 
+            "photo": newPhoto,
+            "description": newDescription 
         }}, { useFindAndModify: false });
         res.send("Modificado satisfactoriamente");
     } catch (err) {
         return res.status(422).send({ error: 'Error al modificar' });
+    }
+});
+
+//Query para encontrar mis veterinarias
+router.get('/myVets', async (req, res) => {
+    try {
+        const vets = await Veterinary.find({idUser: req.user._id});
+        res.send({ vets });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
+//Query para encontrar todas las veterinarias por nombre
+router.get('/allVets', async (req, res) => {
+    const {name, description, animals} = req.body;
+
+    let newName, newAnimals, newDescription;
+
+    if(!description && !animals){
+        if(!name){
+            newName = "";
+        }
+        else{
+            newName = name;
+        }
+    }
+    else{
+        newName = "-1";
+    }
+
+    !animals ? newAnimals = "-1" : newAnimals = animals;
+
+    !description ? newDescription = "-1" : newDescription = description;
+
+    try {
+        const vets = await Veterinary.find(({$or: 
+            [
+                { name : { "$regex": newName, "$options": "i" }},
+                { description : { "$regex": newDescription, "$options": "i" }},
+                { animals : newAnimals}
+            ]
+        })).limit(25);
+        res.send({ vets });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
+//Query para encontrar todas las veterinarias por nombre
+router.get('/filterVets', async (req, res) => {
+    const {name, description, animals, avgScore} = req.body;
+    let newName, newAnimals, newDescription, newAvgScore;
+
+        !name ? newName = null : newName = name;
+
+        !animals ? newAnimals = null : newAnimals = animals;
+
+        !description ? newDescription = null : newDescription = description;
+
+        !avgScore ? newAvgScore = -1 : newAvgScore = avgScore;
+    try {
+        const vets = await Veterinary.find({$and: 
+            [
+                { name : { "$regex": newName, "$options": "i" }},
+                { description : { "$regex": newDescription, "$options": "i" }},
+                //{ animals : newAnimals},
+                { avgScore: {$gte : newAvgScore}}
+            ]
+        });
+        res.send({ vets });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
     }
 });
 

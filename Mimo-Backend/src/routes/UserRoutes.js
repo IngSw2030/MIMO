@@ -87,6 +87,15 @@ router.post('/update', async (req, res) => {
     }
 });
 
+router.get('/find', async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id);
+        res.send({ user });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
 
 
 module.exports = router;
