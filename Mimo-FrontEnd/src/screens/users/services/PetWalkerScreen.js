@@ -12,12 +12,16 @@ const PetWalkerScreen = () => {
                 nombre= 'McLovin'
                 calificacion='5'
                 imageSource={imageSource}
+                tipo = 'Paseador'
+                precio = '15000'
             />
             <ServiceList 
                 id = '1003'
                 nombre= 'dr. P. Lankton'
                 calificacion='1'
                 imageSource={imageSource}
+                tipo = 'Paseador'
+                precio = '15000'
             />
         </View>
     )

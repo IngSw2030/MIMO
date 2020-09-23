@@ -10,7 +10,14 @@ const serviceList = (props)=> {
         <View>
             <TouchableOpacity
                 style= {styles.viewStyle}
-                onPress = {() => props.navigation.navigate('ServiceDetails',{data: props.tipo})}>
+                onPress = {() => props.navigation.navigate(
+                        'ServiceDetails',
+                        {
+                            data: props.tipo,
+                            calificacion: props.calificacion,
+                            precio: props.precio
+                        }
+                    )}>
             <View>
                 <Image source={src} style= {styles.imageStyle}/>
             </View>

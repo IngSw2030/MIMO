@@ -1,30 +1,33 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image} from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList} from 'react-native'
 import { withNavigation } from 'react-navigation';
+import ServiceDetails from '../../../components/serviceDetails'
 
 const ServiceDetailsScreen = (props) => {
-    const imagen = require("../../../../assets/paseador.jpg");
     const data = props.navigation.getParam('data');
-    console.log(data);
-    return (
-        
-        <View style={({alignSelf:"center"})}>
-            <Image
-                style = {styles.imageStyle}
-                source= {imagen}
-            />
-            <Text> Paseador</Text>
-            <Text> Descripcion</Text>
-            <Text> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Text>
-            <Text> Calificacion</Text>
+    const calificacion = props.navigation.getParam('calificacion');
+    const precio = props.navigation.getParam('precio');
+    return(
+        <View style={styles.generalView}>
+            <View>
+                <ServiceDetails 
+                    data = {data}
+                    calificacion={calificacion}
+                />
+            </View>
+            <View>
+                <Text>{precio}</Text>
+            </View>
+            
         </View>
     )
 }
+
 const styles = StyleSheet.create({
-    imageStyle:{
-        marginTop:40,
-        height: 300,
-        width:300
-    }
-});
+    generalView:{
+        alignSelf: "center",
+        backgroundColor: '#EDDF98'
+    },
+})
+  
 export default withNavigation(ServiceDetailsScreen)

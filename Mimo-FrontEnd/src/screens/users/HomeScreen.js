@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
 	return (
-		<View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
+		<View style={({ backgroundColor: '#EDDF98', flex:1})}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.questionStyle}> Que buscas hoy? </Text>
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		margin: 10,
+		marginLeft: 5,
+		marginRight: 5,
 		flexGrow: 1,
 	},
 	vetStyle: {
@@ -78,7 +79,8 @@ const styles = StyleSheet.create({
 		width: 150,
 		backgroundColor: 'rgba(188,219,137,1)',
 		borderRadius: 25,
-		margin: 10,
+		marginLeft: 5,
+		marginRight: 5,
 		flexGrow: 1,
 	},
 	accesoriesStyle: {
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
 		width: 150,
 		backgroundColor: 'rgba(255, 154, 162, 0.4);',
 		borderRadius: 25,
-		margin: 10,
+		marginLeft: 5,
+		marginRight: 5,
 		flexGrow: 1,
 	},
 	foodStyle: {
@@ -94,16 +97,15 @@ const styles = StyleSheet.create({
 		width: 150,
 		backgroundColor: '#E8916C',
 		borderRadius: 25,
-		margin: 10,
+		marginLeft: 5,
+		marginRight: 5,
 		flexGrow: 1,
 	},
 	generalView: {
 		justifyContent: 'center',
 		flexDirection: 'row',
-		//flexWrap: 'wrap',
-		//marginTop: 50,
-		marginHorizontal: 20,
-		flexGrow: 1,
+		flexWrap: 'wrap',
+		marginTop: 10,
 	},
 });
 export default withNavigation(HomeScreen);
