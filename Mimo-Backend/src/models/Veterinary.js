@@ -1,35 +1,35 @@
 const mongoose = require('mongoose');
 
-const ServiceSchema = new mongoose.Schema({
-    category: {
-        type: String,
-        required: true,
-    },
+const VeterinarySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
     },
-    priceMax: {
-        type: Number,
-        required: true,
-    },
-    priceMin: {
-        type: Number,
+    animals: {
+        type: [ String ],
         required: true,
     },
     photo: {
         type: String,
-        required: true,
+        required: false,
     },
-    description: {
+    address: {
         type: String,
         required: true,
+    },
+    avgScore: {
+        type: Number,
+        required: true,
+    },
+    description:{
+        type: String,
+        required: false,
     },
     idUser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    }
+    },
 });
 
-mongoose.model('Service', ServiceSchema);
+mongoose.model('Veterinary', VeterinarySchema);

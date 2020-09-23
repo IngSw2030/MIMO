@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const requireAuth = require('../middlewares/requireAuth');
 
-const Product = mongoose.model('Product');
+const Service = mongoose.model('Service');
 
 const router = express.Router();
 
@@ -12,39 +12,36 @@ router.post('/save', async (req, res) => {
     const {
         category,
         name,
-        price,
+        priceMax,
+        priceMin,
         photo,
         description,
-        pets,
-        available
     } = req.body;
-    
+
     try {
-        const product = new Product({
+        const service = new Service({
             category,
             name,
-            price,
+            priceMax,
+            priceMin,
             photo,
             description,
-            retailName: req.user.retailName,
-            available,
-            pets,
             idUser: req.user._id,
         });
-        await product.save();
-        res.send({ product });
+        await service.save();
+        res.send({ service });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido guardar el producto" });
     }
 });
 
 //Query para encontrar todas las veterinarias por nombre
-router.get('/allProducts', async (req, res) => {
-    const {name, description, pets, category} = req.body;
+router.get('/allServices', async (req, res) => {
+    const {name, description, category} = req.body;
 
-    let newName, newPets, newDescription;
+    let newName, newDescription;
 
-    if(!description && !pets){
+    if(!description){
         if(!name){
             newName = "";
         }
@@ -56,22 +53,19 @@ router.get('/allProducts', async (req, res) => {
         newName = "-1";
     }
 
-    !pets ? newPets = "-1" : newPets = pets;
-
     !description ? newDescription = "-1" : newDescription = description;
 
     try {
-        const products = await Product.find(({$or: 
+        const services = await Service.find(({$or: 
             [
                 {$and: [
                     { name : { "$regex": newName, "$options": "i" }},
                     { category: category }
                 ]},
-                { description : { "$regex": newDescription, "$options": "i" }},
-                { pets : newPets},
+                { description : { "$regex": newDescription, "$options": "i" }}
             ]
         })).limit(25);
-        res.send({ products });
+        res.send({ services });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });
     }
@@ -82,32 +76,32 @@ router.post('/update', async (req, res) => {
 
         const { 
             name,
-            price,
+            priceMax,
+            priceMin,
             photo,
             description,
-            available,
             id 
         } = req.body;
 
-        const product = await Product.findOne({_id: id});
+        const service = await Service.findOne({_id: id});
 
-        let newName, newPrice, newDescription, newAvailable, newPhoto;
+        let newName, newPriceMax, newPriceMin, newDescription, newPhoto;
 
-        !name ? newName = product.name : newName = name;
+        !name ? newName = service.name : newName = name;
 
-        !price ? newPrice = product.price : newPrice = price;
+        !priceMax ? newPriceMax = service.priceMax : newPriceMax = priceMax;
 
-        !description ? newDescription = product.description : newDescription = description;
+        !priceMin ? newPriceMin = service.priceMin : newPriceMin = priceMin;
 
-        !available ? newAvailable = product.available : newAvailable = available;
+        !description ? newDescription = service.description : newDescription = description;
         
-        !photo ? newPhoto = product.photo : newPhoto = photo;
+        !photo ? newPhoto = service.photo : newPhoto = photo;
 
-        await Product.findOneAndUpdate({ _id: id }, { $set: { 
+        await Service.findOneAndUpdate({ _id: id }, { $set: { 
             "name": newName,
-            "price": newPrice,
+            "priceMin": newPriceMin,
+            "priceMax": newPriceMax,
             "description": newDescription,
-            "available": newAvailable,
             "photo": newPhoto 
         }}, { useFindAndModify: false });
         res.send("Modificado satisfactoriamente");
@@ -120,8 +114,8 @@ router.get('/delete', async (req, res) => {
     const { id } = req.body;
 
     try {
-        await Product.findByIdAndDelete(id);
-        res.send("Producto borrada satisfactoriamente");
+        await Service.findByIdAndDelete(id);
+        res.send("Servicio borrado satisfactoriamente");
     } catch (error) {
         return res.status(422).send({ error: 'Error eliminando la mascota' });
     }
