@@ -28,7 +28,7 @@ router.post('/save', async (req, res) => {
 
 //Query para encontrar mis mascotas
 router.get('/chat', async (req, res) => {
-    const {idUserRecieve}
+    const {idUserRecieve} = req.body
     try {
         const messages = await Message.find({$and:[
             {idUserRecieve: idUserRecieve}, 
