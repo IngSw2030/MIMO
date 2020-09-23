@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import { withNavigation } from 'react-navigation';
 import ServiceDetails from '../../../components/serviceDetails'
 
@@ -9,25 +9,58 @@ const ServiceDetailsScreen = (props) => {
     const precio = props.navigation.getParam('precio');
     return(
         <View style={styles.generalView}>
-            <View>
+            <View style={styles.serviceStyle}>
                 <ServiceDetails 
                     data = {data}
                     calificacion={calificacion}
                 />
             </View>
-            <View>
-                <Text>{precio}</Text>
+            <View style={styles.bottomViewStyle}>
+                <Text style= {styles.textStyle}>${precio}</Text>
+                <TouchableOpacity
+                    style={styles.buttonStyle}
+                >
+                    <Image style={styles.iconStyle}/>
+                    <Text style={styles.textStyle}>Comprar</Text>
+                </TouchableOpacity>
             </View>
-            
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     generalView:{
-        alignSelf: "center",
-        backgroundColor: '#EDDF98'
+        backgroundColor: '#EDDF98',
+        flexDirection: 'row',
+        flexWrap: "wrap",
+        flex: 1
     },
+    textStyle:{
+        fontSize:20,
+        alignSelf: "center"
+    },
+    serviceStyle:{
+        flexShrink:  1,
+        maxWidth: '100%'
+    },
+    buttonStyle:{
+        backgroundColor: '#E8916C',
+        height:50,
+        width:170,
+        borderRadius: 15,
+        marginLeft: 30,
+        flexDirection:"row"
+    },
+    bottomViewStyle:{
+        margin: 30,
+        flexDirection: "row",
+        flexWrap: "wrap"
+    },
+    iconStyle:{
+        width:40,
+        height:40,
+        marginRight:15
+    }
 })
   
 export default withNavigation(ServiceDetailsScreen)

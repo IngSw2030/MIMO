@@ -9,7 +9,7 @@ const ServiceDetails = ({data, calificacion}) => {
     const estrellas = insertarEstrellas(calificacion);
     return (
         
-        <View style={styles.generalView}>
+        <View>
             <Image
                 style = {styles.imageStyle}
                 source= {imagen}
@@ -68,15 +68,11 @@ const styles = StyleSheet.create({
     }, 
     starsStyle:{
         flexDirection: "column",
-        flex: 1
     },
     iconStyle:{
         height: 15,
         width: 15
     },
-    generalView:{
-        alignSelf:"center"
-    }
 
 });
 export default withNavigation(ServiceDetails)
