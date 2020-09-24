@@ -7,12 +7,14 @@ const ServiceDetailsScreen = (props) => {
     const data = props.navigation.getParam('data');
     const calificacion = props.navigation.getParam('calificacion');
     const precio = props.navigation.getParam('precio');
+    const descripcion = props.navigation.getParam('descripcion');
     return(
         <View style={styles.generalView}>
             <View style={styles.serviceStyle}>
                 <ServiceDetails 
                     data = {data}
                     calificacion={calificacion}
+                    descripcion = {descripcion}
                 />
             </View>
             <View style={styles.bottomViewStyle}>

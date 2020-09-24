@@ -15,7 +15,8 @@ const serviceList = (props)=> {
                         {
                             data: props.tipo,
                             calificacion: props.calificacion,
-                            precio: props.precio
+                            precio: props.precio,
+                            descripcion: props.descripcion
                         }
                     )}>
             <View>

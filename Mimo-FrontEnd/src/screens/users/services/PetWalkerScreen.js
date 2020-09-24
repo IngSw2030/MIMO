@@ -14,6 +14,7 @@ const PetWalkerScreen = () => {
                 imageSource={imageSource}
                 tipo = 'Paseador'
                 precio = '15000'
+                descripcion= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
             />
             <ServiceList 
                 id = '1003'
@@ -22,6 +23,7 @@ const PetWalkerScreen = () => {
                 imageSource={imageSource}
                 tipo = 'Paseador'
                 precio = '15000'
+                descripcion= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
             />
         </View>
     )

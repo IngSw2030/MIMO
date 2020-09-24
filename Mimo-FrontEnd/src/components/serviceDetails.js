@@ -2,11 +2,12 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity} from 'react-native'
 import { withNavigation } from 'react-navigation';
 
-const ServiceDetails = ({data, calificacion}) => {
+const ServiceDetails = ({data, calificacion, descripcion}) => {
     const imagen = require("../../assets/paseador.jpg");
     const ratingIcon = require('../../assets/rating.png');
     const tipo = Capitalize(data);
     const estrellas = insertarEstrellas(calificacion);
+    const desc = Capitalize(descripcion);
     return (
         
         <View>
@@ -17,7 +18,7 @@ const ServiceDetails = ({data, calificacion}) => {
             <View style={({marginHorizontal:15})}>
                 <Text style={styles.titleStyle}> {tipo}</Text>
                 <Text style={styles.titleStyle}> Descripcion</Text>
-                <Text style={({marginLeft:5})}>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Text>
+                <Text style={({marginLeft:5})}>{desc}</Text>
                 <TouchableOpacity
                     style={styles.starsStyle}
                 >
