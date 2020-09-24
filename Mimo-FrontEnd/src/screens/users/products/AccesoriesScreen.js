@@ -1,12 +1,20 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
+import { withNavigation } from 'react-navigation';
+import ProductList from '../../../components/productList';
 
 const AccesoriesScreen = () => {
     return (
         <View>
             <Text>Pantalla de AccesoriesScreen</Text>
+            <ProductList/>
+            <ProductList/>
+            <ProductList/>
+            <ProductList/>
         </View>
     )
 }
+const Styles = StyleSheet.create({
 
-export default AccesoriesScreen
+});
+export default withNavigation(AccesoriesScreen)

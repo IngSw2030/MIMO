@@ -1,10 +1,26 @@
 import React from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { withNavigation } from 'react-navigation';
-import ServiceList from '../../../components/serviceList';
+
 
 const ProductComponent = (props)=>{
+    return(
+        <View>
+            <TouchableOpacity
+                style = {styles.buttonStyle}
+            >
 
+            </TouchableOpacity>
+        </View>
+    )
 };
+
+const styles = StyleSheet.create({
+    buttonStyle:{
+        backgroundColor: '#E8916C',
+        height: 100,
+        width: 50
+    }
+});
 
 export default withNavigation(ProductComponent)
