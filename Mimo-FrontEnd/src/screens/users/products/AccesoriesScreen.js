@@ -7,10 +7,8 @@ const AccesoriesScreen = () => {
     return (
         <View>
             <Text>Pantalla de AccesoriesScreen</Text>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
-            <ProductList/>
+            <ProductList 
+            />
         </View>
     )
 }

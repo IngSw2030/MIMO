@@ -21,7 +21,7 @@ const vetComponent=(props) =>{
             >
                 <View style={styles.viewStyle}>
                     <Image style={styles.imageStyle} source={src}/>
-                    <View style={({flexGrow:1})}>
+                    <View style={({flex:1})}>
                         <Text style={styles.titleStyle}>Direccion: </Text>
                         <Text>{props.direccion}</Text>
                         <Text style={styles.titleStyle}>Numero: </Text>
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         height:150,
         marginTop:15,
         borderRadius:15
+        
     },
     imageStyle :{
         height:120,
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     },
     textStyle:{
         //flex: 1,
-        flexWrap: "wrap"
+        flexWrap: "wrap",
     }
 });
 
