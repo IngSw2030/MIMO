@@ -3,7 +3,7 @@ import { View, Text, StyleSheet} from 'react-native'
 import { withNavigation } from 'react-navigation';
 import ServiceList from '../../../components/serviceList';
 
-const PetSittingScreen = () => {
+const AquariumCleanerScreen = () => {
     const imageSource = require('../../../../assets/mimo.png');
     return (
         <View style={styles.generalStyle}>
@@ -13,7 +13,7 @@ const PetSittingScreen = () => {
                 nombre= 'McLovin'
                 calificacion='5'
                 imageSource={imageSource}
-                tipo = 'Cuidador'
+                tipo = 'Limpiador'
                 precio = '15000'
                 descripcion= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
             />
@@ -22,7 +22,7 @@ const PetSittingScreen = () => {
                 nombre= 'Ivan'
                 calificacion='1'
                 imageSource={imageSource}
-                tipo = 'cuidador'
+                tipo = 'Limpiador'
                 precio = '15000'
                 descripcion= 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
             />
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default withNavigation(PetSittingScreen)
+export default withNavigation(AquariumCleanerScreen)

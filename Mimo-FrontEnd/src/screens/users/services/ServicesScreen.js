@@ -15,6 +15,7 @@ const ServicesScreen = ({navigation}) => {
 			<View style={styles.generalView}>
 				<TouchableOpacity
 					style={styles.buttonStyle}
+					onPress={() => navigation.navigate('AquariumCleaner')}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
                     <Text style={styles.textStyle2}> Limpieza de pecera</Text>
@@ -31,13 +32,15 @@ const ServicesScreen = ({navigation}) => {
             <View style={styles.generalView}>
             <TouchableOpacity
 					style={styles.buttonStyle}
+					onPress={() => navigation.navigate('Grooming')}
 				>
 					<Image style={styles.iconStyle} source={mimoEstilista} />
                     <Text style={styles.textStyle2}> Estilista</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity
-                    style={styles.buttonStyle}
+					style={styles.buttonStyle}
+					onPress={() => navigation.navigate('PetSitting')}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
                     <Text style={styles.textStyle2}> Cuidadores</Text>

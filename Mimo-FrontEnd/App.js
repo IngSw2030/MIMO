@@ -44,6 +44,7 @@ import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
 import HistoryScreen from './src/screens/users/profile/HistoryScreen';
 //services
+import AquariumCleanerScreen from './src/screens/users/services/AquariumCleanerScreen';
 import GroomingScreen from './src/screens/users/services/GroomingScreen';
 import MassagesScreen from './src/screens/users/services/MassagesScreen';
 import PetSittingScreen from './src/screens/users/services/PetSittingScreen';
@@ -93,6 +94,7 @@ const switchNavigator = createSwitchNavigator({
 					PetWalker: PetWalkerScreen,
 					ServiceDetails: ServiceDetailsScreen,
 					VeterinaryProfile: VeterinaryProfileScreen,
+					AquariumCleaner: AquariumCleanerScreen,
 				},
 				{
 					defaultNavigationOptions: {

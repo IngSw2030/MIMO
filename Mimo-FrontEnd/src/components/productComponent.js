@@ -3,8 +3,8 @@ import { View, Text, StyleSheet} from 'react-native'
 import { withNavigation } from 'react-navigation';
 import ServiceList from '../../../components/serviceList';
 
-const ProductList = ()=>{
+const ProductComponent = (props)=>{
 
 };
 
-export default withNavigation(ProductList)
+export default withNavigation(ProductComponent)
