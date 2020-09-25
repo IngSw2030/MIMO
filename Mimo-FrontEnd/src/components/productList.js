@@ -10,7 +10,7 @@ const ProductList = ()=>{
         { nombre : 'Rueda para hamster3', precio : '30000', descripcion : 'Está bien bonita la rueda para hamster', id:'3'},
         { nombre : 'Rueda para hamster4', precio : '21000', descripcion : 'Está bien bonita la rueda para hamster', id:'4'},
         { nombre : 'Rueda para hamster6', precio : '22000', descripcion : 'Está bien bonita la rueda para hamster', id:'5'},
-        { nombre : 'Rueda para hamster rtx 3080 4k', precio : '3454500', descripcion : 'Está bien bonita la rueda para hamster', id:'6'}
+        { nombre : 'Rueda para hamster rtx 3080 4k', precio : '3454500', descripcion : 'Full rgb +10rpm ', id:'6'}
     ];
     return(
         <View>
