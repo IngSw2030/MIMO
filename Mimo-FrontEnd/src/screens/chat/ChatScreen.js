@@ -1,38 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, useRef } from 'react';
-import { Text, View, TextInput } from 'react-native';
-import io from 'socket.io-client';
+import React from 'react';
+import { View, Platform, KeyboardAvoidingView } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-const ChatScreen = () => {
-	const socket = useRef(null);
-	const [recvMessages, setRecvMessages] = useState([]);
+import { Header } from 'react-navigation-stack';
+import { useDispatch, useSelector } from 'react-redux';
 
-	//same as componentWillMount
-	useEffect(() => {
-		socket.current = io('http://192.168.1.57:3001');
-		socket.current.on('message', message => {
-			setRecvMessages(prevState => GiftedChat.append(prevState, message));
-		});
-	}, []);
+ChatScreen.navigationOptions = screenProps => ({
+	title: screenProps.navigation.getParam('name'),
+});
 
-	const onSend = messages => {
-		socket.current.emit('message', messages[0].text);
-		setRecvMessages(prevState => GiftedChat.append(prevState, messages));
-	};
+export default function ChatScreen({ navigation }) {
+	const dispatch = useDispatch();
+	const selfUser = useSelector(state => state.selfUser);
+	const conversations = useSelector(state => state.conversations);
+	const userId = navigation.getParam('userId');
+	const messages = conversations[userId].messages;
 
-	/* const textOfRecvMessages = recvMessages.map(msg => (
-		<Text key={msg}>{msg}</Text>
-	)); */
 	return (
 		<View style={{ flex: 1 }}>
 			<GiftedChat
-				messages={recvMessages}
-				onSend={messages => onSend(messages)}
+				renderUsernameOnMessage
+				messages={messages}
+				onSend={messages => {
+					dispatch({
+						type: 'private_message',
+						data: { message: messages[0], conversationId: userId },
+					});
+					dispatch({
+						type: 'server/private_message',
+						data: { message: messages[0], conversationId: userId },
+					});
+				}}
 				user={{
-					_id: 1,
+					_id: selfUser.userId,
 				}}
 			/>
 		</View>
 	);
-};
-export default ChatScreen;
+}
