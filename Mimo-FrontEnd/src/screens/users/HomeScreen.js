@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 const HomeScreen = ({ navigation }) => {
@@ -9,7 +9,7 @@ const HomeScreen = ({ navigation }) => {
 	const accesoriesIcon = require('../../../assets/toy.png');
 	const servicesIcon = require('../../../assets/wrench.png');
 	return (
-		<View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
+		<ScrollView >
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.questionStyle}> Que buscas hoy? </Text>
@@ -40,7 +40,7 @@ const HomeScreen = ({ navigation }) => {
 					<Image style={styles.iconStyle} source={foodIcon} />
 				</TouchableOpacity>
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 const styles = StyleSheet.create({

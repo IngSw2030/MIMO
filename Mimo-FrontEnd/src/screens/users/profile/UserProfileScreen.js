@@ -6,7 +6,7 @@ const mimoIcon = require('../../../../assets/mimo.png');
 
 const UserProfileScreen = ({navigation}) => {
 	return (
-		<View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
+		<View >
 			<View>
 				<Image style={styles.photostyle} source={mimoIcon} />
 				<Text style={styles.nameStyle}> David Gomez </Text>
