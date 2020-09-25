@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, FlatList} from 'react-native'
+import { View, Text, StyleSheet,FlatList} from 'react-native'
 import { withNavigation } from 'react-navigation';
 import ServiceList from '../../../components/serviceList';
 
-const PetSittingScreen = () => {
+const AquariumCleanerScreen = () => {
     const imageSource = require('../../../../assets/mimo.png');
     const servicios =[
         {
@@ -11,7 +11,7 @@ const PetSittingScreen = () => {
             nombre: 'McLovin',
             calificacion:'5',
             imageSource:{imageSource},
-            tipo: 'Cuidador',
+            tipo: 'Limpiador',
             precio: '15000',
             descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
         },
@@ -20,7 +20,7 @@ const PetSittingScreen = () => {
             nombre: 'Ivan',
             calificacion:'1',
             imageSource:{imageSource},
-            tipo: 'Cuidador',
+            tipo: 'limpiador',
             precio: '20000',
             descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
         },
@@ -29,7 +29,7 @@ const PetSittingScreen = () => {
             nombre: 'Dario',
             calificacion:'4',
             imageSource:{imageSource},
-            tipo: 'Cuidador',
+            tipo: 'Limpiador',
             precio: '22000',
             descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
         },
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default withNavigation(PetSittingScreen)
+export default withNavigation(AquariumCleanerScreen)
