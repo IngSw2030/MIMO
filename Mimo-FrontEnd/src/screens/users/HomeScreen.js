@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 const HomeScreen = ({ navigation }) => {
@@ -12,24 +12,28 @@ const HomeScreen = ({ navigation }) => {
 		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<Text style={styles.questionStyle}> Que buscas hoy? </Text>
+				<Text style={styles.questionStyle}> ¿Qué buscas hoy? '' </Text>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
+					<Text style={styles.buttonNameStyle}>Servicios</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
 					<Image style={styles.iconStyle} source={vetIcon} />
+					<Text style={styles.buttonNameStyle}>Servicios</Text>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.accesoriesStyle} onPress={() => navigation.navigate('Accesories')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
+					<Text style={styles.buttonNameStyle}>Servicios</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Food')}>
 					<Image style={styles.iconStyle} source={foodIcon} />
+					<Text style={styles.buttonNameStyle}>Servicios</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -45,13 +49,17 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: 'bold',
 		marginLeft: 15,
-		alignSelf: 'stretch',
+		alignSelf: 'center',
+		marginBottom: 10,
 	},
 	iconStyle: {
 		height: 100,
 		width: 100,
 		alignSelf: 'center',
 		flexGrow: 1,
+	},
+	buttonNameStyle: {
+		alignSelf: 'center',
 	},
 	servicesStyle: {
 		backgroundColor: 'rgba(159, 202, 226, 0.81)',
