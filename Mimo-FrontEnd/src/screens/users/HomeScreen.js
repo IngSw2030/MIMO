@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 const HomeScreen = ({ navigation }) => {

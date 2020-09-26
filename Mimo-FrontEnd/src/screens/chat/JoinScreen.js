@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Image, Button, Platform, KeyboardAvoidingView } from 'react-native';
+import { View, TextInput, Image, Button } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 export default function JoinScreen({ navigation }) {
