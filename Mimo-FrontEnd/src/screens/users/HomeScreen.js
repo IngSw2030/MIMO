@@ -8,32 +8,37 @@ const HomeScreen = ({ navigation }) => {
 	const foodIcon = require('../../../assets/mimoIconComida.png');
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
+	const questionText = '¿Qué buscas hoy?';
+	const servicesText = 'Servicios';
+	const vetText = 'Veterinaria';
+	const accesoriesText = 'Accesorios';
+	const foodText = 'Comida';
 	return (
 		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<Text style={styles.questionStyle}> ¿Qué buscas hoy? '' </Text>
+				<Text style={styles.questionStyle}> {questionText} ''</Text>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
-					<Text style={styles.buttonNameStyle}>Servicios</Text>
+					<Text style={styles.buttonNameStyle}>{servicesText}</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
 					<Image style={styles.iconStyle} source={vetIcon} />
-					<Text style={styles.buttonNameStyle}>Servicios</Text>
+					<Text style={styles.buttonNameStyle}>{vetText}</Text>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.accesoriesStyle} onPress={() => navigation.navigate('Accesories')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
-					<Text style={styles.buttonNameStyle}>Servicios</Text>
+					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Food')}>
 					<Image style={styles.iconStyle} source={foodIcon} />
-					<Text style={styles.buttonNameStyle}>Servicios</Text>
+					<Text style={styles.buttonNameStyle}>{foodText}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
