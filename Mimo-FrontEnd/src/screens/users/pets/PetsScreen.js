@@ -16,7 +16,8 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const PetsScreen = ({ navigation }) => {
 	const [escogerImagen, imagen] = uploadPhoto();
-	const { state } = useContext(PetContext); //state es la lista de perros
+	const { state } = useContext(PetContext); //state es la lista de perros. Viene del ultimo argumento en PetContext.js
+	const listaDeMascotas = state; //cambio para hacer mas facil de leer
 	//Hola leo, seguro te preguntas donde esta la lista de mascotas inicial. Eso se encuentra en PetContext.js
 
 	return (
@@ -27,7 +28,7 @@ const PetsScreen = ({ navigation }) => {
 			<View>
 				<FlatList
 					keyExtractor={pet => pet.name}
-					data={state}
+					data={listaDeMascotas}
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPhoto}>
