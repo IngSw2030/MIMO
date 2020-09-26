@@ -54,6 +54,9 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 //veterinaries
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
+//contextos
+
+import { Provider as PetContext } from './src/context/PetContext';
 
 const switchNavigator = createSwitchNavigator({
 	loginFlow: createStackNavigator({
@@ -111,27 +114,13 @@ const switchNavigator = createSwitchNavigator({
 				tabBarIcon: ({ focused, horizontal, tintColor }) => {
 					const { routeName } = navigation.state;
 					if (routeName === 'Home') {
-						return (
-							<MaterialCommunityIcons name='home' color={tintColor} size={26} />
-						);
+						return <MaterialCommunityIcons name='home' color={tintColor} size={26} />;
 					}
 					if (routeName === 'Gallery') {
-						return (
-							<MaterialCommunityIcons
-								name='history'
-								size={26}
-								color={tintColor}
-							/>
-						);
+						return <MaterialCommunityIcons name='history' size={26} color={tintColor} />;
 					}
 					if (routeName === 'Account') {
-						return (
-							<MaterialCommunityIcons
-								name='face-profile'
-								size={26}
-								color={tintColor}
-							/>
-						);
+						return <MaterialCommunityIcons name='face-profile' size={26} color={tintColor} />;
 					}
 				},
 			}),
@@ -151,10 +140,12 @@ const App = createAppContainer(switchNavigator);
 
 export default () => {
 	return (
-		<App
-			ref={navigator => {
-				setNavigator(navigator);
-			}}
-		/>
+		<PetContext>
+			<App
+				ref={navigator => {
+					setNavigator(navigator);
+				}}
+			/>
+		</PetContext>
 	);
 };
