@@ -1,67 +1,71 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
-const ServicesScreen = ({navigation}) => {
-    const mimoIcon = require('../../../../assets/mimo.png');
+const ServicesScreen = ({ navigation }) => {
+	const mimoIcon = require('../../../../assets/mimo.png');
 	const mimoEstilista = require('../../../../assets/mimoEstilista.png');
-	
-    return (
-        <View style={({ flexGrow: 2 }, { backgroundColor: '#EDDF98' })}>
+	const aquariumCleanerText = 'Limpieza de pecera';
+	const petWalkerText = 'Paseos';
+	const groomingText = 'Estilista';
+	const petSittingText = 'Cuidadores';
+
+	return (
+		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<Text style={styles.textStyle}> Servicios </Text>
+				<Text style={styles.titleStyle}> Servicios </Text>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('AquariumCleaner')}
+					onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
-                    <Text style={styles.textStyle2}> Limpieza de pecera</Text>
+					<Text style={styles.serviceNameStyle}> {aquariumCleanerText}</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity
-                    style={styles.buttonStyle}
-                    onPress={() => navigation.navigate('PetWalker')}
+					style={styles.buttonStyle}
+					onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText })}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
-                    <Text style={styles.textStyle2}> Paseos</Text>
+					<Text style={styles.serviceNameStyle}> {petWalkerText}</Text>
 				</TouchableOpacity>
 			</View>
-            <View style={styles.generalView}>
-            <TouchableOpacity
+			<View style={styles.generalView}>
+				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('Grooming')}
+					onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText })}
 				>
 					<Image style={styles.iconStyle} source={mimoEstilista} />
-                    <Text style={styles.textStyle2}> Estilista</Text>
+					<Text style={styles.serviceNameStyle}> {groomingText}</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('PetSitting')}
+					onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText })}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
-                    <Text style={styles.textStyle2}> Cuidadores</Text>
+					<Text style={styles.serviceNameStyle}> {petSittingText}</Text>
 				</TouchableOpacity>
-            </View>
+			</View>
 		</View>
-    )
-}
+	);
+};
 const styles = StyleSheet.create({
 	logoStyle: {
 		height: 255,
 		width: 255,
 		alignSelf: 'center',
 	},
-	textStyle: {
+	titleStyle: {
 		fontSize: 18,
 		fontWeight: 'bold',
 		marginLeft: 15,
-		alignSelf: 'stretch',
-    },
-    textStyle2: {
+		alignSelf: 'center',
+	},
+	serviceNameStyle: {
 		alignSelf: 'center',
 	},
 	iconStyle: {
@@ -76,14 +80,14 @@ const styles = StyleSheet.create({
 		height: 150,
 		width: 150,
 		margin: 10,
-		flexDirection: 'column'
+		flexDirection: 'column',
 	},
+
 	generalView: {
 		justifyContent: 'center',
 		flexDirection: 'row',
-		marginHorizontal: 20,
-		flexGrow: 1,
-    },
-    
+		flexWrap: 'wrap',
+		marginTop: 10,
+	},
 });
-export default withNavigation(ServicesScreen)
+export default withNavigation(ServicesScreen);

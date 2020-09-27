@@ -4,45 +4,24 @@ import { withNavigation } from 'react-navigation';
 
 const mimoIcon = require('../../../../assets/mimo.png');
 
-const UserProfileScreen = ({navigation}) => {
+const UserProfileScreen = ({ navigation }) => {
 	return (
-		<View >
+		<View>
 			<View>
 				<Image style={styles.photostyle} source={mimoIcon} />
-				<Text style={styles.nameStyle}> David Gomez </Text>
+				<Text style={styles.nameStyle}> David Gomez ''</Text>
 			</View>
 			<View style={styles.generalView}>
-				
-				<TouchableOpacity
-					style={styles.userInfoStyle}
-					onPress={() => navigation.navigate('Pets')}
-
-				>
-					<Text style={styles.textInfoStyle}> Mis mascotas</Text>	
-
+				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Pets')}>
+					<Text style={styles.textInfoStyle}> Mis mascotas ''</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.userInfoStyle}
-					onPress={() => navigation.navigate('UserSettings')}
-
-				>
-					<Text style={styles.textInfoStyle}> Información</Text>	
-
+				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('UserSettings')}>
+					<Text style={styles.textInfoStyle}> Información ''</Text>
 				</TouchableOpacity>
-				<TouchableOpacity
-					style={styles.userInfoStyle}
-					onPress={() => navigation.navigate('Notifications')}
-
-				>
-					<Text style={styles.textInfoStyle}> Notificaciones</Text>	
-
+				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Notifications')}>
+					<Text style={styles.textInfoStyle}> Notificaciones ''</Text>
 				</TouchableOpacity>
-
-				
-
-
 			</View>
-
 		</View>
 	);
 };
@@ -51,7 +30,7 @@ const styles = StyleSheet.create({
 		height: 180,
 		width: 255,
 		alignSelf: 'center',
-		marginTop: 150
+		marginTop: 150,
 	},
 	nameStyle: {
 		fontSize: 18,
@@ -64,14 +43,14 @@ const styles = StyleSheet.create({
 		height: 50,
 		width: 330,
 		margin: 15,
-		marginBottom:25,
+		marginBottom: 25,
 		flexGrow: 1,
 	},
-	textInfoStyle:{
+	textInfoStyle: {
 		fontSize: 18,
 		fontWeight: 'bold',
 		margin: 8,
-		alignSelf: 'center',	
+		alignSelf: 'center',
 	},
 	generalView: {
 		justifyContent: 'center',
@@ -82,6 +61,5 @@ const styles = StyleSheet.create({
 		marginHorizontal: 20,
 		flexGrow: 1,
 	},
-
 });
 export default UserProfileScreen;
