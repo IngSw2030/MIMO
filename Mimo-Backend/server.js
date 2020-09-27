@@ -1,7 +1,5 @@
 const express = require('express');
 const connectDB = require('./config/db');
-const io = require('socket.io')();
-const messageHandler = require('./handlers/message.handler');
 require('./src/models/User');
 require('./src/models/Pet');
 require('./src/models/Product');
@@ -10,8 +8,6 @@ require('./src/models/Review');
 require('./src/models/Service');
 require('./src/models/Veterinary');
 require('./src/models/Message');
-
-
 
 const app = express();
 
@@ -35,18 +31,69 @@ app.use('/api/Service', require('./src/routes/ServiceRoutes'));
 app.use('/api/Veterinary', require('./src/routes/VeterinaryRoutes'));
 app.use('/api/Message', require('./src/routes/MessageRoutes'));
 
-
 const PORT = process.env.PORT || 5000;
 
-let currentUserId = 2;
-const userIds = {};
+app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
+
+const io = require('socket.io')();
+const uuidv1 = require('uuid/v1');
+const messageHandler = require('./handlers/message.handler');
+
+const users = {};
+
+function createUserAvatarUrl() {
+	const rand1 = Math.round(Math.random() * 200 + 100);
+	const rand2 = Math.round(Math.random() * 200 + 100);
+	return `https://placeimg.com/${rand1}/${rand2}/any`;
+}
+
+function createUsersOnline() {
+	const values = Object.values(users);
+	const onlyWithUsernames = values.filter(u => u.username !== undefined);
+	return onlyWithUsernames;
+}
 
 io.on('connection', socket => {
 	console.log('a user connected!');
-	userIds[socket.id] = currentUserId++;
-	messageHandler.handleMessage(socket, userIds);
+	console.log(socket.id);
+	users[socket.id] = { userId: uuidv1() };
+	socket.on('disconnect', () => {
+		delete users[socket.id];
+		io.emit('action', { type: 'users_online', data: createUsersOnline() });
+	});
+	socket.on('action', action => {
+		switch (action.type) {
+			case 'server/join':
+				console.log('Got join event', action.data);
+				users[socket.id].username = action.data;
+				users[socket.id].avatar = createUserAvatarUrl();
+				io.emit('action', {
+					type: 'users_online',
+					data: createUsersOnline(),
+				});
+				socket.emit('action', { type: 'self_user', data: users[socket.id] });
+				break;
+			case 'server/private_message':
+				const conversationId = action.data.conversationId;
+				const from = users[socket.id].userId;
+				const userValues = Object.values(users);
+				const socketIds = Object.keys(users);
+				for (let i = 0; i < userValues.length; i++) {
+					if (userValues[i].userId === conversationId) {
+						const socketId = socketIds[i];
+						io.sockets.sockets[socketId].emit('action', {
+							type: 'private_message',
+							data: {
+								...action.data,
+								conversationId: from,
+							},
+						});
+						break;
+					}
+				}
+				break;
+		}
+	});
 });
-console.log('Socket Listening on port 3001');
-io.listen(3001);
 
-app.listen(PORT, () => console.log(`Servidor en el puerto ${PORT}`));
+io.listen(3001);

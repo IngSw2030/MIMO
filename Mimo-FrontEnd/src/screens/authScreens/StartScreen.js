@@ -8,7 +8,7 @@ const StartScreen = ({ navigation }) => {
 			<TouchableOpacity onPress={() => navigation.navigate('Home')}>
 				<Text>Start Screen</Text>
 			</TouchableOpacity>
-			<TouchableOpacity onPress={() => navigation.navigate('Chat')}>
+			<TouchableOpacity onPress={() => navigation.navigate('Join')}>
 				<Text>Go to Chat</Text>
 			</TouchableOpacity>
 		</View>
