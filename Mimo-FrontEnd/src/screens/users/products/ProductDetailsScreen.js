@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as ProductContext } from '../../../context/ProductContext';
 import usePrice from '../../../hooks/usePrice';
 
 const ProductDetailsScreen = ({ navigation }) => {
+	const [quantity, setQuantity] = useState(0);
 	const { state: productList } = useContext(ProductContext);
 	const product = productList.find(thisProduct => thisProduct.id === navigation.getParam('id'));
 	const price = usePrice(product.price);
+
 	return (
 		<View style={styles.pageStyle}>
 			<View style={styles.productAttrStyle}>
@@ -21,8 +23,21 @@ const ProductDetailsScreen = ({ navigation }) => {
 
 			<View style={styles.purchaseStyle}>
 				<Text>{price}</Text>
-				<Text>Cantidad</Text>
-				<Text>Comprar</Text>
+				<Button style={styles.buttonStyle} title='   +   ' onPress={() => setQuantity(quantity + 1)} />
+				<Text>{quantity}</Text>
+				<Button
+					style={styles.buttonStyle}
+					title='   -   '
+					onPress={() => setQuantity(quantity >= 1 ? quantity - 1 : quantity)}
+				/>
+				<Button
+					title='Comprar'
+					onPress={() =>
+						alert(
+							'Esta funcionalidad no esta terminada. Por favor considere donar por Paypal a zorahcorp@gmail.com para apoyarnos'
+						)
+					}
+				/>
 			</View>
 		</View>
 	);
@@ -39,6 +54,7 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		alignSelf: 'center',
 	},
+	buttonStyle: {},
 	productAttrStyle: {
 		flexShrink: 3,
 		alignItems: 'flex-start',
@@ -58,12 +74,9 @@ const styles = StyleSheet.create({
 		alignSelf: 'stretch',
 	},
 	purchaseStyle: {
-		justifyContent: 'space-around',
-		alignSelf: 'stretch',
-		minWidth: Dimensions.get('window').width,
-		flexGrow: 1,
-		flexShrink: 0,
+		flexGrow: 2,
 		flexDirection: 'row',
+		justifyContent: 'space-evenly',
 	},
 });
 
