@@ -1,45 +1,61 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import React, { useState, useContext } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-
-const ProductComponent = (props)=>{
-    return(
-        <View style={styles.viewStyle}>
-            <TouchableOpacity
-                style = {styles.buttonStyle}
-            >
-                <Image style={styles.imageStyle}/>
-                <Text style={styles.nameStyle}>{props.nombre}</Text>
-                <Text style={styles.priceStyle}>{props.precio}</Text>
-            </TouchableOpacity>
-        </View>
-    )
+import useProductName from '../hooks/useProductName';
+import usePrice from '../hooks/usePrice';
+import { Context as ProductContext } from '../context/ProductContext';
+const ProductComponent = props => {
+	//tener en cuenta que cuando viene desde la FlatList de productList
+	//console.log(props.x) da la lista de todos los productComponent, no solo de "este" ProductComponent
+	const { state: productList } = useContext(ProductContext);
+	const product = productList.find(thisProduct => thisProduct.id === props.id);
+	const allowedTextSize = 15;
+	const name = useProductName(product.name, allowedTextSize);
+	const price = usePrice(product.price);
+	return (
+		<View style={styles.viewStyle}>
+			<TouchableOpacity
+				style={styles.buttonStyle}
+				onPress={() =>
+					props.navigation.navigate('ProductDetails', {
+						id: props.id,
+					})
+				}
+			>
+				<Image style={styles.imageStyle} source={product.image} />
+				<Text style={styles.nameStyle}>{name}</Text>
+				<Text style={styles.priceStyle}>{price}</Text>
+			</TouchableOpacity>
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
-    buttonStyle:{
-        backgroundColor: '#E8916C',
-        height: 170,
-        width: 100, 
-        borderRadius:20
-    },
-    imageStyle:{
-        height: 90,
-        width: 70,
-        alignSelf: "center"
-    },
-    nameStyle:{
-        marginLeft: 10,
-        marginTop: 5,
-        fontWeight: "bold"
-    },
-    priceStyle:{
-        marginLeft:15
-    },
-    viewStyle:{
-        marginLeft:15,
-        marginTop:15
-    }
+	buttonStyle: {
+		flex: 1,
+		flexDirection: 'column',
+		backgroundColor: '#E8916C',
+		borderRadius: 20,
+		margin: 5,
+		minHeight: 120,
+		maxWidth: 120,
+	},
+	imageStyle: {
+		height: 90,
+		width: 70,
+		alignSelf: 'center',
+		marginTop: 5,
+	},
+	nameStyle: {
+		fontWeight: 'bold',
+		marginLeft: 5,
+	},
+	priceStyle: {
+		alignSelf: 'center',
+	},
+	viewStyle: {
+		flex: 1,
+	},
 });
 
-export default withNavigation(ProductComponent)
+export default withNavigation(ProductComponent);
