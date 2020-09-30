@@ -1,15 +1,20 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, Button } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions, Button, TextInputBase } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as ProductContext } from '../../../context/ProductContext';
 import usePrice from '../../../hooks/usePrice';
 
 const ProductDetailsScreen = ({ navigation }) => {
 	const [quantity, setQuantity] = useState(0);
+	const [totalAmount, setTotalAmount] = useState(0);
 	const { state: productList } = useContext(ProductContext);
 	const product = productList.find(thisProduct => thisProduct.id === navigation.getParam('id'));
 	const price = usePrice(product.price);
 
+	useEffect(() => {
+		setTotalAmount(() => quantity * product.price);
+		setTotalAmount(totalAmount => usePrice(totalAmount));
+	}, [quantity]);
 	return (
 		<View style={styles.pageStyle}>
 			<View style={styles.productAttrStyle}>
@@ -18,11 +23,12 @@ const ProductDetailsScreen = ({ navigation }) => {
 				<View style={styles.descriptionViewStyle}>
 					<Text style={styles.descriptionStyle}>Descripcion del producto: </Text>
 					<Text style={styles.descriptionStyle}>{product.description}</Text>
+					<Text>Precio por unidad: {price}</Text>
 				</View>
 			</View>
 
 			<View style={styles.purchaseStyle}>
-				<Text>{price}</Text>
+				<Text>{totalAmount}</Text>
 				<Button style={styles.buttonStyle} title='   +   ' onPress={() => setQuantity(quantity + 1)} />
 				<Text>{quantity}</Text>
 				<Button
