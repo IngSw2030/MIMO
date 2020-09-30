@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ProductComponent from './productComponent';
-
-const ProductList = props => {
+import { Context as ProductContext } from '../context/ProductContext';
+const ProductList = ({ navigation }) => {
+	const { state: productos } = useContext(ProductContext);
+	//Lista Inicial de productos se encuentra en ProductContext
 	return (
 		<View style={{ flex: 1 }}>
 			<FlatList
-				data={props.productos}
+				data={productos}
 				keyExtractor={item => item.id}
 				numColumns={3}
 				renderItem={({ item }) => {
-					return (
-						<ProductComponent
-							nombre={item.nombre}
-							precio={item.precio}
-							descripcion={item.descripcion}
-							image={item.image}
-						/>
-					);
+					return <ProductComponent id={item.id} />;
 				}}
 			/>
 		</View>

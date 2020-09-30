@@ -1,27 +1,28 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import useProductName from '../hooks/useProductName';
 import usePrice from '../hooks/usePrice';
-
+import { Context as ProductContext } from '../context/ProductContext';
 const ProductComponent = props => {
+	//tener en cuenta que cuando viene desde la FlatList de productList
+	//console.log(props.x) da la lista de todos los productComponent, no solo de "este" ProductComponent
+	const { state: productList } = useContext(ProductContext);
+	const product = productList.find(thisProduct => thisProduct.id === props.id);
 	const allowedTextSize = 15;
-	const name = useProductName(props.nombre, allowedTextSize);
-	const price = usePrice(props.precio);
+	const name = useProductName(product.name, allowedTextSize);
+	const price = usePrice(product.price);
 	return (
 		<View style={styles.viewStyle}>
 			<TouchableOpacity
 				style={styles.buttonStyle}
 				onPress={() =>
 					props.navigation.navigate('ProductDetails', {
-						image: props.image,
-						name: props.nombre,
-						description: props.description,
-						price: props.precio,
+						id: props.id,
 					})
 				}
 			>
-				<Image style={styles.imageStyle} source={props.image} />
+				<Image style={styles.imageStyle} source={product.image} />
 				<Text style={styles.nameStyle}>{name}</Text>
 				<Text style={styles.priceStyle}>{price}</Text>
 			</TouchableOpacity>
