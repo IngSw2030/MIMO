@@ -10,6 +10,7 @@ import { setNavigator } from './src/navigationRef';
 import { Provider as PetContext } from './src/context/PetContext';
 import { Provider as ProductContext } from './src/context/ProductContext';
 import { Provider as PurchaseContext } from './src/context/PurchaseContext';
+import { Provider as PostContext } from './src/context/PostContext';
 
 const socket = io('http://192.168.0.10:3001');
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
@@ -56,18 +57,20 @@ store.subscribe(() => {
 
 export default () => {
 	return (
-		<PurchaseContext>
-			<ProductContext>
-				<PetContext>
-					<Provider store={store}>
-						<AppContainer
-							ref={navigator => {
-								setNavigator(navigator);
-							}}
-						/>
-					</Provider>
-				</PetContext>
-			</ProductContext>
-		</PurchaseContext>
+		<PostContext>
+			<PurchaseContext>
+				<ProductContext>
+					<PetContext>
+						<Provider store={store}>
+							<AppContainer
+								ref={navigator => {
+									setNavigator(navigator);
+								}}
+							/>
+						</Provider>
+					</PetContext>
+				</ProductContext>
+			</PurchaseContext>
+		</PostContext>
 	);
 };

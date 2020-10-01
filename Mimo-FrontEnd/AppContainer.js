@@ -18,7 +18,9 @@ import StartScreen from './src/screens/authScreens/StartScreen';
 import ChatScreen from './src/screens/chat/ChatScreen';
 import JoinScreen from './src/screens/chat/JoinScreen';
 import FriendListScreen from './src/screens/chat/FriendsListScreen';
-
+//Blog/Post
+import PostScreen from './src/screens/users/blog/PostScreen';
+import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
 import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
@@ -54,6 +56,7 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 //veterinaries
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
+import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 
 const switchNavigator = createSwitchNavigator({
 	loginFlow: createStackNavigator({
@@ -97,6 +100,9 @@ const switchNavigator = createSwitchNavigator({
 					ServiceDetails: ServiceDetailsScreen,
 					VeterinaryProfile: VeterinaryProfileScreen,
 					AquariumCleaner: AquariumCleanerScreen,
+					Post: PostScreen,
+					AddPost: AddPostScreen,
+					PostDetails: PostDetailScreen,
 				},
 				{
 					defaultNavigationOptions: {
