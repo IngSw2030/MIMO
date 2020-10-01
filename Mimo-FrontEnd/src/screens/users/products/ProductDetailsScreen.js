@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, Dimensions, Button, TextInputBase } from
 import { withNavigation } from 'react-navigation';
 import { Context as ProductContext } from '../../../context/ProductContext';
 import usePrice from '../../../hooks/usePrice';
+import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 
 const ProductDetailsScreen = ({ navigation }) => {
 	const [quantity, setQuantity] = useState(0);
@@ -10,6 +11,9 @@ const ProductDetailsScreen = ({ navigation }) => {
 	const { state: productList } = useContext(ProductContext);
 	const product = productList.find(thisProduct => thisProduct.id === navigation.getParam('id'));
 	const price = usePrice(product.price);
+	const { addPurchase } = useContext(PurchaseContext);
+
+	const [currentDate, setCurrentDate] = useState('');
 
 	useEffect(() => {
 		setTotalAmount(() => quantity * product.price);
@@ -38,11 +42,10 @@ const ProductDetailsScreen = ({ navigation }) => {
 				/>
 				<Button
 					title='Comprar'
-					onPress={() =>
-						alert(
-							'Esta funcionalidad no esta terminada. Por favor considere donar por Paypal a zorahcorp@gmail.com para apoyarnos'
-						)
-					}
+					onPress={() => {
+						alert('Compra realizada con exito');
+						addPurchase(product.name, quantity, totalAmount, product.image, () => navigation.navigate('History'));
+					}}
 				/>
 			</View>
 		</View>

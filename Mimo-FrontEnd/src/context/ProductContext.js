@@ -1,14 +1,11 @@
 import createDataContext from './createDataContext';
 
-//cuando llega un animal nuevo....
 const productReducer = (listaDePerros, action) => {
 	switch (action.type) {
-		//..y es por addPet, se agrega a la lista
 		case 'addPet':
 			return [
 				...listaDePerros,
 				{
-					//id: Math.floor(Math.random() * 9999),
 					name: action.payload.name,
 					age: action.payload.age,
 					gender: action.payload.gender,
@@ -20,7 +17,6 @@ const productReducer = (listaDePerros, action) => {
 	}
 };
 
-//Esto lo manda a petReducer
 const addPet = dispatch => {
 	return (name, age, gender, type, callback) => {
 		dispatch({ type: 'addPet', payload: { name, age, gender, type } });
@@ -156,5 +152,4 @@ const productos = [
 		image: require('../../assets/ruedaHamster.png'),
 	},
 ];
-//El tercer argumento es definido como state, y asi se llama en PetScreen
 export const { Context, Provider } = createDataContext(productReducer, { addPet }, productos);

@@ -1,12 +1,16 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import React from 'react';
+import { View, Text } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import PurchaseListComponent from '../../../components/purchaseListComponent';
 
 const HistoryScreen = () => {
-    return (
-        <View>
-            <Text>Pantalla de HistoryScreen</Text>
-        </View>
-    )
-}
+	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como prop
+	return (
+		<View style={{ flex: 1, backgroundColor: '#EDDF98', justifyContent: 'center', alignItems: 'stretch' }}>
+			<Text>Pantalla de HistoryScreen</Text>
+			<PurchaseListComponent />
+		</View>
+	);
+};
 
-export default HistoryScreen
+export default withNavigation(HistoryScreen);

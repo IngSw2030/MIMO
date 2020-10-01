@@ -1,14 +1,14 @@
 import createDataContext from './createDataContext';
 
 //cuando llega un animal nuevo....
-const petReducer = (listaDePerros, action) => {
+const petReducer = (state, action) => {
 	switch (action.type) {
 		//..y es por addPet, se agrega a la lista
 		case 'addPet':
 			return [
-				...listaDePerros,
+				...state,
 				{
-					//id: Math.floor(Math.random() * 9999),
+					id: Math.floor(Math.random() * 9999).toString(),
 					name: action.payload.name,
 					age: action.payload.age,
 					gender: action.payload.gender,
@@ -16,7 +16,7 @@ const petReducer = (listaDePerros, action) => {
 				},
 			];
 		default:
-			return listaDePerros;
+			return state;
 	}
 };
 
