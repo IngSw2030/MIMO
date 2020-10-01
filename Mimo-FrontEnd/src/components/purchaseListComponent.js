@@ -19,7 +19,7 @@ const PurchaseListComponent = props => {
 	return (
 		<View style={styles.generalView}>
 			<View>
-				<Text style={styles.title}>Mis compras</Text>
+				<Text style={styles.title}>Mis compras ''</Text>
 			</View>
 			<View>
 				<FlatList
@@ -48,6 +48,8 @@ const styles = StyleSheet.create({
 	},
 	generalView: {
 		flex: 1,
+		justifyContent: 'flex-start',
+		alignItems: 'center',
 	},
 	petButtons: {
 		backgroundColor: 'rgba(159, 202, 226, 0.81)',
