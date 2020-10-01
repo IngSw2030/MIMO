@@ -12,7 +12,7 @@ const HomeScreen = ({ navigation }) => {
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
 	const accesoriesText = 'Accesorios';
-	const foodText = 'Comida';
+	const foodText = 'Post';
 	return (
 		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
 			<View>
@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Food')}>
+				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Post')}>
 					<Image style={styles.iconStyle} source={foodIcon} />
 					<Text style={styles.buttonNameStyle}>{foodText}</Text>
 				</TouchableOpacity>
