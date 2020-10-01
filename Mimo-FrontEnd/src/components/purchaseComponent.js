@@ -1,24 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Context as PurchaseContext } from '../context/PurchaseContext';
-import {
-	View,
-	Text,
-	FlatList,
-	StyleSheet,
-	TouchableOpacity,
-	Image,
-	SafeAreaView,
-	ScrollView,
-	StatusBar,
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 
 const PurchaseComponent = props => {
 	const { state: purchases } = useContext(PurchaseContext);
 	const purchase = purchases.find(thisPurchase => thisPurchase.id === props.id);
-	console.log(purchase);
 	return (
-		<View style={styles.containerPhoto}>
-			<Image source={purchase.image} style={styles.image} />
+		<View style={styles.pageStyle}>
+			<Image source={purchase.image} style={styles.imageStyle} />
 			<View style={{ flexDirection: 'column' }}>
 				<Text style={styles.purchaseInfo}>Producto: {purchase.name} ' ' '</Text>
 				<Text style={styles.purchaseInfo}>Cantidad: {purchase.quantity}</Text>
@@ -31,40 +20,7 @@ const PurchaseComponent = props => {
 	);
 };
 const styles = StyleSheet.create({
-	title: {
-		marginTop: 70,
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginLeft: 20,
-	},
-	textButtons: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		alignSelf: 'center',
-		//backgroundColor: '#DBAB9C'
-	},
-	generalView: {
-		height: 350,
-		marginTop: 20,
-		marginBottom: 20,
-		marginHorizontal: 20,
-		alignSelf: 'center',
-	},
-	petButtons: {
-		backgroundColor: 'rgba(159, 202, 226, 0.81)',
-		borderRadius: 25,
-		height: 40,
-		width: 300,
-		margin: 15,
-	},
-	container: {
-		height: 75,
-		width: 100,
-		backgroundColor: '#BCDB89',
-		marginBottom: 5,
-		marginLeft: 15,
-	},
-	containerPhoto: {
+	pageStyle: {
 		backgroundColor: '#BCDB89',
 		marginBottom: 10,
 		flexDirection: 'row',
@@ -72,7 +28,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-evenly',
 		alignItems: 'center',
 	},
-	image: {
+	imageStyle: {
 		height: 80,
 		width: 80,
 		marginBottom: 3,

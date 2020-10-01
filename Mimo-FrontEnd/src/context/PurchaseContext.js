@@ -1,10 +1,8 @@
 import createDataContext from './createDataContext';
 import { SectionList } from 'react-native';
 
-//cuando llega un animal nuevo....
 const purchaseReducer = (state, action) => {
 	switch (action.type) {
-		//..y es por addPet, se agrega a la lista
 		case 'add_purchase':
 			var day = new Date().getDate(); //Current Date
 			var month = new Date().getMonth() + 1; //Current Month
@@ -28,7 +26,6 @@ const purchaseReducer = (state, action) => {
 	}
 };
 
-//Esto lo manda a
 const addPurchase = dispatch => {
 	return (name, quantity, totalAmount, image, callback) => {
 		dispatch({ type: 'add_purchase', payload: { name, quantity, totalAmount, image } });
