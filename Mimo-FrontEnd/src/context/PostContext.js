@@ -30,9 +30,9 @@ const postReducer = (state, action) => {
 };
 
 //publicar un post
-const subirPost = dispatch => {
-	return (usuario, descripcion, titulo, imagen, tags) => {
-		dispatch({ type: 'add_post', payload: { usuario, descripcion, titulo, imagen, tags } });
+const addPost = dispatch => {
+	return (titulo, descripcion, imagen, tags) => {
+		dispatch({ type: 'add_post', payload: { titulo, descripcion, imagen, tags } });
 		alert('Post publicado con exito');
 	};
 };
@@ -48,4 +48,4 @@ const posts = [
 		imagen: require('../../assets/ruedaHamster.png'),
 	},
 ];
-export const { Provider, Context } = createDataContext(postReducer, { subirPost }, posts);
+export const { Provider, Context } = createDataContext(postReducer, { addPost }, posts);

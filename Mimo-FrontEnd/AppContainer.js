@@ -100,7 +100,7 @@ const switchNavigator = createSwitchNavigator({
 					VeterinaryProfile: VeterinaryProfileScreen,
 					AquariumCleaner: AquariumCleanerScreen,
 					Post: PostScreen,
-					AddPost: AddPetScreen,
+					AddPost: AddPostScreen,
 				},
 				{
 					defaultNavigationOptions: {

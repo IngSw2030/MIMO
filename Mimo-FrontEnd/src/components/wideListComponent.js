@@ -5,7 +5,9 @@ const WideListComponent = props => {
 	return (
 		<View style={styles.pageStyle}>
 			<View>
-				<Text style={styles.titleStyle}>{props.title} WideScreen ' '</Text>
+				<Text style={styles.titleStyle}>
+					{props.title} {'  '}
+				</Text>
 			</View>
 			<View>
 				<FlatList
