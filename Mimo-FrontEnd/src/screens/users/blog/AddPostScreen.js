@@ -35,4 +35,4 @@ const AddPostScreen = ({ navigation }) => {
 	);
 };
 
-export default AddPostScreen;
+export default withNavigation(AddPostScreen);

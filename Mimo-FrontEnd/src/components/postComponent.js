@@ -2,7 +2,8 @@ import React, { useContext } from 'react';
 import { Context as PostContext } from '../context/PostContext';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import useProductName from '../hooks/useProductName';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { withNavigation } from 'react-navigation';
 
 const PostComponent = props => {
 	const { state: posts } = useContext(PostContext);
@@ -15,7 +16,14 @@ const PostComponent = props => {
 	}
 	return (
 		<View style={styles.pageStyle}>
-			<View style={{ flexDirection: 'column', margin: 10 }}>
+			<TouchableOpacity
+				style={styles.buttonStyle}
+				onPress={() =>
+					props.navigation.navigate('PostDetails', {
+						id: props.id,
+					})
+				}
+			>
 				<Text style={styles.titleStyle}>
 					Titulo: {post.titulo} {'  '}
 				</Text>
@@ -28,7 +36,7 @@ const PostComponent = props => {
 					data={post.tags}
 					renderItem={({ item }) => renderTags(item)}
 				/>
-			</View>
+			</TouchableOpacity>
 			{/* <Image source={post.imagen} style={styles.imageStyle} /> */}
 		</View>
 	);
@@ -73,4 +81,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default PostComponent;
+export default withNavigation(PostComponent);

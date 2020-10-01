@@ -56,6 +56,7 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 //veterinaries
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
+import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 
 const switchNavigator = createSwitchNavigator({
 	loginFlow: createStackNavigator({
@@ -101,6 +102,7 @@ const switchNavigator = createSwitchNavigator({
 					AquariumCleaner: AquariumCleanerScreen,
 					Post: PostScreen,
 					AddPost: AddPostScreen,
+					PostDetails: PostDetailScreen,
 				},
 				{
 					defaultNavigationOptions: {
