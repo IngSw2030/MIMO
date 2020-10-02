@@ -1,31 +1,32 @@
-import React, {useContext} from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import uploadPhoto from '../../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
-import {Context as UserContext} from '../../../context/UserContext';
-import {Context as AuthContext} from '../../../context/AuthContext';
+import { Context as UserContext } from '../../../context/UserContext';
+import { Context as AuthContext } from '../../../context/AuthContext';
 
 const UserSettingsScreen = () => {
 
-
-    const [escogerImagen, imagen] = uploadPhoto();
-    const {state, updateImage, updateName, updatePhone, updateAddress, deleteUser} = useContext(UserContext);
-    const {signout} = useContext(AuthContext);
+    const [buscarImagen] = uploadPhoto();
+    const { state, updateImage, updateName, updatePhone, updateAddress, deleteUser } = useContext(UserContext);
+    const [imagenA, setImagenA] = useState(state.photo);
+    const { signout } = useContext(AuthContext);
+    let imagen = '';
     return (
         <View >
             <View style={styles.uploadImageStyle}>
                 <TouchableOpacity
                     style={styles.iconsStyle}
-                    onPress={() => 
-                        {
-                            updateImage();
-                        }
+                    onPress={async () => {
+                        imagen = await buscarImagen();
+                        await updateImage({ imagen });
+                        setImagenA(imagen);
+                    }
                     }
                 >
-                    {imagen
-                        ? (<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />)
+                    {imagenA
+                        ? (<Image source={{ uri: `data:image/gif;base64,${imagenA}` }} style={styles.image} />)
                         : <FontAwesome name="user-circle-o" size={150} color="white" />
-                        
                     }
                 </TouchableOpacity>
             </View>
@@ -37,7 +38,7 @@ const UserSettingsScreen = () => {
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.text}>Direccion</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress = {()=> signout()}>
+            <TouchableOpacity style={styles.button} onPress={() => signout()}>
                 <Text style={styles.text}>Correo</Text>
             </TouchableOpacity>
         </View>
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         marginTop: 10,
-        marginBottom:40
+        marginBottom: 40
     },
     button: {
         backgroundColor: '#BCDB89',
@@ -67,7 +68,7 @@ const styles = StyleSheet.create({
         margin: 15,
         borderRadius: 25,
         alignSelf: 'center',
-        marginBottom:20
+        marginBottom: 20
     },
     text: {
         fontSize: 20,
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     iconsStyle: {
         alignSelf: 'center',
         justifyContent: 'center',
-        marginTop:30
+        marginTop: 30
     },
     uploadImageStyle: {
         width: 350,
