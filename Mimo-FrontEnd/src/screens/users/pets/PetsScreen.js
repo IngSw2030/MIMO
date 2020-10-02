@@ -60,7 +60,7 @@ const PetsScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<View>
+			<View style = {styles.generalView} >
 				<TouchableOpacity onPress={() => navigation.navigate('AddPet')} style={styles.petButtons}>
 					<Text style={styles.textButtons}>Agregar una mascota ''</Text>
 				</TouchableOpacity>
@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: 'bold',
 		marginLeft: 20,
+		marginBottom: 30
 	},
 	textButtons: {
 		fontSize: 20,
@@ -85,11 +86,10 @@ const styles = StyleSheet.create({
 		//backgroundColor: '#DBAB9C'
 	},
 	generalView: {
-		height: 350,
-		marginTop: 20,
-		marginBottom: 20,
-		marginHorizontal: 20,
-		alignSelf: 'center',
+		justifyContent: 'center',
+		flexDirection: 'row',
+		flexWrap: 'wrap',
+		height: '50%',
 	},
 	petButtons: {
 		backgroundColor: 'rgba(159, 202, 226, 0.81)',

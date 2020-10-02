@@ -61,10 +61,6 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 50,
-		marginBottom: 120,
-		marginHorizontal: 20,
-		flexGrow: 1,
 	},
 });
 export default UserProfileScreen;
