@@ -34,7 +34,7 @@ router.post('/save', async (req, res) => {
 
 //Query para encontrar mis mascotas
 router.get('/myPets', async (req, res) => {
-    console.log(req.user._id)
+    
     try {
         const pets = await Pet.find({idUser: req.user._id});
         res.send({ pets });

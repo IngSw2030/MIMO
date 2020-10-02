@@ -1,23 +1,32 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import uploadPhoto from '../../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
-
+import {Context as UserContext} from '../../../context/UserContext';
+import {Context as AuthContext} from '../../../context/AuthContext';
 
 const UserSettingsScreen = () => {
+
+
     const [escogerImagen, imagen] = uploadPhoto();
+    const {state, updateImage, updateName, updatePhone, updateAddress, deleteUser} = useContext(UserContext);
+    const {signout} = useContext(AuthContext);
     return (
         <View >
             <View style={styles.uploadImageStyle}>
                 <TouchableOpacity
                     style={styles.iconsStyle}
-                    onPress={() => escogerImagen()}
+                    onPress={() => 
+                        {
+                            updateImage();
+                        }
+                    }
                 >
                     {imagen
-                        ? <Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
+                        ? (<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />)
                         : <FontAwesome name="user-circle-o" size={150} color="white" />
+                        
                     }
-
                 </TouchableOpacity>
             </View>
             <Text style={styles.name}>Nombre de usuario</Text>
@@ -28,10 +37,9 @@ const UserSettingsScreen = () => {
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.text}>Direccion</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress = {()=> signout()}>
                 <Text style={styles.text}>Correo</Text>
             </TouchableOpacity>
-
         </View>
     );
 };

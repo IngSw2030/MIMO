@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import {Context as UserContext} from '../../../context/UserContext';
 
 const mimoIcon = require('../../../../assets/mimo.png');
 
 const UserProfileScreen = ({ navigation }) => {
+
+	const {state} = useContext(UserContext);
+	
 	return (
 		<View>
 			<View>
 				<Image style={styles.photostyle} source={mimoIcon} />
-				<Text style={styles.nameStyle}> David Gomez ''</Text>
+				<Text style={styles.nameStyle}> {state.name} </Text>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Pets')}>
@@ -34,6 +38,7 @@ const styles = StyleSheet.create({
 	},
 	nameStyle: {
 		fontSize: 18,
+		color: 'black',
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},

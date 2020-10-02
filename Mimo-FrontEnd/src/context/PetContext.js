@@ -1,43 +1,62 @@
 import createDataContext from './createDataContext';
+import instance from '../api/mimo';
 
-//cuando llega un animal nuevo....
-const petReducer = (listaDePerros, action) => {
-	switch (action.type) {
-		//..y es por addPet, se agrega a la lista
-		case 'addPet':
-			return [
-				...listaDePerros,
-				{
-					//id: Math.floor(Math.random() * 9999),
-					name: action.payload.name,
-					age: action.payload.age,
-					gender: action.payload.gender,
-					type: action.payload.type,
-				},
-			];
-		default:
-			return listaDePerros;
-	}
+const userReducer = (state, action) => {
+    switch(action.type){
+        case 'savePet':
+            return {...state, pet: action.payload.pet};
+        case 'getMyPets':
+            return {...state, pets: action.payload.pets}
+        case 'updateImage':
+            return {...state, photo:action.payload.photo};
+        case 'updateName':
+            return {...state, name :action.payload.name };
+        case 'add_error':
+            return { ...state, errorMessage: action.payload };
+    }
 };
 
-//Esto lo manda a petReducer
-const addPet = dispatch => {
-	return (name, age, gender, type, callback) => {
-		dispatch({ type: 'addPet', payload: { name, age, gender, type } });
-		callback(); //el callback es un navigate
-	};
+const getMyPets = (dispatch) => async() => {
+    try {
+        const response = await instance.get('/api/Pet/myPets');
+        dispatch({type: 'getMyPets', payload: response.data});
+    } catch (error) {
+        dispatch({type: 'add_error'})
+    }
+}
+const savePet = (dispatch) => async({name, age, gender, species, photo}) =>{
+    try {
+        const response = instance.post('/api/Pet/save', {name, age, gender, species, photo});
+        dispatch({type: 'savePet', payload: response.data})
+    } catch (error) {
+        dispatch({type: 'add_error'})
+    }
 };
-//lista inicial de mascotas
-const mascotas = [
-	{ name: 'Mel', age: 3, gender: 'macho', type: 'perro' },
-	{ name: 'Cafe', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe2', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe3', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe52', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe512', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe53', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe54', age: 2, gender: 'macho', type: 'hamster' },
-	{ name: 'Cafe555', age: 2, gender: 'macho', type: 'hamster' },
-];
-//El tercer argumento es definido como state, y asi se llama en PetScreen
-export const { Context, Provider } = createDataContext(petReducer, { addPet }, mascotas);
+const updateImage = (dispatch) => async ({photo, id}) => {
+    try {
+        const response = await instance.post('/api/Pet/update', {photo, id});
+        dispatch({ type: 'updateImage', payload: response.data });   
+    } catch (error) {
+        dispatch({ type: 'add_error' })
+    }
+}
+const updateName = (dispatch) => async ({name, id}) => {
+    try {
+        const response = await instance.post('/api/Pet/update', {name, id});
+        dispatch({ type: 'updateName', payload: response.data });   
+    } catch (error) {
+        dispatch({ type: 'add_error' })
+    }
+}
+const deletePet = () => async ({id}) => {
+    
+    await instance.get('/api/Pet/delete', {id});
+    navigate(loginFlow);
+
+}
+
+export const { Provider, Context } = createDataContext(
+    userReducer,
+    { getMyPets, updateImage, updateName, deletePet, savePet},
+    { errorMessage: '', photo: null, name: '', tipo: 0 }
+);

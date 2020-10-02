@@ -5,8 +5,8 @@ export default () => {
 
     const [imagen,setImagen] = useState('');
 
-    const escogerImagen = async() => {
-    try {
+    const escogerImagen = async () => {
+      try {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
           allowsEditing: true,
@@ -15,7 +15,8 @@ export default () => {
           base64: true,
         });
         if (!result.cancelled) {
-            setImagen(result.base64);
+            setImagen(result.base64)
+            console.log("entre")
         }
       } catch (E) {
         console.log(E);

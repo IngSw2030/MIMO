@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import {Context as UserContext} from '../../context/UserContext';
 
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
@@ -13,6 +14,13 @@ const HomeScreen = ({ navigation }) => {
 	const vetText = 'Veterinaria';
 	const accesoriesText = 'Accesorios';
 	const foodText = 'Comida';
+
+	const { getUser } = useContext(UserContext);
+
+    useEffect(() => {
+        getUser();
+    }, []);
+
 	return (
 		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
 			<View>

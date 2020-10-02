@@ -7,7 +7,9 @@ import io from 'socket.io-client';
 import AppContainer from './AppContainer';
 import { setNavigator } from './src/navigationRef';
 //contextos
-import { Provider as PetContext } from './src/context/PetContext';
+import { Provider as PetProvider } from './src/context/PetContext';
+import { Provider as AuthProvider } from './src/context/AuthContext';
+import { Provider as UserProvider } from './src/context/UserContext';
 
 const socket = io('http://192.168.0.10:3001');
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
@@ -54,14 +56,18 @@ store.subscribe(() => {
 
 export default () => {
 	return (
-		<PetContext>
+		<PetProvider>
 			<Provider store={store}>
-				<AppContainer
-					ref={navigator => {
-						setNavigator(navigator);
-					}}
-				/>
+				<UserProvider>
+				<AuthProvider>
+					<AppContainer
+						ref={navigator => {
+							setNavigator(navigator);
+						}}
+					/>
+				</AuthProvider>
+				</UserProvider>
 			</Provider>
-		</PetContext>
+		</PetProvider>
 	);
 };
