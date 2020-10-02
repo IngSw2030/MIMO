@@ -52,7 +52,6 @@ router.post('/update', async (req, res) => {
 
         const { 
             name,
-            password,
             phone,
             retailName,
             address,
@@ -63,7 +62,7 @@ router.post('/update', async (req, res) => {
 
         !name ? newName = req.user.name : newName = name;
 
-        !password ? newPassword = req.user.Password : newPassword = password;
+        newPassword = req.user.password;
 
         !phone ? newphone = req.user.phone : newPhone = phone;
 
@@ -81,7 +80,7 @@ router.post('/update', async (req, res) => {
             "address": newAddress,
             "photo": newPhoto 
         }}, { useFindAndModify: false });
-        res.send("Modificado satisfactoriamente");
+        res.send(req.user);
     } catch (err) {
         return res.status(422).send({ error: 'Error al modificar' });
     }

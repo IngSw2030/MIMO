@@ -9,7 +9,9 @@ const router = express.Router();
 //signup
 router.post('/signup', async (req, res) => {
     const { email, name, password, retailName, userType } = req.body;
+
     try {
+        
         const user = new User({ email, name, password, retailName, userType });
         await user.save();
 
@@ -17,7 +19,7 @@ router.post('/signup', async (req, res) => {
         res.send({ token });
         res.send('Ha realizado un signUp');
     } catch (err) {
-        return res.status(422).send({ error: 'No se ha podido realizar el sign up' });
+        //return res.status(422).send({ error: 'No se ha podido realizar el sign up' });
     }
 });
 
