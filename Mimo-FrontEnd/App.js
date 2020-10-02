@@ -60,18 +60,24 @@ store.subscribe(() => {
 
 export default () => {
 	return (
-		<PetProvider>
-			<Provider store={store}>
-				<UserProvider>
-					<AuthProvider>
-						<AppContainer
-							ref={navigator => {
-								setNavigator(navigator);
-							}}
-						/>
-					</AuthProvider>
-				</UserProvider>
-			</Provider>
-		</PetProvider>
+		<PostContext>
+			<ProductContext>
+				<PurchaseContext>
+					<PetProvider>
+						<Provider store={store}>
+							<UserProvider>
+								<AuthProvider>
+									<AppContainer
+										ref={navigator => {
+											setNavigator(navigator);
+										}}
+									/>
+								</AuthProvider>
+							</UserProvider>
+						</Provider>
+					</PetProvider>
+				</PurchaseContext>
+			</ProductContext>
+		</PostContext>
 	);
 };

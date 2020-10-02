@@ -32,7 +32,6 @@ const getUser = dispatch => async () => {
 const updateImage = (dispatch) => async ({ imagen }) => {
     try {
         const response = await instance.post('/api/User/update', { photo: imagen });
-        console.log(response);
         dispatch({ type: 'updateImage', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })

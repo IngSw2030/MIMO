@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
 	const accesoriesText = 'Accesorios';
-	const foodText = 'Comida';
+	const foodText = 'Post';
 
 	const { getUser } = useContext(UserContext);
 
