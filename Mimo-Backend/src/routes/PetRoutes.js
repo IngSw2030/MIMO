@@ -9,7 +9,6 @@ router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
 	const { name, age, gender, species, photo } = req.body;
-	console.log(req.body);
 
 	try {
 		const pet = new Pet({

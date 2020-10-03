@@ -1,7 +1,7 @@
 //API
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-import ngrokAddr from '../api/mimo';
+import ngrokAddr from '../../ngrokConfig';
 
 const instance = axios.create({
 	baseURL: ngrokAddr.db,

@@ -4,7 +4,7 @@ import instance from '../api/mimo';
 const userReducer = (state, action) => {
 	switch (action.type) {
 		case 'savePet':
-			return { ...state, pet: action.payload };
+			return { ...state, pet: action.payload.pet };
 		case 'getMyPets':
 			return { ...state, pets: action.payload.pets };
 		case 'updateImage':
@@ -26,8 +26,9 @@ const getMyPets = dispatch => async () => {
 };
 const savePet = dispatch => async ({ name, age, gender, species, photo }) => {
 	try {
+		console.log({ name, age, gender, species, photo });
 		const response = instance.post('/api/Pet/save', { name, age, gender, species, photo });
-		dispatch({ type: 'savePet', payload: response.data });
+		dispatch({ type: 'savePet', payload: response.data.pet });
 	} catch (error) {
 		dispatch({ type: 'add_error' });
 	}
