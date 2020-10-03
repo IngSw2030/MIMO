@@ -1,20 +1,20 @@
-import React, {useContext, useEffect} from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {Context as AuthContext} from '../../context/AuthContext';
+import { Context as AuthContext } from '../../context/AuthContext';
 
 const StartScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 
-	const {tryLocalSignin} = useContext(AuthContext);
+	const { tryLocalSignin } = useContext(AuthContext);
 	useEffect(() => {
-        tryLocalSignin();
-    }, []);
+		tryLocalSignin();
+	}, []);
 
 	return (
 		<View>
 			<Image style={styles.logoStyle} source={mimoIcon} />
-			<View style = {styles.buttonContainer}>
+			<View style={styles.buttonContainer}>
 				<TouchableOpacity style={styles.roundedContainerStyle1} onPress={() => navigation.navigate('Signin')}>
 					<Text style={styles.buttonTextStyle}>INICIAR SESIÓN</Text>
 				</TouchableOpacity>
@@ -34,19 +34,19 @@ const StartScreen = ({ navigation }) => {
 
 StartScreen.navigationOptions = () => {
 	return {
-	  headerShown: false
+		headerShown: false,
 	};
 };
 
 const styles = StyleSheet.create({
-	screenContainer:{
-	  flex: 1,
-	  backgroundColor: '#FFF7DB'
-	},  
+	screenContainer: {
+		flex: 1,
+		backgroundColor: '#FFF7DB',
+	},
 	buttonContainer: {
-	  justifyContent: 'center',
-	  marginBottom: 200,
-	  marginTop: 1,
+		justifyContent: 'center',
+		marginBottom: 200,
+		marginTop: 1,
 	},
 	logoStyle: {
 		marginTop: 60,
@@ -57,31 +57,31 @@ const styles = StyleSheet.create({
 	roundedContainerStyle1: {
 		marginTop: 20,
 		alignSelf: 'center',
-        backgroundColor: "#88CCF2",
-        height: 60,
-        width: 280,
-        borderRadius: 75,
-        justifyContent: 'center'
+		backgroundColor: '#88CCF2',
+		height: 60,
+		width: 280,
+		borderRadius: 75,
+		justifyContent: 'center',
 	},
 	roundedContainerStyle2: {
 		marginTop: 30,
 		alignSelf: 'center',
-        backgroundColor: "#E8778B",
-        height: 60,
-        width: 280,
-        borderRadius: 75,
-        justifyContent: 'center'
+		backgroundColor: '#E8778B',
+		height: 60,
+		width: 280,
+		borderRadius: 75,
+		justifyContent: 'center',
 	},
-	buttonTextStyle:{
+	buttonTextStyle: {
 		fontSize: 30,
 		alignSelf: 'center',
-		fontWeight: '300'
+		fontWeight: '300',
 	},
-	registerEntStyle:{
+	registerEntStyle: {
 		fontSize: 15,
 		marginTop: 25,
 		color: '#005CCA',
-		alignSelf: 'center'
-	}
+		alignSelf: 'center',
+	},
 });
 export default StartScreen;
