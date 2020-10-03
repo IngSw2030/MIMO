@@ -12,15 +12,12 @@ const AddPetScreen = ({ navigation }) => {
 	//funcion definida en PetContext.js, es un caso de PetReducer
 	const { savePet } = useContext(PetContext);
 	const [name, setName] = useState('');
-	const [age, setAge] = useState(0);
-	const [gender, setGender] = useState(true); //true = hembra false = macho
+	const [age, setAge] = useState('0');
+	const [gender, setGender] = useState(false); //true = hembra false = macho
 
 	const [type, setType] = useState('');
 	const [escogerImagen, imagen] = uploadPhoto();
 
-	function verificarMascota() {
-		console.log('verificar Mascota');
-	}
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FFF7DB' }}>
 			<Text style={styles.title}>Agregar una Mascota</Text>
@@ -51,7 +48,7 @@ const AddPetScreen = ({ navigation }) => {
 					placeholder='    nombre'
 					onChangeText={name => setName(name)}
 				/>
-				<TextInput style={styles.textInput} value={age} placeholder='    edad' onChangeText={age => setAge(age)} />
+				<TextInput style={styles.textInput} value={age} placeholder='    edad' onChangeText={age => setAge(age * 1)} />
 			</View>
 
 			<View style={styles.selectType}>
@@ -65,7 +62,7 @@ const AddPetScreen = ({ navigation }) => {
 
 			<View style={{ flexDirection: 'row' }}>
 				<View>
-					<TouchableOpacity style={styles.buttom} onPress={() => verificarMascota()}>
+					<TouchableOpacity style={styles.buttom} onPress={() => savePet({ name, age, gender, species: type })}>
 						<Text style={styles.text}>Agregar</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.buttom} onPress={() => navigation.navigate('Pets')}>
