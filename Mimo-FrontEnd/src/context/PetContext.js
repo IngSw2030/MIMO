@@ -24,6 +24,7 @@ const getMyPets = dispatch => async () => {
 		dispatch({ type: 'add_error' });
 	}
 };
+
 const savePet = dispatch => async ({ name, age, gender, species, photo }) => {
 	try {
 		const response = instance.post('/api/Pet/save', { name, age, gender, species, photo });
