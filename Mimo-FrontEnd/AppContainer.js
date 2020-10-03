@@ -63,9 +63,6 @@ const switchNavigator = createSwitchNavigator({
 		Start: StartScreen,
 		Signup: SignUpScreen,
 		Signin: SignInScreen,
-		Chat: ChatScreen,
-		Join: JoinScreen,
-		FriendList: FriendListScreen,
 	}),
 
 	mainFlow: createBottomTabNavigator(
@@ -77,6 +74,9 @@ const switchNavigator = createSwitchNavigator({
 					Notifications: NotificationsScreen,
 					AddPet: AddPetScreen,
 					Pets: PetsScreen,
+					Chat: ChatScreen,
+					Join: JoinScreen,
+					FriendList: FriendListScreen,
 				},
 				{
 					defaultNavigationOptions: {
