@@ -8,87 +8,78 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
-    const {
-        name,
-        age,
-        gender,
-        species,
-        photo,
-    } = req.body;
+	const { name, age, gender, species, photo } = req.body;
+	console.log(req.body);
 
-    try {
-        const pet = new Pet({
-            name,
-            age,
-            gender,
-            species,
-            photo,
-            idUser: req.user._id,
-        });
-        await pet.save();
-        res.send({ pet });
-    } catch (err) {
-        res.status(422).send({ error: "No se ha podido guardar la mascota" });
-    }
+	try {
+		const pet = new Pet({
+			name,
+			age,
+			gender,
+			species,
+			photo,
+			idUser: req.user._id,
+		});
+		await pet.save();
+		res.send({ pet });
+	} catch (err) {
+		res.status(422).send({ error: 'No se ha podido guardar la mascota' });
+	}
 });
 
 //Query para encontrar mis mascotas
 router.get('/myPets', async (req, res) => {
-    
-    try {
-        const pets = await Pet.find({idUser: req.user._id});
-        res.send({ pets });
-    } catch (err) {
-        res.status(422).send({ error: "No se ha podido publicar el producto" });
-    }
+	try {
+		const pets = await Pet.find({ idUser: req.user._id });
+		res.send({ pets });
+	} catch (err) {
+		res.status(422).send({ error: 'No se ha podido publicar el producto' });
+	}
 });
 
 router.post('/update', async (req, res) => {
-    try {
+	try {
+		const { name, age, species, photo, id } = req.body;
 
-        const { 
-            name,
-            age,
-            species,
-            photo,
-            id
-        } = req.body;
+		const pet = await Pet.findOne({ _id: id });
 
-        const pet = await Pet.findOne({_id: id});
-        
+		let newName, newAge, newSpecies, newPhoto;
 
-        let newName, newAge, newSpecies, newPhoto;
+		!name ? (newName = pet.name) : (newName = name);
 
-        !name ? newName = pet.name : newName = name;
+		!age ? (newAge = pet.age) : (newAge = age);
 
-        !age ? newAge = pet.age : newAge = age;
+		!species ? (newSpecies = pet.species) : (newSpecies = species);
 
-        !species ? newSpecies = pet.species : newSpecies = species;
+		!photo ? (newPhoto = pet.photo) : (newPhoto = photo);
 
-        !photo ? newPhoto = pet.photo : newPhoto = photo;
-        
-
-        await Pet.findOneAndUpdate({ _id: id }, { $set: { 
-            "name": newName,
-            "age": newAge,
-            "species": newSpecies,
-            "photo": newPhoto,
-        }}, { useFindAndModify: false });
-        res.send("Modificado satisfactoriamente");
-    } catch (err) {
-        return res.status(422).send({ error: 'Error al modificar' });
-    }
+		await Pet.findOneAndUpdate(
+			{ _id: id },
+			{
+				$set: {
+					name: newName,
+					age: newAge,
+					species: newSpecies,
+					photo: newPhoto,
+				},
+			},
+			{ useFindAndModify: false }
+		);
+		res.send('Modificado satisfactoriamente');
+	} catch (err) {
+		return res.status(422).send({ error: 'Error al modificar' });
+	}
 });
 
 router.get('/delete', async (req, res) => {
-    const { id } = req.body;
+	const { id } = req.body;
 
-    try {
-        await Pet.findByIdAndDelete(id);
-        res.send("Mascota borrada satisfactoriamente");
-    } catch (error) {
-        return res.status(422).send({ error: 'Error eliminando la mascota' });
-    }
+	try {
+		await Pet.findByIdAndDelete(id);
+		res.send('Mascota borrada satisfactoriamente');
+	} catch (error) {
+		return res.status(422).send({ error: 'Error eliminando la mascota' });
+	}
 });
 
 module.exports = router;
