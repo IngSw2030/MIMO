@@ -26,7 +26,7 @@ const VeterinariesScreen = () => {
 }
 const styles = StyleSheet.create({
     generalView:{
-        backgroundColor: '#EDDF98',
+        backgroundColor: '#FFF7BB',
         flexGrow: 1,
         paddingTop:50,
         paddingHorizontal:15

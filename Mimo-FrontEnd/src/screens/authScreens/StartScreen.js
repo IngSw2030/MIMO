@@ -41,7 +41,7 @@ StartScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
 	screenContainer: {
 		flex: 1,
-		backgroundColor: '#FFF7DB',
+		backgroundColor: '#FFF7BB',
 	},
 	buttonContainer: {
 		justifyContent: 'center',

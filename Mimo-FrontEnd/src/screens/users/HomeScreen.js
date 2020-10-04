@@ -22,10 +22,10 @@ const HomeScreen = ({ navigation }) => {
 	}, []);
 
 	return (
-		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
+		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<Text style={styles.questionStyle}> {questionText} ''</Text>
+				<Text style={styles.questionStyle}> {questionText} </Text>
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
@@ -39,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.accesoriesStyle} onPress={() => navigation.navigate('Accesories')}>
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Accesories')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
@@ -59,11 +59,10 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	questionStyle: {
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold',
-		marginLeft: 15,
 		alignSelf: 'center',
-		marginBottom: 10,
+		marginBottom: 5,
 	},
 	iconStyle: {
 		height: 100,
@@ -73,41 +72,40 @@ const styles = StyleSheet.create({
 	},
 	buttonNameStyle: {
 		alignSelf: 'center',
+		marginBottom: 10
 	},
 	servicesStyle: {
-		backgroundColor: 'rgba(159, 202, 226, 0.81)',
+		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		marginLeft: 5,
-		marginRight: 5,
+		marginLeft:10,
+		marginRight: 10,
 		flexGrow: 1,
 	},
-	vetStyle: {
+	vetStyle: { 
 		height: 150,
 		width: 150,
-		backgroundColor: 'rgba(188,219,137,1)',
+		backgroundColor: '#B8DC7D',
 		borderRadius: 25,
-		marginLeft: 5,
-		marginRight: 5,
+		marginRight: 10,
 		flexGrow: 1,
 	},
-	accesoriesStyle: {
+	blogStyle: {
 		height: 150,
 		width: 150,
-		backgroundColor: 'rgba(255, 154, 162, 0.4);',
+		backgroundColor: '#E8778B',
 		borderRadius: 25,
-		marginLeft: 5,
-		marginRight: 5,
+		marginLeft: 10,
+		marginRight: 10,
 		flexGrow: 1,
 	},
 	foodStyle: {
 		height: 150,
 		width: 150,
-		backgroundColor: '#E8916C',
+		backgroundColor: '#7E9FD1',
 		borderRadius: 25,
-		marginLeft: 5,
-		marginRight: 5,
+		marginRight: 10,
 		flexGrow: 1,
 	},
 	generalView: {

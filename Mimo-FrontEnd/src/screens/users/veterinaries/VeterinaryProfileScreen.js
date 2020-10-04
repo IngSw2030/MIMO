@@ -27,12 +27,12 @@ const VeterinaryProfileScreen = (props) => {
 };
 const styles = StyleSheet.create({
     generalView:{
-        backgroundColor: '#EDDF98',
+        backgroundColor: '#FFF7BB',
         flexGrow: 1,
         paddingTop:20,
     },
     buttonStyle:{
-        backgroundColor: '#E8916C',
+        backgroundColor: '#E8778B',
         height:50,
         width:220,
         borderRadius: 15,
