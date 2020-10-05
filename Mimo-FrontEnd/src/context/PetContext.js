@@ -50,9 +50,8 @@ const updateName = (dispatch) => async ({name, id}) => {
 }
 const deletePet = () => async ({id}) => {
     
-    await instance.get('/api/Pet/delete', {id});
-    navigate(loginFlow);
-
+    await instance.post('/api/Pet/delete', {id});
+    navigate(Pets);
 }
 
 export const { Provider, Context } = createDataContext(

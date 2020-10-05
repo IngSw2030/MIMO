@@ -1,14 +1,25 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation';
 import ProductList from '../../../components/productList';
 import { navigate } from '../../../navigationRef';
+import useResults from "../../../hooks/useResultsProduct";
+import SearchBar from "../../../components/searchBar";
 
 const AccesoriesScreen = () => {
+
+    const [term, setTerm] = useState('');
+    const [searchApi, results, errorMessage] = useResults();
     return (
         <View>
-            <ProductList 
+            <SearchBar
+                term={term}
+                onTermChange={(newTerm) => setTerm(newTerm)}
+                onTermSubmit={() => searchApi(term)}
             />
+            {errorMessage ? <Text>{errorMessage}</Text> : null}
+
+            <ProductList results = {results} />
 
             <View style={styles.roundedContainerStyle}>
                 <TouchableOpacity onPress ={() => navigate('ComAddProduct')}>

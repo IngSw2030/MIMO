@@ -126,7 +126,7 @@ router.post('/update', async (req, res) => {
     }
 });
 
-router.get('/delete', async (req, res) => {
+router.post('/delete', async (req, res) => {
     const { id } = req.body;
 
     try {

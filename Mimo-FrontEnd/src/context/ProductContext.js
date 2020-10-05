@@ -6,8 +6,7 @@ const productReducer = (state, action) => {
 	switch (action.type) {
 		case 'saveProduct':
             return {
-                ...state, 
-                errorMessage: action.payload, 
+                ...state,
                 category: action.payload.category,
                 name: action.payload.name, 
                 price: action.payload.price,
@@ -16,8 +15,10 @@ const productReducer = (state, action) => {
                 pets: action.payload.pets, 
                 available: action.payload.available
             };
-        case 'getAllProducts':
-            return {...state, products: action.payload.products}
+        case 'deleteProduct':
+            return {...state, products: action.payload};
+        case 'updateProduct':
+            return {...state, product: action.payload}
         case 'add_error':
             return { ...state, errorMessage: action.payload };
 		default:
@@ -27,24 +28,52 @@ const productReducer = (state, action) => {
 
 const saveProduct = (dispatch) => async({category, name, price, photo, description, pets}) =>{
 	try {
-        const response = await instance.post('/api/Product/save', {category, name, price, photo, description, pets, available:1});
+        const response = await instance.post('/api/Product/save', 
+            {
+                category, 
+                name, 
+                price, 
+                photo, 
+                description, 
+                pets, 
+                available:1
+            });
 		dispatch({ type: 'saveProduct', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
 };
 
-const getAllProducts = (dispatch) => async() => {
+
+const updateProduct = (dispatch) => async({ name, price, photo, description, available, id}) =>{
     try {
-        const response = await instance.get('/api/Product/allProducts');
-        dispatch({ type: "getAllProducts", action: response.data})
+        const response = await instance.post('/api/Product/update', 
+            { 
+                name, 
+                price, 
+                photo, 
+                description,
+                available, 
+                id
+            });
+        dispatch({ type: 'updateProduct', action: response.data})
+    } catch (error) {
+        dispatch({ type: 'add_error' })
+    }
+};
+
+const deleteProduct = (dispatch) => async({id}) => {
+    try {
+        const response = await instance.post('/api/Product/delte', {id});
+        dispatch({type: 'deleteProduct', action: response.data})
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
 }
 
+
 export const { Context, Provider } = createDataContext(
     productReducer, 
-    { saveProduct },
+    { saveProduct, deleteProduct, updateProduct },
     {errorMessage: '', category: '', name: '', price: '', photo: '', description: '', pets: [], available: 1}
 );
