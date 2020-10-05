@@ -4,7 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 //Homes
 import HomePageScreen from './src/screens/users/HomeScreen';
 import ComHomeScreen from './src/screens/commerces/ComHomeScreen';
@@ -21,14 +21,14 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 
 //Imports de comercio
 import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComFoodScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComServiceScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComSettingsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComVeterinaryProfileScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
+import ComFoodScreen from './src/screens/commerces/ComFoodScreen';
+import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
+import ComProductDetailsScreen from './src/screens/commerces/ComProductDetailsScreen';
+import ComServiceDetailsScreen from './src/screens/commerces/ComServiceDetailsScreen';
+import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
+import ComSettingsScreen from './src/screens/commerces/ComSettingsScreen';
+import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryProfileScreen';
 
 //Imports de Usuario
 //pets
@@ -97,6 +97,8 @@ const switchNavigator = createSwitchNavigator({
 					ServiceDetails: ServiceDetailsScreen,
 					VeterinaryProfile: VeterinaryProfileScreen,
 					AquariumCleaner: AquariumCleanerScreen,
+					//Para Comercio
+					ComAddProduct: ComAddProductScreen,
 				},
 				{
 					defaultNavigationOptions: {
@@ -113,21 +115,21 @@ const switchNavigator = createSwitchNavigator({
 				tabBarIcon: ({ focused, horizontal, tintColor }) => {
 					const { routeName } = navigation.state;
 					if (routeName === 'Home') {
-						return <MaterialCommunityIcons name='home' color={tintColor} size={26} />;
+						return <FontAwesome5 name='home' color={tintColor} size={26} />;
 					}
-					if (routeName === 'Gallery') {
-						return <MaterialCommunityIcons name='history' size={26} color={tintColor} />;
+					if (routeName === 'History') {
+						return <FontAwesome5 name='history' size={26} color={tintColor} />;
 					}
 					if (routeName === 'Account') {
-						return <MaterialCommunityIcons name='face-profile' size={26} color={tintColor} />;
+						return <FontAwesome5 name='user-alt' size={26} color={tintColor} />;
 					}
 				},
 			}),
 			tabBarOptions: {
-				activeTintColor: '#FFFFFF',
-				inactiveTintColor: '#9d9fa3',
+				activeTintColor: '#000',
+				inactiveTintColor: '#555555',
 				tabStyle: {
-					backgroundColor: '#5C5A59',
+					backgroundColor: '#EDDF98',
 					borderTopColor: 'transparent',
 				},
 			},

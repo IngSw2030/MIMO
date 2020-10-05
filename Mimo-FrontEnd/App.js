@@ -10,6 +10,7 @@ import { setNavigator } from './src/navigationRef';
 import { Provider as PetProvider } from './src/context/PetContext';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
+import { Provider as ProductProvider } from './src/context/ProductContext';
 
 const socket = io('http://192.168.0.10:3001');
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
@@ -56,18 +57,23 @@ store.subscribe(() => {
 
 export default () => {
 	return (
+				
 		<PetProvider>
 			<Provider store={store}>
-				<UserProvider>
-				<AuthProvider>
-					<AppContainer
-						ref={navigator => {
-							setNavigator(navigator);
-						}}
-					/>
-				</AuthProvider>
-				</UserProvider>
+				<ProductProvider>
+					<UserProvider>
+						<AuthProvider>
+							<AppContainer
+								ref={navigator => {
+									setNavigator(navigator);
+								}}
+							/>
+						</AuthProvider>
+					</UserProvider>
+				</ProductProvider>
 			</Provider>
 		</PetProvider>
+		
+
 	);
 };

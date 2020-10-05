@@ -8,7 +8,7 @@ const ProductDetailsScreen = (props) => {
             <Text>Pantalla de ServiceDetailsScreen</Text>
         </View>
 
-    )
+    );
 }
 
 export default withNavigation(ProductDetailsScreen)

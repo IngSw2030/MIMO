@@ -39,9 +39,9 @@ router.post('/save', async (req, res) => {
 });
 
 //Query para encontrar todas las veterinarias por nombre
-router.get('/allProducts', async (req, res) => {
+router.post('/allProducts', async (req, res) => {
     const {name, description, pets, category} = req.body;
-
+    
     let newName, newPets, newDescription;
 
     if(!description && !pets){
@@ -71,6 +71,16 @@ router.get('/allProducts', async (req, res) => {
                 { pets : newPets},
             ]
         })).limit(25);
+        res.send({ products });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
+});
+
+router.get('/myProducts', async (req, res) => {
+    
+    try {
+        const products = await Product.find({idUser: req.user._id});
         res.send({ products });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });
