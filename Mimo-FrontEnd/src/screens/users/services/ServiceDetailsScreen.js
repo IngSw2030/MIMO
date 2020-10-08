@@ -32,7 +32,7 @@ const ServiceDetailsScreen = (props) => {
 
 const styles = StyleSheet.create({
     generalView:{
-        backgroundColor: '#EDDF98',
+        backgroundColor: '#FFF7BB',
         flexDirection: 'row',
         flexWrap: "wrap",
         flex: 1
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         maxWidth: '100%'
     },
     buttonStyle:{
-        backgroundColor: '#E8916C',
+        backgroundColor: '#E8778B',
         height:50,
         width:170,
         borderRadius: 15,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     iconStyle:{
         width:40,
         height:40,
-        marginRight:15
+        marginRight:15,
     }
 })
   

@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
-		backgroundColor: '#EDDF98',
+		backgroundColor: '#FFF7BB',
 		justifyContent: 'space-between',
 	},
 	titleStyle: {

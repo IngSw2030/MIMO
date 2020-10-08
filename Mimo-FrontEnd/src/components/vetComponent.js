@@ -36,7 +36,7 @@ const vetComponent=(props) =>{
 };
 const styles = StyleSheet.create({
     componentStyle:{
-        backgroundColor: '#CCDB79',
+        backgroundColor: '#B8DC7D',
         height:150,
         marginTop:15,
         borderRadius:15
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     imageStyle :{
         height:120,
         width:90,
-        alignSelf: "flex-start"
+        alignSelf: "flex-start",
+        marginHorizontal:5
     },
     titleStyle:{
         fontWeight: "bold",

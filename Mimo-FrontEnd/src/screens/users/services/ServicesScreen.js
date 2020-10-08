@@ -11,7 +11,7 @@ const ServicesScreen = ({ navigation }) => {
 	const petSittingText = 'Cuidadores';
 
 	return (
-		<View style={{ backgroundColor: '#EDDF98', flex: 1 }}>
+		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.titleStyle}> Servicios </Text>
@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	titleStyle: {
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold',
-		marginLeft: 15,
 		alignSelf: 'center',
+		marginBottom:5
 	},
 	serviceNameStyle: {
 		alignSelf: 'center',
@@ -75,19 +75,21 @@ const styles = StyleSheet.create({
 		//flexGrow: 1,
 	},
 	buttonStyle: {
-		backgroundColor: 'rgba(159, 202, 226, 0.89)',
+		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		margin: 10,
+		marginLeft: 10,
+		marginBottom: 10,
 		flexDirection: 'column',
+		flexGrow: 1,
 	},
 
 	generalView: {
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 10,
+		marginRight: 10,
 	},
 });
 export default withNavigation(ServicesScreen);

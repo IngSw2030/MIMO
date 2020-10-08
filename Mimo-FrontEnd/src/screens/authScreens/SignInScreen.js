@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     screenContainer:{
     flex: 1,
-    backgroundColor: '#FFF7DB'
+    backgroundColor: '#FFF7BB'
     },  
     authContainer: {
     justifyContent: 'center',
