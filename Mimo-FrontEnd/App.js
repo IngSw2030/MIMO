@@ -64,7 +64,6 @@ const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
 store.subscribe(() => {
 	console.log('new state', store.getState());
 });
-
 export default () => {
 	return (
 		<FriendListProvider>

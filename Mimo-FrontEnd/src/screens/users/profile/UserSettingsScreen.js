@@ -42,8 +42,8 @@ const UserSettingsScreen = ({ navigation }) => {
 			<TouchableOpacity
 				style={styles.button}
 				onPress={() => {
-					dispatch({ type: 'server/join', data: state.name });
-					navigation.navigate('FriendList');
+					dispatch({ type: 'server/setUser', data: state.email });
+					navigation.navigate('Join');
 				}}
 			>
 				<Text style={styles.text}>Ir al chat</Text>

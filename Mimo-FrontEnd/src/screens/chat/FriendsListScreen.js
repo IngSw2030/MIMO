@@ -1,19 +1,10 @@
 import React from 'react';
 import { View, Text, Image, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Context as FriendListContext } from '../../context/FriendListContext';
-import { useEffect } from 'react';
-import { useContext } from 'react';
 
 export default function FriendListScreen({ navigation }) {
 	const usersOnline = useSelector(state => state.usersOnline);
-	const { state, getUsers } = useContext(FriendListContext);
-	const friends = state.users;
 	const { itemContainerStyle, avatarImgStyle, avatarNameViewStyle } = styles;
-	useEffect(() => {
-		getUsers();
-		console.log(friends);
-	}, []);
 	return (
 		<View style={{ flex: 1 }}>
 			<FlatList
@@ -23,23 +14,21 @@ export default function FriendListScreen({ navigation }) {
 						<TouchableOpacity
 							onPress={() =>
 								navigation.navigate('Chat', {
-									// name: item.username,
-									// userId: item.userId,
-									name: item.name,
-									userId: item._id,
+									name: item.username,
+									userId: item.userId,
 								})
 							}
 						>
 							<View style={itemContainerStyle}>
 								<Image style={avatarImgStyle} source={{ uri: item.avatar }} />
 								<View style={avatarNameViewStyle}>
-									<Text style={{ fontSize: 20 }}>{item.name}</Text>
+									<Text style={{ fontSize: 20 }}>{item.username}</Text>
 								</View>
 							</View>
 						</TouchableOpacity>
 					);
 				}}
-				keyExtractor={item => item._id}
+				keyExtractor={item => item.userId}
 			/>
 		</View>
 	);
