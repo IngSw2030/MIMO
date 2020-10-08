@@ -53,7 +53,7 @@ function createUsersOnline() {
 	return onlyWithUsernames;
 }
 
-userSocket = {}; //guarda el socket actual del user
+userSocket = {}; //guarda el socket actual de los user
 io.on('connection', socket => {
 	console.log('a user connected!');
 	console.log(socket.id);
@@ -80,8 +80,8 @@ io.on('connection', socket => {
 				socket.emit('action', { type: 'self_user', data: users[socket.id] });
 				break;
 			case 'server/private_message':
-				const conversationId = action.data.conversationId;
-				const from = users[socket.id].userId;
+				const conversationId = action.data.conversationId; //esto es el email del receptor
+				const from = users[socket.id].userId; //email del emisor
 				const userValues = Object.values(users);
 				const socketIds = Object.keys(users);
 				for (let i = 0; i < userValues.length; i++) {

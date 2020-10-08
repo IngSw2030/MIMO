@@ -10,8 +10,7 @@ const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
 
 function reducer(state = { conversations: {} }, action) {
 	switch (action.type) {
-		case 'users_online':
-			console.log('aqui users online');
+		case 'users_online': //crea una conversacion con los users_online. si no existia conversacion, empieza vacia
 			const conversations = { ...state.conversations };
 			const usersOnline = action.data;
 			for (let i = 0; i < usersOnline.length; i++) {
@@ -23,22 +22,21 @@ function reducer(state = { conversations: {} }, action) {
 					};
 				}
 			}
+			//eventualmente los users online se cambiara por lista de amigos
 			return { ...state, usersOnline, conversations };
-		case 'private_message':
-			console.log('aqui private message');
+		case 'private_message': //pega el ultimo mensaje a la conversacion con el transmisor
 			const conversationId = action.data.conversationId;
 			return {
 				...state,
 				conversations: {
 					...state.conversations,
 					[conversationId]: {
-						...state.conversations[conversationId],
+						...state.conversations[conversationId], //los mensajes con el emisor se vuleven los anteriores + el nuevo
 						messages: [action.data.message, ...state.conversations[conversationId].messages],
 					},
 				},
 			};
-		case 'self_user':
-			console.log('aqui self user');
+		case 'self_user': //le dice al cliente cual es su propio id. Ayuda para que la GiftedChat sepa si es mensaje del mismo usuario o del otro
 			return { ...state, selfUser: action.data };
 		default:
 			return state;
