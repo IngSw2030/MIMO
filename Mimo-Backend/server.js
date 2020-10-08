@@ -53,20 +53,26 @@ function createUsersOnline() {
 	return onlyWithUsernames;
 }
 
+userSocket = {}; //guarda el socket actual de los user
 io.on('connection', socket => {
 	console.log('a user connected!');
 	console.log(socket.id);
-	users[socket.id] = { userId: uuidv1() };
 	socket.on('disconnect', () => {
-		delete users[socket.id];
+		console.log('Entre en el disconnect');
+		delete users[socket.id]; //se libera el usuario y el socket.
 		io.emit('action', { type: 'users_online', data: createUsersOnline() });
 	});
 	socket.on('action', action => {
 		switch (action.type) {
+			case 'server/setUser':
+				//action.data es el correo del usuario.
+				users[socket.id] = { userId: action.data }; //se relaciona un userId a un socket.
+				console.log('users[socket.id] = ', users[socket.id]);
+				break;
 			case 'server/join':
-				console.log('Got join event', action.data);
-				users[socket.id].username = action.data;
-				users[socket.id].avatar = createUserAvatarUrl();
+				console.log('Got join event', action.data); //action.data es el nombre del usuario
+				users[socket.id].username = action.data; //se asigna el nombre del usuario al socket.
+				users[socket.id].avatar = createUserAvatarUrl(); //se asigna el avatar del usuario al socket.
 				io.emit('action', {
 					type: 'users_online',
 					data: createUsersOnline(),
@@ -74,8 +80,8 @@ io.on('connection', socket => {
 				socket.emit('action', { type: 'self_user', data: users[socket.id] });
 				break;
 			case 'server/private_message':
-				const conversationId = action.data.conversationId;
-				const from = users[socket.id].userId;
+				const conversationId = action.data.conversationId; //esto es el email del receptor
+				const from = users[socket.id].userId; //email del emisor
 				const userValues = Object.values(users);
 				const socketIds = Object.keys(users);
 				for (let i = 0; i < userValues.length; i++) {

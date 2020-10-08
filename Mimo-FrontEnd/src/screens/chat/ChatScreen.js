@@ -20,15 +20,20 @@ export default function ChatScreen({ navigation }) {
 				messages={messages}
 				onSend={messages => {
 					dispatch({
+						/* Agrega localmente el mensaje */
 						type: 'private_message',
+						/* userId es el email del receptor */
 						data: { message: messages[0], conversationId: userId },
 					});
 					dispatch({
+						/* Manda el mensaje al servidor para enviarlo al receptor */
 						type: 'server/private_message',
+						/* userId es el email del receptor */
 						data: { message: messages[0], conversationId: userId },
 					});
 				}}
 				user={{
+					//indica si es mensaje propio o de un emisor
 					_id: selfUser.userId,
 				}}
 			/>
