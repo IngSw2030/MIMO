@@ -58,6 +58,7 @@ io.on('connection', socket => {
 	console.log('a user connected!');
 	console.log(socket.id);
 	socket.on('disconnect', () => {
+		console.log('Entre en el disconnect');
 		delete users[socket.id]; //se libera el usuario y el socket.
 		io.emit('action', { type: 'users_online', data: createUsersOnline() });
 	});

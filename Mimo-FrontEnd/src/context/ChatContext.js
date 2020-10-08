@@ -1,62 +1,53 @@
-import createDataContext from './createDataContext';
-import instance from '../api/mimo';
+import React from 'react';
+import { createStore, applyMiddleware } from 'redux';
 
-const userReducer = (state, action) => {
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
+import ngrokAddr from '../../ngrokConfig';
+
+const socket = io(ngrokAddr.socket);
+const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
+
+function reducer(state = { conversations: {} }, action) {
 	switch (action.type) {
-		case 'savePet':
-			return { ...state, pet: action.payload.pet };
-		case 'getMyPets':
-			return { ...state, pets: action.payload.pets };
-		case 'updateImage':
-			return { ...state, photo: action.payload.photo };
-		case 'updateName':
-			return { ...state, name: action.payload.name };
-		case 'add_error':
-			return { ...state, errorMessage: action.payload };
+		case 'users_online':
+			console.log('aqui users online');
+			const conversations = { ...state.conversations };
+			const usersOnline = action.data;
+			for (let i = 0; i < usersOnline.length; i++) {
+				const userId = usersOnline[i].userId;
+				if (conversations[userId] === undefined) {
+					conversations[userId] = {
+						messages: [],
+						username: usersOnline[i].username,
+					};
+				}
+			}
+			return { ...state, usersOnline, conversations };
+		case 'private_message':
+			console.log('aqui private message');
+			const conversationId = action.data.conversationId;
+			return {
+				...state,
+				conversations: {
+					...state.conversations,
+					[conversationId]: {
+						...state.conversations[conversationId],
+						messages: [action.data.message, ...state.conversations[conversationId].messages],
+					},
+				},
+			};
+		case 'self_user':
+			console.log('aqui self user');
+			return { ...state, selfUser: action.data };
+		default:
+			return state;
 	}
-};
+}
 
-const getMyPets = dispatch => async () => {
-	try {
-		const response = await instance.get('/api/Pet/myPets');
-		dispatch({ type: 'getMyPets', payload: response.data.pet });
-	} catch (error) {
-		dispatch({ type: 'add_error' });
-	}
-};
+const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
 
-const savePet = dispatch => async ({ name, age, gender, species, photo }) => {
-	try {
-		const response = instance.post('/api/Pet/save', { name, age, gender, species, photo });
-		console.log((await response).data.pet);
-		dispatch({ type: 'savePet', payload: response.data.pet });
-	} catch (error) {
-		dispatch({ type: 'add_error' });
-	}
-};
-const updateImage = dispatch => async ({ photo, id }) => {
-	try {
-		const response = await instance.post('/api/Pet/update', { photo, id });
-		dispatch({ type: 'updateImage', payload: response.data });
-	} catch (error) {
-		dispatch({ type: 'add_error' });
-	}
-};
-const updateName = dispatch => async ({ name, id }) => {
-	try {
-		const response = await instance.post('/api/Pet/update', { name, id });
-		dispatch({ type: 'updateName', payload: response.data });
-	} catch (error) {
-		dispatch({ type: 'add_error' });
-	}
-};
-const deletePet = () => async ({ id }) => {
-	await instance.get('/api/Pet/delete', { id });
-	navigate(loginFlow);
-};
-
-export const { Provider, Context } = createDataContext(
-	userReducer,
-	{ getMyPets, updateImage, updateName, deletePet, savePet },
-	{ errorMessage: '', photo: null, name: '', tipo: 0 }
-);
+store.subscribe(() => {
+	console.log('new state', store.getState());
+});
+export default store;
