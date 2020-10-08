@@ -9,8 +9,8 @@ import { useDispatch } from 'react-redux';
 const UserSettingsScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const [buscarImagen] = uploadPhoto();
-	const { state, updateImage, updateName, updatePhone, updateAddress, deleteUser } = useContext(UserContext);
-	const [imagenA, setImagenA] = useState(state.photo);
+	const { state: user, updateImage, updateName, updatePhone, updateAddress, deleteUser } = useContext(UserContext);
+	const [imagenA, setImagenA] = useState(user.photo);
 	const { signout } = useContext(AuthContext);
 	let imagen = '';
 	return (
@@ -42,8 +42,9 @@ const UserSettingsScreen = ({ navigation }) => {
 			<TouchableOpacity
 				style={styles.button}
 				onPress={() => {
-					dispatch({ type: 'server/setUser', data: state.email });
-					navigation.navigate('Join');
+					dispatch({ type: 'server/setUser', data: user.email });
+					dispatch({ type: 'server/join', data: user.name });
+					navigation.navigate('FriendList');
 				}}
 			>
 				<Text style={styles.text}>Ir al chat</Text>

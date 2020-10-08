@@ -1,9 +1,15 @@
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
-
 import createSocketIoMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
 import ngrokAddr from '../../ngrokConfig';
+/*
+ Se utiliza Redux en vez de Context porque: 
+ 1. nosotros estamos usando createDataContext el cual no acepta un reducer que use socket.on 
+	para recibir mensajes del servidor, entonces igual no hubiear quedado como los demas contextos.
+ 2. createSocketIoMiddleware hace que el codigo sea mas legible y facil de editar al conectar el
+	socket server directo con todo lo demas. 
+ */
 
 const socket = io(ngrokAddr.socket);
 const socketIoMiddleware = createSocketIoMiddleware(socket, 'server/');
