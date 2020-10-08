@@ -52,6 +52,6 @@ function reducer(state = { conversations: {} }, action) {
 const store = applyMiddleware(socketIoMiddleware)(createStore)(reducer);
 
 store.subscribe(() => {
-	console.log('new state', store.getState());
+	//console.log('new state', store.getState()); //Imprime el estado actual cuando hay un cambio, como useEffect
 });
 export default store;
