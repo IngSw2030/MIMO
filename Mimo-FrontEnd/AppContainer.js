@@ -77,6 +77,8 @@ const switchNavigator = createSwitchNavigator({
 					Chat: ChatScreen,
 					Join: JoinScreen,
 					FriendList: FriendListScreen,
+
+					ComeHome: ComHomeScreen
 				},
 				{
 					defaultNavigationOptions: {

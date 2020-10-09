@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
 
@@ -23,6 +23,7 @@ const HomeScreen = ({ navigation }) => {
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
+			<Button title= {'entrar a comercio'} onPress={()=> navigation.navigate('ComeHome')}/>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.questionStyle}> {questionText} </Text>
