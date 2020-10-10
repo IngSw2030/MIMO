@@ -7,12 +7,12 @@ const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
 	const foodIcon = require('../../../assets/mimoIconComida.png');
-	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
+	const productIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
 	const questionText = '¿Qué buscas hoy?';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
-	const accesoriesText = 'Accesorios';
+	const productText = 'Productos';
 	const foodText = 'Post';
 
 	const { getUser } = useContext(UserContext);
@@ -41,8 +41,8 @@ const HomeScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Accesories')}>
-					<Image style={styles.iconStyle} source={accesoriesIcon} />
-					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
+					<Image style={styles.iconStyle} source={productIcon} />
+					<Text style={styles.buttonNameStyle}>{productText}</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Post')}>
