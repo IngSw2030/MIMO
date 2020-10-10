@@ -66,6 +66,12 @@ io.on('connection', socket => {
 		switch (action.type) {
 			case 'server/setUser':
 				//action.data es el correo del usuario.
+				const userValues2 = Object.values(users);
+				const previousConnection = userValues2.find(currentUser => currentUser.userId == action.data);
+				if (previousConnection !== undefined) {
+					//se asegura que solo exista una conexion por usuario
+					delete previousConnection;
+				}
 				users[socket.id] = { userId: action.data }; //se relaciona un userId a un socket.
 				console.log('users[socket.id] = ', users[socket.id]);
 				break;
