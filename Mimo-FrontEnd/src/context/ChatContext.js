@@ -9,8 +9,6 @@ import ngrokAddr from '../../ngrokConfig';
 	para recibir mensajes del servidor, entonces igual no hubiear quedado como los demas contextos.
  2. createSocketIoMiddleware hace que el codigo sea mas legible y facil de editar al conectar el
 	socket server directo con todo lo demas. 
-
-
  */
 
 const socket = io(ngrokAddr.socket);
@@ -29,13 +27,6 @@ function reducer(state = { conversations: [] }, action) {
 						messages: [],
 						username: usersOnline[i].username,
 					});
-					/* if (conversations[userId] === undefined) {
-					//Si ningun objeto en conversations tiene ese userId, creamos uno nuevo
-					conversations[userId] = {
-						messages: [],
-						username: usersOnline[i].username,
-					};
-				} */
 				}
 			}
 
@@ -45,7 +36,6 @@ function reducer(state = { conversations: [] }, action) {
 			const conversationId = action.data.conversationId; //correo del emisor
 			const thisConversation = state.conversations.find(conversation => conversation.conversationId === conversationId);
 			const conversationIndex = state.conversations.indexOf(thisConversation);
-			const newMessage = [action.data.message, ...state.conversations[conversationIndex].messages];
 			thisConversation.messages.unshift(action.data.message);
 			const conversation = state.conversations;
 			conversation[conversationIndex] = thisConversation;
@@ -53,16 +43,6 @@ function reducer(state = { conversations: [] }, action) {
 				...state,
 				conversation,
 			};
-		/* return {
-				...state,
-				conversations: {
-					...state.conversations,
-					[conversationId]: {
-						...state.conversations[conversationId], //los mensajes con el emisor se vuleven los anteriores + el nuevo
-						messages: [action.data.message, ...state.conversations[conversationId].messages],
-					},
-				},
-			}; */
 		case 'self_user': //le dice al cliente cual es su propio id. Ayuda para que la GiftedChat sepa si es mensaje del mismo usuario o del otro
 			return { ...state, selfUser: action.data };
 		default:

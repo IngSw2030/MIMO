@@ -1,7 +1,43 @@
 const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
-	conversations: {},
+	conversation: {
+		type: [
+			{
+				conversationID: {
+					type: String,
+					required: true,
+				},
+				messages: {
+					type: [
+						{
+							id: {
+								type: String,
+								required: true,
+							},
+							createdAt: {
+								type: Date,
+								required: true,
+							},
+							text: {
+								type: String,
+								required: true,
+							},
+							user: {
+								type: String,
+								required: true,
+							},
+						},
+					],
+				},
+				username: {
+					type: String,
+					required: true,
+				},
+			},
+		],
+	},
+
 	selfUser: {
 		avatar: {
 			type: String,
