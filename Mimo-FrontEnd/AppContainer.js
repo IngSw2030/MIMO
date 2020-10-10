@@ -24,13 +24,13 @@ import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
 import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComFoodScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComSettingsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComVeterinaryProfileScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
 
 //Imports de Usuario
 //pets
@@ -78,7 +78,10 @@ const switchNavigator = createSwitchNavigator({
 					Join: JoinScreen,
 					FriendList: FriendListScreen,
 
-					ComeHome: ComHomeScreen
+					ComeHome: ComHomeScreen,
+					ComeProduct: ComAccesoriesScreen,
+					ComeVet: ComVeterinaryScreen 
+
 				},
 				{
 					defaultNavigationOptions: {
