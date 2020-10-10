@@ -22,12 +22,12 @@ const HomeScreen = ({ navigation }) => {
 	}, []);
 
 	return (
-		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
-			<Button title= {'entrar a comercio'} onPress={()=> navigation.navigate('ComeHome')}/>
+		<View style={{ backgroundColor: '#FFF7BB', flex: 1}}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.questionStyle}> {questionText} </Text>
 			</View>
+			<Button title= {'entrar a comercio'} onPress={()=> navigation.navigate('ComeHome')}/>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
