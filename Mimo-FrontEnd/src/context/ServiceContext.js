@@ -6,12 +6,13 @@ const ServiceReducer = (ListaServicios, action) => {
 			return [
 				...ListaServicios,
 				{
-                    category= payload.category,
-                    name =payload.name,
-                    priceMax=payload.priceMax,
-                    priceMin=payload.priceMin,
-                    photo=payload.photo,
-                    description=payload.description,
+                    category: action.payload.category,
+                    name :action.payload.name,
+                    priceMax:action.payload.priceMax,
+                    priceMin:action.payload.priceMin,
+                    photo:action.payload.photo,
+                    description:action.payload.description,
+                    avgScore: 0
 				},
 			];
 		default:
@@ -21,8 +22,8 @@ const ServiceReducer = (ListaServicios, action) => {
 
 const addService = dispatch => async () =>  {
     try{
-        return (name, description, telefono, image, usuario, callback) => {
-            dispatch({ type: 'addService', payload: { category, name, description, photo, priceMax, priceMin } });
+        return (category, name, description, photo, priceMax, priceMin,avgScore, callback) => {
+            dispatch({ type: 'addService', payload: { category, name, description, photo, priceMax, priceMin, avgScore } });
             callback(); //el callback es un navigate
         };
     } 
@@ -32,14 +33,24 @@ const addService = dispatch => async () =>  {
 };
 const servicios = [
     {
-        category= 'Grooming',
-        name ='Dario',
-        priceMax=15000,
-        priceMin=10000,
-        photo=payload.photo,
-        description='Paseo perros por 15 cuadras y en parques durante 30 minutos',
+        id: 15,
+        category: 'Grooming',
+        name :'Dario',
+        priceMax:17000,
+        priceMin:10000,
+        photo:require('../../assets/mimo.png'),
+        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
+        avgScore: 3
+    },
+    {
+        id: 10,
+        category: 'Grooming',
+        name :'McLovin',
+        priceMax:15000,
+        priceMin:10000,
+        photo:require('../../assets/mimo.png'),
+        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
+        avgScore: 5
     }
-
-
 ];
-export const { Context, Provider } = createDataContext(ServiceReducer, { addVet }, veterinarias);
+export const { Context, Provider } = createDataContext(ServiceReducer, { addService }, servicios);

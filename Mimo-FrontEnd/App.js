@@ -14,32 +14,35 @@ import { Provider as UserProvider } from './src/context/UserContext';
 import store from './src/context/ChatContext';
 import { Provider as FriendListProvider } from './src/context/FriendListContext';
 import { Provider as VeterinaryProvider } from './src/context/VetContext';
+import { Provider as ServiceProvider } from './src/context/ServiceContext';
 
 
 export default () => {
 	return (
-		<VeterinaryProvider>
-			<FriendListProvider>
-				<PostContext>
-					<ProductContext>
-						<PurchaseContext>
-							<PetProvider>
-								<ChatProvider store={store}>
-									<UserProvider>
-										<AuthProvider>
-											<AppContainer
-												ref={navigator => {
-													setNavigator(navigator);
-												}}
-											/>
-										</AuthProvider>
-									</UserProvider>
-								</ChatProvider>
-							</PetProvider>
-						</PurchaseContext>
-					</ProductContext>
-				</PostContext>
-			</FriendListProvider>
-		</VeterinaryProvider>
+		<ServiceProvider>
+			<VeterinaryProvider>
+				<FriendListProvider>
+					<PostContext>
+						<ProductContext>
+							<PurchaseContext>
+								<PetProvider>
+									<ChatProvider store={store}>
+										<UserProvider>
+											<AuthProvider>
+												<AppContainer
+													ref={navigator => {
+														setNavigator(navigator);
+													}}
+												/>
+											</AuthProvider>
+										</UserProvider>
+									</ChatProvider>
+								</PetProvider>
+							</PurchaseContext>
+						</ProductContext>
+					</PostContext>
+				</FriendListProvider>
+			</VeterinaryProvider>
+		</ServiceProvider>
 	);
 };
