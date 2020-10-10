@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import { withNavigation } from 'react-navigation';
 
 const ComServiceScreen = () => {
     return (
@@ -9,4 +10,4 @@ const ComServiceScreen = () => {
     )
 }
 
-export default ComServiceScreen
+export default withNavigation(ComServiceScreen)

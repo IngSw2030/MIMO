@@ -11,4 +11,4 @@ const ComVeterinaryProfileScreen = () => {
     )
 }
 
-export default ComVeterinaryProfileScreen
+export default withNavigation(ComVeterinaryProfileScreen)

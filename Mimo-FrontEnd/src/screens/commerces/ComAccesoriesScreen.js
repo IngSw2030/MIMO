@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-
+import { withNavigation } from 'react-navigation';
 const ComAccesoriosScreen = () => {
     return (
         <View>
@@ -9,4 +9,4 @@ const ComAccesoriosScreen = () => {
     )
 }
 
-export default ComAccesoriosScreen
+export default withNavigation(ComAccesoriosScreen)

@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-n
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
 
-const ComHomeScreen = () => {
+const ComHomeScreen = ({navigation}) => {
     const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
 	const foodIcon = require('../../../assets/mimoIconComida.png');
