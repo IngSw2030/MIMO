@@ -22,12 +22,12 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
-import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComProductScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComServiceScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
 import ComSettingsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComVeterinaryProfileScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
@@ -79,8 +79,9 @@ const switchNavigator = createSwitchNavigator({
 					FriendList: FriendListScreen,
 
 					ComeHome: ComHomeScreen,
-					ComeProduct: ComAccesoriesScreen,
-					ComeVet: ComVeterinaryScreen 
+					ComeProduct: ComProductScreen,
+					ComeVet: ComVeterinaryScreen,
+					ComeService:  ComServiceScreen 
 
 				},
 				{

@@ -32,18 +32,18 @@ const ComHomeScreen = () => {
 			</View>
             <Text style={styles.questionStyle}> {questionText} </Text>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
+				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('ComeService')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
 					<Text style={styles.buttonNameStyle}>{servicesText}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
+				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('ComeVet')}>
 					<Image style={styles.iconStyle} source={vetIcon} />
 					<Text style={styles.buttonNameStyle}>{vetText}</Text>
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Accesories')}>
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('ComeProduct')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
