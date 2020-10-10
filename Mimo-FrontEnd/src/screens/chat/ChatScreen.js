@@ -1,4 +1,6 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 import { View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,8 +13,12 @@ export default function ChatScreen({ navigation }) {
 	const dispatch = useDispatch();
 	const selfUser = useSelector(state => state.selfUser);
 	const conversations = useSelector(state => state.conversations);
+	console.log('conversations en ChatScreen', conversations);
 	const userId = navigation.getParam('userId');
-	const messages = conversations[userId].messages;
+
+	const [messages, setMessages] = useState(
+		conversations.find(conversation => conversation.conversationId === userId).messages
+	);
 
 	return (
 		<View style={{ flex: 1 }}>
