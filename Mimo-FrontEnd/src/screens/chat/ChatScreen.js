@@ -12,14 +12,14 @@ ChatScreen.navigationOptions = screenProps => ({
 export default function ChatScreen({ navigation }) {
 	const dispatch = useDispatch();
 	const selfUser = useSelector(state => state.selfUser);
-	const conversations = useSelector(state => state.conversations);
-	console.log('conversations en ChatScreen', conversations);
+	const chatState = useSelector(state => state);
+
 	const userId = navigation.getParam('userId');
 
-	const [messages, setMessages] = useState(
-		conversations.find(conversation => conversation.conversationId === userId).messages
-	);
-
+	const messages = useSelector(state => state.conversations).find(
+		thisConversation => thisConversation.conversationId === userId
+	).messages;
+	console.log('conversations en ChatScreen', messages);
 	return (
 		<View style={{ flex: 1 }}>
 			<GiftedChat

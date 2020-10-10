@@ -9,6 +9,8 @@ import ngrokAddr from '../../ngrokConfig';
 	para recibir mensajes del servidor, entonces igual no hubiear quedado como los demas contextos.
  2. createSocketIoMiddleware hace que el codigo sea mas legible y facil de editar al conectar el
 	socket server directo con todo lo demas. 
+
+
  */
 
 const socket = io(ngrokAddr.socket);
@@ -44,7 +46,7 @@ function reducer(state = { conversations: [] }, action) {
 			const thisConversation = state.conversations.find(conversation => conversation.conversationId === conversationId);
 			const conversationIndex = state.conversations.indexOf(thisConversation);
 			const newMessage = [action.data.message, ...state.conversations[conversationIndex].messages];
-			thisConversation.messages.push(action.data.message);
+			thisConversation.messages.unshift(action.data.message);
 			const conversation = state.conversations;
 			conversation[conversationIndex] = thisConversation;
 			return {
