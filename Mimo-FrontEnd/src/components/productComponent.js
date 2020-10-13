@@ -22,7 +22,7 @@ const ProductComponent = props => {
 					})
 				}
 			>
-				<Image style={styles.imageStyle} source={product.image} />
+				<Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${product.image}` }} />
 				<Text style={styles.nameStyle}>{name}</Text>
 				<Text style={styles.priceStyle}>{price}</Text>
 			</TouchableOpacity>

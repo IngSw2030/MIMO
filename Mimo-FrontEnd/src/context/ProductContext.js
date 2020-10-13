@@ -1,28 +1,34 @@
 import createDataContext from './createDataContext';
-
-const productReducer = (listaDePerros, action) => {
+import instance from '../api/mimo';
+const productReducer = (state, action) => {
 	switch (action.type) {
-		case 'addPet':
-			return [
-				...listaDePerros,
-				{
-					name: action.payload.name,
-					age: action.payload.age,
-					gender: action.payload.gender,
-					type: action.payload.type,
-				},
-			];
+		case 'getByPet':
+			var listaProductos = action.payload;
+			for (let index = 0; index < listaProductos.length; index++) {
+				listaProductos[index] = {
+					name: listaProductos[index].name,
+					category: listaProductos[index].category,
+					price: listaProductos[index].price,
+					description: listaProductos[index].description,
+					id: listaProductos[index]._id,
+					image: listaProductos[index].photo,
+				};
+			}
+			return listaProductos;
 		default:
-			return listaDePerros;
+			return state;
 	}
 };
 
-const addPet = dispatch => {
-	return (name, age, gender, type, callback) => {
-		dispatch({ type: 'addPet', payload: { name, age, gender, type } });
-		callback(); //el callback es un navigate
-	};
+const getProductsByPets = dispatch => async type => {
+	try {
+		const response = await instance.post('api/Product/findByPets', { pets: type });
+		dispatch({ type: 'getByPet', payload: response.data.products });
+	} catch (error) {
+		console.log('error getProductsByPets');
+	}
 };
+
 //lista inicial de productos
 const productos = [
 	{
@@ -152,4 +158,4 @@ const productos = [
 		image: require('../../assets/ruedaHamster.png'),
 	},
 ];
-export const { Context, Provider } = createDataContext(productReducer, { addPet }, productos);
+export const { Context, Provider } = createDataContext(productReducer, { getProductsByPets }, []);

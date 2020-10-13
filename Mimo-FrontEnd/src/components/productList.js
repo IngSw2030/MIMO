@@ -6,8 +6,9 @@ import { Context as ProductContext } from '../context/ProductContext';
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
+import { useEffect } from 'react';
 const ProductList = ({ navigation }) => {
-	const { state: productos } = useContext(ProductContext);
+	const { state: productos, getProductsByPets } = useContext(ProductContext);
 	const [type, setType] = useState('');
 	const buttons = [
 		{ name: 'dog', size: 50, color: 'black', type: 'perro' },
@@ -23,6 +24,10 @@ const ProductList = ({ navigation }) => {
 		{ name: 'fish', size: 50, color: 'blue', type: 'pez' },
 		{ name: 'rabbit', size: 50, color: 'blue', type: 'conejo' },
 	];
+	useEffect(() => {
+		console.log('type: ', type);
+		getProductsByPets(type);
+	}, [type]);
 
 	//Lista Inicial de productos se encuentra en ProductContext
 	return (
