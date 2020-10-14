@@ -1,8 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import WideListComponent from '../../../components/wideListComponent';
-import usePurchaseID from '../../../hooks/usePurchaseID';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
@@ -10,7 +8,6 @@ const HistoryScreen = () => {
 	useEffect(() => {
 		getMyPurchases();
 	}, []);
-	const PurchaseComponent = usePurchaseID;
 
 	const mimoIcon = require('../../../../assets/mimo.png');
 	/* const sellers = [
@@ -45,7 +42,6 @@ const HistoryScreen = () => {
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB', justifyContent: 'center', alignItems: 'stretch' }}>
 			<Text style={styles.title}>Historial de Compras</Text>
-			<WideListComponent title='Por confirmar' componentToRender={PurchaseComponent} list={purchases} />
 			<View style={styles.generalView}>
 				<Text style={styles.text}>Por confirmar</Text>
 				<FlatList
@@ -102,13 +98,15 @@ const styles = StyleSheet.create({
 		width: 150,
 	},
 	containerPhoto: {
-		height: 100,
+		height: 120,
 		width: 300,
 		backgroundColor: '#FFA1A9',
 		marginBottom: 10,
 		flexDirection: 'row',
 		borderRadius: 20,
 		alignSelf: 'center',
+		marginHorizontal: '9%',
+
 		//justifyContent:'space-between'
 	},
 	text: {
