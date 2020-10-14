@@ -35,7 +35,6 @@ router.get('/myPurchases', async (req, res) => {
 		for (let index = 0; index < purchases.length; index++) {
 			product = await Product.findById(purchases[index].idProduct);
 			retailer = await User.findById(product.idUser);
-			console.log(retailer);
 			purchases[index] = {
 				producto: product.name,
 				unidades: purchases[index].amount,
@@ -55,20 +54,18 @@ router.get('/myPurchases', async (req, res) => {
 });
 
 router.post('/savePurchase', async (req, res) => {
-	const { idProduct, idRetailer, amount } = req.body;
+	const { idProduct, amount } = req.body;
 
 	try {
 		const purchase = new Purchase({
 			idUser: req.user._id,
-			idRetailer,
 			idProduct,
 			amount,
-			datePurchased: Date.now,
-			status: 'Por Completar',
 		});
 		await purchase.save();
 		res.send({ purchase });
 	} catch (err) {
+		console.log('Error savePurchase', err);
 		res.status(422).send({ error: 'No se ha podido guardar la comprar' });
 	}
 });

@@ -6,11 +6,6 @@ const PurchaseSchema = new mongoose.Schema({
 		ref: 'User',
 		required: true,
 	},
-	idRetailer: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-		required: true,
-	},
 	idProduct: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Product',

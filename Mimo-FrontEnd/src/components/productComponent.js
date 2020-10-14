@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import useProductName from '../hooks/useProductName';
 import usePrice from '../hooks/usePrice';
+import { navigate } from '../navigationRef';
 import { Context as ProductContext } from '../context/ProductContext';
 const ProductComponent = props => {
 	const product = props.product;
@@ -14,8 +15,8 @@ const ProductComponent = props => {
 			<TouchableOpacity
 				style={styles.buttonStyle}
 				onPress={() =>
-					props.navigation.navigate('ProductDetails', {
-						id: props.id,
+					navigate('ProductDetails', {
+						product: product,
 					})
 				}
 			>
