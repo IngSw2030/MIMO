@@ -1,19 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, Button, TextInputBase } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Context as ProductContext } from '../../../context/ProductContext';
 import usePrice from '../../../hooks/usePrice';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 
 const ProductDetailsScreen = ({ navigation }) => {
-	const [quantity, setQuantity] = useState(0);
+	const [quantity, setQuantity] = useState(1);
 	const [totalAmount, setTotalAmount] = useState(0);
-	const { state: productList } = useContext(ProductContext);
-	const product = productList.find(thisProduct => thisProduct.id === navigation.getParam('id'));
+	const { savePurchase } = useContext(PurchaseContext);
+	const product = navigation.getParam('product');
 	const price = usePrice(product.price);
-	const { addPurchase } = useContext(PurchaseContext);
-
-	const [currentDate, setCurrentDate] = useState('');
 
 	useEffect(() => {
 		setTotalAmount(() => quantity * product.price);
@@ -38,13 +34,13 @@ const ProductDetailsScreen = ({ navigation }) => {
 				<Button
 					style={styles.buttonStyle}
 					title='   -   '
-					onPress={() => setQuantity(quantity >= 1 ? quantity - 1 : quantity)}
+					onPress={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)}
 				/>
 				<Button
 					title='Comprar'
 					onPress={() => {
 						alert('Compra realizada con exito');
-						addPurchase(product.name, quantity, totalAmount, product.image, () => navigation.navigate('History'));
+						savePurchase({ idProduct: product._id, amount: quantity }, () => navigation.navigate('History'));
 					}}
 				/>
 			</View>

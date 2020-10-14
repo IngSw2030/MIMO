@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import ProductComponent from './productComponent';
-import { Context as ProductContext } from '../context/ProductContext';
+import ProductComponent from '../../../components/productComponent';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import useSearch from '../hooks/useResultsProduct';
-import SearchBar from '../components/searchBar';
-const ProductList = () => {
+import useSearch from '../../../hooks/useResultsProduct';
+import SearchBar from '../../../components/searchBar';
+const AccesoriesScreen = ({ navigation }) => {
 	const [term, setTerm] = useState('');
 	const buttons = [
 		{ name: 'dog', size: 50, color: 'black', type: 'perro' },
@@ -27,8 +26,10 @@ const ProductList = () => {
 	//Lista Inicial de productos se encuentra en ProductContext
 	return (
 		<View style={styles.pageStyle}>
-			<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => searchApi(term)} />
-			<Text style={styles.titleStyle}>Lista De Productos</Text>
+			<View style={styles.searchBarStyle}>
+				<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => searchApi(term)} />
+			</View>
+
 			<View style={styles.iconListStyle}>
 				<FlatList
 					data={buttons}
@@ -39,6 +40,7 @@ const ProductList = () => {
 							<TouchableOpacity
 								style={styles.selectType}
 								onPress={() => {
+									console.log('type en lista botones', item.type);
 									searchApi('', item.type);
 								}}
 							>
@@ -67,22 +69,29 @@ const styles = StyleSheet.create({
 		marginTop: 50,
 		alignSelf: 'center',
 	},
+	searchBarStyle: {
+		flexShrink: 0,
+	},
 	iconListStyle: {
-		padding: 10,
 		margin: 10,
 	},
 	productListStyle: {
-		marginTop: 20,
+		width: '100%',
+		flex: 1,
 	},
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
+		backgroundColor: '#FFF7BB',
+		justifyContent: 'center',
+		alignItems: 'stretch',
 	},
+
 	selectType: {
 		alignSelf: 'center',
 		flexDirection: 'row',
 	},
 });
 
-export default withNavigation(ProductList);
+export default withNavigation(AccesoriesScreen);

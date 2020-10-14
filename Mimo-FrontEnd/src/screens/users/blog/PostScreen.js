@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import WideListComponent from '../../../components/wideListComponent';
-import usePostID from '../../../hooks/usePostID';
 import { Context as PostContext } from '../../../context/PostContext';
+import PostComponent from '../../../components/postComponent';
 const PostScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { state: posts } = useContext(PostContext);
-	const PostComponent = usePostID;
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FFF7BB', justifyContent: 'center', alignItems: 'stretch' }}>
@@ -17,7 +15,15 @@ const PostScreen = ({ navigation }) => {
 				<Button title=' Tag1 ' />
 				<Button title=' Tag2 ' />
 			</View>
-			<WideListComponent title='Pantalla de Posts' componentToRender={PostComponent} list={posts} />
+			<View style={{ flex: 1 }}>
+				<FlatList
+					data={posts}
+					keyExtractor={item => item.id}
+					renderItem={({ item }) => {
+						return <PostComponent post={item} />;
+					}}
+				/>
+			</View>
 		</View>
 	);
 };

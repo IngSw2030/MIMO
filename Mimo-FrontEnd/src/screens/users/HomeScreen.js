@@ -6,14 +6,14 @@ import { Context as UserContext } from '../../context/UserContext';
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
-	const foodIcon = require('../../../assets/mimoIconComida.png');
+	const postIcon = require('../../../assets/mimoIconComida.png');
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
 	const questionText = '¿Qué buscas hoy?';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
-	const accesoriesText = 'Accesorios';
-	const foodText = 'Post';
+	const accesoriesText = 'Productos';
+	const postText = 'Post';
 
 	const { getUser } = useContext(UserContext);
 
@@ -39,14 +39,14 @@ const HomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Accesories')}>
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.foodStyle} onPress={() => navigation.navigate('Post')}>
-					<Image style={styles.iconStyle} source={foodIcon} />
-					<Text style={styles.buttonNameStyle}>{foodText}</Text>
+				<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
+					<Image style={styles.iconStyle} source={postIcon} />
+					<Text style={styles.buttonNameStyle}>{postText}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -72,18 +72,18 @@ const styles = StyleSheet.create({
 	},
 	buttonNameStyle: {
 		alignSelf: 'center',
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		marginLeft:10,
+		marginLeft: 10,
 		marginRight: 10,
 		flexGrow: 1,
 	},
-	vetStyle: { 
+	vetStyle: {
 		height: 150,
 		width: 150,
 		backgroundColor: '#B8DC7D',
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
 		marginRight: 10,
 		flexGrow: 1,
 	},
-	foodStyle: {
+	postStyle: {
 		height: 150,
 		width: 150,
 		backgroundColor: '#7E9FD1',
