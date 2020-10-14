@@ -5,10 +5,7 @@ import useProductName from '../hooks/useProductName';
 import usePrice from '../hooks/usePrice';
 import { Context as ProductContext } from '../context/ProductContext';
 const ProductComponent = props => {
-	//tener en cuenta que cuando viene desde la FlatList de productList
-	//console.log(props.x) da la lista de todos los productComponent, no solo de "este" ProductComponent
-	const { state: productList } = useContext(ProductContext);
-	const product = productList.find(thisProduct => thisProduct.id === props.id);
+	const product = props.product;
 	const allowedTextSize = 15;
 	const name = useProductName(product.name, allowedTextSize);
 	const price = usePrice(product.price);

@@ -7,9 +7,13 @@ import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import useSearch from '../hooks/useResultsProduct';
+import SearchBar from '../components/searchBar';
+import { getAppLoadingLifecycleEmitter } from 'expo/build/launch/AppLoading';
 const ProductList = ({ navigation }) => {
-	const { state: productos, getProductsByPets } = useContext(ProductContext);
+	const { state: productos } = useContext(ProductContext);
 	const [type, setType] = useState('');
+	const [term, setTerm] = useState('');
 	const buttons = [
 		{ name: 'dog', size: 50, color: 'black', type: 'perro' },
 		{ name: 'cat', size: 50, color: 'black', type: 'gato' },
@@ -24,14 +28,12 @@ const ProductList = ({ navigation }) => {
 		{ name: 'fish', size: 50, color: 'blue', type: 'pez' },
 		{ name: 'rabbit', size: 50, color: 'blue', type: 'conejo' },
 	];
-	useEffect(() => {
-		console.log('type: ', type);
-		getProductsByPets(type);
-	}, [type]);
+	const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
 
 	//Lista Inicial de productos se encuentra en ProductContext
 	return (
 		<View style={styles.pageStyle}>
+			<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => searchApi(term)} />
 			<Text style={styles.titleStyle}>Lista De Productos {'  '}</Text>
 			<View style={styles.iconListStyle}>
 				<FlatList
@@ -40,7 +42,13 @@ const ProductList = ({ navigation }) => {
 					horizontal={true}
 					renderItem={({ item }) => {
 						return (
-							<TouchableOpacity style={styles.selectType} onPress={() => setType(item.type)}>
+							<TouchableOpacity
+								style={styles.selectType}
+								onPress={() => {
+									console.log('type en lista botones', item.type);
+									searchApi('', item.type);
+								}}
+							>
 								<MaterialCommunityIcons name={item.name} size={item.size} color={item.color} />
 							</TouchableOpacity>
 						);
@@ -49,11 +57,11 @@ const ProductList = ({ navigation }) => {
 			</View>
 			<View style={styles.productListStyle}>
 				<FlatList
-					data={productos}
-					keyExtractor={item => item.id}
+					data={results}
+					keyExtractor={item => item._id}
 					numColumns={3}
 					renderItem={({ item }) => {
-						return <ProductComponent id={item.id} />;
+						return <ProductComponent product={item} />;
 					}}
 				/>
 			</View>

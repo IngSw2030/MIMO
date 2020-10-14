@@ -1,42 +1,47 @@
 import React, { useEffect, useState, useContext } from 'react';
-import instance from "../api/mimo";
+import instance from '../api/mimo';
 
 export default () => {
-
-    const [results, setResults] = useState([]);
+	/* 
     
+    */
 
-    const [errorMessage, setErrorMessage] = useState("");
+	const [results, setResults] = useState([]);
 
-    const searchApi = async (searchTerm, animal) => {
-        try {
-            const response = await instance.post('api/Product/allProducts', {
-                name: searchTerm,
-                pets: animal
-            });
-            setResults(response.data.products);
-        } catch (err) {
-            setErrorMessage(err + " Something went wrong! :( ");
-        }
-    };
+	const [errorMessage, setErrorMessage] = useState('');
 
-    const accesories = results.filter(( obj ) => {
-        return obj.category === "accesorio";
-    });
-    const food = results.filter(( obj ) => {
-        return obj.category === "comida";
-    });
-    const cleaning = results.filter(( obj ) => {
-        return obj.category === "limpieza";
-    });
-    const others = results.filter(( obj ) => {
-        return obj.category === "otro";
-    });
+	const searchApi = async (searchTerm, animal) => {
+		try {
+			console.log('SearchTerm', searchTerm);
+			console.log('animal', animal);
+			const response = await instance.post('api/Product/allProducts', {
+				name: searchTerm,
+				pets: animal,
+			});
+			setResults(response.data.products);
+		} catch (err) {
+			console.log('Error en searchAPI', err);
+			setErrorMessage(err + ' Something went wrong! :( ');
+		}
+	};
 
-    useEffect(() => {
-        searchApi("", "");
-    }, []);
+	const accesories = results.filter(obj => {
+		return obj.category === 'accesorio';
+	});
+	const food = results.filter(obj => {
+		return obj.category === 'comida';
+	});
+	const cleaning = results.filter(obj => {
+		return obj.category === 'limpieza';
+	});
+	const others = results.filter(obj => {
+		return obj.category === 'otro';
+	});
 
+	useEffect(() => {
+		searchApi('', '');
+	}, []);
 
-    return [searchApi, results, accesories, food, cleaning, others, errorMessage];
+	return [searchApi, results, accesories, food, cleaning, others, errorMessage];
 };
+/* */
