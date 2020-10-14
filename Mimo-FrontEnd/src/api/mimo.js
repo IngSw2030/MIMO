@@ -4,7 +4,7 @@ import { AsyncStorage } from 'react-native';
 import ngrokAddr from '../../ngrokConfig';
 
 const instance = axios.create({
-	baseURL: 'http://8cf4071ce40a.ngrok.io', 
+	baseURL: ngrokAddr.db,
 });
 
 //para poder utilizar las funciones que necesitan autorizacion

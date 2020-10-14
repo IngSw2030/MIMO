@@ -1,7 +1,6 @@
 import createDataContext from './createDataContext';
 import instance from '../api/mimo';
 import { navigate } from '../navigationRef';
-import uploadPhoto from '../hooks/uploadPhoto';
 
 const userReducer = (state, action) => {
     switch (action.type) {

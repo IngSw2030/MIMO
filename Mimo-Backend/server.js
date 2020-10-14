@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 require('./src/models/User');
 require('./src/models/Pet');
 require('./src/models/Product');
@@ -13,8 +14,13 @@ const app = express();
 
 connectDB();
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Init Middleware
-app.use(express.json({ extended: false }));
+//app.use(express.urlencoded({ extended: true }));
+//app.use(express.json()); 
 
 //Connect Database
 app.get('/', (req, res) => res.send('API Running'));

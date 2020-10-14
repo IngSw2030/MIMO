@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import WideListComponent from '../../../components/wideListComponent';
@@ -6,17 +6,41 @@ import usePurchaseID from '../../../hooks/usePurchaseID';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: purchases } = useContext(PurchaseContext);
+	const { state: purchases, getMyPurchases } = useContext(PurchaseContext);
+	useEffect(() => {
+		getMyPurchases();
+	}, []);
 	const PurchaseComponent = usePurchaseID;
 
- 	const mimoIcon = require('../../../../assets/mimo.png');
-	const sellers = [
+	const mimoIcon = require('../../../../assets/mimo.png');
+	/* const sellers = [
 		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 131231 },
 		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 133451 },
 		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 23435 },
 		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 145454 },
 
-	];
+	]; */
+	function renderPurchase(item, status) {
+		console.log('item en RederPurchase', item);
+		console.log('item.status', item.status == 'Pendiente');
+		if (item.status === status) {
+			return (
+				<View style={styles.containerPhoto}>
+					<View>
+						<Image style={styles.image} source={mimoIcon} />
+					</View>
+					<View style={styles.container}>
+						<Text style={styles.info}>Producto: {item.producto}</Text>
+						<Text style={styles.info}>Unidades: {item.unidades}</Text>
+						<Text style={styles.info}>Precio: {item.precio}</Text>
+						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
+						<Text style={styles.info}>Numero: ${item.numero} </Text>
+						<Text style={styles.info}>ID Venta: {item.producto}</Text>
+					</View>
+				</View>
+			);
+		}
+	}
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB', justifyContent: 'center', alignItems: 'stretch' }}>
@@ -25,26 +49,10 @@ const HistoryScreen = () => {
 			<View style={styles.generalView}>
 				<Text style={styles.text}>Por confirmar</Text>
 				<FlatList
-					keyExtractor={seller => seller.id}
-					data={sellers}
+					keyExtractor={purchases => purchases.id}
+					data={purchases}
 					renderItem={({ item }) => {
-						return (
-							<View style={styles.containerPhoto}>
-								<View >
-									<Image style={styles.image} source={mimoIcon} />
-								</View>
-								<View style={styles.container}>
-									<Text style={styles.info}>Producto: {item.producto}</Text>
-									<Text style={styles.info}>Unidades: {item.unidades}</Text>
-									<Text style={styles.info}>Precio: {item.precio}</Text>
-									<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
-									<Text style={styles.info}>Numero: ${item.numero} </Text>
-									<Text style={styles.info}>ID Venta: {item.producto}</Text>
-
-								</View>
-							</View>
-
-						);
+						return renderPurchase(item, 'Pendiente');
 					}}
 				/>
 			</View>
@@ -52,26 +60,10 @@ const HistoryScreen = () => {
 			<View style={styles.generalView}>
 				<Text style={styles.text}>Completadas</Text>
 				<FlatList
-					keyExtractor={seller => seller.id}
-					data={sellers}
+					keyExtractor={purchases => purchases.id}
+					data={purchases}
 					renderItem={({ item }) => {
-						return (
-							<View style={styles.containerPhoto}>
-								<View >
-									<Image style={styles.image} source={mimoIcon} />
-								</View>
-								<View style={styles.container}>
-									<Text style={styles.info}>Producto: {item.producto}</Text>
-									<Text style={styles.info}>Unidades: {item.unidades}</Text>
-									<Text style={styles.info}>Precio: {item.precio}</Text>
-									<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
-									<Text style={styles.info}>Numero: ${item.numero} </Text>
-									<Text style={styles.info}>ID Venta: {item.producto}</Text>
-
-								</View>
-							</View>
-
-						);
+						return renderPurchase(item, 'Completada');
 					}}
 				/>
 			</View>
@@ -84,7 +76,7 @@ const styles = StyleSheet.create({
 		marginTop: '20%',
 		fontSize: 20,
 		fontWeight: 'bold',
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 	generalView: {
 		justifyContent: 'center',
@@ -93,31 +85,31 @@ const styles = StyleSheet.create({
 		//marginTop: '5%',
 		//marginBottom: '3%',
 		marginHorizontal: '5%',
-		height: '50%'
+		height: '50%',
 	},
 	image: {
-        height: '80%',
-        width: 80,
-        marginBottom: '3%',
-        borderRadius: 360,
-        alignContent:'center',
-        margin:2,
+		height: '80%',
+		width: 80,
+		marginBottom: '3%',
+		borderRadius: 360,
+		alignContent: 'center',
+		margin: 2,
 	},
 	info: {
-        fontSize: 10,
-        fontWeight: 'bold',
-        marginTop: 4,
-        width:150
+		fontSize: 10,
+		fontWeight: 'bold',
+		marginTop: 4,
+		width: 150,
 	},
 	containerPhoto: {
-        height: 100,
-        width: 300,
-        backgroundColor: '#FFA1A9',
-        marginBottom: 10,
-        flexDirection: 'row',
+		height: 100,
+		width: 300,
+		backgroundColor: '#FFA1A9',
+		marginBottom: 10,
+		flexDirection: 'row',
 		borderRadius: 20,
-		alignSelf: 'center'
-        //justifyContent:'space-between'
+		alignSelf: 'center',
+		//justifyContent:'space-between'
 	},
 	text: {
 		marginTop: '0%',
@@ -126,12 +118,11 @@ const styles = StyleSheet.create({
 		marginLeft: '3%',
 	},
 	container: {
-        height: 75,
-        width: 100,
-        backgroundColor: '#FFA1A9',
+		height: 75,
+		width: 100,
+		backgroundColor: '#FFA1A9',
 		marginBottom: 5,
-    },
+	},
 });
-
 
 export default withNavigation(HistoryScreen);
