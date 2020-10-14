@@ -3,6 +3,7 @@ import { Context as PetContext } from '../../../context/PetContext';
 import { View, Text, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
+
 const AddPetScreen = ({ navigation }) => {
 	//funcion definida en PetContext.js, es un caso de PetReducer
 	const { addPet } = useContext(PetContext);
@@ -17,7 +18,7 @@ const AddPetScreen = ({ navigation }) => {
 			<TextInput value={age} placeholder='age' onChangeText={text => setAge(text)} />
 			<TextInput value={gender} placeholder='gender' onChangeText={text => setGender(text)} />
 			<TextInput value={type} placeholder='type' onChangeText={text => setType(text)} />
-			<Button title='add ' onPress={() => addPet(name, age, gender, type, () => navigation.navigate('Pets'))}></Button>
+			<Button title='add ' onPress={() => addPet(name, age, gender, type)}></Button>
 		</View>
 	);
 };

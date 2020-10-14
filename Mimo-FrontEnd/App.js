@@ -59,7 +59,6 @@ export default () => {
 	return (
 				
 		<PetProvider>
-			<Provider store={store}>
 				<ProductProvider>
 					<UserProvider>
 						<AuthProvider>
@@ -71,7 +70,6 @@ export default () => {
 						</AuthProvider>
 					</UserProvider>
 				</ProductProvider>
-			</Provider>
 		</PetProvider>
 		
 

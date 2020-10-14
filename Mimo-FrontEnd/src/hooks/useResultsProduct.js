@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import instance from "../api/mimo";
 
 export default () => {
 
     const [results, setResults] = useState([]);
+    
+
     const [errorMessage, setErrorMessage] = useState("");
 
-    const searchApi = async (searchTerm) => {
+    const searchApi = async (searchTerm, animal) => {
         try {
             const response = await instance.post('api/Product/allProducts', {
                 name: searchTerm,
-                description: searchTerm,
-                category: 'comida'
+                pets: animal
             });
             setResults(response.data.products);
         } catch (err) {
@@ -19,10 +20,23 @@ export default () => {
         }
     };
 
+    const accesories = results.filter(( obj ) => {
+        return obj.category === "accesorio";
+    });
+    const food = results.filter(( obj ) => {
+        return obj.category === "comida";
+    });
+    const cleaning = results.filter(( obj ) => {
+        return obj.category === "limpieza";
+    });
+    const others = results.filter(( obj ) => {
+        return obj.category === "otro";
+    });
+
     useEffect(() => {
-        searchApi("");
+        searchApi("", "");
     }, []);
 
 
-    return [searchApi, results, errorMessage];
+    return [searchApi, results, accesories, food, cleaning, others, errorMessage];
 };

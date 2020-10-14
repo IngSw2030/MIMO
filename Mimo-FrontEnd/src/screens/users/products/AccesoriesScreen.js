@@ -9,7 +9,9 @@ import SearchBar from "../../../components/searchBar";
 const AccesoriesScreen = () => {
 
     const [term, setTerm] = useState('');
-    const [searchApi, results, errorMessage] = useResults();
+    const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useResults();
+
+
     return (
         <View>
             <SearchBar

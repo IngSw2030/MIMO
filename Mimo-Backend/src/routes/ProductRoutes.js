@@ -40,11 +40,10 @@ router.post('/save', async (req, res) => {
 
 //Query para encontrar todas las veterinarias por nombre
 router.post('/allProducts', async (req, res) => {
-    const {name, description, pets, category} = req.body;
-    
-    let newName, newPets, newDescription;
+    const {name, pets} = req.body;
+    let newName, newPets;
 
-    if(!description && !pets){
+    if(!pets){
         if(!name){
             newName = "";
         }
@@ -58,22 +57,19 @@ router.post('/allProducts', async (req, res) => {
 
     !pets ? newPets = "-1" : newPets = pets;
 
-    !description ? newDescription = "-1" : newDescription = description;
-
     try {
+
         const products = await Product.find(({$or: 
             [
-                {$and: [
-                    { name : { "$regex": newName, "$options": "i" }},
-                    { category: category }
-                ]},
-                { description : { "$regex": newDescription, "$options": "i" }},
-                { pets : newPets},
+                { name : { "$regex": newName, "$options": "i" }},
+                { description : { "$regex": newName, "$options": "i" }},
+                { pets : { $in: [newPets]}},
             ]
         })).limit(25);
+
         res.send({ products });
     } catch (err) {
-        res.status(422).send({ error: "No se ha podido publicar el producto" });
+        res.status(422).send({ error: "No se han encontrado productos" });
     }
 });
 
@@ -88,16 +84,16 @@ router.get('/myProducts', async (req, res) => {
 });
 
 router.post('/update', async (req, res) => {
+    const { 
+        name,
+        price,
+        photo,
+        description,
+        available,
+        id 
+    } = req.body;
     try {
 
-        const { 
-            name,
-            price,
-            photo,
-            description,
-            available,
-            id 
-        } = req.body;
 
         const product = await Product.findOne({_id: id});
 
@@ -133,7 +129,7 @@ router.post('/delete', async (req, res) => {
         await Product.findByIdAndDelete(id);
         res.send("Producto borrada satisfactoriamente");
     } catch (error) {
-        return res.status(422).send({ error: 'Error eliminando la mascota' });
+        return res.status(422).send({ error: 'Error eliminando el producto' });
     }
 });
 
