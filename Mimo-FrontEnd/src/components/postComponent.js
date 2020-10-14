@@ -11,7 +11,6 @@ const PostComponent = props => {
 	const description = useProductName(post.descripcion, 90);
 	const nTags = post.tags.length;
 	function renderTags(tag) {
-		console.log(tag);
 		return <Text style={styles.tagsStyle}>{tag} </Text>;
 	}
 	return (

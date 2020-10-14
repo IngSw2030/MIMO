@@ -13,6 +13,7 @@ const PurchaseSchema = new mongoose.Schema({
 	},
 	amount: {
 		type: Number,
+		default: 69,
 		required: true,
 	},
 	datePurchased: {

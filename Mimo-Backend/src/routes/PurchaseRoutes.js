@@ -35,12 +35,19 @@ router.get('/myPurchases', async (req, res) => {
 		for (let index = 0; index < purchases.length; index++) {
 			product = await Product.findById(purchases[index].idProduct);
 			retailer = await User.findById(product.idUser);
+			if (retailer === null) {
+				nombreVendedor = 'EsteMan';
+				numeroVendedor = '305111111';
+			} else {
+				nombreVendedor = retailer.retailName;
+				numeroVendedor = retailer.phone;
+			}
 			purchases[index] = {
 				producto: product.name,
 				unidades: purchases[index].amount,
-				precio: product.price,
-				vendedor: 'EsteMan',
-				numero: '305111111',
+				precio: product.price * purchases[index].amount,
+				vendedor: nombreVendedor,
+				numero: numeroVendedor,
 				id: purchases[index]._id,
 				status: purchases[index].status,
 			};
