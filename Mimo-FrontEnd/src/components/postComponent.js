@@ -6,8 +6,7 @@ import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
 
 const PostComponent = props => {
-	const { state: posts } = useContext(PostContext);
-	const post = posts.find(thisPost => thisPost.id === props.id);
+	const post = props.post;
 	const description = useProductName(post.descripcion, 90);
 	const nTags = post.tags.length;
 	function renderTags(tag) {

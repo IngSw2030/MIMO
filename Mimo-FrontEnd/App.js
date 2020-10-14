@@ -12,30 +12,27 @@ import { Provider as PetProvider } from './src/context/PetContext';
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import store from './src/context/ChatContext';
-import { Provider as FriendListProvider } from './src/context/FriendListContext';
 
 export default () => {
 	return (
-		<FriendListProvider>
-			<PostContext>
-				<ProductContext>
-					<PurchaseContext>
-						<PetProvider>
-							<ChatProvider store={store}>
-								<UserProvider>
-									<AuthProvider>
-										<AppContainer
-											ref={navigator => {
-												setNavigator(navigator);
-											}}
-										/>
-									</AuthProvider>
-								</UserProvider>
-							</ChatProvider>
-						</PetProvider>
-					</PurchaseContext>
-				</ProductContext>
-			</PostContext>
-		</FriendListProvider>
+		<PostContext>
+			<ProductContext>
+				<PurchaseContext>
+					<PetProvider>
+						<ChatProvider store={store}>
+							<UserProvider>
+								<AuthProvider>
+									<AppContainer
+										ref={navigator => {
+											setNavigator(navigator);
+										}}
+									/>
+								</AuthProvider>
+							</UserProvider>
+						</ChatProvider>
+					</PetProvider>
+				</PurchaseContext>
+			</ProductContext>
+		</PostContext>
 	);
 };
