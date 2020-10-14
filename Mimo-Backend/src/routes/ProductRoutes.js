@@ -51,85 +51,98 @@ router.post('/findByPets', async (req, res) => {
 	}
 });
 //Query para encontrar todas las veterinarias por nombre
-router.get('/allProducts', async (req, res) => {
-	const { name, description, pets, category } = req.body;
+router.post('/allProducts', async (req, res) => {
+    const {name, pets} = req.body;
+    let newName, newPets;
 
-	let newName, newPets, newDescription;
+    if(!pets){
+        if(!name){
+            newName = "";
+        }
+        else{
+            newName = name;
+        }
+    }
+    else{
+        newName = "-1";
+    }
 
-	if (!description && !pets) {
-		if (!name) {
-			newName = '';
-		} else {
-			newName = name;
-		}
-	} else {
-		newName = '-1';
-	}
+    !pets ? newPets = "-1" : newPets = pets;
 
-	!pets ? (newPets = '-1') : (newPets = pets);
+    try {
 
-	!description ? (newDescription = '-1') : (newDescription = description);
+        const products = await Product.find(({$or: 
+            [
+                { name : { "$regex": newName, "$options": "i" }},
+                { description : { "$regex": newName, "$options": "i" }},
+                { pets : { $in: [newPets]}},
+            ]
+        })).limit(25);
 
-	try {
-		const products = await Product.find({
-			$or: [
-				{ $and: [{ name: { $regex: newName, $options: 'i' } }, { category: category }] },
-				{ description: { $regex: newDescription, $options: 'i' } },
-				{ pets: newPets },
-			],
-		}).limit(25);
-		res.send({ products });
-	} catch (err) {
-		res.status(422).send({ error: 'No se ha podido publicar el producto' });
-	}
+        res.send({ products });
+    } catch (err) {
+        res.status(422).send({ error: "No se han encontrado productos" });
+    }
+});
+
+router.get('/myProducts', async (req, res) => {
+    
+    try {
+        const products = await Product.find({idUser: req.user._id});
+        res.send({ products });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
 });
 
 router.post('/update', async (req, res) => {
-	try {
-		const { name, price, photo, description, available, id } = req.body;
+    const { 
+        name,
+        price,
+        photo,
+        description,
+        available,
+        id 
+    } = req.body;
+    try {
 
-		const product = await Product.findOne({ _id: id });
 
-		let newName, newPrice, newDescription, newAvailable, newPhoto;
+        const product = await Product.findOne({_id: id});
 
-		!name ? (newName = product.name) : (newName = name);
+        let newName, newPrice, newDescription, newAvailable, newPhoto;
 
-		!price ? (newPrice = product.price) : (newPrice = price);
+        !name ? newName = product.name : newName = name;
 
-		!description ? (newDescription = product.description) : (newDescription = description);
+        !price ? newPrice = product.price : newPrice = price;
 
-		!available ? (newAvailable = product.available) : (newAvailable = available);
+        !description ? newDescription = product.description : newDescription = description;
 
-		!photo ? (newPhoto = product.photo) : (newPhoto = photo);
+        !available ? newAvailable = product.available : newAvailable = available;
+        
+        !photo ? newPhoto = product.photo : newPhoto = photo;
 
-		await Product.findOneAndUpdate(
-			{ _id: id },
-			{
-				$set: {
-					name: newName,
-					price: newPrice,
-					description: newDescription,
-					available: newAvailable,
-					photo: newPhoto,
-				},
-			},
-			{ useFindAndModify: false }
-		);
-		res.send('Modificado satisfactoriamente');
-	} catch (err) {
-		return res.status(422).send({ error: 'Error al modificar' });
-	}
+        await Product.findOneAndUpdate({ _id: id }, { $set: { 
+            "name": newName,
+            "price": newPrice,
+            "description": newDescription,
+            "available": newAvailable,
+            "photo": newPhoto 
+        }}, { useFindAndModify: false });
+        res.send("Modificado satisfactoriamente");
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
 });
 
-router.get('/delete', async (req, res) => {
-	const { id } = req.body;
+router.post('/delete', async (req, res) => {
+    const { id } = req.body;
 
-	try {
-		await Product.findByIdAndDelete(id);
-		res.send('Producto borrada satisfactoriamente');
-	} catch (error) {
-		return res.status(422).send({ error: 'Error eliminando la mascota' });
-	}
+    try {
+        await Product.findByIdAndDelete(id);
+        res.send("Producto borrada satisfactoriamente");
+    } catch (error) {
+        return res.status(422).send({ error: 'Error eliminando el producto' });
+    }
 });
 
 module.exports = router;
