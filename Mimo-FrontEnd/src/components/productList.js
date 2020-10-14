@@ -1,18 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ProductComponent from './productComponent';
 import { Context as ProductContext } from '../context/ProductContext';
-import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useState } from 'react';
-import { useEffect } from 'react';
 import useSearch from '../hooks/useResultsProduct';
 import SearchBar from '../components/searchBar';
-import { getAppLoadingLifecycleEmitter } from 'expo/build/launch/AppLoading';
-const ProductList = ({ navigation }) => {
-	const { state: productos } = useContext(ProductContext);
-	const [type, setType] = useState('');
+const ProductList = () => {
 	const [term, setTerm] = useState('');
 	const buttons = [
 		{ name: 'dog', size: 50, color: 'black', type: 'perro' },
@@ -34,7 +28,7 @@ const ProductList = ({ navigation }) => {
 	return (
 		<View style={styles.pageStyle}>
 			<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => searchApi(term)} />
-			<Text style={styles.titleStyle}>Lista De Productos {'  '}</Text>
+			<Text style={styles.titleStyle}>Lista De Productos</Text>
 			<View style={styles.iconListStyle}>
 				<FlatList
 					data={buttons}

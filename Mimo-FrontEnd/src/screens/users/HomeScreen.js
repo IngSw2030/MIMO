@@ -12,7 +12,7 @@ const HomeScreen = ({ navigation }) => {
 	const questionText = '¿Qué buscas hoy?';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
-	const accesoriesText = 'Accesorios';
+	const accesoriesText = 'Productos';
 	const foodText = 'Post';
 
 	const { getUser } = useContext(UserContext);
@@ -39,7 +39,7 @@ const HomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Accesories')}>
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
@@ -72,18 +72,18 @@ const styles = StyleSheet.create({
 	},
 	buttonNameStyle: {
 		alignSelf: 'center',
-		marginBottom: 10
+		marginBottom: 10,
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		marginLeft:10,
+		marginLeft: 10,
 		marginRight: 10,
 		flexGrow: 1,
 	},
-	vetStyle: { 
+	vetStyle: {
 		height: 150,
 		width: 150,
 		backgroundColor: '#B8DC7D',
