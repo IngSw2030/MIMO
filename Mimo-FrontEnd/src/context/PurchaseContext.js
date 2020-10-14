@@ -1,6 +1,7 @@
 import createDataContext from './createDataContext';
 import instance from '../api/mimo';
 import { navigate } from '../navigationRef';
+import { call } from 'react-native-reanimated';
 
 const purchaseReducer = (state, action) => {
 	switch (action.type) {
@@ -13,10 +14,11 @@ const purchaseReducer = (state, action) => {
 	}
 };
 
-const savePurchase = dispatch => async ({ idProduct }) => {
+const savePurchase = dispatch => async ({ idProduct, amount }, callback) => {
 	try {
-		const response = await instance.post('/api/Purchase/save', { idProduct });
+		const response = await instance.post('/api/Purchase/savePurchase', { idProduct, amount });
 		dispatch({ type: 'savePurchase', payload: response.data.purchase });
+		callback();
 	} catch (err) {
 		dispatch({ type: 'add_error' });
 	}

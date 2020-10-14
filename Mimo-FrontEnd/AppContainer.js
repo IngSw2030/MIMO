@@ -37,8 +37,7 @@ import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryPro
 import AddPetScreen from './src/screens/users/pets/AddPetScreen';
 import PetsScreen from './src/screens/users/pets/PetsScreen';
 //products
-import AccesoriesScreen from './src/screens/users/products/AccesoriesScreen';
-import FoodScreen from './src/screens/users/products/FoodScreen';
+import ProductScreen from './src/screens/users/products/ProductScreen';
 import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
 //profile
 import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
@@ -88,9 +87,8 @@ const switchNavigator = createSwitchNavigator({
 			Home: createStackNavigator(
 				{
 					HomePage: HomePageScreen,
-					Accesories: AccesoriesScreen,
+					Product: ProductScreen,
 					Veterinaries: VeterinariesScreen,
-					Food: FoodScreen,
 					Services: ServicesScreen,
 					ProductDetails: ProductDetailsScreen,
 					Grooming: GroomingScreen,

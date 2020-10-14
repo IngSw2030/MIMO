@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
+import usePrice from '../../../hooks/usePrice';
 const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { state: purchases, getMyPurchases } = useContext(PurchaseContext);
@@ -10,13 +11,7 @@ const HistoryScreen = () => {
 	}, []);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
-	/* const sellers = [
-		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 131231 },
-		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 133451 },
-		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 23435 },
-		{ producto: 'Whiskas 1,5 kg', unidades: '1', precio: '$8000', vendedor: 'Pablito', numero: '3208765430', id: 145454 },
 
-	]; */
 	function renderPurchase(item, status) {
 		console.log('item en RederPurchase', item);
 		console.log('item.status', item.status == 'Pendiente');
@@ -29,10 +24,10 @@ const HistoryScreen = () => {
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.producto}</Text>
 						<Text style={styles.info}>Unidades: {item.unidades}</Text>
-						<Text style={styles.info}>Precio: {item.precio}</Text>
+						<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
 						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
-						<Text style={styles.info}>Numero: ${item.numero} </Text>
-						<Text style={styles.info}>ID Venta: {item.producto}</Text>
+						<Text style={styles.info}>Numero: {item.numero} </Text>
+						<Text style={styles.info}>ID Venta: {item.id}</Text>
 					</View>
 				</View>
 			);
