@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		margin: '15%',
+		margin: '5%',
 		padding: 9,
 	},
 	textInput: {
