@@ -13,8 +13,6 @@ const HistoryScreen = () => {
 	const mimoIcon = require('../../../../assets/mimo.png');
 
 	function renderPurchase(item, status) {
-		console.log('item en RederPurchase', item);
-		console.log('item.status', item.status == 'Pendiente');
 		if (item.status === status) {
 			return (
 				<View style={styles.containerPhoto}>

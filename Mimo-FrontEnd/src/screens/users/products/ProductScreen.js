@@ -40,7 +40,6 @@ const AccesoriesScreen = ({ navigation }) => {
 							<TouchableOpacity
 								style={styles.selectType}
 								onPress={() => {
-									console.log('type en lista botones', item.type);
 									searchApi('', item.type);
 								}}
 							>

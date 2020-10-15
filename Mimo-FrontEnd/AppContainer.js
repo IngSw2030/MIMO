@@ -39,6 +39,7 @@ import PetsScreen from './src/screens/users/pets/PetsScreen';
 //products
 import ProductScreen from './src/screens/users/products/ProductScreen';
 import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
+import ShoppingCartScreen from './src/screens/users/products/ShoppingCartScreen';
 //profile
 import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
@@ -91,6 +92,7 @@ const switchNavigator = createSwitchNavigator({
 					Veterinaries: VeterinariesScreen,
 					Services: ServicesScreen,
 					ProductDetails: ProductDetailsScreen,
+					ShoppingCart: ShoppingCartScreen,
 					Grooming: GroomingScreen,
 					Massages: MassagesScreen,
 					PetSitting: PetSittingScreen,

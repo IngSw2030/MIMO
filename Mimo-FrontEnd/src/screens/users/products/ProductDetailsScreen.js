@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, Dimensions, Button, TextInputBase } from
 import { withNavigation } from 'react-navigation';
 import usePrice from '../../../hooks/usePrice';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
+import ShoppingCartScreen from './ShoppingCartScreen';
+import { Context as ShoppingCartContext } from '../../../context/ShoppingCartContext';
 
 const ProductDetailsScreen = ({ navigation }) => {
 	const [quantity, setQuantity] = useState(1);
@@ -10,6 +12,7 @@ const ProductDetailsScreen = ({ navigation }) => {
 	const { savePurchase } = useContext(PurchaseContext);
 	const product = navigation.getParam('product');
 	const price = usePrice(product.price);
+	const { saveProduct } = useContext(ShoppingCartContext);
 
 	useEffect(() => {
 		setTotalAmount(() => quantity * product.price);
@@ -39,8 +42,8 @@ const ProductDetailsScreen = ({ navigation }) => {
 				<Button
 					title='Comprar'
 					onPress={() => {
-						alert('Compra realizada con exito');
-						savePurchase({ idProduct: product._id, amount: quantity }, () => navigation.navigate('History'));
+						saveProduct({ product, quantity });
+						navigation.navigate('ShoppingCart');
 					}}
 				/>
 			</View>
@@ -80,6 +83,7 @@ const styles = StyleSheet.create({
 	},
 	purchaseStyle: {
 		flexGrow: 2,
+		alignItems: 'flex-end',
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 	},
