@@ -44,6 +44,7 @@ import NotificationsScreen from './src/screens/users/profile/NotificationsScreen
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
 import HistoryScreen from './src/screens/users/profile/HistoryScreen';
+import ShopingCartScreen from './src/screens/users/profile/ShopingCartScreen';
 //services
 import AquariumCleanerScreen from './src/screens/users/services/AquariumCleanerScreen';
 import GroomingScreen from './src/screens/users/services/GroomingScreen';
@@ -101,6 +102,9 @@ const switchNavigator = createSwitchNavigator({
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
+
+
+					ShopingCart: ShopingCartScreen
 				},
 				{
 					defaultNavigationOptions: {

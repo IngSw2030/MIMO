@@ -9,6 +9,12 @@ const purchaseReducer = (state, action) => {
 			return { ...state, purchase: action.payload };
 		case 'getMyPurchases':
 			return action.payload;
+		case 'getMyShopingCart':
+			return action.payload;
+		case 'updateStatus':
+			return action.payload;
+		case 'deletePurchase':
+			return action.payload;
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 	}
@@ -34,8 +40,39 @@ const getMyPurchases = dispatch => async () => {
 	}
 };
 
+const getMyShopingCart = dispatch => async () => {
+	try {
+		const response = await instance.get('/api/Purchase/myShopingCart');
+		dispatch({ type: 'getMyShopingCart', payload: response.data.purchases });
+	} catch (err) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+};
+
+const updateStatus = dispatch => async({ idPurchase, status }) => {
+	try {
+		console.log({idPurchase})
+		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
+		dispatch({ type: 'updateStatus', payload: response.data });
+	} catch (error) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+}
+
+const deletePurchase = dispatch => async ({idPurchase}) => {
+	try {
+		const response = await instance.post('/api/Purchase/delete', {idPurchase});
+		dispatch({ type: 'deletePurchase', payload: response.data });
+	} catch (err) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+}
+
 export const { Provider, Context } = createDataContext(
 	purchaseReducer,
-	{ savePurchase, getMyPurchases },
+	{ savePurchase, getMyPurchases, getMyShopingCart, deletePurchase, updateStatus },
 	{ errorMessage: '', purchase: {}, purchases: [{}] }
 );
