@@ -12,9 +12,9 @@ const purchaseReducer = (state, action) => {
 		case 'getMyShopingCart':
 			return action.payload;
 		case 'updateStatus':
-			return action.payload;
+			return {...state};
 		case 'deletePurchase':
-			return action.payload;
+			return {...state};
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 	}
@@ -52,7 +52,6 @@ const getMyShopingCart = dispatch => async () => {
 
 const updateStatus = dispatch => async({ idPurchase, status }) => {
 	try {
-		console.log({idPurchase})
 		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
 		dispatch({ type: 'updateStatus', payload: response.data });
 	} catch (error) {
@@ -64,6 +63,7 @@ const updateStatus = dispatch => async({ idPurchase, status }) => {
 const deletePurchase = dispatch => async ({idPurchase}) => {
 	try {
 		const response = await instance.post('/api/Purchase/delete', {idPurchase});
+
 		dispatch({ type: 'deletePurchase', payload: response.data });
 	} catch (err) {
 		console.log('Error getMyPurchases', err);

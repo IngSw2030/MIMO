@@ -21,14 +21,17 @@ const HomeScreen = ({ navigation }) => {
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View style={styles.parteSuperior}>
-				<FontAwesome5 name="shopping-cart" size={40} color="black" />
+				<TouchableOpacity onPress={() => navigation.navigate('ShopingCart')}>
+					<FontAwesome5 name="shopping-cart" size={40} color="black" />
+				</TouchableOpacity>
+				
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<MaterialIcons name="message" size={40} color="black" />
 
 			</View>
 			<Text style={styles.questionStyle}> ¿Qué buscas hoy? </Text>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
+				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
 					<Text style={styles.buttonNameStyle}>Servicios</Text>
 				</TouchableOpacity>

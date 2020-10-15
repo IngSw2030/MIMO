@@ -7,14 +7,13 @@ import { withNavigation } from 'react-navigation';
 
 const pagar = function (purchases) {
     let acum = 0
-    if(purchases){
-        purchases.forEach(element => {
-            acum += element.precioUn*element.unidades
-        });
-        console.log(acum);
+    if(!purchases){
+       return acum;
     }
-    
-    return acum
+    purchases.forEach(element => {
+        acum += element.precioUn*element.unidades;
+    });
+    return acum;
 }
 const MassagesScreen = ({ navigation }) => {
 
@@ -26,7 +25,7 @@ const MassagesScreen = ({ navigation }) => {
     
     const comprarPurchases = function(){
         purchases.forEach( element => {
-            updateStatus({idPurchase: element.id}, {status: 'Pendiente'})
+            updateStatus({idPurchase: element.id, status: 'Pendiente'})
         });
     }
 
@@ -45,7 +44,6 @@ const MassagesScreen = ({ navigation }) => {
 					keyExtractor={purchases => purchases.id}
 					data={purchases}
 					renderItem={({ item }) => {
-                        let qAux = item.unidades;
 						return(
                             <View style = { styles.containerPurchase}>
                                 <View>
@@ -78,11 +76,13 @@ const MassagesScreen = ({ navigation }) => {
                                         </View>
                                     </View>
                                     <View style = {styles.amountStyle}>
-                                        <TouchableOpacity onPress={() => setQuantity(qAux > 1 ? qAux - 1 : qAux)}>
+                                        <TouchableOpacity onPress={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)}>
                                             <Feather name="minus" size={20} color="black" />
                                         </TouchableOpacity>
-                                            <Text style = {{fontSize:30}}>    {qAux}    </Text>
-                                        <TouchableOpacity onPress={() => setQuantity(qAux + 1)}>
+                                            {quantity===1?
+                                                (<Text style = {{fontSize:30}}>    {item.unidades}    </Text>)
+                                                :(<Text style = {{fontSize:30}}>    {quantity}    </Text>)}
+                                        <TouchableOpacity onPress={() => setQuantity(quantity < 15 ? quantity + 1 : quantity)}>
                                             <Feather name="plus" size={20} color="black" />
                                         </TouchableOpacity>  
                                     </View>

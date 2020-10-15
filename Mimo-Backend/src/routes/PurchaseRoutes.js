@@ -116,7 +116,6 @@ router.post('/savePurchase', async (req, res) => {
 
 router.post('/updateStatus', async (req, res) => {
 	const { idPurchase, status } = req.body;
-	console.log({idPurchase, status})
 	try {
 		await Purchase.findOneAndUpdate(
 			{ _id: idPurchase },
