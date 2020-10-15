@@ -58,18 +58,18 @@ const updateStatus = dispatch => async ({ idPurchase, status }) => {
 		console.log('Error getMyPurchases', err);
 		dispatch({ type: 'add_error' });
 	}
-}
+};
 
 const deletePurchase = dispatch => async ({ idPurchase }) => {
 	try {
 		const response = await instance.post('/api/Purchase/delete', { idPurchase });
 
-		dispatch({ type: 'deletePurchase', payload: response.data });
+		//dispatch({ type: 'deletePurchase', payload: response.data });
 	} catch (err) {
 		console.log('Error getMyPurchases', err);
 		dispatch({ type: 'add_error' });
 	}
-}
+};
 
 export const { Provider, Context } = createDataContext(
 	purchaseReducer,
