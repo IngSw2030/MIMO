@@ -23,7 +23,7 @@ const PurchaseSchema = new mongoose.Schema({
 	},
 	status: {
 		type: String,
-		default: 'Pendiente',
+		default: 'En carrito',
 		required: true,
 	},
 });
