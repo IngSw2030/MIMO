@@ -4,15 +4,15 @@ import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-
+import { useDispatch } from 'react-redux';
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
 	const postIcon = require('../../../assets/mimoIconComida.png');
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
-
-	const { getUser } = useContext(UserContext);
+	const dispatch = useDispatch();
+	const { state: user, getUser } = useContext(UserContext);
 
 	useEffect(() => {
 		getUser();
@@ -26,7 +26,15 @@ const HomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<MaterialIcons name='message' size={40} color='black' />
+				<TouchableOpacity
+					onPress={() => {
+						dispatch({ type: 'server/setUser', data: user.email });
+						dispatch({ type: 'server/join', data: user.name });
+						navigation.navigate('FriendList');
+					}}
+				>
+					<MaterialIcons name='message' size={40} color='black' />
+				</TouchableOpacity>
 			</View>
 			<Text style={styles.questionStyle}> ¿Qué buscas hoy? </Text>
 
