@@ -22,15 +22,15 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
-import ComAccesoriesScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
-import ComFoodScreen from './src/screens/commerces/ComFoodScreen';
-import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
-import ComProductDetailsScreen from './src/screens/commerces/ComProductDetailsScreen';
-import ComServiceDetailsScreen from './src/screens/commerces/ComServiceDetailsScreen';
+import ComProductScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
-import ComSettingsScreen from './src/screens/commerces/ComSettingsScreen';
-import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryProfileScreen';
+import ComSettingsScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComVeterinaryProfileScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
 
 //Imports de Usuario
 //pets
@@ -77,6 +77,11 @@ const switchNavigator = createSwitchNavigator({
 					Chat: ChatScreen,
 					Join: JoinScreen,
 					FriendList: FriendListScreen,
+
+					ComeHome: ComHomeScreen,
+					ComeProduct: ComProductScreen,
+					ComeVet: ComVeterinaryScreen,
+					ComeService: ComServiceScreen,
 				},
 				{
 					defaultNavigationOptions: {
@@ -103,8 +108,7 @@ const switchNavigator = createSwitchNavigator({
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
 
-
-					ShopingCart: ShopingCartScreen
+					ShopingCart: ShopingCartScreen,
 				},
 				{
 					defaultNavigationOptions: {
