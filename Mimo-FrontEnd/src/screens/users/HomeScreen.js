@@ -22,45 +22,48 @@ const HomeScreen = ({ navigation }) => {
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View style={styles.parteSuperior}>
 				<TouchableOpacity onPress={() => navigation.navigate('ShopingCart')}>
-					<FontAwesome5 name="shopping-cart" size={40} color="black" />
+					<FontAwesome5 name='shopping-cart' size={40} color='black' />
 				</TouchableOpacity>
-				
-				<Image style={styles.logoStyle} source={mimoIcon} />
-				<MaterialIcons name="message" size={40} color="black" />
 
+				<Image style={styles.logoStyle} source={mimoIcon} />
+				<MaterialIcons name='message' size={40} color='black' />
 			</View>
 			<Text style={styles.questionStyle}> ¿Qué buscas hoy? </Text>
-			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
-					<Image style={styles.iconStyle} source={servicesIcon} />
-					<Text style={styles.buttonNameStyle}>Servicios</Text>
-				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-					<Image style={styles.iconStyle} source={vetIcon} />
-					<Text style={styles.buttonNameStyle}>Veterinaria</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-					<Image style={styles.iconStyle} source={accesoriesIcon} />
-					<Text style={styles.buttonNameStyle}>Productos</Text>
-				</TouchableOpacity>
+			<View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
+						<Image style={styles.iconStyle} source={servicesIcon} />
+						<Text style={styles.buttonNameStyle}>Servicios</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-					<Image style={styles.iconStyle} source={postIcon} />
-					<Text style={styles.buttonNameStyle}>Blogs</Text>
-				</TouchableOpacity>
+					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
+						<Image style={styles.iconStyle} source={vetIcon} />
+						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
+						<Image style={styles.iconStyle} source={accesoriesIcon} />
+						<Text style={styles.buttonNameStyle}>Productos</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
+						<Image style={styles.iconStyle} source={postIcon} />
+						<Text style={styles.buttonNameStyle}>Blogs</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</View>
 	);
 };
 const styles = StyleSheet.create({
-
 	parteSuperior: {
+		flexShrink: 1,
+		marginBottom: 5,
 		marginHorizontal: 20,
 		flexDirection: 'row',
-		marginTop: 50
+		marginTop: 50,
 	},
 
 	logoStyle: {
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
 	buttonNameStyle: {
 		alignSelf: 'center',
 		marginBottom: 15,
-		fontSize: 23
+		fontSize: 23,
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
@@ -111,10 +114,10 @@ const styles = StyleSheet.create({
 		flexGrow: 1,
 	},
 	generalView: {
+		marginBottom: 10,
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 20,
 		justifyContent: 'space-around',
 		paddingHorizontal: 20,
 	},
