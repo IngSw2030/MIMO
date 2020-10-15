@@ -2,20 +2,17 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
-
+import { MaterialIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { useDispatch } from 'react-redux';
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
 	const postIcon = require('../../../assets/mimoIconComida.png');
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
 	const servicesIcon = require('../../../assets/mimoIconServicios.png');
-	const questionText = '¿Qué buscas hoy?';
-	const servicesText = 'Servicios';
-	const vetText = 'Veterinaria';
-	const accesoriesText = 'Productos';
-	const postText = 'Post';
-
-	const { getUser } = useContext(UserContext);
+	const dispatch = useDispatch();
+	const { state: user, getUser } = useContext(UserContext);
 
 	useEffect(() => {
 		getUser();
@@ -23,96 +20,114 @@ const HomeScreen = ({ navigation }) => {
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
-			<View>
+			<View style={styles.parteSuperior}>
+				<TouchableOpacity onPress={() => navigation.navigate('ShopingCart')}>
+					<FontAwesome5 name='shopping-cart' size={40} color='black' />
+				</TouchableOpacity>
+
 				<Image style={styles.logoStyle} source={mimoIcon} />
-				<Text style={styles.questionStyle}> {questionText} </Text>
-			</View>
-			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
-					<Image style={styles.iconStyle} source={servicesIcon} />
-					<Text style={styles.buttonNameStyle}>{servicesText}</Text>
-				</TouchableOpacity>
-
-				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-					<Image style={styles.iconStyle} source={vetIcon} />
-					<Text style={styles.buttonNameStyle}>{vetText}</Text>
+				<TouchableOpacity
+					onPress={() => {
+						dispatch({ type: 'server/setUser', data: user.email });
+						dispatch({ type: 'server/join', data: user.name });
+						navigation.navigate('FriendList');
+					}}
+				>
+					<MaterialIcons name='message' size={40} color='black' />
 				</TouchableOpacity>
 			</View>
-			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-					<Image style={styles.iconStyle} source={accesoriesIcon} />
-					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
-				</TouchableOpacity>
+			<Text style={styles.questionStyle}> ¿Qué buscas hoy? </Text>
 
-				<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-					<Image style={styles.iconStyle} source={postIcon} />
-					<Text style={styles.buttonNameStyle}>{postText}</Text>
-				</TouchableOpacity>
+			<View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
+						<Image style={styles.iconStyle} source={servicesIcon} />
+						<Text style={styles.buttonNameStyle}>Servicios</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
+						<Image style={styles.iconStyle} source={vetIcon} />
+						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
+						<Image style={styles.iconStyle} source={accesoriesIcon} />
+						<Text style={styles.buttonNameStyle}>Productos</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
+						<Image style={styles.iconStyle} source={postIcon} />
+						<Text style={styles.buttonNameStyle}>Blogs</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		</View>
 	);
 };
 const styles = StyleSheet.create({
+	parteSuperior: {
+		flexShrink: 1,
+		marginBottom: 5,
+		marginHorizontal: 20,
+		flexDirection: 'row',
+		marginTop: 50,
+	},
+
 	logoStyle: {
-		height: 255,
-		width: 255,
+		marginTop: 20,
+		height: 210,
+		width: 290,
 		alignSelf: 'center',
 	},
 	questionStyle: {
-		fontSize: 20,
+		fontSize: 27,
 		fontWeight: 'bold',
-		alignSelf: 'center',
+		marginLeft: 20,
 		marginBottom: 5,
 	},
 	iconStyle: {
-		height: 100,
-		width: 100,
+		height: 130,
+		width: 170,
 		alignSelf: 'center',
-		flexGrow: 1,
 	},
 	buttonNameStyle: {
 		alignSelf: 'center',
-		marginBottom: 10,
+		marginBottom: 15,
+		fontSize: 23,
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
-		height: 150,
-		width: 150,
-		marginLeft: 10,
 		marginRight: 10,
 		flexGrow: 1,
 	},
 	vetStyle: {
-		height: 150,
-		width: 150,
 		backgroundColor: '#B8DC7D',
 		borderRadius: 25,
-		marginRight: 10,
+		marginLeft: 10,
 		flexGrow: 1,
 	},
 	blogStyle: {
-		height: 150,
-		width: 150,
 		backgroundColor: '#E8778B',
 		borderRadius: 25,
-		marginLeft: 10,
 		marginRight: 10,
 		flexGrow: 1,
 	},
 	postStyle: {
-		height: 150,
-		width: 150,
 		backgroundColor: '#7E9FD1',
 		borderRadius: 25,
-		marginRight: 10,
+		marginLeft: 10,
+
 		flexGrow: 1,
 	},
 	generalView: {
+		marginBottom: 10,
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 10,
+		justifyContent: 'space-around',
+		paddingHorizontal: 20,
 	},
 });
 export default withNavigation(HomeScreen);

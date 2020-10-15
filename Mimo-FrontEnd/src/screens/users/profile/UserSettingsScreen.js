@@ -39,7 +39,15 @@ const UserSettingsScreen = ({ navigation }) => {
 			<TouchableOpacity style={styles.button}>
 				<Text style={styles.text}>Direccion</Text>
 			</TouchableOpacity>
-			<TouchableOpacity
+			{/* <TouchableOpacity
+				style={styles.button}
+				onPress={() => {
+					navigation.navigate('ComFood');
+				}}
+			>
+				<Text style={styles.text}>Comercio History</Text>
+			</TouchableOpacity> */}
+			{/* <TouchableOpacity
 				style={styles.button}
 				onPress={() => {
 					dispatch({ type: 'server/setUser', data: user.email });
@@ -48,10 +56,10 @@ const UserSettingsScreen = ({ navigation }) => {
 				}}
 			>
 				<Text style={styles.text}>Ir al chat</Text>
-			</TouchableOpacity>
+			</TouchableOpacity> */}
 
 			<TouchableOpacity style={styles.button} onPress={() => signout()}>
-				<Text style={styles.text}>Correo</Text>
+				<Text style={styles.text}>sign out (antes correo)</Text>
 			</TouchableOpacity>
 		</View>
 	);
