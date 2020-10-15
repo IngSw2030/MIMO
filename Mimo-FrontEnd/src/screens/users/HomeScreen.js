@@ -38,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
 			</View>
 			<Text style={styles.questionStyle}> ¿Qué buscas hoy? </Text>
 
-			<View>
+			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
 						<Image style={styles.iconStyle} source={servicesIcon} />
@@ -66,68 +66,68 @@ const HomeScreen = ({ navigation }) => {
 	);
 };
 const styles = StyleSheet.create({
+	parteInferior: {
+		flex: 1,
+		justifyContent: 'space-around',
+	},
 	parteSuperior: {
-		flexShrink: 1,
-		marginBottom: 5,
-		marginHorizontal: 20,
+		paddingHorizontal: '5%',
 		flexDirection: 'row',
-		marginTop: 50,
+		paddingTop: '10%',
+		flex: 0.6,
 	},
 
 	logoStyle: {
-		marginTop: 20,
-		height: 210,
-		width: 290,
+		flex: 1,
+		height: '100%',
 		alignSelf: 'center',
 	},
 	questionStyle: {
 		fontSize: 27,
 		fontWeight: 'bold',
-		marginLeft: 20,
-		marginBottom: 5,
+		marginLeft: '5%',
+		marginBottom: '2%',
 	},
 	iconStyle: {
-		height: 130,
-		width: 170,
+		flex: 1,
+		width: '100%',
 		alignSelf: 'center',
 	},
 	buttonNameStyle: {
-		alignSelf: 'center',
 		marginBottom: 15,
 		fontSize: 23,
+		alignSelf: 'center',
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
-		marginRight: 10,
-		flexGrow: 1,
+		marginRight: '2.5%',
+		flex: 1,
 	},
 	vetStyle: {
 		backgroundColor: '#B8DC7D',
 		borderRadius: 25,
-		marginLeft: 10,
-		flexGrow: 1,
+		marginLeft: '2.5%',
+		flex: 1,
 	},
 	blogStyle: {
 		backgroundColor: '#E8778B',
 		borderRadius: 25,
-		marginRight: 10,
-		flexGrow: 1,
+		marginRight: '2.5%',
+		flex: 1,
 	},
 	postStyle: {
 		backgroundColor: '#7E9FD1',
 		borderRadius: 25,
-		marginLeft: 10,
-
-		flexGrow: 1,
+		marginLeft: '2.5%',
+		flex: 1,
 	},
 	generalView: {
-		marginBottom: 10,
-		justifyContent: 'center',
 		flexDirection: 'row',
-		flexWrap: 'wrap',
 		justifyContent: 'space-around',
-		paddingHorizontal: 20,
+		paddingHorizontal: '5%',
+		flex: 1,
+		paddingBottom: '5%'
 	},
 });
 export default withNavigation(HomeScreen);
