@@ -28,19 +28,25 @@ router.post('/save', async (req, res) => {
 
 //Query para encontrar mis mascotas
 router.get('/myPets', async (req, res) => {
-	try {
-		const pets = await Pet.find({ idUser: req.user._id });
-		res.send({ pets });
-	} catch (err) {
-		res.status(422).send({ error: 'No se ha podido publicar el producto' });
-	}
+
+    try {
+        const pets = await Pet.find({idUser: req.user._id});
+        res.send({ pets });
+    } catch (err) {
+        res.status(422).send({ error: "No se ha podido publicar el producto" });
+    }
 });
 
 router.post('/update', async (req, res) => {
-	try {
-		const { name, age, species, photo, id } = req.body;
-
-		const pet = await Pet.findOne({ _id: id });
+    try {
+        
+        const { 
+            name,
+            age,
+            species,
+            photo,
+            id
+        } = req.body;
 
 		let newName, newAge, newSpecies, newPhoto;
 

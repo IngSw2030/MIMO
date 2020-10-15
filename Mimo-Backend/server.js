@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 require('./src/models/User');
 require('./src/models/Pet');
 require('./src/models/Product');
@@ -13,8 +14,13 @@ const app = express();
 
 connectDB();
 
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Init Middleware
-app.use(express.json({ extended: false }));
+//app.use(express.urlencoded({ extended: true }));
+//app.use(express.json()); 
 
 //Connect Database
 app.get('/', (req, res) => res.send('API Running'));
@@ -66,6 +72,12 @@ io.on('connection', socket => {
 		switch (action.type) {
 			case 'server/setUser':
 				//action.data es el correo del usuario.
+				const userValues2 = Object.values(users);
+				const previousConnection = userValues2.find(currentUser => currentUser.userId == action.data);
+				if (previousConnection !== undefined) {
+					//se asegura que solo exista una conexion por usuario
+					delete previousConnection;
+				}
 				users[socket.id] = { userId: action.data }; //se relaciona un userId a un socket.
 				console.log('users[socket.id] = ', users[socket.id]);
 				break;

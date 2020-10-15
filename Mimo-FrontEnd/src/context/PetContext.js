@@ -58,5 +58,5 @@ const deletePet = () => async ({ id }) => {
 export const { Provider, Context } = createDataContext(
 	userReducer,
 	{ getMyPets, updateImage, updateName, deletePet, savePet },
-	{ errorMessage: '', photo: null, name: '', tipo: 0 }
+	{ errorMessage: '', photo: null, name: '', tipo: 0, pets: [] }
 );

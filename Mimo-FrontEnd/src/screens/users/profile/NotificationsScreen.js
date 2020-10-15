@@ -56,8 +56,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginLeft: 20,
-        
-
     },
     textButtons: {
         fontSize: 20,

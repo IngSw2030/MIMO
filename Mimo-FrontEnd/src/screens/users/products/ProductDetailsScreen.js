@@ -1,19 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, Button, TextInputBase } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Context as ProductContext } from '../../../context/ProductContext';
 import usePrice from '../../../hooks/usePrice';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 const ProductDetailsScreen = ({ navigation }) => {
-	const [quantity, setQuantity] = useState(0);
+	const [quantity, setQuantity] = useState(1);
 	const [totalAmount, setTotalAmount] = useState(0);
-	const { state: productList } = useContext(ProductContext);
-	const product = productList.find(thisProduct => thisProduct.id === navigation.getParam('id'));
+	const { savePurchase } = useContext(PurchaseContext);
+	const product = navigation.getParam('product');
 	const price = usePrice(product.price);
-	const { addPurchase } = useContext(PurchaseContext);
-
-	const [currentDate, setCurrentDate] = useState('');
 
 	useEffect(() => {
 		setTotalAmount(() => quantity * product.price);
@@ -21,72 +19,103 @@ const ProductDetailsScreen = ({ navigation }) => {
 	}, [quantity]);
 	return (
 		<View style={styles.pageStyle}>
-			<View style={styles.productAttrStyle}>
-				<Image style={styles.imageStyle} source={product.image} />
-				<Text style={styles.titleStyle}>{product.name}</Text>
-				<View style={styles.descriptionViewStyle}>
-					<Text style={styles.descriptionStyle}>Descripcion del producto: </Text>
-					<Text style={styles.descriptionStyle}>{product.description}</Text>
-					<Text>Precio por unidad: {price}</Text>
-				</View>
-			</View>
+			<ScrollView style={styles.scroll}>
+				<View >
+					<Image style={styles.imageStyle} source={product.image} />
+					<Text style={styles.titleStyle}>{product.name}</Text>
+					<View style={styles.descriptionViewStyle}>
+						<Text style={styles.descriptionStyle}>{price} C/U</Text>
+						<Text style={styles.descriptionStyle}>Descripcion </Text>
+						<Text style={styles.textoNomal}>{product.description}  </Text>
 
-			<View style={styles.purchaseStyle}>
-				<Text>{totalAmount}</Text>
-				<Button style={styles.buttonStyle} title='   +   ' onPress={() => setQuantity(quantity + 1)} />
-				<Text>{quantity}</Text>
-				<Button
-					style={styles.buttonStyle}
-					title='   -   '
-					onPress={() => setQuantity(quantity >= 1 ? quantity - 1 : quantity)}
-				/>
-				<Button
-					title='Comprar'
-					onPress={() => {
-						alert('Compra realizada con exito');
-						addPurchase(product.name, quantity, totalAmount, product.image, () => navigation.navigate('History'));
-					}}
-				/>
-			</View>
+					</View>
+				</View>
+
+				<View style={styles.cantidadGeneral}>
+					<TouchableOpacity
+						onPress={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)}
+					>
+						<Entypo name="minus" size={36} color="black" />
+					</TouchableOpacity>
+					<Text style={styles.cantidad}>{quantity}</Text>
+
+					<TouchableOpacity
+						onPress={() => setQuantity(quantity + 1)}
+					>
+						<Entypo name="plus" size={36} color="black" />
+					</TouchableOpacity>
+
+					<TouchableOpacity
+						style={styles.botonCarrito}
+						onPress={() => {
+							alert('Agregado al carrito con exito');
+							savePurchase({ idProduct: product._id, amount: quantity }, () => navigation.navigate('ShopingCart'));
+						}}
+					>
+						<FontAwesome5 name="shopping-cart" size={40} color="black" />
+						<Text style={{ fontSize: 24 }}>Agregar al carrito</Text>
+					</TouchableOpacity>
+				</View>
+
+
+
+			</ScrollView>
+
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+
+	cantidadGeneral: {
+		flexDirection: 'row',
+	},
+	cantidad: {
+		fontSize: 36,
+		fontWeight: 'bold',
+		marginHorizontal: 30
+	},
+	botonCarrito: {
+		backgroundColor: "#E8916C",
+		borderRadius: 25,
+		padding: 8,
+		flexDirection: 'row'
+	},
+	textoNomal: {
+		fontSize: 20
+	},
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
 		backgroundColor: '#EDDF98',
-		justifyContent: 'space-between',
+
 	},
 	titleStyle: {
-		fontSize: 18,
+		fontSize: 30,
 		alignSelf: 'center',
 	},
-	buttonStyle: {},
 	productAttrStyle: {
-		flexShrink: 3,
-		alignItems: 'flex-start',
+		flex: 1,
 		flexDirection: 'column',
+
 	},
 	imageStyle: {
-		resizeMode: 'contain',
-		maxWidth: Dimensions.get('window').width,
+		marginTop: 50,
 		flexShrink: 2,
+		height: 350,
+		width: 350,
+		borderColor: 'black',
+		borderWidth: 2,
+		alignSelf: 'center'
 	},
 	descriptionStyle: {
 		fontWeight: 'bold',
-		flexWrap: 'wrap',
+		fontSize: 20
 	},
 	descriptionViewStyle: {
-		justifyContent: 'space-around',
-		alignSelf: 'stretch',
+		minHeight: 270
 	},
-	purchaseStyle: {
-		flexGrow: 2,
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
-	},
+
 });
 
 export default withNavigation(ProductDetailsScreen);

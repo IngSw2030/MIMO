@@ -1,36 +1,78 @@
 import createDataContext from './createDataContext';
-import { SectionList } from 'react-native';
+import instance from '../api/mimo';
+import { navigate } from '../navigationRef';
+import { call } from 'react-native-reanimated';
 
 const purchaseReducer = (state, action) => {
 	switch (action.type) {
-		case 'add_purchase':
-			var day = new Date().getDate(); //Current Date
-			var month = new Date().getMonth() + 1; //Current Month
-			var year = new Date().getFullYear(); //Current Year
-			var hours = new Date().getHours(); //Current Hours
-			var min = new Date().getMinutes(); //Current Minutes
-			var sec = new Date().getSeconds(); //Current Seconds
-			return [
-				...state,
-				{
-					name: action.payload.name + '',
-					quantity: action.payload.quantity,
-					totalAmount: action.payload.totalAmount,
-					image: action.payload.image,
-					date: day + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec + '',
-					id: Math.floor(Math.random() * 9999).toString(),
-				},
-			];
-		default:
-			return state;
+		case 'savePurchase':
+			return { ...state, purchase: action.payload };
+		case 'getMyPurchases':
+			return action.payload;
+		case 'getMyShopingCart':
+			return action.payload;
+		case 'updateStatus':
+			return {...state};
+		case 'deletePurchase':
+			return {...state};
+		case 'add_error':
+			return { ...state, errorMessage: action.payload };
 	}
 };
 
-const addPurchase = dispatch => {
-	return (name, quantity, totalAmount, image, callback) => {
-		dispatch({ type: 'add_purchase', payload: { name, quantity, totalAmount, image } });
-		callback(); //el callback es un navigate
-	};
+const savePurchase = dispatch => async ({ idProduct, amount }, callback) => {
+	try {
+		const response = await instance.post('/api/Purchase/savePurchase', { idProduct, amount });
+		dispatch({ type: 'savePurchase', payload: response.data.purchase });
+		callback();
+	} catch (err) {
+		dispatch({ type: 'add_error' });
+	}
 };
 
-export const { Context, Provider } = createDataContext(purchaseReducer, { addPurchase }, []);
+const getMyPurchases = dispatch => async () => {
+	try {
+		const response = await instance.get('/api/Purchase/myPurchases');
+		dispatch({ type: 'getMyPurchases', payload: response.data.purchases });
+	} catch (err) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+};
+
+const getMyShopingCart = dispatch => async () => {
+	try {
+		const response = await instance.get('/api/Purchase/myShopingCart');
+		dispatch({ type: 'getMyShopingCart', payload: response.data.purchases });
+	} catch (err) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+};
+
+const updateStatus = dispatch => async({ idPurchase, status }) => {
+	try {
+		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
+		dispatch({ type: 'updateStatus', payload: response.data });
+	} catch (error) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+}
+
+const deletePurchase = dispatch => async ({idPurchase}) => {
+	try {
+		const response = await instance.post('/api/Purchase/delete', {idPurchase});
+
+		dispatch({ type: 'deletePurchase', payload: response.data });
+	} catch (err) {
+		console.log('Error getMyPurchases', err);
+		dispatch({ type: 'add_error' });
+	}
+}
+
+export const { Provider, Context } = createDataContext(
+	purchaseReducer,
+	{ savePurchase, getMyPurchases, getMyShopingCart, deletePurchase, updateStatus },
+	{ errorMessage: '', purchase: {}, purchases: [{}] }
+);

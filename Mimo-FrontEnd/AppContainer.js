@@ -4,7 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 //Homes
 import HomePageScreen from './src/screens/users/HomeScreen';
 import ComHomeScreen from './src/screens/commerces/ComHomeScreen';
@@ -37,14 +37,14 @@ import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
 import AddPetScreen from './src/screens/users/pets/AddPetScreen';
 import PetsScreen from './src/screens/users/pets/PetsScreen';
 //products
-import AccesoriesScreen from './src/screens/users/products/AccesoriesScreen';
-import FoodScreen from './src/screens/users/products/FoodScreen';
+import ProductScreen from './src/screens/users/products/ProductScreen';
 import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
 //profile
 import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
 import HistoryScreen from './src/screens/users/profile/HistoryScreen';
+import ShopingCartScreen from './src/screens/users/profile/ShopingCartScreen';
 //services
 import AquariumCleanerScreen from './src/screens/users/services/AquariumCleanerScreen';
 import GroomingScreen from './src/screens/users/services/GroomingScreen';
@@ -81,8 +81,7 @@ const switchNavigator = createSwitchNavigator({
 					ComeHome: ComHomeScreen,
 					ComeProduct: ComProductScreen,
 					ComeVet: ComVeterinaryScreen,
-					ComeService:  ComServiceScreen 
-
+					ComeService: ComServiceScreen,
 				},
 				{
 					defaultNavigationOptions: {
@@ -94,9 +93,8 @@ const switchNavigator = createSwitchNavigator({
 			Home: createStackNavigator(
 				{
 					HomePage: HomePageScreen,
-					Accesories: AccesoriesScreen,
+					Product: ProductScreen,
 					Veterinaries: VeterinariesScreen,
-					Food: FoodScreen,
 					Services: ServicesScreen,
 					ProductDetails: ProductDetailsScreen,
 					Grooming: GroomingScreen,
@@ -109,6 +107,8 @@ const switchNavigator = createSwitchNavigator({
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
+
+					ShopingCart: ShopingCartScreen,
 				},
 				{
 					defaultNavigationOptions: {
@@ -125,21 +125,21 @@ const switchNavigator = createSwitchNavigator({
 				tabBarIcon: ({ focused, horizontal, tintColor }) => {
 					const { routeName } = navigation.state;
 					if (routeName === 'Home') {
-						return <MaterialCommunityIcons name='home' color={tintColor} size={26} />;
+						return <FontAwesome5 name='home' color={tintColor} size={26} />;
 					}
-					if (routeName === 'Gallery') {
-						return <MaterialCommunityIcons name='history' size={26} color={tintColor} />;
+					if (routeName === 'History') {
+						return <FontAwesome5 name='history' size={26} color={tintColor} />;
 					}
 					if (routeName === 'Account') {
-						return <MaterialCommunityIcons name='face-profile' size={26} color={tintColor} />;
+						return <FontAwesome5 name='user-alt' size={26} color={tintColor} />;
 					}
 				},
 			}),
 			tabBarOptions: {
-				activeTintColor: '#FFFFFF',
-				inactiveTintColor: '#9d9fa3',
+				activeTintColor: '#000',
+				inactiveTintColor: '#555555',
 				tabStyle: {
-					backgroundColor: '#5C5A59',
+					backgroundColor: '#EDDF98',
 					borderTopColor: 'transparent',
 				},
 			},
