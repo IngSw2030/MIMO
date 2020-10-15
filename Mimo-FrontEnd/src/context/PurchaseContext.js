@@ -5,6 +5,8 @@ import { call } from 'react-native-reanimated';
 
 const purchaseReducer = (state, action) => {
 	switch (action.type) {
+		case 'getmySells':
+			return action.payload;
 		case 'savePurchase':
 			return { ...state, purchase: action.payload };
 		case 'getMyPurchases':
@@ -19,7 +21,17 @@ const purchaseReducer = (state, action) => {
 			return { ...state, errorMessage: action.payload };
 	}
 };
-
+const getMySells = dispatch =>async()=>{
+	try{
+		const response = await instance.get('/api/Purchase/mySells');
+		
+		dispatch({type: 'getmySells',payload: response.data.sells});
+	}
+	catch(err)
+	{
+		dispatch({ type: 'add_error' });
+	}
+};
 const savePurchase = dispatch => async ({ idProduct, amount }, callback) => {
 	try {
 		const response = await instance.post('/api/Purchase/savePurchase', { idProduct, amount });
@@ -73,6 +85,6 @@ const deletePurchase = dispatch => async ({idPurchase}) => {
 
 export const { Provider, Context } = createDataContext(
 	purchaseReducer,
-	{ savePurchase, getMyPurchases, getMyShopingCart, deletePurchase, updateStatus },
+	{ savePurchase, getMyPurchases, getMyShopingCart, deletePurchase, updateStatus,getMySells },
 	{ errorMessage: '', purchase: {}, purchases: [{}] }
 );

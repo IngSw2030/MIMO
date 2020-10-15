@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {Context as UserContext} from '../../../context/UserContext';
 
@@ -11,10 +11,15 @@ const UserProfileScreen = ({ navigation }) => {
 	
 	return (
 		<View>
+			
 			<View>
 				<Image style={styles.photostyle} source={mimoIcon} />
 				<Text style={styles.nameStyle}> {state.name} </Text>
 			</View>
+			<Button
+			onPress={()=>navigation.navigate('comercHome')}
+			title='ir a comercio'
+			/>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Pets')}>
 					<Text style={styles.textInfoStyle}> Mis mascotas ''</Text>

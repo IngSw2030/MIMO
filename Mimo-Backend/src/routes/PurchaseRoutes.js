@@ -34,7 +34,7 @@ router.get('/mySells', async (req, res) => {
 	try {
 		//tengo que buscar las compras que tengan productos con mi id.
 
-		const productAndPurchases = await Product.aggregate([
+		const sells = await Product.aggregate([
 			//esto es un array de objetos
 			//producto esta en medio de user y purchases
 
@@ -113,10 +113,8 @@ router.get('/mySells', async (req, res) => {
 				},
 			},
 		]);
-		var sells = [];
-		productAndPurchases.forEach(element => {
-			sells = [...sells, element.purchase];
-		});
+	
+		
 		res.send({ sells });
 	} catch (error) {
 		console.log('Error mySells', error);
