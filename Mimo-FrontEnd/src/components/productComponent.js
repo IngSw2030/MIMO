@@ -32,11 +32,9 @@ const styles = StyleSheet.create({
 	buttonStyle: {
 		flex: 1,
 		flexDirection: 'column',
-		backgroundColor: '#7E9FD1',
+		backgroundColor: '#FFA1A9',
 		borderRadius: 20,
 		margin: 5,
-		minHeight: 120,
-		maxWidth: 120,
 	},
 	imageStyle: {
 		height: 90,
@@ -47,12 +45,14 @@ const styles = StyleSheet.create({
 	nameStyle: {
 		fontWeight: 'bold',
 		marginLeft: 5,
+		alignSelf: 'center'
 	},
 	priceStyle: {
 		alignSelf: 'center',
 	},
 	viewStyle: {
 		flex: 1,
+		width: 140
 	},
 });
 

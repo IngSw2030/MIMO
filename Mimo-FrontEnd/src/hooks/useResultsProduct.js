@@ -2,9 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import instance from '../api/mimo';
 
 export default () => {
-	/* 
-    
-    */
 
 	const [results, setResults] = useState([]);
 
@@ -12,8 +9,6 @@ export default () => {
 
 	const searchApi = async (searchTerm, animal) => {
 		try {
-			console.log('SearchTerm', searchTerm);
-			console.log('animal', animal);
 			const response = await instance.post('api/Product/allProducts', {
 				name: searchTerm,
 				pets: animal,
