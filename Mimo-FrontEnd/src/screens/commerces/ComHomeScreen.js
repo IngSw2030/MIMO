@@ -12,7 +12,7 @@ const ComHomeScreen = ({navigation}) => {
 	const questionText = 'Administrar';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
-	const accesoriesText = 'Accesorios';
+	const accesoriesText = 'Productos';
 	const foodText = 'Post';
 
 	const { getUser } = useContext(UserContext);
