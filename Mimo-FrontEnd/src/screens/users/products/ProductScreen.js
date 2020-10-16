@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
 	},
 	logoStyle: {
 		height: 90,
-		width: 140,
+		width: 90,
 		alignSelf: "flex-end",
 	},
 	tituloPantalla: {

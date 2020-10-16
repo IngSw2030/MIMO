@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView }
 import { withNavigation } from 'react-navigation';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 import usePrice from '../../../hooks/usePrice';
+import { LogBox } from 'react-native';
 const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { state: purchases, getMyPurchases } = useContext(PurchaseContext);
 	useEffect(() => {
+		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 		getMyPurchases();
 	}, []);
 
@@ -21,8 +23,8 @@ const HistoryScreen = () => {
 		if (item.status === status) {
 			return (
 				<View style={styles.containerPhoto}>
-					<View>
-						<Image style={styles.image} source={mimoIcon} />
+					<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
+						<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.foto}` }} />
 					</View>
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.producto}</Text>
@@ -78,12 +80,12 @@ const HistoryScreen = () => {
 				<View style={styles.generalView}>
 					<TouchableOpacity
 						style={styles.desplegables}
-						onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
+						onPress={() => setMostrarDeclinadas(!mostrarDeclinadas)}
 					>
 						<Text style={styles.textoDesplegable}>Declinadas</Text>
 					</TouchableOpacity>
 					{
-						mostrarConfirmar ? <FlatList
+						mostrarDeclinadas ? <FlatList
 							keyExtractor={purchases => purchases.id}
 							data={purchases}
 							renderItem={({ item }) => {
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		width: '95%',
 		height: 45,
-
 	},
 	title: {
 		marginTop: '15%',
@@ -120,31 +121,28 @@ const styles = StyleSheet.create({
 	generalView: {
 		marginTop: '5%',
 		flexWrap: 'wrap',
-		marginHorizontal: '5%',
+		marginLeft: '3%',
+
 	},
 	image: {
-		height: '80%',
-		width: 80,
-		marginBottom: '3%',
-		borderRadius: 360,
-		alignContent: 'center',
-		margin: 2,
+		height: '85%',
+		width: 100,
+		borderRadius: 30,
+		marginLeft: '17%'
 	},
 	info: {
-		fontSize: 10,
+		fontSize: 13,
 		fontWeight: 'bold',
-		marginTop: 4,
 		width: 150,
 	},
 	containerPhoto: {
-		height: 120,
-		width: 300,
+		height: 140,
+		width: '100%',
 		backgroundColor: '#FFA1A9',
-		marginBottom: 10,
+		marginTop: '2%',
+		marginBottom: '2%',
 		flexDirection: 'row',
-		borderRadius: 20,
-		alignSelf: 'center',
-		marginHorizontal: '9%',
+		borderRadius: 25,
 	},
 	text: {
 		fontSize: 20,
@@ -153,9 +151,9 @@ const styles = StyleSheet.create({
 	},
 	container: {
 		height: 75,
-		width: 100,
 		backgroundColor: '#FFA1A9',
 		marginBottom: 5,
+		flex: 1
 	},
 });
 

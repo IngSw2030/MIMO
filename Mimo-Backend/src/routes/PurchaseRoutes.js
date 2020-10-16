@@ -134,7 +134,7 @@ router.get('/myPurchases', async (req, res) => {
 				nombreVendedor = 'EsteMan';
 				numeroVendedor = '305111111';
 			} else {
-				nombreVendedor = retailer.retailName;
+				nombreVendedor = retailer.name;
 				numeroVendedor = retailer.phone;
 			}
 			purchases[index] = {

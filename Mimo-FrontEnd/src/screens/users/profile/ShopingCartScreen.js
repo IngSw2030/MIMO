@@ -30,9 +30,8 @@ const MassagesScreen = ({ navigation }) => {
 
 	const [quantity, setQuantity] = useState(1);
 
-	//var aPagar = pagar(purchases);
-	//const aPagar = 0;
-	const [aPagar, setAPagar] = useState(pagar(purchases));
+	const bPagar = pagar(purchases);
+	const [aPagar, setAPagar] = useState(bPagar);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
 
@@ -62,6 +61,7 @@ const MassagesScreen = ({ navigation }) => {
 											onPress={async () => {
 												try {
 													await deletePurchase({ idPurchase: item.id });
+													purchases.delete
 													await getMyShopingCart();
 												} catch (error) {
 													console.log(error);
@@ -123,10 +123,12 @@ const MassagesScreen = ({ navigation }) => {
 						<Text style={styles.totalStyle}>Cancelar ''</Text>
 					</View>
 				</TouchableOpacity>
+
 				<TouchableOpacity
-					onPress={() => {
-						comprarPurchases();
+					onPress={async () => {
 						navigation.navigate('HistoryScreen');
+						await comprarPurchases();
+						await getMyShopingCart();
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>
