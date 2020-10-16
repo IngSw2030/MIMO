@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -92,7 +92,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: 100,
 		alignSelf: 'center',
-
 	},
 	buttonNameStyle: {
 		marginBottom: 15,
@@ -128,7 +127,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		paddingHorizontal: '5%',
 		flex: 1,
-		paddingBottom: '5%'
+		paddingBottom: '5%',
 	},
 });
 export default withNavigation(HomeScreen);
