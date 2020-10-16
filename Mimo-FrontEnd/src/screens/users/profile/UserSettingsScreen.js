@@ -27,8 +27,8 @@ const UserSettingsScreen = ({ navigation }) => {
 					{imagenA ? (
 						<Image source={{ uri: `data:image/gif;base64,${imagenA}` }} style={styles.image} />
 					) : (
-						<FontAwesome name='user-circle-o' size={150} color='white' />
-					)}
+							<FontAwesome name='user-circle-o' size={150} color='white' />
+						)}
 				</TouchableOpacity>
 			</View>
 			<Text style={styles.name}>Nombre de usuario</Text>

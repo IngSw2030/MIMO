@@ -85,23 +85,26 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '300',
         color: '#000',
-        alignSelf: "center"
+        alignSelf: "center",
+        marginBottom: '10%'
     },
 
     roundedContainerStyle: {
         marginTop: 30,
-        marginLeft: 30,
         backgroundColor: "#B0EFEF",
-        height: 42,
-        width: 320,
+        height: 50,
+        width: 300,
         borderRadius: 75,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        alignSelf: 'center'
     },
 
     inputStyle: {
         color: "#000",
         fontSize: 18,
-        marginLeft: 15
+        marginLeft: 15,
+        alignSelf: "center",
+
     },
 
     errorMessage: {
@@ -120,16 +123,16 @@ const styles = StyleSheet.create({
     },
 
     submitTextContainer: {
-        marginHorizontal: 130,
-        height: 32,
-        width: 114,
+        alignSelf: "center",
+        height: 40,
+        width: 130,
         backgroundColor: "#88CCF2",
         borderRadius: 18,
         justifyContent: "center",
     },
 
     buttonText: {
-        fontSize: 18,
+        fontSize: 20,
         color: "#000",
         alignSelf: "center",
     }

@@ -139,7 +139,7 @@ router.get('/myPurchases', async (req, res) => {
 			}
 			purchases[index] = {
 				producto: product.name,
-				foto: product.foto,
+				foto: product.photo,
 				unidades: purchases[index].amount,
 				precioUn: product.price,
 				precio: product.price * purchases[index].amount,
@@ -174,7 +174,7 @@ router.get('/myShopingCart', async (req, res) => {
 			}
 			purchases[index] = {
 				producto: product.name,
-				foto: product.foto,
+				foto: product.photo,
 				unidades: purchases[index].amount,
 				precioUn: product.price,
 				precio: product.price * purchases[index].amount,

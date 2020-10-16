@@ -16,7 +16,7 @@ const StartScreen = ({ navigation }) => {
 			<Image style={styles.logoStyle} source={mimoIcon} />
 			<View style={styles.buttonContainer}>
 				<TouchableOpacity style={styles.roundedContainerStyle1} onPress={() => navigation.navigate('Signin')}>
-					<Text style={styles.buttonTextStyle}>INICIAR SESIÓN</Text>
+					<Text style={styles.buttonTextStyle}>INICIAR SESIÓN ''</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.roundedContainerStyle2} onPress={() => navigation.navigate('Signup')}>
 					<Text style={styles.buttonTextStyle}>REGISTRARSE</Text>
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
 	},
 	logoStyle: {
 		marginTop: 60,
-		height: 300,
-		width: 235,
+		height: 250,
+		width: 250,
 		alignSelf: 'center',
 	},
 	roundedContainerStyle1: {

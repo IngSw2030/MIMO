@@ -24,8 +24,9 @@ const HomeScreen = ({ navigation }) => {
 				<TouchableOpacity onPress={() => navigation.navigate('ShopingCart')}>
 					<FontAwesome5 name='shopping-cart' size={40} color='black' />
 				</TouchableOpacity>
-
-				<Image style={styles.logoStyle} source={mimoIcon} />
+				<View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
+					<Image style={styles.logoStyle} source={mimoIcon} />
+				</View>
 				<TouchableOpacity
 					onPress={() => {
 						dispatch({ type: 'server/setUser', data: user.email });
@@ -74,12 +75,13 @@ const styles = StyleSheet.create({
 		paddingHorizontal: '5%',
 		flexDirection: 'row',
 		paddingTop: '10%',
-		flex: 0.6,
+		flex: 0.65,
+
 	},
 
 	logoStyle: {
-		flex: 1,
-		height: 232,
+		height: 220,
+		width: 220,
 		alignSelf: 'center',
 	},
 	questionStyle: {
@@ -89,29 +91,27 @@ const styles = StyleSheet.create({
 		marginBottom: '2%',
 	},
 	iconStyleTop: {
-		flex: 1,
-		width: 120,
+		height: 150,
+		width: 140,
 		alignSelf: 'center',
-		//borderColor: 'blue',
-		//borderWidth:2
 	},
 	iconStyleBot: {
-		flex: 1,
-		width: 89,
+		height: 150,
+		width: 104,
 		alignSelf: 'center',
-		//borderColor: 'blue',
-		//borderWidth:2
+		marginTop: 5
 	},
 	buttonNameStyle: {
-		marginBottom: 15,
 		fontSize: 23,
 		alignSelf: 'center',
+
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		marginRight: '2.5%',
 		flex: 1,
+		justifyContent: 'flex-start',
 	},
 	vetStyle: {
 		backgroundColor: '#B8DC7D',
@@ -137,6 +137,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: '5%',
 		flex: 1,
 		paddingBottom: '5%',
+
 	},
 });
 export default withNavigation(HomeScreen);

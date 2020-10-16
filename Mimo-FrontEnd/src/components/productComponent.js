@@ -20,7 +20,7 @@ const ProductComponent = props => {
 					})
 				}
 			>
-				<Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${product.image}` }} />
+				<Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${product.photo}` }} />
 				<Text style={styles.nameStyle}>{name}</Text>
 				<Text style={styles.priceStyle}>{price}</Text>
 			</TouchableOpacity>
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 	},
 	imageStyle: {
 		height: 90,
-		width: 70,
+		width: 90,
 		alignSelf: 'center',
 		marginTop: 5,
 	},

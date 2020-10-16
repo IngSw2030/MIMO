@@ -10,9 +10,10 @@ const pagar = function (purchases) {
 	if (!purchases) {
 		return acum;
 	}
-	purchases.forEach(element => {
-		acum += element.precioUn * element.unidades;
-	});
+	for (var i = 0; i < purchases.length; i++) {
+		acum += purchases[i].precioUn * purchases[i].unidades;
+	}
+
 	return acum;
 };
 const MassagesScreen = ({ navigation }) => {
@@ -29,14 +30,15 @@ const MassagesScreen = ({ navigation }) => {
 
 	const [quantity, setQuantity] = useState(1);
 
-	var aPagar = pagar(purchases.purchases);
+	//var aPagar = pagar(purchases);
 	//const aPagar = 0;
+	const [aPagar, setAPagar] = useState(pagar(purchases));
 
 	const mimoIcon = require('../../../../assets/mimo.png');
 
 	return (
 		<View style={styles.generalViewStyle}>
-			<Text style={styles.titleStyle}>Carrito de Compras</Text>
+			<Text style={styles.titleStyle}>Carrito de Compras ''</Text>
 			<View style={styles.purchasesListStyle}>
 				<FlatList
 					keyExtractor={purchases => purchases.id}
@@ -44,16 +46,15 @@ const MassagesScreen = ({ navigation }) => {
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPurchase}>
-								<View>
+								<View style={{ flex: 1, flexDirection: 'column', alignContent: 'center', justifyContent: 'center' }}>
 									{item.foto ? (
 										<Image
 											style={styles.image}
 											source={{ uri: `data:image/gif;base64,${item.foto}` }}
-											style={styles.image}
 										/>
 									) : (
-										<Image style={styles.image} source={mimoIcon} />
-									)}
+											<Image style={styles.image} source={mimoIcon} />
+										)}
 								</View>
 								<View style={styles.containerPurchaseAmount}>
 									<View style={styles.deleteStyle}>
@@ -85,16 +86,22 @@ const MassagesScreen = ({ navigation }) => {
 										</View>
 									</View>
 									<View style={styles.amountStyle}>
-										<TouchableOpacity onPress={() => setQuantity(quantity > 1 ? quantity - 1 : quantity)}>
-											<Feather name='minus' size={20} color='black' />
+										<TouchableOpacity onPress={() => {
+											setQuantity(quantity > 1 ? quantity - 1 : quantity)
+											setAPagar(aPagar - item.precioUn)
+										}}>
+											<Feather name='minus' size={35} color='black' />
 										</TouchableOpacity>
 										{quantity === 1 ? (
 											<Text style={{ fontSize: 30 }}> {item.unidades} </Text>
 										) : (
-											<Text style={{ fontSize: 30 }}> {quantity} </Text>
-										)}
-										<TouchableOpacity onPress={() => setQuantity(quantity < 15 ? quantity + 1 : quantity)}>
-											<Feather name='plus' size={20} color='black' />
+												<Text style={{ fontSize: 30 }}> {quantity} </Text>
+											)}
+										<TouchableOpacity onPress={() => {
+											setQuantity(quantity < 15 ? quantity + 1 : quantity)
+											setAPagar(aPagar + item.precioUn)
+										}}>
+											<Feather name='plus' size={35} color='black' />
 										</TouchableOpacity>
 									</View>
 								</View>
@@ -113,7 +120,7 @@ const MassagesScreen = ({ navigation }) => {
 			<View style={styles.cancelConfirm}>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<View style={styles.roundedContainerStyleCa}>
-						<Text style={styles.totalStyle}>Cancelar</Text>
+						<Text style={styles.totalStyle}>Cancelar ''</Text>
 					</View>
 				</TouchableOpacity>
 				<TouchableOpacity
@@ -123,7 +130,7 @@ const MassagesScreen = ({ navigation }) => {
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>
-						<Text style={styles.totalStyle}>Comprar</Text>
+						<Text style={styles.totalStyle}>Comprar ''</Text>
 					</View>
 				</TouchableOpacity>
 			</View>
@@ -154,7 +161,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 		flexDirection: 'row',
 		borderRadius: 25,
-
 		justifyContent: 'space-between',
 	},
 	info: {
@@ -162,11 +168,11 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	image: {
-		height: '80%',
+		height: 90,
 		width: 90,
 		marginLeft: 2,
 		marginBottom: 2,
-		borderRadius: 360,
+		borderRadius: 50,
 	},
 	container: {
 		height: 60,

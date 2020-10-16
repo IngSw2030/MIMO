@@ -74,6 +74,8 @@ const AccesoriesScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
+							console.log({ item })
+
 							return <ProductComponent product={item} />;
 						}}
 					/>
@@ -87,6 +89,7 @@ const AccesoriesScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
+							console.log({ item })
 							return <ProductComponent product={item} />;
 						}}
 					/>
@@ -96,7 +99,7 @@ const AccesoriesScreen = ({ navigation }) => {
 			</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
-						data={accesories}
+						data={cleaning}
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
@@ -109,7 +112,7 @@ const AccesoriesScreen = ({ navigation }) => {
 			</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
-						data={accesories}
+						data={others}
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {

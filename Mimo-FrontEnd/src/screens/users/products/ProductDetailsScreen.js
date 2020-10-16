@@ -21,7 +21,7 @@ const ProductDetailsScreen = ({ navigation }) => {
 		<View style={styles.pageStyle}>
 			<ScrollView style={styles.scroll}>
 				<View >
-					<Image style={styles.imageStyle} source={product.image} />
+					<Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${product.photo}` }} />
 					<Text style={styles.titleStyle}>{product.name}</Text>
 					<View style={styles.descriptionViewStyle}>
 						<Text style={styles.descriptionStyle}>{price} C/U</Text>
@@ -104,9 +104,8 @@ const styles = StyleSheet.create({
 		flexShrink: 2,
 		height: 350,
 		width: 350,
-		borderColor: 'black',
-		borderWidth: 2,
-		alignSelf: 'center'
+		alignSelf: 'center',
+		borderRadius: 25
 	},
 	descriptionStyle: {
 		fontWeight: 'bold',

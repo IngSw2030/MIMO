@@ -11,7 +11,7 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screenContainer}>
-    <Image style={styles.logoStyle} source={mimoIcon} /> 
+      <Image style={styles.logoStyle} source={mimoIcon} />
       <View style={styles.authContainer}>
         <NavigationEvents onWillBlur={clearErrorMessage} />
         <AuthForm
@@ -37,21 +37,21 @@ SignupScreen.navigationOptions = () => {
 };
 
 const styles = StyleSheet.create({
-    logoStyle: {
-        marginTop: 30,
-        height: 250,
-        width: 200,
-        alignSelf: 'center',
-    },
-    screenContainer:{
+  logoStyle: {
+    marginTop: '20%',
+    height: 180,
+    width: 180,
+    alignSelf: 'center',
+  },
+  screenContainer: {
     flex: 1,
     backgroundColor: '#FFF7BB'
-    },  
-    authContainer: {
+  },
+  authContainer: {
     justifyContent: 'center',
     marginBottom: 250,
     marginTop: 1,
-    }
+  }
 });
 
 export default SignupScreen;
