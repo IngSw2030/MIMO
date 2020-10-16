@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
 		width: 90,
 		alignSelf: 'center',
 		marginTop: 5,
+		borderRadius: 25
 	},
 	nameStyle: {
 		fontWeight: 'bold',

@@ -4,6 +4,7 @@ import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 import usePrice from '../../../hooks/usePrice';
 import { Feather } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
+import { navigate } from '../../../navigationRef';
 
 const pagar = function (purchases) {
 	let acum = 0;
@@ -125,8 +126,9 @@ const MassagesScreen = ({ navigation }) => {
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
+						
 						comprarPurchases();
-						navigation.navigate('HistoryScreen');
+						navigate('HistoryScreen');
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>

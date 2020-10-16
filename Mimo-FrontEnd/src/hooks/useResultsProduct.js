@@ -30,7 +30,7 @@ export default () => {
 		return obj.category === 'limpieza';
 	});
 	const others = results.filter(obj => {
-		return obj.category === 'otro';
+		return obj.category === 'otros';
 	});
 
 	useEffect(() => {

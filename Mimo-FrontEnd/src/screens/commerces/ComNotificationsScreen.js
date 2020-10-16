@@ -1,57 +1,74 @@
-import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Button } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PurchaseContext } from '../../context/PurchaseContext';
 import usePrice from '../../hooks/usePrice';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { LogBox } from 'react-native';
+
 const ComNotificationsScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { state: purchases, updateStatus, getMySells } = useContext(PurchaseContext);
 	const mimoIcon = require('../../../assets/mimo.png');
 
-	useEffect(() => {
+	/* useEffect(() => {
 		//console.log('Purchases en NotfScreen', purchases);
-	}, []);
+	}, []); */
+
+	useEffect(() => {
+		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+	}, []) 
+
+	const [mostrarConfirmar, setMostrarConfirmar] = useState(0);
+	const [mostrarCompletadas, setMostrarCompletadas] = useState(0);
+	
 	function renderPurchase(item) {
 		if (item.purchase.status === 'Pendiente') {
 			return (
-				<View style={styles.containerPhoto}>
-					<View>
-						<Image style={styles.image} source={mimoIcon} />
+				<View style={styles.containerPhotoBig}>
+					<View style={{flexDirection:'row'}}>
+						<View>
+							<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
+						</View>
+						<View style={styles.container}>
+							<Text style={styles.info}>Producto: {item.name}</Text>
+							<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
+							<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
+							{	item.price? 
+								<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+								: null
+							}
+							<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
+						</View>
 					</View>
-					<TouchableOpacity
-						style={styles.confirmarStyle}
-						onPress={async () => {
-							try {
-								await updateStatus({ idPurchase: item.purchase._id, status: 'Completada' });
-								getMySells();
-							} catch (error) {
-								console.log(error);
-							}
-						}}
-					>
-						<AntDesign name='checkcircle' size={24} color='green' />
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.confirmarStyle}
-						onPress={async () => {
-							try {
-								await updateStatus({ idPurchase: item.purchase._id, status: 'Rechazada' });
-								getMySells();
-							} catch (error) {
-								console.log(error);
-							}
-						}}
-					>
-						<AntDesign name='closecircle' size={24} color='red' />
-					</TouchableOpacity>
-					<View style={styles.container}>
-						<Text style={styles.info}>Producto: {item.name}</Text>
-						<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
-						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
+					<View style={{flexDirection:'row', justifyContent:'center'}}>
+						<TouchableOpacity
+							style={styles.roundedContainerDeclineStyle}
+							onPress={async () => {
+								try {
+									await updateStatus({ idPurchase: item.purchase._id, status: 'Rechazada' });
+									getMySells();
+								} catch (error) {
+									console.log(error);
+								}
+							}}
+						>
+							<Text>Rechazar</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							style={styles.roundedContainerAcceptStyle}
+							onPress={async () => {
+								try {
+									await updateStatus({ idPurchase: item.purchase._id, status: 'Completada' });
+									getMySells();
+								} catch (error) {
+									console.log(error);
+								}
+							}}
+						>
+							<Text>Completada</Text>
+						</TouchableOpacity>
 					</View>
 				</View>
 			);
@@ -59,13 +76,16 @@ const ComNotificationsScreen = ({ navigation }) => {
 			return (
 				<View style={styles.containerPhoto}>
 					<View>
-						<Image style={styles.image} source={mimoIcon} />
+						<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
 					</View>
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.name}</Text>
 						<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
 						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+						{	item.price? 
+								<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+								: null
+						}
 						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
 					</View>
 				</View>
@@ -74,65 +94,87 @@ const ComNotificationsScreen = ({ navigation }) => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB', justifyContent: 'center', alignItems: 'stretch' }}>
-			<Text style={styles.title}>Historial de Ventas</Text>
-			<View style={styles.generalView}>
-				<Text style={styles.text}>Por confirmar</Text>
-				<FlatList
-					keyExtractor={item => item.purchase._id}
-					data={purchases}
-					renderItem={({ item }) => {
-						if (item.purchase.status === 'Pendiente') {
-							return renderPurchase(item);
+			<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
+				<ScrollView>
+					<Text style={styles.title}>Historial de Compras ''</Text>
+					<View style={styles.generalView}>
+						<TouchableOpacity
+							style={styles.desplegables}
+							onPress={() => setMostrarCompletadas(!mostrarCompletadas)}
+						>
+							<Text style={styles.textoDesplegable}>Por Confirmar</Text>
+						</TouchableOpacity>
+						{
+							mostrarCompletadas ? <FlatList
+								keyExtractor={purchases => purchases.id}
+								data={purchases}
+								renderItem={({ item }) => {
+									if (item.purchase.status === 'Pendiente') {
+										return renderPurchase(item);
+									}
+								}} /> : null
+	
 						}
-					}}
-				/>
-			</View>
-			<Text style={styles.text}>Completada</Text>
-			<View style={styles.generalView}>
-				<FlatList
-					keyExtractor={item => item.purchase._id}
-					data={purchases}
-					renderItem={({ item }) => {
-						if (item.purchase.status == 'Completada') {
-							return renderPurchase(item);
+					</View>
+					<View style={styles.generalView}>
+						<TouchableOpacity
+							style={styles.desplegables}
+							onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
+						>
+							<Text style={styles.textoDesplegable}>Completadas</Text>
+						</TouchableOpacity>
+						{
+							mostrarConfirmar ? <FlatList
+								keyExtractor={purchases => purchases.id}
+								data={purchases}
+								renderItem={({ item }) => {
+									if (item.purchase.status === 'Completada') {
+										return renderPurchase(item);
+									}
+								}
+								} /> : null
+	
 						}
-					}}
-				/>
+					</View>
+					
+
+				</ScrollView>
+	
+	
 			</View>
-		</View>
 	);
 };
 
 const styles = StyleSheet.create({
-	confirmarStyle: {
-		alignSelf: 'flex-start',
-		marginRight: '5%',
-		marginTop: '100%',
+	textoDesplegable: {
+		fontSize: 24,
+		paddingLeft: '3%'
+	},
+	desplegables: {
+		backgroundColor: '#B0EFEF',
+		borderRadius: 25,
+		width: '95%',
+		height: 45,
+
 	},
 	title: {
-		marginTop: '20%',
-		fontSize: 20,
+		marginTop: '15%',
+		fontSize: 25,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
 	generalView: {
-		flex: 1,
-		justifyContent: 'center',
-		//  flexDirection: 'row',
+		marginTop: '5%',
 		flexWrap: 'wrap',
-		//marginTop: '5%',
-		//marginBottom: '3%',
 		marginHorizontal: '5%',
-		height: '50%',
 	},
 	image: {
-		height: '80%',
-		width: 80,
+		height: '60%',
+		width: 100,
 		marginBottom: '3%',
-		borderRadius: 360,
+		borderRadius: 30,
 		alignContent: 'center',
-		margin: 2,
+		margin: 5,
 	},
 	info: {
 		fontSize: 10,
@@ -143,13 +185,24 @@ const styles = StyleSheet.create({
 	containerPhoto: {
 		height: 120,
 		width: 300,
-		backgroundColor: '#FFA1A9',
-		marginBottom: 10,
+		backgroundColor: '#BAA0F2',
+		marginTop: 15,
 		flexDirection: 'row',
 		borderRadius: 20,
 		alignSelf: 'center',
 		marginHorizontal: '9%',
-
+		//justifyContent:'space-between'
+	},
+	containerPhotoBig: {
+		height: 170,
+		width: 300,
+		backgroundColor: '#BAA0F2',
+		//marginBottom: 15,
+		marginTop: 15,
+		flexDirection: 'column',
+		borderRadius: 20,
+		alignSelf: 'center',
+		marginHorizontal: '9%',
 		//justifyContent:'space-between'
 	},
 	text: {
@@ -159,11 +212,29 @@ const styles = StyleSheet.create({
 		marginLeft: '3%',
 	},
 	container: {
-		height: 75,
+		height: 120,
 		width: 100,
-		backgroundColor: '#FFA1A9',
-		marginBottom: 5,
+		backgroundColor: '#BAA0F2',
+		marginBottom: 1,
 	},
+	roundedContainerDeclineStyle: {
+        marginTop: 1,
+        marginHorizontal: 10,
+        backgroundColor: "#FF9AA2",
+        height: 35,
+        width: 90,
+        borderRadius: 75,
+        alignItems: 'center'
+	},
+	roundedContainerAcceptStyle: {
+        marginTop: 1,
+        marginHorizontal: 10,
+        backgroundColor: "#B8DC7D",
+        height: 35,
+        width: 90,
+        borderRadius: 75,
+        alignItems: 'center'
+    },
 });
 
 export default withNavigation(ComNotificationsScreen);

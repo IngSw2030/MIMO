@@ -97,7 +97,7 @@ router.get('/mySells', async (req, res) => {
 				//no muestro las fotos o los pets de los productos
 				$project: {
 					pets: 0,
-					photo: 0,
+					//photo: 0,
 					_id: 0,
 					//idUser: 0 <- si quito esto de la project, el match de abajo no sera valido
 				},
