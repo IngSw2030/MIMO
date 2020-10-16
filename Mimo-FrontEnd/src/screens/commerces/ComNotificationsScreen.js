@@ -1,63 +1,67 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PurchaseContext } from '../../context/PurchaseContext';
 import usePrice from '../../hooks/usePrice';
-const ComNotificationsScreen = ({navigation}) => {
+import { AntDesign } from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+const ComNotificationsScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: purchases,getMySells } = useContext(PurchaseContext);
-	useEffect(() => {
-        getMySells();
-        console.log(purchases);
-	}, []);
-
+	const { state: purchases } = useContext(PurchaseContext);
 	const mimoIcon = require('../../../assets/mimo.png');
 
-	function renderPurchase(item, status) {
-		//console.log('item en RederPurchase', item);
-		if (item.purchase.status ===status) {
-            console.log('estoy enif');
-			return (
-				<View style={styles.containerPhoto}>
-					<View>
-						<Image style={styles.image} source={mimoIcon} />
-					</View>
-					<View style={styles.container}>
-						<Text style={styles.info}>Producto: {item.name}</Text>
-                        <Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
-                        <Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
-                        <Text style={styles.info}> estado:{item.purchase.status}</Text>
-					</View>
+	useEffect(() => {
+		//console.log('Purchases en NotfScreen', purchases);
+	}, []);
+	function renderPurchase(item) {
+		return (
+			<View style={styles.containerPhoto}>
+				<View>
+					<Image style={styles.image} source={mimoIcon} />
 				</View>
-			);
-        }
+				<TouchableOpacity style={styles.confirmarStyle}>
+					<AntDesign name='checkcircle' size={24} color='black' />
+				</TouchableOpacity>
+				<View style={styles.container}>
+					<Text style={styles.info}>Producto: {item.name}</Text>
+					<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
+					<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
+					<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+					<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
+					<Text style={styles.info}> estado:{item.purchase.status}</Text>
+				</View>
+			</View>
+		);
 	}
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB', justifyContent: 'center', alignItems: 'stretch' }}>
-			<Text style={styles.title}>Historial de Compras</Text>
+			<Text style={styles.title}>Historial de Ventas</Text>
 			<View style={styles.generalView}>
 				<Text style={styles.text}>Por confirmar</Text>
 				<FlatList
 					keyExtractor={item => item.purchase._id}
-                    data={purchases}
+					data={purchases}
 					renderItem={({ item }) => {
-                        console.log("entro al render",item )
-						return renderPurchase(item, 'Pendiente');
+						try {
+							if (item.purchase.status === 'Pendiente') {
+								return renderPurchase(item);
+							}
+						} catch (error) {
+							console.log(error);
+						}
 					}}
 				/>
 			</View>
-
+			<Text style={styles.text}>Completada</Text>
 			<View style={styles.generalView}>
-				<Text style={styles.text}>Por confirmar</Text>
 				<FlatList
 					keyExtractor={item => item.purchase._id}
-                    data={purchases}
+					data={purchases}
 					renderItem={({ item }) => {
-                        console.log("entro al render",item )
-						return renderPurchase(item, 'Completada');
+						if (item.purchase.status == 'Completada') {
+							return renderPurchase(item);
+						}
 					}}
 				/>
 			</View>
@@ -66,6 +70,11 @@ const ComNotificationsScreen = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
+	confirmarStyle: {
+		alignSelf: 'flex-start',
+		marginRight: '5%',
+		marginTop: '100%',
+	},
 	title: {
 		marginTop: '20%',
 		fontSize: 20,
@@ -73,6 +82,7 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	generalView: {
+		flex: 1,
 		justifyContent: 'center',
 		//  flexDirection: 'row',
 		flexWrap: 'wrap',
