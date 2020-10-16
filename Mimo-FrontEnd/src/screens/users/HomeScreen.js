@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 
 	logoStyle: {
 		flex: 1,
-		height: '100%',
+		height: 230,
 		alignSelf: 'center',
 	},
 	questionStyle: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 	},
 	iconStyle: {
 		flex: 1,
-		width: '100%',
+		width: 100,
 		alignSelf: 'center',
 	},
 	buttonNameStyle: {
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		paddingHorizontal: '5%',
 		flex: 1,
-		paddingBottom: '5%'
+		paddingBottom: '5%',
 	},
 });
 export default withNavigation(HomeScreen);

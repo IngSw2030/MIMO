@@ -24,7 +24,7 @@ import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
 import ComProductScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComNotificationsScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
@@ -77,11 +77,6 @@ const switchNavigator = createSwitchNavigator({
 					Chat: ChatScreen,
 					Join: JoinScreen,
 					FriendList: FriendListScreen,
-
-					ComeHome: ComHomeScreen,
-					ComeProduct: ComProductScreen,
-					ComeVet: ComVeterinaryScreen,
-					ComeService: ComServiceScreen,
 				},
 				{
 					defaultNavigationOptions: {
@@ -107,6 +102,8 @@ const switchNavigator = createSwitchNavigator({
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
+					comercHome: ComHomeScreen,
+					NotifiScreen: ComNotificationsScreen,
 
 					ShopingCart: ShopingCartScreen,
 				},
