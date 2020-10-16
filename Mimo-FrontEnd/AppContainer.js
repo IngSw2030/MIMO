@@ -107,8 +107,6 @@ const switchNavigator = createSwitchNavigator({
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
-					comercHome: ComHomeScreen,
-					NotifiScreen: ComNotificationsScreen,
 
 					ShopingCart: ShopingCartScreen,
 				},

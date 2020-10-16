@@ -2,11 +2,9 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../context/UserContext';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Context as PurchaseContext } from '../../context/PurchaseContext';
 
-const ComHomeScreen = ({ navigation }) => {
-	const mimoIcon = require('../../../assets/mimo.png');
+const ComHomeScreen = ({navigation}) => {
+    const mimoIcon = require('../../../assets/mimo.png');
 	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
 	const foodIcon = require('../../../assets/mimoIconComida.png');
 	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
@@ -16,36 +14,23 @@ const ComHomeScreen = ({ navigation }) => {
 	const vetText = 'Veterinaria';
 	const accesoriesText = 'Productos';
 	const foodText = 'Post';
-	const { state: purchases, getMySells } = useContext(PurchaseContext);
-	const { state } = useContext(UserContext);
+
 	const { getUser } = useContext(UserContext);
 	useEffect(() => {
 		getUser();
-		getMySells();
-	}, []);
-
-	return (
+    }, []);
+    const {state} = useContext(UserContext);
+    return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
-			<View style={styles.parteSuperior}>
-				<TouchableOpacity
-					onPress={() => {
-						navigation.navigate('NotifiScreen');
-					}}
-				>
-					<MaterialCommunityIcons name='point-of-sale' size={50} color='black' />
-				</TouchableOpacity>
-			</View>
 			<View style={styles.topBanner}>
-				<View style={styles.infoStyle}>
-					<Text style={{ fontWeight: 'bold' }}>Nombre: </Text>
-					<Text>{state.name} </Text>
-					<Text style={{ fontWeight: 'bold' }}>Correo: </Text>
-					<Text>{state.email} </Text>
-				</View>
+                <View style= {styles.infoStyle}>
+                    <Text style={{fontWeight: "bold"}}>Nombre: </Text><Text>{state.name} </Text>
+                    <Text style={{fontWeight: "bold"}}>Correo: </Text><Text>{state.email} </Text>
+                </View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
+				
 			</View>
-
-			<Text style={styles.questionStyle}> {questionText} </Text>
+            <Text style={styles.questionStyle}> {questionText} </Text>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('ComeService')}>
 					<Image style={styles.iconStyle} source={servicesIcon} />
@@ -76,28 +61,23 @@ const styles = StyleSheet.create({
 		height: 170,
 		width: 170,
 		alignSelf: 'center',
-	},
-	topBanner: {
-		flexDirection: 'row',
-		// flex: 1
-	},
-	parteSuperior: {
-		paddingHorizontal: '5%',
-		flexDirection: 'row',
-		paddingTop: '10%',
-		flex: 0.6,
-	},
-	infoStyle: {
-		alignSelf: 'center',
-		flex: 1,
-		marginLeft: 15,
-	},
+    },
+    topBanner:{
+        flexDirection:'row',
+        flex: 1
+
+    },
+    infoStyle:{
+        alignSelf: 'center',
+        flex: 1,
+        marginLeft: 15
+    },
 	questionStyle: {
 		fontSize: 20,
 		fontWeight: 'bold',
 		alignSelf: 'flex-start',
-		marginBottom: 5,
-		marginLeft: 15,
+        marginBottom: 5,
+        marginLeft:15
 	},
 	iconStyle: {
 		height: 100,
@@ -107,18 +87,18 @@ const styles = StyleSheet.create({
 	},
 	buttonNameStyle: {
 		alignSelf: 'center',
-		marginBottom: 10,
+		marginBottom: 10
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		height: 150,
 		width: 150,
-		marginLeft: 10,
+		marginLeft:10,
 		marginRight: 10,
 		flexGrow: 1,
 	},
-	vetStyle: {
+	vetStyle: { 
 		height: 150,
 		width: 150,
 		backgroundColor: '#B8DC7D',
@@ -147,8 +127,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		marginTop: 10,
-		marginBottom: 10,
+        marginTop: 10,
+        marginBottom: 10
 	},
 });
 export default withNavigation(ComHomeScreen);
