@@ -42,23 +42,23 @@ const HomeScreen = ({ navigation }) => {
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={styles.iconStyleTop} source={servicesIcon} />
+						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-						<Image style={styles.iconStyleTop} source={vetIcon} />
+						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={vetIcon} />
 						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={styles.iconStyleBot} source={accesoriesIcon} />
+						<Image style={{ height: 125, width: 90, alignSelf: 'center' }} source={accesoriesIcon} />
 						<Text style={styles.buttonNameStyle}>Productos</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-						<Image style={styles.iconStyleBot} source={postIcon} />
+						<Image style={{ height: 115, width: 75, alignSelf: 'center' }} source={postIcon} />
 						<Text style={styles.buttonNameStyle}>Blogs</Text>
 					</TouchableOpacity>
 				</View>
@@ -90,17 +90,6 @@ const styles = StyleSheet.create({
 		marginLeft: '5%',
 		marginBottom: '2%',
 	},
-	iconStyleTop: {
-		height: 150,
-		width: 140,
-		alignSelf: 'center',
-	},
-	iconStyleBot: {
-		height: 150,
-		width: 104,
-		alignSelf: 'center',
-		marginTop: 5
-	},
 	buttonNameStyle: {
 		fontSize: 23,
 		alignSelf: 'center',
@@ -111,25 +100,32 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		marginRight: '2.5%',
 		flex: 1,
-		justifyContent: 'flex-start',
+		justifyContent: 'center',
+		flexDirection: 'column',
 	},
 	vetStyle: {
 		backgroundColor: '#B8DC7D',
 		borderRadius: 25,
 		marginLeft: '2.5%',
 		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
 	},
 	blogStyle: {
 		backgroundColor: '#E8778B',
 		borderRadius: 25,
 		marginRight: '2.5%',
 		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
 	},
 	postStyle: {
 		backgroundColor: '#7E9FD1',
 		borderRadius: 25,
 		marginLeft: '2.5%',
 		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
 	},
 	generalView: {
 		flexDirection: 'row',

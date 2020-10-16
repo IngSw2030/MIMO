@@ -74,8 +74,6 @@ const AccesoriesScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							console.log({ item })
-
 							return <ProductComponent product={item} />;
 						}}
 					/>
@@ -89,7 +87,6 @@ const AccesoriesScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							console.log({ item })
 							return <ProductComponent product={item} />;
 						}}
 					/>

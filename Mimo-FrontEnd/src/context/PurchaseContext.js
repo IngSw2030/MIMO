@@ -66,7 +66,6 @@ const getMyShopingCart = dispatch => async () => {
 const updateStatus = dispatch => async ({ idPurchase, status }) => {
 	try {
 		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
-		console.log('response en updateStatus', response.data);
 		console.log('Entra al updateStatus');
 	} catch (error) {
 		console.log('Error getMyPurchases', err);
