@@ -41,23 +41,23 @@ const HomeScreen = ({ navigation }) => {
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={styles.iconStyle} source={servicesIcon} />
+						<Image style={styles.iconStyleTop} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-						<Image style={styles.iconStyle} source={vetIcon} />
+						<Image style={styles.iconStyleTop} source={vetIcon} />
 						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={styles.iconStyle} source={accesoriesIcon} />
+						<Image style={styles.iconStyleBot} source={accesoriesIcon} />
 						<Text style={styles.buttonNameStyle}>Productos</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-						<Image style={styles.iconStyle} source={postIcon} />
+						<Image style={styles.iconStyleBot} source={postIcon} />
 						<Text style={styles.buttonNameStyle}>Blogs</Text>
 					</TouchableOpacity>
 				</View>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 
 	logoStyle: {
 		flex: 1,
-		height: 230,
+		height: 232,
 		alignSelf: 'center',
 	},
 	questionStyle: {
@@ -88,10 +88,19 @@ const styles = StyleSheet.create({
 		marginLeft: '5%',
 		marginBottom: '2%',
 	},
-	iconStyle: {
+	iconStyleTop: {
 		flex: 1,
-		width: 100,
+		width: 120,
 		alignSelf: 'center',
+		//borderColor: 'blue',
+		//borderWidth:2
+	},
+	iconStyleBot: {
+		flex: 1,
+		width: 89,
+		alignSelf: 'center',
+		//borderColor: 'blue',
+		//borderWidth:2
 	},
 	buttonNameStyle: {
 		marginBottom: 15,

@@ -23,7 +23,7 @@ import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 //Imports de comercio
 import ComProductScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComAddProductScreen from './src/screens/commerces/ComAccesoriesScreen';
+import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
@@ -106,6 +106,8 @@ const switchNavigator = createSwitchNavigator({
 					NotifiScreen: ComNotificationsScreen,
 
 					ShopingCart: ShopingCartScreen,
+
+					addProduct: ComAddProductScreen
 				},
 				{
 					defaultNavigationOptions: {

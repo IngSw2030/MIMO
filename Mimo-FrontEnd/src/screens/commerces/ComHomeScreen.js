@@ -58,7 +58,9 @@ const ComHomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('ComeProduct')}>
+				
+				{/*</TouchableOpacity>/<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('ComeProduct')}>*/}
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('addProduct')}>	
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
