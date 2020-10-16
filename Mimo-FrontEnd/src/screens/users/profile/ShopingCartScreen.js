@@ -58,8 +58,13 @@ const MassagesScreen = ({ navigation }) => {
 								<View style={styles.containerPurchaseAmount}>
 									<View style={styles.deleteStyle}>
 										<TouchableOpacity
-											onPress={() => {
-												deletePurchase({ idPurchase: item.id });
+											onPress={async () => {
+												try {
+													await deletePurchase({ idPurchase: item.id });
+													await getMyShopingCart();
+												} catch (error) {
+													console.log(error);
+												}
 											}}
 										>
 											<Feather name='x-circle' size={24} color='black' />

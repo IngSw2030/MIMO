@@ -1,8 +1,11 @@
-import React from 'react'
+import React,{useContext}from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import { withNavigation } from 'react-navigation';
-
+import {Context as VetContext} from '../context/VetContext'
 const vetComponent=(props) =>{
+    const { state: vets } = useContext(VetContext);
+    const vet = vets.find(thisvet => thisvet.id === props.id);
+    
     const src = require('../../assets/mimo.png');
     return(
         <View style= {styles.componentStyle}>
@@ -11,23 +14,23 @@ const vetComponent=(props) =>{
                     () => props.navigation.navigate(
                         'VeterinaryProfile',
                         {
-                            direccion: props.direccion,
-                            telefono: props.telefono,
-                            descripcion: props.descripcion,
-                            calificacion: props.calificacion,
-                            nombre: props.nombre
+                            direccion: vet.address,
+                            telefono: vet.telefono,
+                            descripcion: vet.description,
+                            calificacion: vet.avgScore,
+                            nombre: vet.name
                         })
                 }
             >
                 <View style={styles.viewStyle}>
                     <Image style={styles.imageStyle} source={src}/>
                     <View style={({flex:1})}>
+                        <Text style={styles.titleStyle}>Nombre: </Text>
+                        <Text>{vet.name}</Text>
                         <Text style={styles.titleStyle}>Direccion: </Text>
-                        <Text>{props.direccion}</Text>
-                        <Text style={styles.titleStyle}>Numero: </Text>
-                        <Text>{props.telefono}</Text>
+                        <Text>{vet.address}</Text>
                         <Text style={styles.titleStyle}>Descripcion: </Text>
-                        <Text style={styles.textStyle}>{props.descripcion}</Text>
+                        <Text style={styles.textStyle}>{vet.description}</Text>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -39,7 +42,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#B8DC7D',
         height:150,
         marginTop:15,
-        borderRadius:15
+        borderRadius:15,
+        marginHorizontal:10
         
     },
     imageStyle :{

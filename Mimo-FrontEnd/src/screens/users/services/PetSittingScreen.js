@@ -1,58 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ServiceList from '../../../components/serviceList';
+import WideListComponent from '../../../components/wideListComponent'
+import {Context as ServiceContext} from '../../../context/ServiceContext'
 
 const PetSittingScreen = screenProps => {
 	const imageSource = require('../../../../assets/mimo.png');
-	const servicios = [
-		{
-			id: '1000',
-			nombre: 'McLovin',
-			calificacion: '5',
-			imageSource: { imageSource },
-			tipo: 'Cuidador',
-			precio: '15000',
-			descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-		},
-		{
-			id: '1003',
-			nombre: 'Ivan',
-			calificacion: '1',
-			imageSource: { imageSource },
-			tipo: 'Cuidador',
-			precio: '20000',
-			descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-		},
-		{
-			id: '1012',
-			nombre: 'Dario',
-			calificacion: '4',
-			imageSource: { imageSource },
-			tipo: 'Cuidador',
-			precio: '22000',
-			descripcion: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
-		},
-	];
+	const {state:servicios}= useContext(ServiceContext);
 	return (
 		<View style={styles.generalStyle}>
 			<Text style={styles.headerStyle}>{screenProps.navigation.getParam('screenTitle')}</Text>
-			<FlatList
-				data={servicios}
-				keyExtractor={item => item.id}
-				renderItem={({ item }) => {
-					return (
-						<ServiceList
-							id={item.id}
-							nombre={item.nombre}
-							precio={item.precio}
-							descripcion={item.descripcion}
-							tipo={item.tipo}
-							imageSource={imageSource}
-							calificacion={item.calificacion}
-						/>
-					);
-				}}
+			<WideListComponent
+				list ={servicios}
+				componentToRender={(item)=>{return <ServiceList id = {item}/>}}
 			/>
 		</View>
 	);
@@ -69,8 +30,11 @@ const styles = StyleSheet.create({
 	},
 	generalStyle: {
 		backgroundColor: '#FFF7BB',
-		flex: 1
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "stretch"
 	},
 });
+
 
 export default withNavigation(PetSittingScreen);

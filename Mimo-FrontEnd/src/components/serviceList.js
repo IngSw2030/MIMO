@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import {Context as ServiceContext} from '../context/ServiceContext'
 
 const serviceList = (props)=> {
-    const src = require('../../assets/mimo.png');
+    const { state: servicios } = useContext(ServiceContext);
+    const servicio = servicios.find(thisservicio => thisservicio.id === props.id);
     const rating = require('../../assets/rating.png');
-    const estrellas = insertarEstrellas(props.calificacion);
+    const estrellas = insertarEstrellas(servicio.avgScore);
+
+     
     return(
         <View>
             <TouchableOpacity
@@ -13,18 +17,18 @@ const serviceList = (props)=> {
                 onPress = {() => props.navigation.navigate(
                         'ServiceDetails',
                         {
-                            data: props.tipo,
-                            calificacion: props.calificacion,
-                            precio: props.precio,
-                            descripcion: props.descripcion
+                            data: servicio.category,
+                            calificacion: servicio.avgScore,
+                            precio: servicio.priceMax,
+                            descripcion: servicio.description
                         }
                     )}>
             <View>
-                <Image source={src} style= {styles.imageStyle}/>
+                <Image source={servicio.photo} style= {styles.imageStyle}/>
             </View>
             <View style={({alignSelf:'center'}),({marginTop:10})}>
-                <Text>Nombre: {props.nombre}</Text>
-                <Text>ID: {props.id}</Text>
+                <Text>Nombre: {servicio.name}</Text>
+                <Text>ID: {servicio.id}</Text>
                 <Text>Calificacion:</Text>
                 <View style={styles.starsStyle}>
                     <FlatList
@@ -38,8 +42,7 @@ const serviceList = (props)=> {
                         }}
                     />
                 </View>
-            </View>
-            
+            </View> 
             </TouchableOpacity>
  
         </View>
