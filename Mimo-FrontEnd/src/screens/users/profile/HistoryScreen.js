@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 import usePrice from '../../../hooks/usePrice';
@@ -11,6 +11,9 @@ const HistoryScreen = () => {
 	}, []);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
+	const [mostrarConfirmar, setMostrarConfirmar] = useState(0);
+	const [mostrarCompletadas, setMostrarCompletadas] = useState(0);
+	const [mostrarDeclinadas, setMostrarDeclinadas] = useState(0);
 
 	function renderPurchase(item, status) {
 		console.log('item en RederPurchase', item);
@@ -35,48 +38,89 @@ const HistoryScreen = () => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB', justifyContent: 'center', alignItems: 'stretch' }}>
-			<Text style={styles.title}>Historial de Compras</Text>
-			<View style={styles.generalView}>
-				<Text style={styles.text}>Por confirmar</Text>
-				<FlatList
-					keyExtractor={purchases => purchases.id}
-					data={purchases}
-					renderItem={({ item }) => {
-						return renderPurchase(item, 'Pendiente');
-					}}
-				/>
-			</View>
+		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
+			<ScrollView>
+				<Text style={styles.title}>Historial de Compras ''</Text>
+				<View style={styles.generalView}>
+					<TouchableOpacity
+						style={styles.desplegables}
+						onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
+					>
+						<Text style={styles.textoDesplegable}>Completadas</Text>
+					</TouchableOpacity>
+					{
+						mostrarConfirmar ? <FlatList
+							keyExtractor={purchases => purchases.id}
+							data={purchases}
+							renderItem={({ item }) => {
+								return renderPurchase(item, 'Completada');
+							}} /> : null
 
-			<View style={styles.generalView}>
-				<Text style={styles.text}>Completadas</Text>
-				<FlatList
-					keyExtractor={purchases => purchases.id}
-					data={purchases}
-					renderItem={({ item }) => {
-						return renderPurchase(item, 'Completada');
-					}}
-				/>
-			</View>
+					}
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity
+						style={styles.desplegables}
+						onPress={() => setMostrarCompletadas(!mostrarCompletadas)}
+					>
+						<Text style={styles.textoDesplegable}>Por Confirmar</Text>
+					</TouchableOpacity>
+					{
+						mostrarCompletadas ? <FlatList
+							keyExtractor={purchases => purchases.id}
+							data={purchases}
+							renderItem={({ item }) => {
+								return renderPurchase(item, 'Pendiente');
+							}} /> : null
+
+					}
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity
+						style={styles.desplegables}
+						onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
+					>
+						<Text style={styles.textoDesplegable}>Declinadas</Text>
+					</TouchableOpacity>
+					{
+						mostrarConfirmar ? <FlatList
+							keyExtractor={purchases => purchases.id}
+							data={purchases}
+							renderItem={({ item }) => {
+								return renderPurchase(item, 'Rechazada');
+							}} /> : null
+
+					}
+				</View>
+			</ScrollView>
+
+
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	textoDesplegable: {
+		fontSize: 24,
+		paddingLeft: '3%'
+	},
+	desplegables: {
+		backgroundColor: '#B0EFEF',
+		borderRadius: 25,
+		width: '95%',
+		height: 45,
+
+	},
 	title: {
-		marginTop: '20%',
-		fontSize: 20,
+		marginTop: '15%',
+		fontSize: 25,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
 	generalView: {
-		justifyContent: 'center',
-		//  flexDirection: 'row',
+		marginTop: '5%',
 		flexWrap: 'wrap',
-		//marginTop: '5%',
-		//marginBottom: '3%',
 		marginHorizontal: '5%',
-		height: '50%',
 	},
 	image: {
 		height: '80%',
@@ -101,11 +145,8 @@ const styles = StyleSheet.create({
 		borderRadius: 20,
 		alignSelf: 'center',
 		marginHorizontal: '9%',
-
-		//justifyContent:'space-between'
 	},
 	text: {
-		marginTop: '0%',
 		fontSize: 20,
 		fontWeight: 'bold',
 		marginLeft: '3%',
