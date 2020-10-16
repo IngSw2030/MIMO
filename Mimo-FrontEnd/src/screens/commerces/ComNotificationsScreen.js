@@ -7,7 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const ComNotificationsScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: purchases } = useContext(PurchaseContext);
+	const { state: purchases, updateStatus, getMySells } = useContext(PurchaseContext);
 	const mimoIcon = require('../../../assets/mimo.png');
 
 	useEffect(() => {
@@ -20,8 +20,31 @@ const ComNotificationsScreen = ({ navigation }) => {
 					<View>
 						<Image style={styles.image} source={mimoIcon} />
 					</View>
-					<TouchableOpacity style={styles.confirmarStyle}>
-						<AntDesign name='checkcircle' size={24} color='black' />
+					<TouchableOpacity
+						style={styles.confirmarStyle}
+						onPress={async () => {
+							try {
+								await updateStatus({ idPurchase: item.purchase._id, status: 'Completada' });
+								getMySells();
+							} catch (error) {
+								console.log(error);
+							}
+						}}
+					>
+						<AntDesign name='checkcircle' size={24} color='green' />
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.confirmarStyle}
+						onPress={async () => {
+							try {
+								await updateStatus({ idPurchase: item.purchase._id, status: 'Rechazada' });
+								getMySells();
+							} catch (error) {
+								console.log(error);
+							}
+						}}
+					>
+						<AntDesign name='closecircle' size={24} color='red' />
 					</TouchableOpacity>
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.name}</Text>

@@ -113,8 +113,7 @@ router.get('/mySells', async (req, res) => {
 				},
 			},
 		]);
-	
-		
+
 		res.send({ sells });
 	} catch (error) {
 		console.log('Error mySells', error);
