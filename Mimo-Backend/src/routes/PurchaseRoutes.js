@@ -121,7 +121,6 @@ router.get('/mySells', async (req, res) => {
 	}
 });
 
-//Query para encontrar mis mascotas
 router.get('/myPurchases', async (req, res) => {
 	const purchases = await Purchase.find({ idUser: req.user._id });
 	var product;
@@ -134,14 +133,12 @@ router.get('/myPurchases', async (req, res) => {
 				nombreVendedor = 'EsteMan';
 				numeroVendedor = '305111111';
 			} else {
-				nombreVendedor = retailer.name;
+				nombreVendedor = retailer.retailName;
 				numeroVendedor = retailer.phone;
 			}
 			purchases[index] = {
 				producto: product.name,
-				foto: product.photo,
 				unidades: purchases[index].amount,
-				precioUn: product.price,
 				precio: product.price * purchases[index].amount,
 				vendedor: nombreVendedor,
 				numero: numeroVendedor,

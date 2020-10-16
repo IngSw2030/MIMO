@@ -8,8 +8,9 @@ const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { state: purchases, getMyPurchases } = useContext(PurchaseContext);
 	useEffect(() => {
-		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 		getMyPurchases();
+		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+		
 	}, []);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
@@ -18,8 +19,7 @@ const HistoryScreen = () => {
 	const [mostrarDeclinadas, setMostrarDeclinadas] = useState(0);
 
 	function renderPurchase(item, status) {
-		console.log('item en RederPurchase', item);
-		console.log('item.status', item.status == 'Pendiente');
+		console.log('item.status es: ', item.status);
 		if (item.status === status) {
 			return (
 				<View style={styles.containerPhoto}>
@@ -29,7 +29,12 @@ const HistoryScreen = () => {
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.producto}</Text>
 						<Text style={styles.info}>Unidades: {item.unidades}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
+
+						{	item.precio?
+							<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
+							:<Text style={styles.info}>Precio Total: {usePrice(0)}</Text>
+						}
+
 						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
 						<Text style={styles.info}>Numero: {item.numero} </Text>
 						<Text style={styles.info}>ID Venta: {item.id}</Text>

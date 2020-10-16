@@ -173,9 +173,8 @@ const styles = StyleSheet.create({
 	image: {
 		height: 90,
 		width: 90,
-		marginLeft: 2,
-		marginBottom: 2,
-		borderRadius: 50,
+		margin: 5,
+		borderRadius: 25,
 	},
 	container: {
 		height: 60,
