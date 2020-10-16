@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 		paddingHorizontal: '5%',
 		flex: 1,
-		paddingBottom: '5%'
+		paddingBottom: '5%',
 	},
 });
 export default withNavigation(HomeScreen);

@@ -10,10 +10,15 @@ const UserProfileScreen = ({ navigation }) => {
 
 	return (
 		<View>
+			
 			<View>
 				<Image style={styles.photostyle} source={mimoIcon} />
 				<Text style={styles.nameStyle}> {state.name} </Text>
 			</View>
+			<Button
+			onPress={()=>navigation.navigate('comercHome')}
+			title='ir a comercio'
+			/>
 			<View style={styles.generalView}>
 				<Button title={'entrar a comercio'} onPress={() => navigation.navigate('ComeHome')} />
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Pets')}>
