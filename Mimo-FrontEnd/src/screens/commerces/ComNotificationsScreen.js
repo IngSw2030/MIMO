@@ -14,24 +14,40 @@ const ComNotificationsScreen = ({ navigation }) => {
 		//console.log('Purchases en NotfScreen', purchases);
 	}, []);
 	function renderPurchase(item) {
-		return (
-			<View style={styles.containerPhoto}>
-				<View>
-					<Image style={styles.image} source={mimoIcon} />
+		if (item.purchase.status === 'Pendiente') {
+			return (
+				<View style={styles.containerPhoto}>
+					<View>
+						<Image style={styles.image} source={mimoIcon} />
+					</View>
+					<TouchableOpacity style={styles.confirmarStyle}>
+						<AntDesign name='checkcircle' size={24} color='black' />
+					</TouchableOpacity>
+					<View style={styles.container}>
+						<Text style={styles.info}>Producto: {item.name}</Text>
+						<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
+						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
+						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
+					</View>
 				</View>
-				<TouchableOpacity style={styles.confirmarStyle}>
-					<AntDesign name='checkcircle' size={24} color='black' />
-				</TouchableOpacity>
-				<View style={styles.container}>
-					<Text style={styles.info}>Producto: {item.name}</Text>
-					<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
-					<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-					<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-					<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
-					<Text style={styles.info}> estado:{item.purchase.status}</Text>
+			);
+		} else {
+			return (
+				<View style={styles.containerPhoto}>
+					<View>
+						<Image style={styles.image} source={mimoIcon} />
+					</View>
+					<View style={styles.container}>
+						<Text style={styles.info}>Producto: {item.name}</Text>
+						<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
+						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
+						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
+						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
+					</View>
 				</View>
-			</View>
-		);
+			);
+		}
 	}
 
 	return (
@@ -43,12 +59,8 @@ const ComNotificationsScreen = ({ navigation }) => {
 					keyExtractor={item => item.purchase._id}
 					data={purchases}
 					renderItem={({ item }) => {
-						try {
-							if (item.purchase.status === 'Pendiente') {
-								return renderPurchase(item);
-							}
-						} catch (error) {
-							console.log(error);
+						if (item.purchase.status === 'Pendiente') {
+							return renderPurchase(item);
 						}
 					}}
 				/>
