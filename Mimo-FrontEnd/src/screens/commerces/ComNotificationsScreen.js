@@ -9,7 +9,8 @@ import { LogBox } from 'react-native';
 
 const ComNotificationsScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: purchases, updateStatus, getMySells } = useContext(PurchaseContext);
+	const { state, updateStatus, getMySells } = useContext(PurchaseContext);
+	console.log('purchase', state);
 	const mimoIcon = require('../../../assets/mimo.png');
 
 	/* useEffect(() => {
@@ -18,16 +19,16 @@ const ComNotificationsScreen = ({ navigation }) => {
 
 	useEffect(() => {
 		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-	}, []) 
+	}, []);
 
 	const [mostrarConfirmar, setMostrarConfirmar] = useState(0);
 	const [mostrarCompletadas, setMostrarCompletadas] = useState(0);
-	
+
 	function renderPurchase(item) {
 		if (item.purchase.status === 'Pendiente') {
 			return (
 				<View style={styles.containerPhotoBig}>
-					<View style={{flexDirection:'row'}}>
+					<View style={{ flexDirection: 'row' }}>
 						<View>
 							<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
 						</View>
@@ -35,14 +36,11 @@ const ComNotificationsScreen = ({ navigation }) => {
 							<Text style={styles.info}>Producto: {item.name}</Text>
 							<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
 							<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-							{	item.price? 
-								<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-								: null
-							}
+							{item.price ? <Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text> : null}
 							<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
 						</View>
 					</View>
-					<View style={{flexDirection:'row', justifyContent:'center'}}>
+					<View style={{ flexDirection: 'row', justifyContent: 'center' }}>
 						<TouchableOpacity
 							style={styles.roundedContainerDeclineStyle}
 							onPress={async () => {
@@ -82,10 +80,7 @@ const ComNotificationsScreen = ({ navigation }) => {
 						<Text style={styles.info}>Producto: {item.name}</Text>
 						<Text style={styles.info}>ID Venta: {item.purchase._id}</Text>
 						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-						{	item.price? 
-								<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-								: null
-						}
+						{item.price ? <Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text> : null}
 						<Text style={styles.info}>Email: {item.purchase.buyer_info[0].email} </Text>
 					</View>
 				</View>
@@ -94,68 +89,56 @@ const ComNotificationsScreen = ({ navigation }) => {
 	}
 
 	return (
-			<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
-				<ScrollView>
-					<Text style={styles.title}>Historial de Compras ''</Text>
-					<View style={styles.generalView}>
-						<TouchableOpacity
-							style={styles.desplegables}
-							onPress={() => setMostrarCompletadas(!mostrarCompletadas)}
-						>
-							<Text style={styles.textoDesplegable}>Por Confirmar</Text>
-						</TouchableOpacity>
-						{
-							mostrarCompletadas ? <FlatList
-								keyExtractor={purchases => purchases.id}
-								data={purchases}
-								renderItem={({ item }) => {
-									if (item.purchase.status === 'Pendiente') {
-										return renderPurchase(item);
-									}
-								}} /> : null
-	
-						}
-					</View>
-					<View style={styles.generalView}>
-						<TouchableOpacity
-							style={styles.desplegables}
-							onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
-						>
-							<Text style={styles.textoDesplegable}>Completadas</Text>
-						</TouchableOpacity>
-						{
-							mostrarConfirmar ? <FlatList
-								keyExtractor={purchases => purchases.id}
-								data={purchases}
-								renderItem={({ item }) => {
-									if (item.purchase.status === 'Completada') {
-										return renderPurchase(item);
-									}
+		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
+			<ScrollView>
+				<Text style={styles.title}>Historial de Compras ''</Text>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarCompletadas(!mostrarCompletadas)}>
+						<Text style={styles.textoDesplegable}>Por Confirmar</Text>
+					</TouchableOpacity>
+					{mostrarCompletadas ? (
+						<FlatList
+							keyExtractor={purchases => purchases.id}
+							data={purchases}
+							renderItem={({ item }) => {
+								if (item.purchase.status === 'Pendiente') {
+									return renderPurchase(item);
 								}
-								} /> : null
-	
-						}
-					</View>
-					
-
-				</ScrollView>
-	
-	
-			</View>
+							}}
+						/>
+					) : null}
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarConfirmar(!mostrarConfirmar)}>
+						<Text style={styles.textoDesplegable}>Completadas</Text>
+					</TouchableOpacity>
+					{mostrarConfirmar ? (
+						<FlatList
+							keyExtractor={purchases => purchases.id}
+							data={purchases}
+							renderItem={({ item }) => {
+								if (item.purchase.status === 'Completada') {
+									return renderPurchase(item);
+								}
+							}}
+						/>
+					) : null}
+				</View>
+			</ScrollView>
+		</View>
 	);
 };
 
 const styles = StyleSheet.create({
 	textoDesplegable: {
 		fontSize: 24,
-		paddingLeft: '3%'
+		paddingLeft: '3%',
 	},
 	desplegables: {
 		backgroundColor: '#B0EFEF',
 		borderRadius: 25,
 		width: '95%',
 		height: 45,
-
 	},
 	title: {
 		marginTop: '15%',
@@ -218,23 +201,23 @@ const styles = StyleSheet.create({
 		marginBottom: 1,
 	},
 	roundedContainerDeclineStyle: {
-        marginTop: 1,
-        marginHorizontal: 10,
-        backgroundColor: "#FF9AA2",
-        height: 35,
-        width: 90,
-        borderRadius: 75,
-        alignItems: 'center'
+		marginTop: 1,
+		marginHorizontal: 10,
+		backgroundColor: '#FF9AA2',
+		height: 35,
+		width: 90,
+		borderRadius: 75,
+		alignItems: 'center',
 	},
 	roundedContainerAcceptStyle: {
-        marginTop: 1,
-        marginHorizontal: 10,
-        backgroundColor: "#B8DC7D",
-        height: 35,
-        width: 90,
-        borderRadius: 75,
-        alignItems: 'center'
-    },
+		marginTop: 1,
+		marginHorizontal: 10,
+		backgroundColor: '#B8DC7D',
+		height: 35,
+		width: 90,
+		borderRadius: 75,
+		alignItems: 'center',
+	},
 });
 
 export default withNavigation(ComNotificationsScreen);

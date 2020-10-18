@@ -6,11 +6,10 @@ import usePrice from '../../../hooks/usePrice';
 import { LogBox } from 'react-native';
 const HistoryScreen = () => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: purchases, getMyPurchases } = useContext(PurchaseContext);
+	const { state: purchases } = useContext(PurchaseContext);
+	console.log('purchases en HistoryScreen', purchases);
 	useEffect(() => {
-		getMyPurchases();
 		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-		
 	}, []);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
@@ -19,7 +18,6 @@ const HistoryScreen = () => {
 	const [mostrarDeclinadas, setMostrarDeclinadas] = useState(0);
 
 	function renderPurchase(item, status) {
-		console.log('item.status es: ', item.status);
 		if (item.status === status) {
 			return (
 				<View style={styles.containerPhoto}>
@@ -29,12 +27,7 @@ const HistoryScreen = () => {
 					<View style={styles.container}>
 						<Text style={styles.info}>Producto: {item.producto}</Text>
 						<Text style={styles.info}>Unidades: {item.unidades}</Text>
-
-						{	item.precio?
-							<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
-							:<Text style={styles.info}>Precio Total: {usePrice(0)}</Text>
-						}
-
+						<Text style={styles.info}>Precio Total: {usePrice(item.precio ? 0 : item.precio)}</Text>
 						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
 						<Text style={styles.info}>Numero: {item.numero} </Text>
 						<Text style={styles.info}>ID Venta: {item.id}</Text>
@@ -49,59 +42,64 @@ const HistoryScreen = () => {
 			<ScrollView>
 				<Text style={styles.title}>Historial de Compras ''</Text>
 				<View style={styles.generalView}>
-					<TouchableOpacity
-						style={styles.desplegables}
-						onPress={() => setMostrarConfirmar(!mostrarConfirmar)}
-					>
+					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarConfirmar(!mostrarConfirmar)}>
 						<Text style={styles.textoDesplegable}>Completadas</Text>
 					</TouchableOpacity>
-					{
-						mostrarConfirmar ? <FlatList
-							keyExtractor={purchases => purchases.id}
+					{mostrarConfirmar ? (
+						<FlatList
+							keyExtractor={item => item.id}
 							data={purchases}
 							renderItem={({ item }) => {
 								return renderPurchase(item, 'Completada');
-							}} /> : null
-
-					}
+							}}
+						/>
+					) : (
+						<FlatList
+							keyExtractor={item => item.id}
+							data={[]}
+							renderItem={({ item }) => {
+								return renderPurchase(item, 'Holaaa');
+							}}
+						/>
+					)}
 				</View>
 				<View style={styles.generalView}>
-					<TouchableOpacity
-						style={styles.desplegables}
-						onPress={() => setMostrarCompletadas(!mostrarCompletadas)}
-					>
+					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarCompletadas(!mostrarCompletadas)}>
 						<Text style={styles.textoDesplegable}>Por Confirmar</Text>
 					</TouchableOpacity>
-					{
-						mostrarCompletadas ? <FlatList
-							keyExtractor={purchases => purchases.id}
+					{mostrarCompletadas ? (
+						<FlatList
+							keyExtractor={item => item.id}
 							data={purchases}
 							renderItem={({ item }) => {
 								return renderPurchase(item, 'Pendiente');
-							}} /> : null
-
-					}
+							}}
+						/>
+					) : (
+						<FlatList
+							keyExtractor={item => item.id}
+							data={[]}
+							renderItem={({ item }) => {
+								return renderPurchase(item, 'Holaaa');
+							}}
+						/>
+					)}
 				</View>
 				<View style={styles.generalView}>
-					<TouchableOpacity
-						style={styles.desplegables}
-						onPress={() => setMostrarDeclinadas(!mostrarDeclinadas)}
-					>
+					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarDeclinadas(!mostrarDeclinadas)}>
 						<Text style={styles.textoDesplegable}>Declinadas</Text>
 					</TouchableOpacity>
-					{
-						mostrarDeclinadas ? <FlatList
+					{mostrarDeclinadas ? (
+						<FlatList
 							keyExtractor={purchases => purchases.id}
 							data={purchases}
 							renderItem={({ item }) => {
 								return renderPurchase(item, 'Rechazada');
-							}} /> : null
-
-					}
+							}}
+						/>
+					) : null}
 				</View>
 			</ScrollView>
-
-
 		</View>
 	);
 };
@@ -109,7 +107,7 @@ const HistoryScreen = () => {
 const styles = StyleSheet.create({
 	textoDesplegable: {
 		fontSize: 24,
-		paddingLeft: '3%'
+		paddingLeft: '3%',
 	},
 	desplegables: {
 		backgroundColor: '#B0EFEF',
@@ -127,13 +125,12 @@ const styles = StyleSheet.create({
 		marginTop: '5%',
 		flexWrap: 'wrap',
 		marginLeft: '3%',
-
 	},
 	image: {
 		height: '85%',
 		width: 100,
 		borderRadius: 30,
-		marginLeft: '17%'
+		marginLeft: '17%',
 	},
 	info: {
 		fontSize: 13,
@@ -158,7 +155,7 @@ const styles = StyleSheet.create({
 		height: 75,
 		backgroundColor: '#FFA1A9',
 		marginBottom: 5,
-		flex: 1
+		flex: 1,
 	},
 });
 

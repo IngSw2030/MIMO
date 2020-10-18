@@ -25,6 +25,15 @@ router.post('/save', async (req, res) => {
 		res.status(422).send({ error: err });
 	}
 });
+router.post('/deletePurchaseById', async (req, res) => {
+	try {
+		const { idPurchase } = req.body;
+		const removedPurchase = await Purchase.remove({ _id: idPurchase });
+		res.send({ removedPurchase });
+	} catch (error) {
+		console.log('Error deletePurchaseById', error);
+	}
+});
 router.get('/mySells', async (req, res) => {
 	/* 
 	referencias: 
@@ -122,29 +131,32 @@ router.get('/mySells', async (req, res) => {
 });
 
 router.get('/myPurchases', async (req, res) => {
-	const purchases = await Purchase.find({ idUser: req.user._id });
+	const purchasesRaw = await Purchase.find({ idUser: req.user._id /* , status: { $ne: 'En carrito' } */ });
 	var product;
 	var retailer;
+	var purchases = [];
 	try {
-		for (let index = 0; index < purchases.length; index++) {
-			product = await Product.findById(purchases[index].idProduct);
-			retailer = await User.findById(product.idUser);
-			if (retailer === null) {
-				nombreVendedor = 'EsteMan';
-				numeroVendedor = '305111111';
-			} else {
-				nombreVendedor = retailer.retailName;
-				numeroVendedor = retailer.phone;
+		for (let index = 0; index < purchasesRaw.length; index++) {
+			product = await Product.findById(purchasesRaw[index].idProduct);
+			if (product !== null) {
+				retailer = await User.findById(product.idUser);
+				if (retailer === null && retailer.retailName !== null && retailer.phone !== null) {
+					nombreVendedor = 'EsteMan';
+					numeroVendedor = '305111111';
+				} else {
+					nombreVendedor = retailer.retailName;
+					numeroVendedor = retailer.phone;
+				}
+				purchases.push({
+					producto: product.name,
+					unidades: purchasesRaw[index].amount,
+					precio: product.price * purchasesRaw[index].amount,
+					vendedor: nombreVendedor,
+					numero: numeroVendedor,
+					id: purchasesRaw[index]._id,
+					status: purchasesRaw[index].status,
+				});
 			}
-			purchases[index] = {
-				producto: product.name,
-				unidades: purchases[index].amount,
-				precio: product.price * purchases[index].amount,
-				vendedor: nombreVendedor,
-				numero: numeroVendedor,
-				id: purchases[index]._id,
-				status: purchases[index].status,
-			};
 		}
 
 		res.send({ purchases });
@@ -155,31 +167,34 @@ router.get('/myPurchases', async (req, res) => {
 });
 
 router.get('/myShopingCart', async (req, res) => {
-	const purchases = await Purchase.find({ idUser: req.user._id, status: 'En carrito' });
+	const purchasesRaw = await Purchase.find({ idUser: req.user._id, status: 'En carrito' });
 	var product;
 	var retailer;
+	var purchases = [];
 	try {
-		for (let index = 0; index < purchases.length; index++) {
-			product = await Product.findById(purchases[index].idProduct);
-			retailer = await User.findById(product.idUser);
-			if (retailer === null) {
-				nombreVendedor = 'EsteMan';
-				numeroVendedor = '305111111';
-			} else {
-				nombreVendedor = retailer.retailName;
-				numeroVendedor = retailer.phone;
+		for (let index = 0; index < purchasesRaw.length; index++) {
+			product = await Product.findById(purchasesRaw[index].idProduct);
+			if (product !== null) {
+				retailer = await User.findById(product.idUser);
+				if (retailer === null) {
+					nombreVendedor = 'EsteMan';
+					numeroVendedor = '305111111';
+				} else {
+					nombreVendedor = retailer.retailName;
+					numeroVendedor = retailer.phone;
+				}
+				purchases.push({
+					producto: product.name,
+					foto: product.photo,
+					unidades: purchasesRaw[index].amount,
+					precioUn: product.price,
+					precio: product.price * purchasesRaw[index].amount,
+					vendedor: nombreVendedor,
+					numero: numeroVendedor,
+					id: purchasesRaw[index]._id,
+					status: purchasesRaw[index].status,
+				});
 			}
-			purchases[index] = {
-				producto: product.name,
-				foto: product.photo,
-				unidades: purchases[index].amount,
-				precioUn: product.price,
-				precio: product.price * purchases[index].amount,
-				vendedor: nombreVendedor,
-				numero: numeroVendedor,
-				id: purchases[index]._id,
-				status: purchases[index].status,
-			};
 		}
 
 		res.send({ purchases });
@@ -191,15 +206,39 @@ router.get('/myShopingCart', async (req, res) => {
 
 router.post('/savePurchase', async (req, res) => {
 	const { idProduct, amount } = req.body;
+	var nombreVendedor;
+	var numeroVendedor;
 
 	try {
-		const purchase = new Purchase({
+		const purchaseNew = new Purchase({
 			idUser: req.user._id,
 			idProduct,
 			amount,
 		});
-		await purchase.save();
-		res.send({ purchase });
+		const newPurchase = await purchaseNew.save();
+		const product = await Product.findById(idProduct);
+		if (product !== null) {
+			const retailer = await User.findById(product.idUser);
+			if (retailer === null) {
+				nombreVendedor = 'EsteMan';
+				numeroVendedor = '305111111';
+			} else {
+				nombreVendedor = retailer.retailName;
+				numeroVendedor = retailer.phone;
+			}
+			const purchase = {
+				producto: product.name,
+				foto: product.photo,
+				unidades: amount,
+				precioUn: product.price,
+				precio: product.price * amount,
+				vendedor: nombreVendedor,
+				numero: numeroVendedor,
+				id: newPurchase._id,
+				status: newPurchase.status,
+			};
+			res.send({ purchase });
+		}
 	} catch (err) {
 		console.log('Error savePurchase', err);
 		res.status(422).send({ error: 'No se ha podido guardar la comprar' });
@@ -227,8 +266,8 @@ router.post('/delete', async (req, res) => {
 	const { idPurchase } = req.body;
 
 	try {
-		await Purchase.findByIdAndDelete(idPurchase);
-		res.send('Compra borrada satisfactoriamente');
+		const deletedItem = await Purchase.findByIdAndDelete(idPurchase);
+		res.send({ deletedItem });
 	} catch (error) {
 		return res.status(422).send({ error: 'Error eliminando la compra' });
 	}
