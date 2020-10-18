@@ -77,7 +77,7 @@ const ShopingCartScreen = ({ navigation }) => {
 										</View>
 										<View style={styles.detailStyle}>
 											<Text style={styles.info}>Precio: </Text>
-											{/* <Text style={styles.infoSoft}>{usePrice(item.precioUn)}</Text> */}
+											<Text style={styles.infoSoft}>{usePrice(item.precioUn)}</Text>
 										</View>
 										<View style={styles.detailStyle}>
 											<Text style={styles.info}>Vendedor: </Text>
@@ -116,8 +116,7 @@ const ShopingCartScreen = ({ navigation }) => {
 			<View style={styles.priceComplete}>
 				<View style={styles.roundedContainerStyleTotal}>
 					<Text style={styles.totalStyle}>Total:</Text>
-					{/* 					<Text style={styles.totalStyleSoft}>{usePrice(aPagar)}</Text>
-					 */}
+					<Text style={styles.totalStyleSoft}>{usePrice(aPagar)}</Text>
 				</View>
 			</View>
 
