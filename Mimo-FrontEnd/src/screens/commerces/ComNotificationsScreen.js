@@ -71,14 +71,23 @@ const ComNotificationsScreen = ({ navigation }) => {
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column', alignItems: 'stretch' }}>
 			<Text style={styles.title}>Historial de Compras</Text>
-			<View style={styles.selectorStyle}>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Completada')}>
+			<View style={styles.selectorContainerStyle}>
+				<TouchableOpacity
+					style={estado === 'Completada' ? styles.desplegablesPressedStyle : styles.desplegables}
+					onPress={() => setEstado('Completada')}
+				>
 					<Text style={styles.textoDesplegable}>Completadas</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Pendiente')}>
+				<TouchableOpacity
+					style={estado === 'Pendiente' ? styles.desplegablesPressedStyle : styles.desplegables}
+					onPress={() => setEstado('Pendiente')}
+				>
 					<Text style={styles.textoDesplegable}>Por Confirmar</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Rechazada')}>
+				<TouchableOpacity
+					style={estado === 'Rechazada' ? styles.desplegablesPressedStyle : styles.desplegables}
+					onPress={() => setEstado('Rechazada')}
+				>
 					<Text style={styles.textoDesplegable}>Declinadas</Text>
 				</TouchableOpacity>
 			</View>
@@ -98,10 +107,18 @@ const ComNotificationsScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-	selectorStyle: {
+	selectorContainerStyle: {
 		justifyContent: 'space-evenly',
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
+	},
+	desplegablesPressedStyle: {
+		backgroundColor: 'green',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
 	},
 	textoDesplegable: {
 		alignSelf: 'center',
