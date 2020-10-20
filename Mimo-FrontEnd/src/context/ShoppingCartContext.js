@@ -10,6 +10,8 @@ const userReducer = (state, action) => {
 			return state.filter(purchase => purchase.id !== action.payload._id);
 		case 'addItem':
 			return [...state, action.payload];
+		case 'clear_cart':
+			return [];
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 	}
@@ -43,7 +45,7 @@ const deleteCartItem = dispatch => async ({ idPurchase }) => {
 const updateStatus = dispatch => async ({ idPurchase, status }) => {
 	try {
 		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
-		dispatch({ type: 'delete_item', payload: response.data.deletedItem });
+		dispatch({ type: 'clear_cart' });
 	} catch (error) {
 		console.log('Error updateStatus', err);
 	}

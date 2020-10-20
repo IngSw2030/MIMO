@@ -7,7 +7,7 @@ import useSearch from '../../../hooks/useResultsProduct';
 import SearchBar from '../../../components/searchBar';
 const mimoIcon = require('../../../../assets/mimo.png');
 
-const AccesoriesScreen = ({ navigation }) => {
+const ProductScreen = ({ navigation }) => {
 	const [term, setTerm] = useState('');
 
 	const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
@@ -24,50 +24,48 @@ const AccesoriesScreen = ({ navigation }) => {
 					<Image style={styles.logoStyle} source={mimoIcon} />
 				</View>
 				<View style={styles.botonesAnimales}>
-					<View >
+					<View>
 						<TouchableOpacity
 							onPress={() => {
 								searchApi('', 'perro');
 							}}
 						>
-							<MaterialCommunityIcons name="dog" size={70} color="black" style={styles.botonPerro} />
+							<MaterialCommunityIcons name='dog' size={70} color='black' style={styles.botonPerro} />
 						</TouchableOpacity>
 						<Text style={styles.textoBotonAnimal}>Perro</Text>
 					</View>
-					<View >
+					<View>
 						<TouchableOpacity
 							onPress={() => {
 								searchApi('', 'gato');
 							}}
 						>
-							<MaterialCommunityIcons name="cat" size={70} color="black" style={styles.botonGato} />
+							<MaterialCommunityIcons name='cat' size={70} color='black' style={styles.botonGato} />
 						</TouchableOpacity>
 						<Text style={styles.textoBotonAnimal}>Gato</Text>
 					</View>
-					<View >
+					<View>
 						<TouchableOpacity
 							onPress={() => {
 								searchApi('', 'pez');
 							}}
 						>
-							<MaterialCommunityIcons name="fish" size={70} color="black" style={styles.botonPez} />
+							<MaterialCommunityIcons name='fish' size={70} color='black' style={styles.botonPez} />
 						</TouchableOpacity>
 						<Text style={styles.textoBotonAnimal}>Pescado</Text>
 					</View>
-					<View >
+					<View>
 						<TouchableOpacity
 							onPress={() => {
 								searchApi('', 'conejo');
 							}}
 						>
-							<MaterialCommunityIcons name="rabbit" size={70} color="black" style={styles.botonConejo} />
+							<MaterialCommunityIcons name='rabbit' size={70} color='black' style={styles.botonConejo} />
 						</TouchableOpacity>
 						<Text style={styles.textoBotonAnimal}>Conejo</Text>
 					</View>
 				</View>
-				<Text style={styles.tiposDeArticulos}>
-					Comida
-			</Text>
+				<Text style={styles.tiposDeArticulos}>Comida</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
 						data={food}
@@ -78,9 +76,7 @@ const AccesoriesScreen = ({ navigation }) => {
 						}}
 					/>
 				</View>
-				<Text style={styles.tiposDeArticulos} >
-					Accesorios
-			</Text>
+				<Text style={styles.tiposDeArticulos}>Accesorios</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
 						data={accesories}
@@ -91,9 +87,7 @@ const AccesoriesScreen = ({ navigation }) => {
 						}}
 					/>
 				</View>
-				<Text style={styles.tiposDeArticulos} >
-					Limpieza
-			</Text>
+				<Text style={styles.tiposDeArticulos}>Limpieza</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
 						data={cleaning}
@@ -104,9 +98,7 @@ const AccesoriesScreen = ({ navigation }) => {
 						}}
 					/>
 				</View>
-				<Text style={styles.tiposDeArticulos} >
-					Otros
-			</Text>
+				<Text style={styles.tiposDeArticulos}>Otros</Text>
 				<View style={styles.productListStyle}>
 					<FlatList
 						data={others}
@@ -118,7 +110,6 @@ const AccesoriesScreen = ({ navigation }) => {
 					/>
 				</View>
 			</ScrollView>
-
 		</View>
 	);
 };
@@ -126,7 +117,7 @@ const styles = StyleSheet.create({
 	tiposDeArticulos: {
 		fontSize: 18,
 		fontWeight: 'bold',
-		marginLeft: 10
+		marginLeft: 10,
 	},
 	textoBotonAnimal: {
 		alignSelf: 'center',
@@ -137,48 +128,48 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
-		backgroundColor: '#9FCAE2'
+		backgroundColor: '#9FCAE2',
 	},
 	botonGato: {
 		borderRadius: 50,
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
-		backgroundColor: '#BCDB89'
+		backgroundColor: '#BCDB89',
 	},
 	botonPez: {
 		borderRadius: 50,
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
-		backgroundColor: '#FF9AA2'
+		backgroundColor: '#FF9AA2',
 	},
 	botonConejo: {
 		borderRadius: 50,
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
-		backgroundColor: '#E8916C'
+		backgroundColor: '#E8916C',
 	},
 	botonesAnimales: {
 		flexDirection: 'row',
-		justifyContent: "space-around"
+		justifyContent: 'space-around',
 	},
 	parteSuperior: {
 		marginTop: 15,
-		flexDirection: 'row'
+		flexDirection: 'row',
 	},
 	logoStyle: {
 		height: 90,
 		width: 90,
-		alignSelf: "flex-end",
+		alignSelf: 'flex-end',
 	},
 	tituloPantalla: {
 		fontSize: 30,
 		fontWeight: 'bold',
 		marginLeft: 20,
 		flex: 1,
-		alignSelf: 'center'
+		alignSelf: 'center',
 	},
 	titleStyle: {
 		fontSize: 18,
@@ -188,7 +179,6 @@ const styles = StyleSheet.create({
 	searchBarStyle: {
 		flexShrink: 0,
 		marginTop: 10,
-
 	},
 	iconListStyle: {
 		margin: 10,
@@ -211,4 +201,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default withNavigation(AccesoriesScreen);
+export default withNavigation(ProductScreen);

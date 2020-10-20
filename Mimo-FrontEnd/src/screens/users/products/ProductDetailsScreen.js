@@ -46,6 +46,7 @@ const ProductDetailsScreen = ({ navigation }) => {
 							try {
 								alert('Agregado al carrito con exito');
 								await addToCart({ idProduct: product._id, amount: quantity });
+								navigation.navigate('ShopingCart');
 							} catch (error) {
 								console.log('Error en addToCart del ProductDetailScreen', error);
 							}

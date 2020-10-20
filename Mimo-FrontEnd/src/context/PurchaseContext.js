@@ -7,10 +7,8 @@ const purchaseReducer = (state, action) => {
 	switch (action.type) {
 		case 'getMyPurchases':
 			return action.payload;
-		case 'updateStatus':
-			return { ...state };
-		case 'deletePurchase':
-			return { ...state };
+		case 'addPurchase':
+			return [...state, action.payload];
 		case 'add_error':
 			console.log('Error');
 			return { ...state };
@@ -37,11 +35,10 @@ const updateStatus = dispatch => async ({ idPurchase, status }) => {
 	}
 };
 
-const deletePurchase = dispatch => async ({ idPurchase }) => {
+const addPurchase = dispatch => async ({ element }) => {
 	try {
-		const response = await instance.post('/api/Purchase/delete', { idPurchase });
-		console.log('Entra al deletePurchase');
-		dispatch({ type: 'deletePurchase', payload: response.data });
+		console.log('Element in addPurchase', element);
+		dispatch({ type: 'addPurchase', payload: element });
 	} catch (err) {
 		console.log('Error deletePurchase', err);
 		dispatch({ type: 'add_error' });
@@ -50,6 +47,6 @@ const deletePurchase = dispatch => async ({ idPurchase }) => {
 
 export const { Provider, Context } = createDataContext(
 	purchaseReducer,
-	{ getMyPurchases, deletePurchase, updateStatus },
+	{ getMyPurchases, addPurchase, updateStatus },
 	{ errorMessage: '', purchase: {}, purchases: [{}] }
 );

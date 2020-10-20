@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Button } from 'react-native';
 import { Context as ShoppingCartContext } from '../../../context/ShoppingCartContext';
-import { Context as ProductContext } from '../../../context/ProductContext';
+import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 import usePrice from '../../../hooks/usePrice';
 import { Feather } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
@@ -20,10 +20,14 @@ const pagar = function (purchases) {
 };
 const ShopingCartScreen = ({ navigation }) => {
 	const { state: cart, deleteCartItem, updateStatus } = useContext(ShoppingCartContext);
+	const { addPurchase } = useContext(PurchaseContext);
 
 	const comprarPurchases = function () {
 		cart.forEach(element => {
+			console.log('id:', element.id);
 			updateStatus({ idPurchase: element.id, status: 'Pendiente' });
+			element.status = 'Pendiente';
+			addPurchase({ element });
 		});
 	};
 
@@ -130,8 +134,7 @@ const ShopingCartScreen = ({ navigation }) => {
 				<TouchableOpacity
 					onPress={async () => {
 						navigation.navigate('HistoryScreen');
-						/* await comprarPurchases();
-						await getMyShopingCart(); */
+						await comprarPurchases();
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>

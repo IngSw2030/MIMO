@@ -131,7 +131,7 @@ router.get('/mySells', async (req, res) => {
 });
 
 router.get('/myPurchases', async (req, res) => {
-	const purchasesRaw = await Purchase.find({ idUser: req.user._id /* , status: { $ne: 'En carrito' } */ });
+	const purchasesRaw = await Purchase.find({ idUser: req.user._id });
 	var product;
 	var retailer;
 	var purchases = [];
@@ -148,6 +148,7 @@ router.get('/myPurchases', async (req, res) => {
 					numeroVendedor = retailer.phone;
 				}
 				purchases.push({
+					foto: product.photo,
 					producto: product.name,
 					unidades: purchasesRaw[index].amount,
 					precio: product.price * purchasesRaw[index].amount,
@@ -248,7 +249,7 @@ router.post('/savePurchase', async (req, res) => {
 router.post('/updateStatus', async (req, res) => {
 	const { idPurchase, status } = req.body;
 	try {
-		await Purchase.findOneAndUpdate(
+		const purchase = await Purchase.findOneAndUpdate(
 			{ _id: idPurchase },
 			{
 				$set: {
@@ -256,7 +257,7 @@ router.post('/updateStatus', async (req, res) => {
 				},
 			}
 		);
-		res.send('Modificado satisfactoriamente');
+		res.send({ purchase });
 	} catch (error) {
 		res.status(422).send({ error: 'No se ha podido actualizar el estado de la compra' });
 	}
