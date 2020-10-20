@@ -1,28 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Context as PurchaseContext } from '../../context/PurchaseContext';
+import { Context as SellsContext } from '../../context/SellsContext';
 import usePrice from '../../hooks/usePrice';
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LogBox } from 'react-native';
 
 const ComNotificationsScreen = ({ navigation }) => {
-	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state, updateStatus, getMySells } = useContext(PurchaseContext);
-	console.log('purchase', state);
+	const { state: sells, updateStatus, getMySells } = useContext(SellsContext);
 	const mimoIcon = require('../../../assets/mimo.png');
-
-	/* useEffect(() => {
-		//console.log('Purchases en NotfScreen', purchases);
-	}, []); */
-
-	useEffect(() => {
-		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-	}, []);
 
 	const [mostrarConfirmar, setMostrarConfirmar] = useState(0);
 	const [mostrarCompletadas, setMostrarCompletadas] = useState(0);
+	useEffect(() => {
+		console.log(sells);
+		/* sells.forEach(element => {
+			console.log(element.id);
+		}); */
+	}, []);
 
 	function renderPurchase(item) {
 		if (item.purchase.status === 'Pendiente') {
@@ -91,15 +87,15 @@ const ComNotificationsScreen = ({ navigation }) => {
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
 			<ScrollView>
-				<Text style={styles.title}>Historial de Compras ''</Text>
+				<Text style={styles.title}>Historial de Compras</Text>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.desplegables} onPress={() => setMostrarCompletadas(!mostrarCompletadas)}>
 						<Text style={styles.textoDesplegable}>Por Confirmar</Text>
 					</TouchableOpacity>
 					{mostrarCompletadas ? (
 						<FlatList
-							keyExtractor={purchases => purchases.id}
-							data={purchases}
+							keyExtractor={item => item.id}
+							data={sells}
 							renderItem={({ item }) => {
 								if (item.purchase.status === 'Pendiente') {
 									return renderPurchase(item);
@@ -114,8 +110,8 @@ const ComNotificationsScreen = ({ navigation }) => {
 					</TouchableOpacity>
 					{mostrarConfirmar ? (
 						<FlatList
-							keyExtractor={purchases => purchases.id}
-							data={purchases}
+							keyExtractor={item => item.id}
+							data={sells}
 							renderItem={({ item }) => {
 								if (item.purchase.status === 'Completada') {
 									return renderPurchase(item);

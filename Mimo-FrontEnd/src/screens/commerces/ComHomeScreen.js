@@ -19,10 +19,6 @@ const ComHomeScreen = ({ navigation }) => {
 	const { state: purchases, getMySells } = useContext(PurchaseContext);
 	const { state } = useContext(UserContext);
 	const { getUser } = useContext(UserContext);
-	useEffect(() => {
-		getUser();
-		getMySells();
-	}, []);
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
@@ -58,9 +54,8 @@ const ComHomeScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<View style={styles.generalView}>
-				
 				{/*</TouchableOpacity>/<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('ComeProduct')}>*/}
-				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('addProduct')}>	
+				<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('addProduct')}>
 					<Image style={styles.iconStyle} source={accesoriesIcon} />
 					<Text style={styles.buttonNameStyle}>{accesoriesText}</Text>
 				</TouchableOpacity>
