@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, FlatList, Button } from 'react-native';
+import { Context as ShoppingCartContext } from '../../../context/ShoppingCartContext';
 import { Context as PurchaseContext } from '../../../context/PurchaseContext';
 import usePrice from '../../../hooks/usePrice';
 import { Feather } from '@expo/vector-icons';
@@ -17,53 +18,54 @@ const pagar = function (purchases) {
 
 	return acum;
 };
-const MassagesScreen = ({ navigation }) => {
-	const { state: purchases, getMyShopingCart, deletePurchase, updateStatus } = useContext(PurchaseContext);
-	useEffect(() => {
-		getMyShopingCart();
-	}, []);
+const ShopingCartScreen = ({ navigation }) => {
+	const { state: cart, deleteCartItem, updateStatus } = useContext(ShoppingCartContext);
+	const { addPurchase } = useContext(PurchaseContext);
 
 	const comprarPurchases = function () {
-		purchases.forEach(element => {
+		cart.forEach(element => {
+			console.log('id:', element.id);
 			updateStatus({ idPurchase: element.id, status: 'Pendiente' });
+			element.status = 'Pendiente';
+			addPurchase({ element });
 		});
 	};
 
 	const [quantity, setQuantity] = useState(1);
 
-	const bPagar = pagar(purchases);
+	const bPagar = pagar(cart);
 	const [aPagar, setAPagar] = useState(bPagar);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
+	useEffect(() => {
+		cart.forEach(element => {
+			console.log(element.producto);
+		});
+	}, []);
 
 	return (
 		<View style={styles.generalViewStyle}>
 			<Text style={styles.titleStyle}>Carrito de Compras ''</Text>
 			<View style={styles.purchasesListStyle}>
 				<FlatList
-					keyExtractor={purchases => purchases.id}
-					data={purchases}
+					keyExtractor={item => item.id}
+					data={cart}
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPurchase}>
 								<View style={{ flex: 1, flexDirection: 'column', alignContent: 'center', justifyContent: 'center' }}>
 									{item.foto ? (
-										<Image
-											style={styles.image}
-											source={{ uri: `data:image/gif;base64,${item.foto}` }}
-										/>
+										<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.foto}` }} />
 									) : (
-											<Image style={styles.image} source={mimoIcon} />
-										)}
+										<Image style={styles.image} source={mimoIcon} />
+									)}
 								</View>
 								<View style={styles.containerPurchaseAmount}>
 									<View style={styles.deleteStyle}>
 										<TouchableOpacity
 											onPress={async () => {
 												try {
-													await deletePurchase({ idPurchase: item.id });
-													purchases.delete
-													await getMyShopingCart();
+													deleteCartItem({ idPurchase: item.id });
 												} catch (error) {
 													console.log(error);
 												}
@@ -87,21 +89,25 @@ const MassagesScreen = ({ navigation }) => {
 										</View>
 									</View>
 									<View style={styles.amountStyle}>
-										<TouchableOpacity onPress={() => {
-											setQuantity(quantity > 1 ? quantity - 1 : quantity)
-											setAPagar(aPagar - item.precioUn)
-										}}>
+										<TouchableOpacity
+											onPress={() => {
+												setQuantity(quantity > 1 ? quantity - 1 : quantity);
+												setAPagar(aPagar - item.precioUn);
+											}}
+										>
 											<Feather name='minus' size={35} color='black' />
 										</TouchableOpacity>
 										{quantity === 1 ? (
 											<Text style={{ fontSize: 30 }}> {item.unidades} </Text>
 										) : (
-												<Text style={{ fontSize: 30 }}> {quantity} </Text>
-											)}
-										<TouchableOpacity onPress={() => {
-											setQuantity(quantity < 15 ? quantity + 1 : quantity)
-											setAPagar(aPagar + item.precioUn)
-										}}>
+											<Text style={{ fontSize: 30 }}> {quantity} </Text>
+										)}
+										<TouchableOpacity
+											onPress={() => {
+												setQuantity(quantity < 15 ? quantity + 1 : quantity);
+												setAPagar(aPagar + item.precioUn);
+											}}
+										>
 											<Feather name='plus' size={35} color='black' />
 										</TouchableOpacity>
 									</View>
@@ -129,7 +135,6 @@ const MassagesScreen = ({ navigation }) => {
 					onPress={async () => {
 						navigation.navigate('HistoryScreen');
 						await comprarPurchases();
-						await getMyShopingCart();
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>
@@ -246,4 +251,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default withNavigation(MassagesScreen);
+export default withNavigation(ShopingCartScreen);

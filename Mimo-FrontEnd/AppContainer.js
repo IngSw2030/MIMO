@@ -57,6 +57,7 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
 import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
+import LoadingScreen from './src/screens/authScreens/LoadingScreen';
 
 const switchNavigator = createSwitchNavigator({
 	loginFlow: createStackNavigator({
@@ -88,6 +89,7 @@ const switchNavigator = createSwitchNavigator({
 			Home: createStackNavigator(
 				{
 					HomePage: HomePageScreen,
+					Loading: LoadingScreen,
 					Product: ProductScreen,
 					Veterinaries: VeterinariesScreen,
 					Services: ServicesScreen,
@@ -107,7 +109,7 @@ const switchNavigator = createSwitchNavigator({
 
 					ShopingCart: ShopingCartScreen,
 
-					addProduct: ComAddProductScreen
+					addProduct: ComAddProductScreen,
 				},
 				{
 					defaultNavigationOptions: {
