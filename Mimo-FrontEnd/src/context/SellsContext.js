@@ -6,7 +6,7 @@ import { call } from 'react-native-reanimated';
 const sellsReducer = (state, action) => {
 	switch (action.type) {
 		case 'getmySells':
-			return { ...state, sells: action.type };
+			return action.payload;
 		case 'add_error':
 			console.log('Error');
 			return { ...state };
