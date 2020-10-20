@@ -35,13 +35,13 @@ const HistoryScreen = () => {
 					<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
 						<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.foto}` }} />
 					</View>
-					<View style={styles.container}>
+					<View style={styles.infoContainerStyle}>
 						<Text style={styles.info}>Producto: {item.producto}</Text>
 						<Text style={styles.info}>Unidades: {item.unidades}</Text>
 						<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
 						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
 						<Text style={styles.info}>Numero: {item.numero} </Text>
-						<Text style={styles.info}>ID Venta: {item.id}</Text>
+						<Text style={styles.infoId}>ID Venta: {item.id}</Text>
 					</View>
 				</View>
 			);
@@ -63,7 +63,7 @@ const HistoryScreen = () => {
 				</TouchableOpacity>
 			</View>
 
-			<View style={styles.generalView}>
+			<View style={styles.flatListStyle}>
 				<FlatList
 					refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 					keyExtractor={item => item.id}
@@ -79,6 +79,7 @@ const HistoryScreen = () => {
 
 const styles = StyleSheet.create({
 	selectorStyle: {
+		justifyContent: 'space-evenly',
 		flexDirection: 'row',
 		flexWrap: 'nowrap',
 	},
@@ -99,10 +100,10 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
-	generalView: {
+	flatListStyle: {
 		marginTop: '5%',
 		flexWrap: 'nowrap',
-		marginLeft: '3%',
+		marginHorizontal: '3%',
 		flex: 1,
 	},
 	image: {
@@ -114,28 +115,23 @@ const styles = StyleSheet.create({
 	info: {
 		fontSize: 13,
 		fontWeight: 'bold',
-		width: 150,
+	},
+	infoId: {
+		fontSize: 12,
+		alignSelf: 'center',
 	},
 	containerPhoto: {
 		height: 140,
-		width: '100%',
 		backgroundColor: '#FFA1A9',
 		marginTop: '2%',
 		marginBottom: '2%',
 		flexDirection: 'row',
-		borderRadius: 25,
-		flex: 1,
+		borderRadius: 15,
 	},
-	text: {
-		fontSize: 20,
-		fontWeight: 'bold',
-		marginLeft: '3%',
-	},
-	container: {
-		height: 75,
+	infoContainerStyle: {
 		backgroundColor: '#FFA1A9',
-		marginBottom: 5,
-		flex: 1,
+		flexGrow: 1,
+		flexWrap: 'wrap',
 	},
 });
 
