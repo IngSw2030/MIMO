@@ -60,7 +60,6 @@ const ComNotificationsScreen = ({ navigation }) => {
 						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
 						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
 						<Text style={styles.infoId}>ID Venta: {item.purchase._id}</Text>
-						<Text style={styles.infoId}> Status: {item.purchase.status}</Text>
 						{estado === 'Pendiente' ? botonesRechazarConfirmar() : null}
 					</View>
 				</View>
@@ -70,7 +69,7 @@ const ComNotificationsScreen = ({ navigation }) => {
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column', alignItems: 'stretch' }}>
-			<Text style={styles.title}>Historial de Compras</Text>
+			<Text style={styles.title}>Historial de Ventas</Text>
 			<View style={styles.selectorContainerStyle}>
 				<TouchableOpacity
 					style={estado === 'Completada' ? styles.desplegablesPressedStyle : styles.desplegables}
