@@ -20,6 +20,7 @@ const LoadingScreen = ({ navigation }) => {
 	const { getMySells } = useContext(SellsContext);
 	const { getUser } = useContext(UserContext);
 	const { getMyShopingCart } = useContext(ShoppingCartContext);
+	const { getServices } = useContext(ServiceContext);
 	// const { getPet } = useContext(PetContext);
 
 	useEffect(() => {
@@ -28,6 +29,7 @@ const LoadingScreen = ({ navigation }) => {
 			await getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 			await getMySells();
 			await getMyShopingCart();
+			await getServices();
 			navigation.navigate('HomePage');
 		}
 		fetchData();

@@ -13,33 +13,36 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import { Provider as ShoppingCartProvider } from './src/context/ShoppingCartContext';
 import { Provider as SellsProvider } from './src/context/SellsContext';
+import { Provider as ServiceProvider } from './src/context/ServiceContext';
 
 import store from './src/context/ChatContext';
 
 export default () => {
 	return (
-		<SellsProvider>
-			<ShoppingCartProvider>
-				<PostContext>
-					<ProductContext>
-						<PurchaseContext>
-							<PetProvider>
-								<ChatProvider store={store}>
-									<UserProvider>
-										<AuthProvider>
-											<AppContainer
-												ref={navigator => {
-													setNavigator(navigator);
-												}}
-											/>
-										</AuthProvider>
-									</UserProvider>
-								</ChatProvider>
-							</PetProvider>
-						</PurchaseContext>
-					</ProductContext>
-				</PostContext>
-			</ShoppingCartProvider>
-		</SellsProvider>
+		<ServiceProvider>
+			<SellsProvider>
+				<ShoppingCartProvider>
+					<PostContext>
+						<ProductContext>
+							<PurchaseContext>
+								<PetProvider>
+									<ChatProvider store={store}>
+										<UserProvider>
+											<AuthProvider>
+												<AppContainer
+													ref={navigator => {
+														setNavigator(navigator);
+													}}
+												/>
+											</AuthProvider>
+										</UserProvider>
+									</ChatProvider>
+								</PetProvider>
+							</PurchaseContext>
+						</ProductContext>
+					</PostContext>
+				</ShoppingCartProvider>
+			</SellsProvider>
+		</ServiceProvider>
 	);
 };

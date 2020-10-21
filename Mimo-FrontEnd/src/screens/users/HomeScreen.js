@@ -41,7 +41,7 @@ const HomeScreen = ({ navigation }) => {
 
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
-					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
+					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
 						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>
@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		paddingTop: '10%',
 		flex: 0.65,
-
 	},
 
 	logoStyle: {
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
 	buttonNameStyle: {
 		fontSize: 23,
 		alignSelf: 'center',
-
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
@@ -133,7 +131,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: '5%',
 		flex: 1,
 		paddingBottom: '5%',
-
 	},
 });
 export default withNavigation(HomeScreen);
