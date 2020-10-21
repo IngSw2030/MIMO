@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
@@ -21,16 +21,18 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 //Blog/Post
 import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
+
 //Imports de comercio
-import ComProductScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
-import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
-import ComProductDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComServiceDetailsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
-import ComSettingsScreen from './src/screens/commerces/ComAccesoriesScreen';
-import ComVeterinaryProfileScreen from './src/screens/commerces/ComAccesoriesScreen';
 import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
+import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
+import ComProductDetailsScreen from './src/screens/commerces/ComProductDetailsScreen';
+import ComProductScreen from './src/screens/commerces/ComProductScreen';
+import ComServiceDetailsScreen from './src/screens/commerces/ComServiceDetailsScreen';
+import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
+import ComSettingsScreen from './src/screens/commerces/ComSettingsScreen';
+import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryProfileScreen';
+
 
 //Imports de Usuario
 //pets
@@ -58,6 +60,9 @@ import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScr
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
 import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 import LoadingScreen from './src/screens/authScreens/LoadingScreen';
+
+
+
 
 const switchNavigator = createSwitchNavigator({
 	loginFlow: createStackNavigator({
@@ -88,8 +93,8 @@ const switchNavigator = createSwitchNavigator({
 
 			Home: createStackNavigator(
 				{
-					HomePage: HomePageScreen,
 					Loading: LoadingScreen,
+					HomePage: HomePageScreen,
 					Product: ProductScreen,
 					Veterinaries: VeterinariesScreen,
 					Services: ServicesScreen,
@@ -146,6 +151,7 @@ const switchNavigator = createSwitchNavigator({
 			},
 		}
 	),
+	
 });
 
 const AppContainer = createAppContainer(switchNavigator);

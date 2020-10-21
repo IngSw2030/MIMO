@@ -1,12 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-const ComFoodScreen = () => {
+const ComProductScreen = () => {
     return (
         <View>
-            <Text>Pantalla de ComFoodScreen</Text>
+            <Text>Pantalla de ComProductScreen</Text>
         </View>
     )
 }
 
-export default ComFoodScreen
+export default ComProductScreen

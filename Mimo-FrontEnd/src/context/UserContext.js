@@ -5,7 +5,7 @@ import { navigate } from '../navigationRef';
 const userReducer = (state, action) => {
     switch (action.type) {
         case 'getUser':
-            return { ...state, photo: action.payload.photo, name: action.payload.name, email: action.payload.email }
+            return { ...state, photo: action.payload.photo, name: action.payload.name, email: action.payload.email, tipo: action.payload.userType }
         case 'updateImage':
             return { ...state, photo: action.payload.photo };
         case 'updateName':
@@ -22,6 +22,7 @@ const userReducer = (state, action) => {
 const getUser = dispatch => async () => {
     try {
         const response = await instance.get('/api/User/find');
+        console.log(response.data.user)
         dispatch({ type: 'getUser', payload: response.data.user });
     } catch (err) {
         dispatch({ type: 'add_error' })

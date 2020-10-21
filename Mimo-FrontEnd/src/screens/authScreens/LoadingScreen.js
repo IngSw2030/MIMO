@@ -18,7 +18,7 @@ const LoadingScreen = ({ navigation }) => {
 	// const { getPosts } = useContext(PostContext);
 	const { getMyPurchases } = useContext(PurchaseContext);
 	const { getMySells } = useContext(SellsContext);
-	const { getUser } = useContext(UserContext);
+	const { state, getUser } = useContext(UserContext);
 	const { getMyShopingCart } = useContext(ShoppingCartContext);
 	// const { getPet } = useContext(PetContext);
 
@@ -28,7 +28,9 @@ const LoadingScreen = ({ navigation }) => {
 			await getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 			await getMySells();
 			await getMyShopingCart();
-			navigation.navigate('HomePage');
+			state.tipo == 0?
+				navigation.navigate('HomePage')
+			: navigation.navigate('comercHome')
 		}
 		fetchData();
 	}, []); // Or [] if effect doesn't need props or state

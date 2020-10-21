@@ -2,13 +2,16 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../context/AuthContext';
+import { Context as UserContext } from '../../context/UserContext';
 
 const StartScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 
+	const { getUser } = useContext(UserContext);
 	const { tryLocalSignin } = useContext(AuthContext);
 	useEffect(() => {
 		tryLocalSignin();
+		getUser();
 	}, []);
 
 	return (

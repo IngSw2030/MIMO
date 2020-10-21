@@ -1,5 +1,5 @@
 //redux y sockets
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Provider as ChatProvider } from 'react-redux';
 import AppContainer from './AppContainer';
 import { setNavigator } from './src/navigationRef';
@@ -14,9 +14,14 @@ import { Provider as UserProvider } from './src/context/UserContext';
 import { Provider as ShoppingCartProvider } from './src/context/ShoppingCartContext';
 import { Provider as SellsProvider } from './src/context/SellsContext';
 
+import { Context as UserContext } from './src/context/UserContext';
+
 import store from './src/context/ChatContext';
 
+
 export default () => {
+
+
 	return (
 		<SellsProvider>
 			<ShoppingCartProvider>
