@@ -1,31 +1,56 @@
-import React, {useContext}from 'react'
-import { View, Text, StyleSheet} from 'react-native'
+import React, { useContext, useState, useEffect } from 'react'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { withNavigation } from 'react-navigation';
-import VetComponent from '../../../components/vetComponent';
+import VetComponent from '../../../components/vetComponentDetail';
 import WideListComponent from '../../../components/wideListComponent'
-import {Context as VetContext} from '../../../context/VetContext';
+import VeterinaryList from '../../../components/veterinaryList'
+import { Context as VetContext } from '../../../context/VetContext';
+import SearchBar from '../../../components/searchBar';
+import useSearch from '../../../hooks/useResultsProduct';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const VeterinariesScreen = () => {
-    const {state:veterinarias} = useContext(VetContext);
+    const { state, getAllVets } = useContext(VetContext);
+
+    useEffect(() => {
+        getAllVets();
+    }, [])
 
     return (
-        <View style= {styles.generalView}>
-            <WideListComponent 
-                title ='Veterinarias' 
-                list={veterinarias}
-                componentToRender={(item)=>{return <VetComponent id = {item}/>}}
-            />
+        <View style={styles.body}>
+            <View style={styles.searchBarStyle}>
+                <SearchBar />
+            </View>
+            <ScrollView>
+                <Text style={styles.tituloPantalla}>Veterinarias</Text>
+                <View >
+                    <FlatList
+                        data={state.veterinarias}
+                        keyExtractor={item => item._id}
+                        renderItem={({ item }) => {
+                            return <VeterinaryList veterinary={item} />;
+                        }}
+                    />
+                </View>
+            </ScrollView>
+
         </View>
     )
 };
 const styles = StyleSheet.create({
-    generalView:{
-        marginTop: 25,
+    body: {
         backgroundColor: '#FFF7BB',
         flex: 1,
-        justifyContent: "center",
-        alignItems: "stretch"
-    }
+    },
+    searchBarStyle: {
+        flexShrink: 0,
+        marginTop: 10,
+    },
+    tituloPantalla: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: 20,
+    },
 });
 
 export default withNavigation(VeterinariesScreen);

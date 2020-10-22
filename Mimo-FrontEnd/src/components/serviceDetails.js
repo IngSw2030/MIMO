@@ -1,80 +1,115 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, FlatList,TouchableOpacity} from 'react-native'
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation';
+import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 
-const ServiceDetails = ({data, calificacion, descripcion}) => {
-    const imagen = require("../../assets/paseador.jpg");
+const ServiceDetails = ({ data, calificacion, descripcion, nombre }) => {
     const ratingIcon = require('../../assets/rating.png');
-    const tipo = Capitalize(data);
+    const tipo = (data);
     const estrellas = insertarEstrellas(calificacion);
-    const desc = Capitalize(descripcion);
+    const mimoIcon = require('../../assets/mimo.png');
+
     return (
-        
-        <View>
-            <Image
-                style = {styles.imageStyle}
-                source= {imagen}
-            />
-            <View style={({marginHorizontal:15})}>
-                <Text style={styles.titleStyle}> {tipo}</Text>
-                <Text style={styles.titleStyle}> Descripcion</Text>
-                <Text style={({marginLeft:5})}>{desc}</Text>
-                <TouchableOpacity
-                    style={styles.starsStyle}
-                >
-                    <Text style={styles.titleStyle}> Calificacion</Text>
-                    <View style={({marginLeft:5})}>
-                        <FlatList
-                            data = {estrellas}
-                            keyExtractor = {(estrella)=>estrella.cantidad.toString()}
-                            numColumns = {5}
-                            renderItem ={({estrellas})=>{
+        <View style={{ marginHorizontal: '5%', flex: 1 }}>
+            {
+                data.photo != ""
+                    ?
+                    <Image style={styles.imageStyle} source={mimoIcon} />
+                    :
+                    <Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${data.photo}` }} />
+            }
+            <Text style={styles.nombre}>{nombre}</Text>
+            <Text style={styles.titleStyle}>Descripcion:</Text>
+            <Text style={{ fontSize: 20 }}>{descripcion}</Text>
+
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={styles.titleStyle}>Calificacion ''</Text>
+                <View style={{ marginLeft: 5 }}>
+                    <FlatList
+                        data={estrellas}
+                        keyExtractor={(estrella) => estrella.cantidad.toString()}
+                        numColumns={5}
+                        renderItem={({ estrellas }) => {
                             return (
-                                <Image style={styles.iconStyle}  source={ratingIcon}/>
-                                ) 
-                            }}
-                        />
-                    </View>
+                                <Image style={styles.iconStyle} source={ratingIcon} />
+                            )
+                        }}
+                    />
+                </View>
+            </View>
+
+            <View style={{ flexDirection: 'column', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                <TouchableOpacity style={styles.comentarios}>
+                    <FontAwesome5 name="comment-dots" size={24} color="black" />
+                    <Text style={styles.textoBotones}>Comentarios</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.contactar}>
+                    <FontAwesome name="send-o" size={24} color="black" />
+
+                    <Text style={styles.textoBotones}>Contactar</Text>
                 </TouchableOpacity>
             </View>
+
         </View>
     )
 }
-const Capitalize = (str)=>{
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
-const insertarEstrellas = (cantidad)=>{
-    if(cantidad > 0)
-    {
-       const estrellas= [...insertarEstrellas(cantidad-1),{cantidad}];
-       return estrellas;
+const insertarEstrellas = (cantidad) => {
+    if (cantidad > 0) {
+        const estrellas = [...insertarEstrellas(cantidad - 1), { cantidad }];
+        return estrellas;
     }
-    else
-    {
+    else {
         const estrellas = [];
         return estrellas;
     }
 }
 const styles = StyleSheet.create({
-    imageStyle:{
-        marginTop:40,
+    contactar: {
+        backgroundColor: '#B0EFEF',
+        width: 200,
+        borderRadius: 25,
+        height: 50,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+        paddingHorizontal: 20,
+    },
+    textoBotones: {
+        fontSize: 25,
+    },
+    comentarios: {
+        backgroundColor: '#E8916C',
+        width: 200,
+        borderRadius: 25,
+        height: 50,
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        marginBottom: 20,
+        flexDirection: 'row',
+        paddingHorizontal: 10,
+    },
+    nombre: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginBottom: '5%'
+    },
+    imageStyle: {
+        marginTop: 40,
         height: 300,
-        width:300,
-        alignSelf:"center",
+        width: 300,
+        alignSelf: "center",
         marginBottom: 10,
         borderRadius: 10
-    }, 
-    titleStyle:{
-        fontSize: 20,
-        fontWeight:"bold"
-    }, 
-    starsStyle:{
-        flexDirection: "column",
     },
-    iconStyle:{
-        height: 15,
-        width: 15
+    titleStyle: {
+        fontSize: 25,
+        fontWeight: "bold"
+    },
+    iconStyle: {
+        height: 30,
+        width: 30
     },
 
 });

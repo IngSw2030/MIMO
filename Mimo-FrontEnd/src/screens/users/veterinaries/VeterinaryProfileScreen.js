@@ -4,50 +4,43 @@ import { withNavigation } from 'react-navigation';
 import ServiceDetails from '../../../components/serviceDetails'
 
 const VeterinaryProfileScreen = (props) => {
-    const data = props.navigation.getParam('nombre');
-    const calificacion = props.navigation.getParam('calificacion');
-    const descripcion = props.navigation.getParam('descripcion');
+    const data = props.navigation.getParam('veterinary');
     return (
-        <View style=  {styles.generalView}>
+        <View style={styles.generalView}>
             <ServiceDetails
-                data = {data}
-                calificacion={calificacion}
-                descripcion = {descripcion}
+                data={data}
+                calificacion={data.avgScore}
+                descripcion={data.description}
+                nombre={data.name}
             />
             <View style={styles.bottomViewStyle}>
-                <TouchableOpacity
-                    style={styles.buttonStyle}
-                >
-                    <Image style={styles.iconStyle}/>
-                    <Text style={styles.textStyle}>Ver comentarios</Text>
-                </TouchableOpacity>
             </View>
         </View>
     )
 };
 const styles = StyleSheet.create({
-    generalView:{
+    generalView: {
         backgroundColor: '#FFF7BB',
         flexGrow: 1,
-        paddingTop:20,
+        paddingTop: 20,
     },
-    buttonStyle:{
+    buttonStyle: {
         backgroundColor: '#E8778B',
-        height:50,
-        width:220,
+        height: 50,
+        width: 220,
         borderRadius: 15,
         marginLeft: 30,
         marginTop: 30,
-        flexDirection:"row"
+        flexDirection: "row"
     },
-    textStyle:{
-        fontSize:20,
+    textStyle: {
+        fontSize: 20,
         alignSelf: "center",
     },
-    iconStyle:{
-        width:40,
-        height:40,
-        marginRight:15
+    iconStyle: {
+        width: 40,
+        height: 40,
+        marginRight: 15
     }
 });
 

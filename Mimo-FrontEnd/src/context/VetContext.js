@@ -1,56 +1,45 @@
+import instance from '../api/mimo';
 import createDataContext from './createDataContext';
 
-const veterinaryReducer = (listaVeterinarias, action) => {
-	switch (action.type) {
-		case 'addVet':
-			return [
-				...listaVeterinarias,
-				{
-                    name: action.payload.name,
-                    animals: action.payload.animals,
-                    photo: action.payload.image,
-                    address: action.payload.address,
-                    description: action.payload.description,
-                    avgScore: 0
-				},
-			];
-		default:
-			return listaVeterinarias;
-	}
+const veterinaryReducer = (state, action) => {
+    switch (action.type) {
+        case 'getAllVets':
+            console.log(action.payload);
+            return { ...state, veterinarias: action.payload };
+        case 'getMyVets':
+            return { ...state, veterinarias: action.payload };
+        case 'add_error':
+            return { ...state, errorMessage: action.payload };
+        default:
+            return { ...state };
+    }
 };
 
-const addVet = dispatch => async () =>  {
-    try{
-        return (name, description, telefono, image, usuario, callback) => {
-            dispatch({ type: 'addVet', payload: { name, description, telefono, image, usuario, address, animals } });
-            callback(); //el callback es un navigate
-        };
-    } 
+const getAllVets = dispatch => async () => {
+    console.log("AYUDA @");
+    try {
+        console.log("AYUDA @2");
+
+        const response = await instance.get('api/Veterinary/allVets');
+        console.log("AYUDA @");
+        dispatch({ type: 'getAllVets', payload: response.data.vets });
+    } catch (err) {
+        dispatch({ type: 'add_error', action: err });
+    }
+}
+
+const getMyVets = dispatch => async ({ id }) => {
+    try {
+        const response = await instance.post('api/Veterinary/myVets', { id });
+        dispatch({ type: 'getMyVets', action: response.data });
+    }
     catch (error) {
-        dispatch({ type: 'add_error' })
+        dispatch({ type: 'add_error' });
     }
 };
-const veterinarias = [
-    {
-        id: '7',
-        name: 'Pet plus Vet',
-		description: 'Esta es una gran veterinaria, super pet es una mierda',
-		telefono: '3003030',
-        image: require('../../assets/ruedaHamster.png'),
-        usuario: '1',
-        address: 'cra 30',
-        avgScore: 4
-    },
-    {
-        id: '8',
-        name: 'Super pet',
-		description: 'Esta es una gran veterinaria, pet plus vet es una mierda',
-		telefono: '3003031',
-        image: require('../../assets/ruedaHamster.png'),
-        usuario: '1',
-        address: 'cra 30',
-        avgScore: 4
-    }
 
-];
-export const { Context, Provider } = createDataContext(veterinaryReducer, { addVet }, veterinarias);
+export const { Context, Provider } = createDataContext(
+    veterinaryReducer,
+    { getMyVets, getAllVets },
+    { veterinarias: [{}], veterinaria: [], errorMessage: '' }
+);
