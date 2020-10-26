@@ -38,17 +38,17 @@ router.post('/save', async (req, res) => {
 router.post('/update', async (req, res) => {
     try {
 
-        const { 
+        const {
             name,
             animals,
             photo,
             address,
             avgScore,
             description,
-            id 
+            id
         } = req.body;
 
-        const veterinary = await Veterinary.findOne({_id: id});
+        const veterinary = await Veterinary.findOne({ _id: id });
 
         let newName, newAnimals, newAddress, newAvgScore, newPhoto, newDescription;
 
@@ -59,19 +59,21 @@ router.post('/update', async (req, res) => {
         !address ? newAddress = veterinary.address : newAddress = address;
 
         !avgScore ? newAvgScore = veterinary.avgScore : newAvgScore = avgScore;
-        
+
         !photo ? newPhoto = veterinary.photo : newPhoto = photo;
 
         !description ? newDescription = veterinary.description : newDescription = description;
 
-        await Veterinary.findOneAndUpdate({ _id: id }, { $set: { 
-            "name": newName,
-            "animals": newAnimals,
-            "address": newAddress,
-            "avgScore": newAvgScore,
-            "photo": newPhoto,
-            "description": newDescription 
-        }}, { useFindAndModify: false });
+        await Veterinary.findOneAndUpdate({ _id: id }, {
+            $set: {
+                "name": newName,
+                "animals": newAnimals,
+                "address": newAddress,
+                "avgScore": newAvgScore,
+                "photo": newPhoto,
+                "description": newDescription
+            }
+        }, { useFindAndModify: false });
         res.send("Modificado satisfactoriamente");
     } catch (err) {
         return res.status(422).send({ error: 'Error al modificar' });
@@ -81,7 +83,7 @@ router.post('/update', async (req, res) => {
 //Query para encontrar mis veterinarias
 router.get('/myVets', async (req, res) => {
     try {
-        const vets = await Veterinary.find({idUser: req.user._id});
+        const vets = await Veterinary.find({ idUser: req.user._id });
         res.send({ vets });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });
@@ -90,19 +92,19 @@ router.get('/myVets', async (req, res) => {
 
 //Query para encontrar todas las veterinarias por nombre
 router.get('/allVets', async (req, res) => {
-    const {name, description, animals} = req.body;
+    const { name, description, animals } = req.body;
 
     let newName, newAnimals, newDescription;
 
-    if(!description && !animals){
-        if(!name){
+    if (!description && !animals) {
+        if (!name) {
             newName = "";
         }
-        else{
+        else {
             newName = name;
         }
     }
-    else{
+    else {
         newName = "-1";
     }
 
@@ -111,12 +113,13 @@ router.get('/allVets', async (req, res) => {
     !description ? newDescription = "-1" : newDescription = description;
 
     try {
-        const vets = await Veterinary.find(({$or: 
-            [
-                { name : { "$regex": newName, "$options": "i" }},
-                { description : { "$regex": newDescription, "$options": "i" }},
-                { animals : newAnimals}
-            ]
+        const vets = await Veterinary.find(({
+            $or:
+                [
+                    { name: { "$regex": newName, "$options": "i" } },
+                    { description: { "$regex": newDescription, "$options": "i" } },
+                    { animals: newAnimals }
+                ]
         })).limit(25);
         res.send({ vets });
     } catch (err) {
@@ -126,24 +129,25 @@ router.get('/allVets', async (req, res) => {
 
 //Query para encontrar todas las veterinarias por nombre
 router.get('/filterVets', async (req, res) => {
-    const {name, description, animals, avgScore} = req.body;
+    const { name, description, animals, avgScore } = req.body;
     let newName, newAnimals, newDescription, newAvgScore;
 
-        !name ? newName = null : newName = name;
+    !name ? newName = null : newName = name;
 
-        !animals ? newAnimals = null : newAnimals = animals;
+    !animals ? newAnimals = null : newAnimals = animals;
 
-        !description ? newDescription = null : newDescription = description;
+    !description ? newDescription = null : newDescription = description;
 
-        !avgScore ? newAvgScore = -1 : newAvgScore = avgScore;
+    !avgScore ? newAvgScore = -1 : newAvgScore = avgScore;
     try {
-        const vets = await Veterinary.find({$and: 
-            [
-                { name : { "$regex": newName, "$options": "i" }},
-                { description : { "$regex": newDescription, "$options": "i" }},
-                //{ animals : newAnimals},
-                { avgScore: {$gte : newAvgScore}}
-            ]
+        const vets = await Veterinary.find({
+            $and:
+                [
+                    { name: { "$regex": newName, "$options": "i" } },
+                    { description: { "$regex": newDescription, "$options": "i" } },
+                    //{ animals : newAnimals},
+                    { avgScore: { $gte: newAvgScore } }
+                ]
         });
         res.send({ vets });
     } catch (err) {

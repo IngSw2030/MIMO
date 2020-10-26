@@ -13,6 +13,7 @@ import { Provider as AuthProvider } from './src/context/AuthContext';
 import { Provider as UserProvider } from './src/context/UserContext';
 import { Provider as ShoppingCartProvider } from './src/context/ShoppingCartContext';
 import { Provider as SellsProvider } from './src/context/SellsContext';
+import { Provider as VetsProvider } from './src/context/VetContext';
 
 import { Context as UserContext } from './src/context/UserContext';
 
@@ -23,28 +24,30 @@ export default () => {
 
 
 	return (
-		<SellsProvider>
-			<ShoppingCartProvider>
-				<PostContext>
-					<ProductContext>
-						<PurchaseContext>
-							<PetProvider>
-								<ChatProvider store={store}>
-									<UserProvider>
-										<AuthProvider>
-											<AppContainer
-												ref={navigator => {
-													setNavigator(navigator);
-												}}
-											/>
-										</AuthProvider>
-									</UserProvider>
-								</ChatProvider>
-							</PetProvider>
-						</PurchaseContext>
-					</ProductContext>
-				</PostContext>
-			</ShoppingCartProvider>
-		</SellsProvider>
+		<VetsProvider>
+			<SellsProvider>
+				<ShoppingCartProvider>
+					<PostContext>
+						<ProductContext>
+							<PurchaseContext>
+								<PetProvider>
+									<ChatProvider store={store}>
+										<UserProvider>
+											<AuthProvider>
+												<AppContainer
+													ref={navigator => {
+														setNavigator(navigator);
+													}}
+												/>
+											</AuthProvider>
+										</UserProvider>
+									</ChatProvider>
+								</PetProvider>
+							</PurchaseContext>
+						</ProductContext>
+					</PostContext>
+				</ShoppingCartProvider>
+			</SellsProvider>
+		</VetsProvider>
 	);
 };
