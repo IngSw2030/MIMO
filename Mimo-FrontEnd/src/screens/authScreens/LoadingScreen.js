@@ -25,14 +25,18 @@ const LoadingScreen = ({ navigation }) => {
 	useEffect(() => {
 		async function fetchData() {
 			await getUser();
-			await getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
-			await getMySells();
-			await getMyShopingCart();
-			state.tipo == 0?
-				navigation.navigate('HomePage')
-			: navigation.navigate('comercHome')
+			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
+			getMySells();
+			getMyShopingCart();
 		}
 		fetchData();
+		
+	 	async function check(){
+			await state.tipo === false ?
+			navigation.navigate('HomePage')
+			: navigation.navigate('comercHome')
+		}
+		check();
 	}, []); // Or [] if effect doesn't need props or state
 
 	return (

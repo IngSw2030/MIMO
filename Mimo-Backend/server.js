@@ -9,6 +9,8 @@ require('./src/models/Review');
 require('./src/models/Service');
 require('./src/models/Veterinary');
 require('./src/models/Message');
+require('./src/models/Post');
+require('./src/models/Comment');
 
 const app = express();
 
@@ -36,6 +38,8 @@ app.use('/api/Review', require('./src/routes/ReviewRoutes'));
 app.use('/api/Service', require('./src/routes/ServiceRoutes'));
 app.use('/api/Veterinary', require('./src/routes/VeterinaryRoutes'));
 app.use('/api/Message', require('./src/routes/MessageRoutes'));
+app.use('/api/Post', require('./src/routes/PostRoutes'));
+app.use('/api/Comment', require('./src/routes/CommentRoutes'));
 
 const PORT = process.env.PORT || 5000;
 

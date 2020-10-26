@@ -22,7 +22,7 @@ const userReducer = (state, action) => {
 const getUser = dispatch => async () => {
     try {
         const response = await instance.get('/api/User/find');
-        console.log(response.data.user)
+        //console.log(response.data.user)
         dispatch({ type: 'getUser', payload: response.data.user });
     } catch (err) {
         dispatch({ type: 'add_error' })
@@ -71,5 +71,5 @@ const deleteUser = () => async () => {
 export const { Provider, Context } = createDataContext(
     userReducer,
     { getUser, updateImage, updateName, updatePhone, updateAddress, deleteUser },
-    { errorMessage: '', photo: null, name: '', tipo: 0, email: '' }
+    { errorMessage: '', photo: null, name: '', tipo: false, email: '' }
 );

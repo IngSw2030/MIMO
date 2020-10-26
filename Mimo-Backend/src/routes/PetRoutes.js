@@ -46,7 +46,9 @@ router.post('/update', async (req, res) => {
             species,
             photo,
             id
-        } = req.body;
+		} = req.body;
+		
+		const pet = await Pet.findOne({ _id: id });
 
 		let newName, newAge, newSpecies, newPhoto;
 

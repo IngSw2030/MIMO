@@ -18,9 +18,14 @@ import StartScreen from './src/screens/authScreens/StartScreen';
 import ChatScreen from './src/screens/chat/ChatScreen';
 import JoinScreen from './src/screens/chat/JoinScreen';
 import FriendListScreen from './src/screens/chat/FriendsListScreen';
+
 //Blog/Post
 import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
+
+//Comments
+//import AddCommentScreen from './src/screens/comments/AddCommentScreen';
+//import CommentsScreen from './src/screens/comments/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
@@ -59,7 +64,10 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
 import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
+
 import LoadingScreen from './src/screens/authScreens/LoadingScreen';
+import LoadingAccountScreen from './src/screens/authScreens/LoadingAccountScreen';
+import { navigate } from './src/navigationRef';
 
 
 
@@ -69,17 +77,27 @@ const switchNavigator = createSwitchNavigator({
 		Start: StartScreen,
 		Signup: SignUpScreen,
 		Signin: SignInScreen,
+		Loading: LoadingScreen,
 	}),
 
 	mainFlow: createBottomTabNavigator(
 		{
 			Account: createStackNavigator(
 				{
+					//Control de Acceso
+					LoadingAccount: LoadingAccountScreen,
+
+					//Pantallas Usuario
 					UserProfile: UserProfileScreen,
 					UserSettings: UserSettingsScreen,
 					Notifications: NotificationsScreen,
 					AddPet: AddPetScreen,
 					Pets: PetsScreen,
+
+					//Pantallas Comercio
+					ComSettings: ComSettingsScreen,
+
+					//Pantallas usuario
 					Chat: ChatScreen,
 					Join: JoinScreen,
 					FriendList: FriendListScreen,
@@ -93,28 +111,41 @@ const switchNavigator = createSwitchNavigator({
 
 			Home: createStackNavigator(
 				{
-					Loading: LoadingScreen,
+					//Pantallas Usuario
 					HomePage: HomePageScreen,
 					Product: ProductScreen,
-					Veterinaries: VeterinariesScreen,
-					Services: ServicesScreen,
 					ProductDetails: ProductDetailsScreen,
+					Veterinaries: VeterinariesScreen,
+					VeterinaryProfile: VeterinaryProfileScreen,
+					Services: ServicesScreen,
 					Grooming: GroomingScreen,
 					Massages: MassagesScreen,
 					PetSitting: PetSittingScreen,
 					PetWalker: PetWalkerScreen,
-					ServiceDetails: ServiceDetailsScreen,
-					VeterinaryProfile: VeterinaryProfileScreen,
 					AquariumCleaner: AquariumCleanerScreen,
+					ServiceDetails: ServiceDetailsScreen,
+					NotifiScreen: ComNotificationsScreen,
+					ShopingCart: ShopingCartScreen,
+
+					//Pantallas Comercio
+					comercHome: ComHomeScreen,
+					ComAddProduct: ComAddProductScreen,
+					ComVeterinary: ComVeterinaryScreen,
+					ComNotifications: ComNotificationsScreen,
+					ComProductDetails: ComProductDetailsScreen,
+					ComProduct: ComProductScreen,
+					ComServiceDetails: ComServiceDetailsScreen,
+					ComService: ComServiceScreen,
+					ComSettings: ComSettingsScreen,
+					ComVeterinaryProfile: ComVeterinaryProfileScreen,
+					
+					//Pantalla Posts y Comentarios
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
-					comercHome: ComHomeScreen,
-					NotifiScreen: ComNotificationsScreen,
-
-					ShopingCart: ShopingCartScreen,
-
-					addProduct: ComAddProductScreen,
+					//AddComment: AddCommentScreen,
+					//Comments: CommentsScreen
+					
 				},
 				{
 					defaultNavigationOptions: {
@@ -128,6 +159,7 @@ const switchNavigator = createSwitchNavigator({
 		{
 			initialRouteName: 'Home',
 			defaultNavigationOptions: ({ navigation }) => ({
+
 				tabBarIcon: ({ focused, horizontal, tintColor }) => {
 					const { routeName } = navigation.state;
 					if (routeName === 'Home') {
