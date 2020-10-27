@@ -1,9 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { Sidebar } from 'react';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import { FontAwesome5 } from '@expo/vector-icons';
 //Homes
 import HomePageScreen from './src/screens/users/HomeScreen';
@@ -66,125 +66,221 @@ import VeterinaryProfileScreen from './src/screens/users/veterinaries/Veterinary
 import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 
 import LoadingScreen from './src/screens/authScreens/LoadingScreen';
-import LoadingAccountScreen from './src/screens/authScreens/LoadingAccountScreen';
 import { navigate } from './src/navigationRef';
 
+const ComercioHomeNavigation = createStackNavigator(
+	{
+		//Pantallas Comercio
+		comercHome: ComHomeScreen,
+		ComAddProduct: ComAddProductScreen,
+		ComVeterinary: ComVeterinaryScreen,
+		ComNotifications: ComNotificationsScreen,
+		ComProductDetails: ComProductDetailsScreen,
+		ComProduct: ComProductScreen,
+		ComServiceDetails: ComServiceDetailsScreen,
+		ComService: ComServiceScreen,
+		ComSettings: ComSettingsScreen,
+		ComVeterinaryProfile: ComVeterinaryProfileScreen,
+
+		//Pantalla Posts y Comentarios
+		Post: PostScreen,
+		AddPost: AddPostScreen,
+		PostDetails: PostDetailScreen,
+		//AddComment: AddCommentScreen,
+		//Comments: CommentsScreen
+	},
+	{
+		defaultNavigationOptions: {
+			headerShown: false,
+		},
+		initialRouteParams: ComHomeScreen
+	}
+);
+
+const UserHomeNavigation = createStackNavigator(
+	{
+		//Pantallas Usuario
+		HomePage: HomePageScreen,
+		Product: ProductScreen,
+		ProductDetails: ProductDetailsScreen,
+		Veterinaries: VeterinariesScreen,
+		VeterinaryProfile: VeterinaryProfileScreen,
+		Services: ServicesScreen,
+		Grooming: GroomingScreen,
+		Massages: MassagesScreen,
+		PetSitting: PetSittingScreen,
+		PetWalker: PetWalkerScreen,
+		AquariumCleaner: AquariumCleanerScreen,
+		ServiceDetails: ServiceDetailsScreen,
+		NotifiScreen: ComNotificationsScreen,
+		ShopingCart: ShopingCartScreen,
+
+		//Pantalla Posts y Comentarios
+		Post: PostScreen,
+		AddPost: AddPostScreen,
+		PostDetails: PostDetailScreen,
+		//AddComment: AddCommentScreen,
+		//Comments: CommentsScreen
+	},
+	{
+		defaultNavigationOptions: {
+			headerShown: false,
+		},
+		initialRouteParams: HomePageScreen
+	}
+);
+
+const UserAccountNavigation = createStackNavigator(
+	{
+		//Pantallas Usuario
+		UserProfile: UserProfileScreen,
+		UserSettings: UserSettingsScreen,
+		Notifications: NotificationsScreen,
+		AddPet: AddPetScreen,
+		Pets: PetsScreen,
+
+		//Pantallas usuario
+		Chat: ChatScreen,
+		Join: JoinScreen,
+		FriendList: FriendListScreen,
+	},
+	{
+		defaultNavigationOptions: {
+			headerShown: false,
+		},
+		initialRouteParams: UserProfileScreen
+	}
+);
+
+const ComercioAccountNavigation = createStackNavigator(
+	{
+		//Pantallas Usuario
+		UserProfile: UserProfileScreen,
+		ComSettings: ComSettingsScreen,
+		UserSettings: UserSettingsScreen,
+		Notifications: NotificationsScreen,
+		AddPet: AddPetScreen,
+		Pets: PetsScreen,
 
 
+		//Pantallas usuario
+		Chat: ChatScreen,
+		Join: JoinScreen,
+		FriendList: FriendListScreen,
+	},
+	{
+		defaultNavigationOptions: {
+			headerShown: false,
+		},
+		initialRouteParams: UserProfileScreen
+	}
+);
 
-const switchNavigator = createSwitchNavigator({
-	loginFlow: createStackNavigator({
+const UserTabNavigator = createBottomTabNavigator(
+	{
+		Account: UserAccountNavigation,
+		Home: UserHomeNavigation,
+		History: HistoryScreen,
+	},
+	{
+		initialRouteName: 'Home',
+		defaultNavigationOptions: ({ navigation }) => ({
+
+			tabBarIcon: ({ focused, horizontal, tintColor }) => {
+				const { routeName } = navigation.state;
+				if (routeName === 'Home') {
+					return <FontAwesome5 name='home' color={tintColor} size={26} />;
+				}
+				if (routeName === 'History') {
+					return <FontAwesome5 name='history' size={26} color={tintColor} />;
+				}
+				if (routeName === 'Account') {
+					return <FontAwesome5 name='user-alt' size={26} color={tintColor} />;
+				}
+			},
+		}),
+		tabBarOptions: {
+			activeTintColor: '#000',
+			inactiveTintColor: '#555555',
+			tabStyle: {
+				backgroundColor: '#EDDF98',
+				borderTopColor: 'transparent',
+			},
+		},
+	}
+)
+
+const ComercioTabNavigator = createBottomTabNavigator(
+	{
+		Account: ComercioAccountNavigation,
+		Home: ComercioHomeNavigation,
+		History: HistoryScreen,
+	},
+	{
+		initialRouteName: 'Home',
+		defaultNavigationOptions: ({ navigation }) => ({
+
+			tabBarIcon: ({ focused, horizontal, tintColor }) => {
+				const { routeName } = navigation.state;
+				if (routeName === 'Home') {
+					return <FontAwesome5 name='home' color={tintColor} size={26} />;
+				}
+				if (routeName === 'History') {
+					return <FontAwesome5 name='history' size={26} color={tintColor} />;
+				}
+				if (routeName === 'Account') {
+					return <FontAwesome5 name='user-alt' size={26} color={tintColor} />;
+				}
+			},
+		}),
+		tabBarOptions: {
+			activeTintColor: '#000',
+			inactiveTintColor: '#555555',
+			tabStyle: {
+				backgroundColor: '#EDDF98',
+				borderTopColor: 'transparent',
+			},
+		},
+	}
+)
+
+const DrawerNavigator = createDrawerNavigator(
+	{
+		User: {
+			screen: UserTabNavigator,
+		},
+		Comercio: {
+			screen: ComercioTabNavigator,
+		},
+	},
+	{
+		contentComponent: Sidebar,
+		drawerWidth: 310,
+		drawerType: 'front',
+	},
+);
+
+const login = createStackNavigator(
+	{
 		Start: StartScreen,
 		Signup: SignUpScreen,
 		Signin: SignInScreen,
 		Loading: LoadingScreen,
-	}),
+	},
+	{
+		initialRouteParams: StartScreen
+	}
+)
 
-	mainFlow: createBottomTabNavigator(
-		{
-			Account: createStackNavigator(
-				{
-					//Control de Acceso
-					LoadingAccount: LoadingAccountScreen,
-
-					//Pantallas Usuario
-					UserProfile: UserProfileScreen,
-					UserSettings: UserSettingsScreen,
-					Notifications: NotificationsScreen,
-					AddPet: AddPetScreen,
-					Pets: PetsScreen,
-
-					//Pantallas Comercio
-					ComSettings: ComSettingsScreen,
-
-					//Pantallas usuario
-					Chat: ChatScreen,
-					Join: JoinScreen,
-					FriendList: FriendListScreen,
-				},
-				{
-					defaultNavigationOptions: {
-						headerShown: false,
-					},
-				}
-			),
-
-			Home: createStackNavigator(
-				{
-					//Pantallas Usuario
-					HomePage: HomePageScreen,
-					Product: ProductScreen,
-					ProductDetails: ProductDetailsScreen,
-					Veterinaries: VeterinariesScreen,
-					VeterinaryProfile: VeterinaryProfileScreen,
-					Services: ServicesScreen,
-					Grooming: GroomingScreen,
-					Massages: MassagesScreen,
-					PetSitting: PetSittingScreen,
-					PetWalker: PetWalkerScreen,
-					AquariumCleaner: AquariumCleanerScreen,
-					ServiceDetails: ServiceDetailsScreen,
-					NotifiScreen: ComNotificationsScreen,
-					ShopingCart: ShopingCartScreen,
-
-					//Pantallas Comercio
-					comercHome: ComHomeScreen,
-					ComAddProduct: ComAddProductScreen,
-					ComVeterinary: ComVeterinaryScreen,
-					ComNotifications: ComNotificationsScreen,
-					ComProductDetails: ComProductDetailsScreen,
-					ComProduct: ComProductScreen,
-					ComServiceDetails: ComServiceDetailsScreen,
-					ComService: ComServiceScreen,
-					ComSettings: ComSettingsScreen,
-					ComVeterinaryProfile: ComVeterinaryProfileScreen,
-					
-					//Pantalla Posts y Comentarios
-					Post: PostScreen,
-					AddPost: AddPostScreen,
-					PostDetails: PostDetailScreen,
-					//AddComment: AddCommentScreen,
-					//Comments: CommentsScreen
-					
-				},
-				{
-					defaultNavigationOptions: {
-						headerShown: false,
-					},
-				}
-			),
-			History: HistoryScreen,
-		},
-
-		{
-			initialRouteName: 'Home',
-			defaultNavigationOptions: ({ navigation }) => ({
-
-				tabBarIcon: ({ focused, horizontal, tintColor }) => {
-					const { routeName } = navigation.state;
-					if (routeName === 'Home') {
-						return <FontAwesome5 name='home' color={tintColor} size={26} />;
-					}
-					if (routeName === 'History') {
-						return <FontAwesome5 name='history' size={26} color={tintColor} />;
-					}
-					if (routeName === 'Account') {
-						return <FontAwesome5 name='user-alt' size={26} color={tintColor} />;
-					}
-				},
-			}),
-			tabBarOptions: {
-				activeTintColor: '#000',
-				inactiveTintColor: '#555555',
-				tabStyle: {
-					backgroundColor: '#EDDF98',
-					borderTopColor: 'transparent',
-				},
-			},
-		}
-	),
-	
-});
+const switchNavigator = createSwitchNavigator(
+	{
+		loginFlow: login,
+		mainFlow: DrawerNavigator,
+	},
+	{
+		initialRouteParams: 'loginFlow',
+	}
+);
 
 const AppContainer = createAppContainer(switchNavigator);
 export default AppContainer;

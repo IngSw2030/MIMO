@@ -11,7 +11,7 @@ const StartScreen = ({ navigation }) => {
 	const { tryLocalSignin } = useContext(AuthContext);
 	useEffect(() => {
 		tryLocalSignin();
-		getUser();
+		//getUser();
 	}, []);
 
 	return (
