@@ -11,9 +11,9 @@ const LoadingAccountScreen = ({ navigation }) => {
 	// const { getPet } = useContext(PetContext);
 
 	useEffect(() => {
-		user.tipo === false ?
-        navigation.navigate('UserProfile')
-        : navigation.navigate('UserProfile') //Cuando se tenga lista la pantalla de ComSettings acá se pone
+		user.tipo == false ?
+			navigation.navigate('UserProfile')
+			: navigation.navigate('UserProfile') //Cuando se tenga lista la pantalla de ComSettings acá se pone
 	}, [user]); // Or [] if effect doesn't need props or state
 
 	return (

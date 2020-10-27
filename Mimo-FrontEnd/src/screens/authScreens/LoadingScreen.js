@@ -1,10 +1,6 @@
 import React from 'react';
 import { useContext } from 'react';
 import { View, Text } from 'react-native';
-import { Context as PetContext } from '../../context/PetContext';
-import { Context as ChatContext } from '../../context/ChatContext';
-import { Context as PostContext } from '../../context/PostContext';
-import { Context as ProductContext } from '../../context/ProductContext';
 import { Context as PurchaseContext } from '../../context/PurchaseContext';
 import { Context as ServiceContext } from '../../context/ServiceContext';
 import { Context as UserContext } from '../../context/UserContext';
@@ -22,22 +18,28 @@ const LoadingScreen = ({ navigation }) => {
 	const { getMyShopingCart } = useContext(ShoppingCartContext);
 	// const { getPet } = useContext(PetContext);
 
+	function timeout(delay) {
+		return new Promise(res => setTimeout(res, delay));
+	}
+
+
 	useEffect(() => {
-		async function fetchData() {
-			await getUser();
+		const fetchData = async () => {
+			if (state.tipo === null) {
+
+			} else {
+				state.tipo == false ?
+					navigation.navigate('HomePage')
+					: navigation.navigate('comercHome')
+			}
+			getUser();
+			console.log(state);
 			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 			getMySells();
 			getMyShopingCart();
 		}
 		fetchData();
-		
-	 	async function check(){
-			await state.tipo === false ?
-			navigation.navigate('HomePage')
-			: navigation.navigate('comercHome')
-		}
-		check();
-	}, []); // Or [] if effect doesn't need props or state
+	}, [state]); // Or [] if effect doesn't need props or state
 
 	return (
 		<View>
