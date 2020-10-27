@@ -14,6 +14,12 @@ const userReducer = (state, action) => {
             return { ...state, phone: action.payload.phone };
         case 'updateAddress':
             return { ...state, address: action.payload.address };
+        case 'pinPost':
+            return { ...state};
+        case 'unpinPost':
+            return { ...state};
+        case 'myPinnedPosts': 
+            return { ...state, pinnedPosts: action.payload };
         case 'add_error':
             return { ...state, errorMessage: action.payload };
     }
@@ -61,6 +67,36 @@ const updateAddress = (dispatch) => async ({ address }) => {
         dispatch({ type: 'add_error' })
     }
 }
+
+
+const pinPost = (dispatch) => async ({ idPost }) => {
+    try {
+        const response = await instance.post('/api/User/pinPost', { idPost });
+        dispatch({ type: 'pinPost', payload: response.data });
+    } catch (error) {
+        dispatch({ type: 'add_error', payload: error });
+    }
+};
+
+
+const unpinPost = (dispatch) => async ({ idPost }) => {
+    try {
+        const response = await instance.post('/api/User/unpinPost', { idPost });
+        dispatch({ type: 'unpinPost', payload: response.data });
+    } catch (error) {
+        dispatch({ type: 'add_error', payload: error });
+    }
+};
+
+const myPinnedPosts = (dispatch) => async () => {
+    try {
+        const response = await instance.get('/api/User/myPinnedPosts');
+        dispatch({ type: 'myPinnedPosts', payload: response.data.posts });
+    } catch (error) {
+        dispatch({ type: 'add_error', payload: error });
+    }
+};
+
 const deleteUser = () => async () => {
 
     await instance.get('/api/User/delete');
@@ -70,6 +106,6 @@ const deleteUser = () => async () => {
 
 export const { Provider, Context } = createDataContext(
     userReducer,
-    { getUser, updateImage, updateName, updatePhone, updateAddress, deleteUser },
-    { errorMessage: '', photo: null, name: '', tipo: false, email: '' }
+    { getUser, updateImage, updateName, updatePhone, updateAddress, deleteUser, pinPost, unpinPost, myPinnedPosts },
+    { errorMessage: '', photo: null, name: '', tipo: false, email: '', pinnedPosts: [] }
 );

@@ -22,10 +22,12 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 //Blog/Post
 import PostScreen from './src/screens/users/blog/PostScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
+import myPostsScreen from './src/screens/users/blog/myPostsScreen';
+import pinnedPostsScreen from './src/screens/users/blog/pinnedPostsScreen';
 
 //Comments
-//import AddCommentScreen from './src/screens/comments/AddCommentScreen';
-//import CommentsScreen from './src/screens/comments/CommentsScreen';
+import AddCommentScreen from './src/screens/comments/AddCommentScreen';
+import CommentsScreen from './src/screens/comments/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
@@ -143,8 +145,10 @@ const switchNavigator = createSwitchNavigator({
 					Post: PostScreen,
 					AddPost: AddPostScreen,
 					PostDetails: PostDetailScreen,
-					//AddComment: AddCommentScreen,
-					//Comments: CommentsScreen
+					myPosts: myPostsScreen,
+					pinnedPosts: pinnedPostsScreen,
+					AddComment: AddCommentScreen,
+					Comments: CommentsScreen
 					
 				},
 				{

@@ -7,11 +7,6 @@ import { withNavigation } from 'react-navigation';
 
 const PostComponent = props => {
 	const post = props.post;
-	const description = useProductName(post.descripcion, 90);
-	const nTags = post.tags.length;
-	function renderTags(tag) {
-		return <Text style={styles.tagsStyle}>{tag} </Text>;
-	}
 	return (
 		<View style={styles.pageStyle}>
 			<TouchableOpacity
@@ -23,17 +18,11 @@ const PostComponent = props => {
 				}
 			>
 				<Text style={styles.titleStyle}>
-					Titulo: {post.titulo} {'  '}
+					{post.title} {'  '}
 				</Text>
 				<Text style={styles.postInfo}>
-					Descripcion: {description} {'  '}
+					{post.content} {'  '}
 				</Text>
-				<FlatList
-					numColumns={nTags}
-					keyExtractor={tag => tag}
-					data={post.tags}
-					renderItem={({ item }) => renderTags(item)}
-				/>
 			</TouchableOpacity>
 			{/* <Image source={post.imagen} style={styles.imageStyle} /> */}
 		</View>
@@ -41,9 +30,9 @@ const PostComponent = props => {
 };
 const styles = StyleSheet.create({
 	titleStyle: {
-		alignSelf: 'center',
+		alignSelf: 'flex-start',
 		fontWeight: 'bold',
-		fontSize: 20,
+		fontSize: 24,
 	},
 	tagsStyle: {
 		backgroundColor: '#E871F5',

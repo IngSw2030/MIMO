@@ -34,7 +34,12 @@ const UserSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: 0
-	}
+	},
+	pinnedPosts: {
+        type: [ mongoose.Schema.Types.ObjectId ],
+        ref: 'Post',
+        default:[]
+    },
 });
 
 UserSchema.pre('save', function (next) {

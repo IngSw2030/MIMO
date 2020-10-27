@@ -26,7 +26,7 @@ router.post('/save', async (req, res) => {
 	}
 });
 
-router.get('/myPost', async (req, res) => {
+router.get('/myPosts', async (req, res) => {
     try {
         const posts = await Post.find({idUser: req.user._id});
         res.send({ posts });
@@ -98,7 +98,7 @@ router.post('/update', async (req, res) => {
 	}
 });
 
-router.get('/delete', async (req, res) => {
+router.post('/delete', async (req, res) => {
 	const { id } = req.body;
 
 	try {

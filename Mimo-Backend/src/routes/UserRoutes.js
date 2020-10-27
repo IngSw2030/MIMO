@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const requireAuth = require('../middlewares/requireAuth');
 
 const User = mongoose.model('User');
+const Post = mongoose.model('Post');
 
 const router = express.Router();
 router.use(requireAuth);
@@ -102,6 +103,51 @@ router.get('/allUsers', async (req, res) => {
 	} catch (err) {
 		res.status(422).send({ error: 'No se ha podido publicar el producto' });
 	}
+});
+
+
+router.post('/pinPost', async (req, res) => {
+    try {
+        const { idPost } = req.body;
+
+        await User.findOneAndUpdate(
+            { _id: req.user._id } //encontramos el usuario
+            , {
+                $addToSet: { pinnedPosts: idPost }
+            },
+            { useFindAndModify: false }
+        );
+        res.send("Post guardado con exito");
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al pin el post' });
+    }
+});
+
+router.post('/unpinPost', async (req, res) => {
+    try {
+        const { idPost } = req.body;
+
+        await User.findOneAndUpdate(
+            { _id: req.user._id } //encontramos el usuario
+            , {
+                $pull: { pinnedPosts: idPost }
+            },
+            { useFindAndModify: false }
+        );
+        res.send("Post guardado con exito");
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al unpin el post' });
+    }
+});
+
+router.get('/myPinnedPosts', async (req, res) => {
+    try {
+        const pinned = await User.find({_id: req.user._id}, 'pinnedPosts');
+		const posts = await Post.find({_id: {$in : pinned[0].pinnedPosts}});
+        res.send({ posts });
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al buscar pinnedPosts' });
+    }
 });
 
 module.exports = router;

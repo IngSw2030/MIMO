@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { navigate } from '../../navigationRef';
+import { navigate } from '../../../navigationRef';
 
-const commentsScreen = ({ navigation }) => {
+const myPostsScreen = ({ navigation }) => {
 
 	return (
 		<View>
@@ -11,4 +11,4 @@ const commentsScreen = ({ navigation }) => {
 	);
 };
 
-export default (commentsScreen);
+export default (myPostsScreen);
