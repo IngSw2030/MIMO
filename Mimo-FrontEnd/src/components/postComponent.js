@@ -1,30 +1,42 @@
-import React, { useContext } from 'react';
-import { Context as PostContext } from '../context/PostContext';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
-import useProductName from '../hooks/useProductName';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import React, {useContext} from 'react';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import {  TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Context as UserContext} from '../context/UserContext';
 
 const PostComponent = props => {
 	const post = props.post;
+	const {pinPost} = useContext(UserContext);
 	return (
 		<View style={styles.pageStyle}>
-			<TouchableOpacity
-				style={styles.buttonStyle}
-				onPress={() =>
-					props.navigation.navigate('PostDetails', {
-						id: props.id,
-					})
-				}
-			>
-				<Text style={styles.titleStyle}>
-					{post.title} {'  '}
-				</Text>
-				<Text style={styles.postInfo}>
-					{post.content} {'  '}
-				</Text>
-			</TouchableOpacity>
-			{/* <Image source={post.imagen} style={styles.imageStyle} /> */}
+			<View style={styles.buttonStyle}> 
+				<TouchableOpacity
+					
+					onPress={() =>
+						props.navigation.navigate('PostDetails', {
+							id: props.id,
+						})
+					}
+				>
+					<Text style={styles.titleStyle}>
+						{post.title} {'  '}
+					</Text>
+					<Text style={styles.postDescription}>
+						{post.content.slice(0, 137)}{'...'} {'  '}
+					</Text>
+				</TouchableOpacity>
+				<View style = {styles.info}>
+					<View style = {styles.nameDate}>
+						<Text>{post.poster} {'  '}</Text>
+						<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(14, 19)} {'  '}</Text>
+					</View>
+					<TouchableOpacity onPress = {() => pinPost({idPost: post._id})}>
+						<MaterialCommunityIcons name='pin-outline' size={30} color='black'/>
+					</TouchableOpacity>
+				</View>
+			
+			</View>
 		</View>
 	);
 };
@@ -45,13 +57,12 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	pageStyle: {
-		backgroundColor: '#E8778B',
-		margin: 5,
+		backgroundColor: '#E8916C',
+		margin: 8,
 		flexDirection: 'row',
 		borderRadius: 20,
-		flexWrap: 'wrap',
-		borderColor: '#E8778B',
-		borderWidth: 10,
+		borderColor: '#E8916C',
+		borderWidth: 15,
 	},
 	imageStyle: {
 		marginBottom: 3,
@@ -62,12 +73,14 @@ const styles = StyleSheet.create({
 		flexShrink: 1,
 		margin: 2,
 	},
-	postInfo: {
+	postDescription: {
 		fontSize: 20,
-		marginTop: 4,
-		flexWrap: 'wrap',
-		flexGrow: 1,
+		margin: 4,
 	},
+	info: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	}
 });
 
 export default withNavigation(PostComponent);

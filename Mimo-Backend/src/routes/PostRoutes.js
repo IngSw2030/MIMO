@@ -18,6 +18,7 @@ router.post('/save', async (req, res) => {
             content,
             tags,
 			idUser: req.user._id,
+			poster: req.user.name
 		});
 		await post.save();
 		res.send({ post });

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
-		backgroundColor: '#E8916C',
+		backgroundColor: '#BAA0F2',
 	},
 });
 

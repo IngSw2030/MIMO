@@ -21,6 +21,8 @@ const userReducer = (state, action) => {
             return { ...state};
         case 'myPinnedPosts': 
             return { ...state, pinnedPosts: action.payload };
+        case 'getSingleUser':
+            return { ...state, poster: action.payload };
         case 'add_error':
             return { ...state, errorMessage: action.payload };
     }

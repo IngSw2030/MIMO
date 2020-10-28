@@ -28,6 +28,10 @@ const PostSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    poster: {
+        type: String,
+        required: true,
+    }
 
 });
 mongoose.model('Post', PostSchema);
