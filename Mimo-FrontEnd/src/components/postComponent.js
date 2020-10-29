@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import {  TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
@@ -7,7 +7,18 @@ import { Context as UserContext} from '../context/UserContext';
 
 const PostComponent = props => {
 	const post = props.post;
-	const {pinPost} = useContext(UserContext);
+	const {state, pinPost, unpinPost} = useContext(UserContext);
+	const [pinned, setPinned] = useState(false);
+
+	useEffect(() => {
+		if(!state.pinnedPosts.find(e => e._id === post._id)){
+			
+		}
+		else{
+			setPinned(true);
+		}
+	}, [pinned]);
+
 	return (
 		<View style={styles.pageStyle}>
 			<View style={styles.buttonStyle}> 
@@ -15,7 +26,7 @@ const PostComponent = props => {
 					
 					onPress={() =>
 						props.navigation.navigate('PostDetails', {
-							id: props.id,
+							id: post,
 						})
 					}
 				>
@@ -31,9 +42,26 @@ const PostComponent = props => {
 						<Text>{post.poster} {'  '}</Text>
 						<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(14, 19)} {'  '}</Text>
 					</View>
-					<TouchableOpacity onPress = {() => pinPost({idPost: post._id})}>
-						<MaterialCommunityIcons name='pin-outline' size={30} color='black'/>
-					</TouchableOpacity>
+					{
+						pinned ? 
+							<TouchableOpacity 
+								onPress = {() =>{ 
+									setPinned(false);
+									unpinPost({idPost: post._id});
+								}}
+							>
+								<MaterialCommunityIcons name='pin' size={30} color='black'/>
+							</TouchableOpacity>
+						:
+							<TouchableOpacity 
+								onPress = {() =>{ 
+									pinPost({idPost: post._id});
+									setPinned(true);
+								}}
+							>
+								<MaterialCommunityIcons name='pin-outline' size={30} color='black'/>
+							</TouchableOpacity>
+					}
 				</View>
 			
 			</View>

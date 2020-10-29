@@ -90,8 +90,8 @@ const ComercioHomeNavigation = createStackNavigator(
 		PostDetails: PostDetailScreen,
 		AddComment: AddCommentScreen,
 		Comments: CommentsScreen,
-		myPosts: myPostsScreen,
-		pinnedPosts: pinnedPostsScreen
+		MyPosts: myPostsScreen,
+		PinnedPosts: pinnedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {
@@ -124,7 +124,9 @@ const UserHomeNavigation = createStackNavigator(
 		AddPost: AddPostScreen,
 		PostDetails: PostDetailScreen,
 		AddComment: AddCommentScreen,
-		Comments: CommentsScreen
+		Comments: CommentsScreen,
+		MyPosts: myPostsScreen,
+		PinnedPosts: pinnedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {

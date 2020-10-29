@@ -6,7 +6,7 @@ const postReducer = (state, action) => {
 		case 'savePost':
 			return {...state, post: action.payload};
 		case 'myPosts':
-			return {...state, posts: action.payload};
+			return {...state, myPosts: action.payload};
 		case 'updatePost':
 			return {...state};
 		case 'deletePost':
@@ -61,5 +61,5 @@ const deletePost = dispatch => async({ id }) => {
 export const { Provider, Context } = createDataContext(
 	postReducer,
 	{ savePost, myPosts, updatePost, deletePost }, 
-	{ errorMessage: '', posts: []}
+	{ errorMessage: '', myPosts: []}
 );

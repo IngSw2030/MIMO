@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PostContext } from '../../../context/PostContext';
@@ -6,14 +6,20 @@ import PostComponent from '../../../components/postComponent';
 import SearchBar from '../../../components/searchBar';
 import useResults from '../../../hooks/useResultsPost';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-
+import { Context as UserContext} from '../../../context/UserContext';
+import { navigate } from '../../../navigationRef';
 
 const PostScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
-	const { state: posts,  } = useContext(PostContext);
+	const { myPosts } = useContext(PostContext);
 	const [term, setTerm] = useState('');
-    const [searchApi, results, errorMessage] = useResults();
+	const [searchApi, results, errorMessage] = useResults();
+	const {myPinnedPosts} = useContext(UserContext);
 
+	useEffect(() => {
+		myPinnedPosts();
+		myPosts();
+	}, []);
 	return (
 		<View style={styles.general}>
 			<SearchBar
@@ -25,28 +31,28 @@ const PostScreen = ({ navigation }) => {
 			<View style = {styles.options}>
 				<TouchableOpacity
 					onPress={() => {
-						navigation.navigate('pinnedPosts');
+						navigation.navigate('PinnedPosts');
 					}}
 				>
 					<MaterialCommunityIcons name='pin-outline' size={50} color='black' style={styles.pinnedButton} />
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						navigation.navigate('myPosts');
+						navigation.navigate('MyPosts');
 					}}
 				>
 					<MaterialCommunityIcons name='hammer' size={50} color='black' style={styles.myPostsButton} />
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						navigation.navigate('addPost');
+						navigate('AddPost');
 					}}
 				>
 					<MaterialCommunityIcons name='plus' size={50} color='black' style={styles.createButton} />
 				</TouchableOpacity>
 				<TouchableOpacity
 					onPress={() => {
-						navigation.navigate('pinnedPosts');
+						navigation.navigate('PinnedPosts');
 					}}
 				>
 					<MaterialCommunityIcons name='lightbulb-outline' size={50} color='black' style={styles.recommendButton} />
