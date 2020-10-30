@@ -18,6 +18,7 @@ router.post('/save', async (req, res) => {
             content,
             tags,
 			idUser: req.user._id,
+			poster: req.user.name
 		});
 		await post.save();
 		res.send({ post });
@@ -26,9 +27,9 @@ router.post('/save', async (req, res) => {
 	}
 });
 
-router.get('/myPost', async (req, res) => {
+router.get('/myPosts', async (req, res) => {
     try {
-        const posts = await Post.find({idUser: req.user._id});
+        const posts = await Post.find({idUser: req.user._id}).populate('idUser');
         res.send({ posts });
     } catch (err) {
         res.status(422).send({ error: "No se han encontrado post para el usuario" });
@@ -58,7 +59,7 @@ router.post('/allPosts', async (req, res) => {
 				{ content: { $regex: newTerm, $options: 'i' } },
 				{ tags: { $in: [newTags] } },
 			],
-		}).limit(25);
+		}).populate('idUser').limit(25);
 
 		res.send({ posts });
 	} catch (err) {
@@ -98,7 +99,7 @@ router.post('/update', async (req, res) => {
 	}
 });
 
-router.get('/delete', async (req, res) => {
+router.post('/delete', async (req, res) => {
 	const { id } = req.body;
 
 	try {

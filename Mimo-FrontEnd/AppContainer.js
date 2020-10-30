@@ -24,11 +24,14 @@ import FriendListScreen from './src/screens/chat/FriendsListScreen';
 
 //Blog/Post
 import PostScreen from './src/screens/users/blog/PostScreen';
+import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
+import myPostsScreen from './src/screens/users/blog/myPostsScreen';
+import pinnedPostsScreen from './src/screens/users/blog/pinnedPostsScreen';
 
 //Comments
-//import AddCommentScreen from './src/screens/comments/AddCommentScreen';
-//import CommentsScreen from './src/screens/comments/CommentsScreen';
+import AddCommentScreen from './src/screens/comments/AddCommentScreen';
+import CommentsScreen from './src/screens/comments/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
@@ -66,7 +69,6 @@ import ServicesScreen from './src/screens/users/services/ServicesScreen';
 //veterinaries
 import VeterinariesScreen from './src/screens/users/veterinaries/VeterinariesScreen';
 import VeterinaryProfileScreen from './src/screens/users/veterinaries/VeterinaryProfileScreen';
-import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 
 import LoadingScreen from './src/screens/authScreens/LoadingScreen';
 import { navigate } from './src/navigationRef';
@@ -89,8 +91,10 @@ const ComercioHomeNavigation = createStackNavigator(
 		Post: PostScreen,
 		AddPost: AddPostScreen,
 		PostDetails: PostDetailScreen,
-		//AddComment: AddCommentScreen,
-		//Comments: CommentsScreen
+		AddComment: AddCommentScreen,
+		Comments: CommentsScreen,
+		MyPosts: myPostsScreen,
+		PinnedPosts: pinnedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {
@@ -122,8 +126,10 @@ const UserHomeNavigation = createStackNavigator(
 		Post: PostScreen,
 		AddPost: AddPostScreen,
 		PostDetails: PostDetailScreen,
-		//AddComment: AddCommentScreen,
-		//Comments: CommentsScreen
+		AddComment: AddCommentScreen,
+		Comments: CommentsScreen,
+		MyPosts: myPostsScreen,
+		PinnedPosts: pinnedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {
@@ -257,9 +263,10 @@ const DrawerNavigator = createDrawerNavigator(
 		},
 	},
 	{
+		backBehavior: 'none',
 		contentComponent: Sidebar,
 		drawerWidth: 0,
-		drawerType: 'back',
+		drawerType: 'front',
 	},
 );
 
