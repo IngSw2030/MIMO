@@ -5,7 +5,7 @@ import { navigate } from '../navigationRef';
 const userReducer = (state, action) => {
     switch (action.type) {
         case 'getUser':
-            return { ...state, photo: action.payload.photo, name: action.payload.name, email: action.payload.email }
+            return { ...state, photo: action.payload.photo, name: action.payload.name, email: action.payload.email,phone:action.payload.phone,address:action.payload.address }
         case 'updateImage':
             return { ...state, photo: action.payload.photo };
         case 'updateName':
@@ -30,7 +30,9 @@ const getUser = dispatch => async () => {
 
 const updateImage = (dispatch) => async ({ imagen }) => {
     try {
-        const response = await instance.post('/api/User/update', { photo: imagen });
+        console.log(imagen);
+        const response = await instance.post('/api/User/update', { photo:imagen });
+       // console.log(imagen);
         dispatch({ type: 'updateImage', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
@@ -38,23 +40,27 @@ const updateImage = (dispatch) => async ({ imagen }) => {
 }
 const updateName = (dispatch) => async ({ name }) => {
     try {
-        const response = await instance.post('/api/User/update', { name });
+        const response = await instance.post('/api/User/update', { name:name });
         dispatch({ type: 'updateName', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
 }
-const updatePhone = (dispatch) => async ({ phone }) => {
+const updatePhone = (dispatch) => async ({ Aphone }) => {
     try {
-        const response = await instance.post('/api/User/update', { phone });
+        console.log(Aphone);
+        const response = await instance.post('/api/User/update', { phone:Aphone });
+        console.log(Aphone);
         dispatch({ type: 'updatePhone', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
 }
-const updateAddress = (dispatch) => async ({ address }) => {
+const updateAddress = (dispatch) => async ({ sAddress }) => {
     try {
-        const response = await instance.post('/api/User/update', { address });
+        console.log(sAddress);
+        const response = await instance.post('/api/User/update', { address:sAddress });
+        console.log(sAddress);
         dispatch({ type: 'updateAddress', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })

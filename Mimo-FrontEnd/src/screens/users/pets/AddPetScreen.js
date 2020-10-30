@@ -14,55 +14,65 @@ const AddPetScreen = ({ navigation }) => {
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
 	const [gender, setGender] = useState(true); //true = hembra false = macho
+	
 
 	const [type, setType] = useState('');
 	const [escogerImagen, imagen] = uploadPhoto();
+	const buttons = [
+		{ name: 'dog', size: 60, color: 'black', type: 'perro', petColor: '#9FCAE2' },
+		{ name: 'cat', size: 60, color: 'black', type: 'gato', petColor: '#BCDB89' },
+		{ name: 'fish', size: 60, color: 'black', type: 'pez', petColor: '#FFAFB6' },
+		{ name: 'rabbit', size: 60, color: 'black', type: 'conejo', petColor: '#E8916C' }
+	];
+
+
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FFF7DB' }}>
+		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
 			<Text style={styles.title}>Agregar una Mascota</Text>
-			<Text style={{ fontSize: 15, margin: '5%' }}>Selecciona un tipo</Text>
+			<Text style={{ fontSize: 18, margin: '5%', fontWeight: 'bold', }}>Selecciona un tipo</Text>
 
-			<View style={styles.selectType}>
-				<TouchableOpacity style={styles.type} onPress={() => setType('perro')}>
-					<MaterialCommunityIcons name='dog' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setType('gato')}>
-					<MaterialCommunityIcons name='cat' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setType('hamster')}>
-					<Text>Hamster</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setType('pez')}>
-					<MaterialCommunityIcons name='fish' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setType('conejo')}>
-					<MaterialCommunityIcons name='rabbit' size={50} color='black' />
-				</TouchableOpacity>
+			<View>
+				<FlatList
+					style={styles.selectType}
+					showsHorizontalScrollIndicator={false}
+					data={buttons}
+					keyExtractor={item => item.type}
+					horizontal={true}
+					renderItem={({ item }) => {
+						return (
+							<TouchableOpacity style={{ backgroundColor: item.petColor, borderRadius: 50, margin: 10, marginTop: 5 }} onPress={() => setType(item.type)}>
+								<MaterialCommunityIcons name={item.name} size={item.size} color={item.color} />
+							</TouchableOpacity>
+						);
+					}
+					}
+				/>
 			</View>
+
 
 			<View style={styles.textInputView}>
 				<TextInput
 					style={styles.textInput}
 					value={name}
-					placeholder='    nombre'
+					placeholder='		NOMBRE'
 					onChangeText={name => setName(name)}
 				/>
 				<TextInput
 					style={styles.textInput}
 					keyboardType='numeric'
 					value={age}
-					placeholder='    edad'
+					placeholder='		Edad'
 					onChangeText={age => setAge(age)}
 				/>
 			</View>
 
 			<View style={styles.selectType}>
-				<TouchableOpacity style={styles.gender} onPress={() => setGender(false)}>
-					<Text style={styles.text}>Macho</Text>
+				<TouchableOpacity style={styles.genderm} onPress={() => setGender(false)}>
+					<Text style={styles.text}>Macho ''</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.gender} onPress={() => setGender(true)}>
-					<Text style={styles.text}>Hembra</Text>
+				<TouchableOpacity style={styles.genderf} onPress={() => setGender(true)}>
+					<Text style={styles.text}>Hembra ''</Text>
 				</TouchableOpacity>
 			</View>
 
@@ -71,14 +81,20 @@ const AddPetScreen = ({ navigation }) => {
 					<TouchableOpacity
 						style={styles.buttom}
 						onPress={() => {
-							const numberAge = age * 1;
-							savePet({ name, numberAge, gender, species: type });
+							if (name.length > 0 && age.length > 0 && type.length > 0) {
+								const numberAge = age * 1;
+								savePet({ name, numberAge, gender, species: type });
+								navigation.navigate('Pets');
+							}
+							else {
+								<Text>faltan caracteristicas por llenar</Text>
+							}
 						}}
 					>
-						<Text style={styles.text}>Agregar</Text>
+						<Text style={styles.text}>Agregar ''</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.buttom} onPress={() => navigation.navigate('Pets')}>
-						<Text style={styles.text}>Cancelar</Text>
+						<Text style={styles.text}>Cancelar ''</Text>
 					</TouchableOpacity>
 				</View>
 
@@ -87,8 +103,8 @@ const AddPetScreen = ({ navigation }) => {
 						{imagen ? (
 							<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
 						) : (
-							<FontAwesome name='camera' size={100} color='#D1D1D1' />
-						)}
+								<FontAwesome name='camera' size={100} color='#D1D1D1' />
+							)}
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -99,27 +115,30 @@ const AddPetScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
 	title: {
 		marginTop: 70,
-		fontSize: 20,
+		fontSize: 30,
 		fontWeight: 'bold',
 		marginLeft: 20,
 	},
 	text: {
-		fontSize: 15,
+		fontSize: 18,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		margin: '5%',
-		padding: 9,
+		marginTop:'9%'
+		//margin: '5%',
+		//padding: 15,
 	},
 	textInput: {
-		marginTop: '5%',
+		marginTop: 20,
 		alignSelf: 'center',
 		backgroundColor: '#BCDB89',
-		width: '80%',
-		height: '30%',
+		width: '90%',
+		//height: '50%',
+		height: 50,
 		borderRadius: 25,
 	},
 	textInputView: {
-		height: '20%',
+		//height: '20%',
+		//flex: 1
 	},
 	generalView: {
 		justifyContent: 'center',
@@ -132,25 +151,37 @@ const styles = StyleSheet.create({
 		backgroundColor: '#9FCAE2',
 		borderRadius: 25,
 		height: 50,
-		width: 50,
 		margin: 15,
-		marginBottom: '5%',
+
 	},
 	selectType: {
 		alignSelf: 'center',
 		flexDirection: 'row',
+		alignContent: "space-between",
+		
 	},
-	gender: {
-		backgroundColor: '#BCDB89',
+	TypeText: {
+		marginLeft: 70
+	},
+	genderm: {
+		backgroundColor: '#E8916C',
 		height: 50,
-		width: 100,
+		//width: 100,
+		borderRadius: 25,
+		margin: '5%',
+		marginLeft:'10%'
+	},
+	genderf: {
+		backgroundColor: '#7E9FD1',
+		height: 50,
+		//width: 100,
 		borderRadius: 25,
 		margin: '5%',
 	},
 	buttom: {
 		backgroundColor: '#DBAB9C',
 		height: 50,
-		width: 100,
+		width: 150,
 		borderRadius: 25,
 		marginLeft: '20%',
 		marginBottom: '5%',

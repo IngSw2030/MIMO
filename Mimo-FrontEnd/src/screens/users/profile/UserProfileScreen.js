@@ -10,10 +10,10 @@ const UserProfileScreen = ({ navigation }) => {
 	const { state } = useContext(UserContext);
 
 	return (
-		<View>
+		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 
 			<View>
-				<Image style={styles.photostyle} source={mimoIcon} />
+				<Image style={styles.photostyle} source={{ uri: `data:image/gif;base64,${state.photo}` }} />
 				<Text style={styles.nameStyle}> {state.name} </Text>
 			</View>
 			<Button
@@ -39,7 +39,9 @@ const styles = StyleSheet.create({
 		height: 180,
 		width: 180,
 		alignSelf: 'center',
-		marginTop: 150,
+		marginTop: '20%',
+		marginBottom:'20%',
+		borderRadius: 360,
 	},
 	nameStyle: {
 		fontSize: 18,
@@ -56,6 +58,16 @@ const styles = StyleSheet.create({
 		marginBottom: 25,
 		flexGrow: 1,
 	},
+	closeSession: {
+		backgroundColor: '#DBAB9C',
+		borderRadius: 25,
+		height: 50,
+		width: 330,
+		margin: 15,
+		marginBottom: 25,
+		flexGrow: 1,
+	},
+	
 	textInfoStyle: {
 		fontSize: 18,
 		fontWeight: 'bold',
@@ -66,6 +78,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
+		flex:1
 	},
 });
 export default UserProfileScreen;
