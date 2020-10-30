@@ -4,7 +4,6 @@ import createDataContext from './createDataContext';
 const veterinaryReducer = (state, action) => {
     switch (action.type) {
         case 'getAllVets':
-            console.log(action.payload);
             return { ...state, veterinarias: action.payload };
         case 'getMyVets':
             return { ...state, veterinarias: action.payload };
@@ -16,12 +15,9 @@ const veterinaryReducer = (state, action) => {
 };
 
 const getAllVets = dispatch => async () => {
-    console.log("AYUDA @");
     try {
-        console.log("AYUDA @2");
 
         const response = await instance.get('api/Veterinary/allVets');
-        console.log("AYUDA @");
         dispatch({ type: 'getAllVets', payload: response.data.vets });
     } catch (err) {
         dispatch({ type: 'add_error', action: err });

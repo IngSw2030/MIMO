@@ -15,12 +15,8 @@ const HistoryScreen = () => {
 
 	const mimoIcon = require('../../../../assets/mimo.png');
 	const [estado, setEstado] = useState('Pendiente');
-	/* useEffect(() => {
-		purchases.forEach(element => {
-			console.log('Producto: ', element.producto);
-			console.log('Status: ', element.status);
-		});
-	}, [purchases]); */
+	
+	
 	const [refreshing, setRefreshing] = React.useState(false);
 
 	const onRefresh = React.useCallback(() => {

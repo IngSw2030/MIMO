@@ -45,7 +45,6 @@ router.post('/findByPets', async (req, res) => {
 
 		res.send({ products });
 	} catch (err) {
-		console.log('req.body en error', req.body);
 		res.status(422).send({ error: 'No se ha podido publicar el producto' });
 	}
 });

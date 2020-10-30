@@ -33,7 +33,6 @@ const LoadingScreen = ({ navigation }) => {
 					: navigation.navigate('comercHome')
 			}
 			getUser();
-			console.log(state);
 			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 			getMySells();
 			getMyShopingCart();

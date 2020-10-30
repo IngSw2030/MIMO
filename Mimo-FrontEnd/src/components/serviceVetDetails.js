@@ -6,7 +6,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { navigate } from '../navigationRef';
 
 const ServiceDetails = ({ data, calificacion, descripcion, nombre, id }) => {
-    console.log("AYUDA" + id);
+    
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
     const estrellas = insertarEstrellas(calificacion);

@@ -16,7 +16,6 @@ const sellsReducer = (state, action) => {
 const getMySells = dispatch => async () => {
 	try {
 		const response = await instance.get('/api/Purchase/mySells');
-		console.log('Entra al getMySells');
 		dispatch({ type: 'getmySells', payload: response.data.sells });
 	} catch (err) {
 		dispatch({ type: 'add_error' });

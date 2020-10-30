@@ -7,7 +7,6 @@ const VeterinaryListComponent = props => {
     const mimoIcon = require('../../assets/mimo.png');
 
     const veterinary = props.veterinary;
-    console.log(veterinary);
     return (
         <View style={styles.body}>
             <TouchableOpacity

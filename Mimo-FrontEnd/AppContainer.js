@@ -53,7 +53,6 @@ import PetsScreen from './src/screens/users/pets/PetsScreen';
 import ProductScreen from './src/screens/users/products/ProductScreen';
 import ProductDetailsScreen from './src/screens/users/products/ProductDetailsScreen';
 //profile
-import NotificationsScreen from './src/screens/users/profile/NotificationsScreen';
 import UserProfileScreen from './src/screens/users/profile/UserProfileScreen';
 import UserSettingsScreen from './src/screens/users/profile/UserSettingsScreen';
 import HistoryScreen from './src/screens/users/profile/HistoryScreen';
@@ -119,7 +118,6 @@ const UserHomeNavigation = createStackNavigator(
 		PetWalker: PetWalkerScreen,
 		AquariumCleaner: AquariumCleanerScreen,
 		ServiceDetails: ServiceDetailsScreen,
-		NotifiScreen: ComNotificationsScreen,
 		ShopingCart: ShopingCartScreen,
 		Reviews: ReviewScreen,
 		//Pantalla Posts y Comentarios
@@ -144,7 +142,6 @@ const UserAccountNavigation = createStackNavigator(
 		//Pantallas Usuario
 		UserProfile: UserProfileScreen,
 		UserSettings: UserSettingsScreen,
-		Notifications: NotificationsScreen,
 		AddPet: AddPetScreen,
 		Pets: PetsScreen,
 
@@ -167,7 +164,6 @@ const ComercioAccountNavigation = createStackNavigator(
 		UserProfile: UserProfileScreen,
 		ComSettings: ComSettingsScreen,
 		UserSettings: UserSettingsScreen,
-		Notifications: NotificationsScreen,
 		AddPet: AddPetScreen,
 		Pets: PetsScreen,
 

@@ -12,7 +12,6 @@ const ReviewReducer = (state, action) => {
         case 'getServiceReviews':
             return action.payload;
         case 'add_error':
-            console.log('Error');
             return { ...state };
     }
 };
@@ -45,9 +44,7 @@ const addServiceReview = dispatch => async ({ comment, score, idVet }) => {
 
 const getVetReviews = dispatch => async ({ idVet }) => {
     try {
-        console.log("Ayuda 4" + idVet);
         const response = await instance.post('/api/Review/vetReviews', { idVet });
-        console.log(response);
         dispatch({ type: 'getVetReviews', payload: response.data });
     }
     catch (error) {

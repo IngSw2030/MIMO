@@ -55,7 +55,6 @@ router.post('/saveServiceReview', async (req, res) => {
 //Encontrar las reviews relacionadas con una veterinaria
 router.post('/vetReviews', async (req, res) => {
     const { idVet } = req.body
-    console.log(idVet);
     try {
         const reviews = await Review.find({ idVet: idVet }).populate('idVet').populate('idUser');
         res.send({ reviews });

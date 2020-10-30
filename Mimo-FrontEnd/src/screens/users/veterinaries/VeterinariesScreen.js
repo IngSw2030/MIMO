@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { View, Text, StyleSheet, FlatList } from 'react-native'
 import { withNavigation } from 'react-navigation';
-import VetComponent from '../../../components/vetComponentDetail';
 import WideListComponent from '../../../components/wideListComponent'
-import VeterinaryList from '../../../components/veterinaryList'
+import VeterinaryList from '../../../components/veterinaryComponent'
 import { Context as VetContext } from '../../../context/VetContext';
 import SearchBar from '../../../components/searchBar';
 import useSearch from '../../../hooks/useResultsProduct';

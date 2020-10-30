@@ -1,13 +1,12 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import ServiceDetails from '../../../components/serviceDetails'
+import ServiceDetails from '../../../components/serviceVetDetails'
 
 
 const VeterinaryProfileScreen = (props) => {
 
     const data = props.navigation.getParam('veterinary');
-    console.log("AYUDA 1 " + data._id)
     return (
         <View style={styles.generalView}>
             <ServiceDetails

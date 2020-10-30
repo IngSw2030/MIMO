@@ -24,7 +24,6 @@ const ShopingCartScreen = ({ navigation }) => {
 
 	const comprarPurchases = function () {
 		cart.forEach(element => {
-			console.log('id:', element.id);
 			updateStatus({ idPurchase: element.id, status: 'Pendiente' });
 			element.status = 'Pendiente';
 			addPurchase({ element });
@@ -37,11 +36,11 @@ const ShopingCartScreen = ({ navigation }) => {
 	const [aPagar, setAPagar] = useState(bPagar);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
-	useEffect(() => {
+	/* useEffect(() => {
 		cart.forEach(element => {
 			console.log(element.producto);
 		});
-	}, []);
+	}, []); */
 
 	return (
 		<View style={styles.generalViewStyle}>

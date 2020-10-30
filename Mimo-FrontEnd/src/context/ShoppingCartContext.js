@@ -19,7 +19,6 @@ const userReducer = (state, action) => {
 const getMyShopingCart = dispatch => async () => {
 	try {
 		const response = await instance.get('/api/Purchase/myShopingCart');
-		console.log('Entra al getMyShopingCart');
 		dispatch({ type: 'getMyShopingCart', payload: response.data.purchases });
 	} catch (err) {
 		console.log('Error getMyShopingCart', err);
