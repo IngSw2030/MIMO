@@ -3,8 +3,11 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ServiceDetails from '../../../components/serviceDetails'
 
+
 const VeterinaryProfileScreen = (props) => {
+
     const data = props.navigation.getParam('veterinary');
+    console.log("AYUDA 1 " + data._id)
     return (
         <View style={styles.generalView}>
             <ServiceDetails
@@ -12,6 +15,7 @@ const VeterinaryProfileScreen = (props) => {
                 calificacion={data.avgScore}
                 descripcion={data.description}
                 nombre={data.name}
+                id={data._id}
             />
             <View style={styles.bottomViewStyle}>
             </View>

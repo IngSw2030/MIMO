@@ -17,9 +17,14 @@ const ReviewSchema = new mongoose.Schema({
     idVet: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Veterinary',
-        required: true,
+        required: false,
     },
-    dateReview:{
+    idService: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Service',
+        required: false,
+    },
+    dateReview: {
         type: Date,
         default: Date.now,
         required: true

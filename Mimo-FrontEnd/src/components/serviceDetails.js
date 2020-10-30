@@ -3,8 +3,10 @@ import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react
 import { withNavigation } from 'react-navigation';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { navigate } from '../navigationRef';
 
-const ServiceDetails = ({ data, calificacion, descripcion, nombre }) => {
+const ServiceDetails = ({ data, calificacion, descripcion, nombre, id }) => {
+    console.log("AYUDA" + id);
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
     const estrellas = insertarEstrellas(calificacion);
@@ -40,7 +42,15 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre }) => {
             </View>
 
             <View style={{ flexDirection: 'column', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-                <TouchableOpacity style={styles.comentarios}>
+                <TouchableOpacity
+                    onPress={() =>
+                        navigate('Reviews', {
+                            id: id,
+                            calificacion: calificacion
+                        })
+                    }
+                    style={styles.comentarios}
+                >
                     <FontAwesome5 name="comment-dots" size={24} color="black" />
                     <Text style={styles.textoBotones}>Comentarios</Text>
                 </TouchableOpacity>

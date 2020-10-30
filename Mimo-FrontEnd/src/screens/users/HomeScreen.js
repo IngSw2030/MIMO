@@ -14,10 +14,6 @@ const HomeScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const { state: user, getUser } = useContext(UserContext);
 
-	useEffect(() => {
-		getUser();
-	}, []);
-
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View style={styles.parteSuperior}>

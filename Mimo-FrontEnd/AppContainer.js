@@ -14,6 +14,9 @@ import SignInScreen from './src/screens/authScreens/SignInScreen';
 import SignUpScreen from './src/screens/authScreens/SignUpScreen';
 import StartScreen from './src/screens/authScreens/StartScreen';
 
+//reviews
+import ReviewScreen from './src/screens/users/reviews/ReviewsScreen';
+
 // Chat
 import ChatScreen from './src/screens/chat/ChatScreen';
 import JoinScreen from './src/screens/chat/JoinScreen';
@@ -114,7 +117,7 @@ const UserHomeNavigation = createStackNavigator(
 		ServiceDetails: ServiceDetailsScreen,
 		NotifiScreen: ComNotificationsScreen,
 		ShopingCart: ShopingCartScreen,
-
+		Reviews: ReviewScreen,
 		//Pantalla Posts y Comentarios
 		Post: PostScreen,
 		AddPost: AddPostScreen,
@@ -255,8 +258,8 @@ const DrawerNavigator = createDrawerNavigator(
 	},
 	{
 		contentComponent: Sidebar,
-		drawerWidth: 310,
-		drawerType: 'front',
+		drawerWidth: 0,
+		drawerType: 'back',
 	},
 );
 
