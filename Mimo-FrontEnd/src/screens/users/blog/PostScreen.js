@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, LogBox } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PostContext } from '../../../context/PostContext';
 import PostComponent from '../../../components/postComponent';
@@ -8,17 +8,21 @@ import useResults from '../../../hooks/useResultsPost';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Context as UserContext} from '../../../context/UserContext';
 import { navigate } from '../../../navigationRef';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const PostScreen = ({ navigation }) => {
 	//PurchaseListComponent invoca un PurchaseComponent, pasando el id como propo
 	const { myPosts } = useContext(PostContext);
 	const [term, setTerm] = useState('');
 	const [searchApi, results, errorMessage] = useResults();
-	const {myPinnedPosts} = useContext(UserContext);
+	const {state, myPinnedPosts} = useContext(UserContext);
 
 	useEffect(() => {
-		myPinnedPosts();
+
 		myPosts();
+		myPinnedPosts();
+		
+		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 	}, []);
 	return (
 		<View style={styles.general}>
@@ -27,46 +31,51 @@ const PostScreen = ({ navigation }) => {
                 onTermChange={(newTerm) => setTerm(newTerm)}
                 onTermSubmit={() => searchApi(term)}
             />
-			<Text style = {styles.titles}>¿Qué quieres hacer hoy?</Text>
-			<View style = {styles.options}>
-				<TouchableOpacity
-					onPress={() => {
-						navigation.navigate('PinnedPosts');
-					}}
-				>
-					<MaterialCommunityIcons name='pin-outline' size={50} color='black' style={styles.pinnedButton} />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => {
-						navigation.navigate('MyPosts');
-					}}
-				>
-					<MaterialCommunityIcons name='hammer' size={50} color='black' style={styles.myPostsButton} />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => {
-						navigate('AddPost');
-					}}
-				>
-					<MaterialCommunityIcons name='plus' size={50} color='black' style={styles.createButton} />
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => {
-						navigation.navigate('PinnedPosts');
-					}}
-				>
-					<MaterialCommunityIcons name='lightbulb-outline' size={50} color='black' style={styles.recommendButton} />
-				</TouchableOpacity>
-			</View>
-			<Text style={styles.titles}>Nuevos Posts</Text>
-			<FlatList
-                showsVerticalScrollIndicator={false}
-                data={results}
-                keyExtractor={(result) => result._id}
-                renderItem={({ item }) => {
-					return <PostComponent post = {item}/>
-				}}
-			/>
+			<ScrollView prop nestedScrollEnabled={true}>
+				<Text style = {styles.titles}>¿Qué quieres hacer hoy?</Text>
+				<View style = {styles.options}>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate('PinnedPosts');
+						}}
+					>
+						<MaterialCommunityIcons name='pin-outline' size={50} color='black' style={styles.pinnedButton} />
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate('MyPosts');
+						}}
+					>
+						<MaterialCommunityIcons name='hammer' size={50} color='black' style={styles.myPostsButton} />
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							navigate('AddPost');
+						}}
+					>
+						<MaterialCommunityIcons name='plus' size={50} color='black' style={styles.createButton} />
+					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate('PinnedPosts');
+						}}
+					>
+						<MaterialCommunityIcons name='lightbulb-outline' size={50} color='black' style={styles.recommendButton} />
+					</TouchableOpacity>
+				</View>
+				<Text style={styles.titles}>Posts</Text>
+				<View>
+					<FlatList
+						nestedScrollEnabled={true}
+						showsVerticalScrollIndicator={false}
+						data={results}
+						keyExtractor={(result) => result._id}
+						renderItem={({ item }) => {
+							return <PostComponent post = {item}/>
+						}}
+					/>
+				</View>
+			</ScrollView>
 		</View>
 	);
 };

@@ -1,14 +1,15 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { navigate } from '../../../navigationRef';
-import { Context as UserContext} from '../../../context/UserContext';
+import { Context as UserContext } from '../../../context/UserContext';
 import PostComponent from '../../../components/postComponent';
-
+import useResults from '../../../hooks/useResultsPost';
 
 const pinnedPostsScreen = ({ navigation }) => {
 
 	const {state} = useContext(UserContext);
 
+	useEffect(() => {
+	}, [state]);
 	return (
 		<View style={styles.general}>
 			<Text style = {styles.titles}>Mis blogs Guardados</Text>

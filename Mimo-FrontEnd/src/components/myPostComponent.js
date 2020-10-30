@@ -2,22 +2,12 @@ import React, {useContext, useEffect, useState} from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import {  TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
-import { MaterialCommunityIcons } from '@expo/vector-icons'; 
-import { Context as UserContext} from '../context/UserContext';
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Context as PostContext} from '../context/PostContext';
 
-const PostComponent = props => {
+const MyPostsComponent = props => {
 	const post = props.post;
-	const {state, pinPost, unpinPost, myPinnedPosts} = useContext(UserContext);
-	const [pinned, setPinned] = useState(false);
-
-	useEffect(() => {
-		if(!state.pinnedPosts.find(e => e._id === post._id)){
-			
-		}
-		else{
-			setPinned(true);
-		}
-	}, [pinned]);
+    const {deletePost, myPosts} = useContext(PostContext);
 
 	return (
 		<View style={styles.pageStyle}>
@@ -41,31 +31,19 @@ const PostComponent = props => {
 					<View style = {styles.nameDate}>
 						<Text>{post.idUser.name} {'  '}</Text>
 						<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(14, 19)} {'  '}</Text>
-					</View>
-					{
-						pinned ? 
-							<TouchableOpacity 
-								onPress = {async() =>{ 
-									setPinned(false);
-									await unpinPost({idPost: post._id});
-									myPinnedPosts();
-								}}
-							>
-								<MaterialCommunityIcons name='pin' size={30} color='black'/>
-							</TouchableOpacity>
-						:
-							<TouchableOpacity 
-								onPress = {async() =>{ 
-									setPinned(true);
-									await pinPost({idPost: post._id});
-									myPinnedPosts();
-								}}
-							>
-								<MaterialCommunityIcons name='pin-outline' size={30} color='black'/>
-							</TouchableOpacity>
-					}
-				</View>
-			
+                    </View>
+                    <View style = {styles.icons}>
+                        <TouchableOpacity 
+                            onPress = {() =>{ 
+                                
+                                deletePost({id: post._id});
+                                myPosts();
+                            }}
+                        >
+                            <FontAwesome5 name='trash' size={25} color='black'style={{padding: 4}}/>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 			</View>
 		</View>
 	);
@@ -101,7 +79,11 @@ const styles = StyleSheet.create({
 	info: {
 		flexDirection: 'row',
 		justifyContent: 'space-between'
-	}
+    },
+    icons:{
+        flexDirection: 'row',
+        justifyContent:'flex-start',
+    }
 });
 
-export default withNavigation(PostComponent);
+export default withNavigation(MyPostsComponent);

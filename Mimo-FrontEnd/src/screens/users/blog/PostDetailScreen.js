@@ -25,10 +25,13 @@ const PostDetailScreen = ({ navigation }) => {
 	return (
 		<ScrollView style={styles.pageStyle}>
 			<Text style = {styles.titles}>{post.title}</Text>
-			<Image source={{ uri: `data:image/gif;base64,${post.photo}`}} style={styles.image}/>
+			{post.photo?
+				<Image source={{ uri: `data:image/gif;base64,${post.photo}`}} style={styles.image}/>
+				: null
+			}
 			<View style = {styles.info}>
 				<View style = {styles.nameDate}>
-					<Text>{post.poster} {'  '}</Text>
+					<Text>{post.idUser.name} {'  '}</Text>
 					<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(14, 19)} {'  '}</Text>
 				</View>
 				{

@@ -109,15 +109,16 @@ router.get('/allUsers', async (req, res) => {
 router.post('/pinPost', async (req, res) => {
     try {
         const { idPost } = req.body;
-
+		
         await User.findOneAndUpdate(
             { _id: req.user._id } //encontramos el usuario
             , {
                 $addToSet: { pinnedPosts: idPost }
             },
-            { useFindAndModify: false }
-        );
-        res.send("Post guardado con exito");
+			{ useFindAndModify: false,
+			},
+		);
+		res.send('Pin exitoso')
     } catch (err) {
         return res.status(422).send({ error: 'Error al pin el post' });
     }
@@ -126,15 +127,16 @@ router.post('/pinPost', async (req, res) => {
 router.post('/unpinPost', async (req, res) => {
     try {
         const { idPost } = req.body;
-
+		
         await User.findOneAndUpdate(
             { _id: req.user._id } //encontramos el usuario
             , {
                 $pull: { pinnedPosts: idPost }
             },
-            { useFindAndModify: false }
-        );
-        res.send("Post guardado con exito");
+			{ useFindAndModify: false,
+			}
+		);
+		res.send('Unpin exitoso')
     } catch (err) {
         return res.status(422).send({ error: 'Error al unpin el post' });
     }

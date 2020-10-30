@@ -1,14 +1,18 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { navigate } from '../../../navigationRef';
 import { Context as PostContext } from '../../../context/PostContext';
-import PostComponent from '../../../components/postComponent';
+import MyPostsComponent from '../../../components/myPostComponent';
 
 
 const myPostsScreen = ({ navigation }) => {
 
 	const {state} = useContext(PostContext);
 
+	useEffect(() => {
+        
+	}, [state]);
+	
 	return (
 		<View style={styles.general}>
 			<Text style = {styles.titles}>Mis blogs Publicados</Text>
@@ -17,7 +21,7 @@ const myPostsScreen = ({ navigation }) => {
 				data={state.myPosts}
 				keyExtractor={(result) => result._id}
 				renderItem={({ item }) => {
-					return <PostComponent post = {item}/>
+					return <MyPostsComponent post = {item}/>
 				}}
 			/>
 		</View>

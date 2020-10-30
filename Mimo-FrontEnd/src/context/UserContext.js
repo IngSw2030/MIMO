@@ -16,9 +16,9 @@ const userReducer = (state, action) => {
         case 'updateAddress':
             return { ...state, address: action.payload.address };
         case 'pinPost':
-            return { ...state};
+            return { ...state, pinnedPosts: action.payload};
         case 'unpinPost':
-            return { ...state};
+            return { ...state, pinnedPosts: action.payload};
         case 'myPinnedPosts': 
             return { ...state, pinnedPosts: action.payload };
         case 'getSingleUser':
@@ -74,8 +74,8 @@ const updateAddress = (dispatch) => async ({ address }) => {
 
 const pinPost = (dispatch) => async ({ idPost }) => {
     try {
-        const response = await instance.post('/api/User/pinPost', { idPost });
-        dispatch({ type: 'pinPost', payload: response.data });
+        await instance.post('/api/User/pinPost', { idPost });
+        //myPinnedPosts();
     } catch (error) {
         dispatch({ type: 'add_error', payload: error });
     }
@@ -84,8 +84,8 @@ const pinPost = (dispatch) => async ({ idPost }) => {
 
 const unpinPost = (dispatch) => async ({ idPost }) => {
     try {
-        const response = await instance.post('/api/User/unpinPost', { idPost });
-        dispatch({ type: 'unpinPost', payload: response.data });
+        await instance.post('/api/User/unpinPost', { idPost });
+        //myPinnedPosts();
     } catch (error) {
         dispatch({ type: 'add_error', payload: error });
     }

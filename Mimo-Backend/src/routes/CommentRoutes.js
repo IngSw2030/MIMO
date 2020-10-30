@@ -28,7 +28,7 @@ router.post('/ofPost', async (req, res) => {
 	const { idPost } = req.body;
 
 	try {
-		const comments = await Comment.find({idPost});
+		const comments = await Comment.find({idPost}).populate('idUser');
 
 		res.send({ comments });
 	} catch (err) {

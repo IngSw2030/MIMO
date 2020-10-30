@@ -8,7 +8,7 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddPostScreen = ({ navigation }) => {
-	const { savePost } = useContext(PostContext);
+	const { savePost, myPosts } = useContext(PostContext);
 	const [titulo, setTitulo] = useState('');
 	const [descripcion, setDescripcion] = useState('');
 	const [tags, setTags] = useState(['']);
@@ -76,6 +76,7 @@ const AddPostScreen = ({ navigation }) => {
 							content: descripcion,
 							tags: tags
 						});
+						myPosts();
 						navigation.navigate('Post');
 					}}
 				>
