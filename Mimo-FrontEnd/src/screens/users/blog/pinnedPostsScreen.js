@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		paddingTop: 25,
 		paddingHorizontal: 15,
-	}
+	},
 });
 
 export default (pinnedPostsScreen);

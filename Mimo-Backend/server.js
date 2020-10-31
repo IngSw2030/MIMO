@@ -28,7 +28,6 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => res.send('API Running'));
 
 //Define Routes
-app.use('/api/testingRoute', require('./routes/api/testingRoute'));
 app.use('/api/User', require('./src/routes/UserRoutes'));
 app.use('/api/Auth', require('./src/routes/AuthRoutes'));
 app.use('/api/Pet', require('./src/routes/PetRoutes'));
