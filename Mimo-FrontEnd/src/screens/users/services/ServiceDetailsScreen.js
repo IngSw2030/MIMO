@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import { withNavigation } from 'react-navigation';
-import ServiceDetails from '../../../components/serviceDetails'
+import ServiceDetails from '../../../components/serviceVetDetails'
 
 const ServiceDetailsScreen = (props) => {
     const data = props.navigation.getParam('data');

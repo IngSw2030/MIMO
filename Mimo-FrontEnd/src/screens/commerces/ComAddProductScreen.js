@@ -115,6 +115,7 @@ const ComAddProductScreen = () => {
                                 description:descripcion, 
                                 pets:mascotas
                             });
+                            navigate('ComProduct');
 						}}
 					>
 						<Text style={styles.text}>Agregar</Text>

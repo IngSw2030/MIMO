@@ -15,10 +15,23 @@ export default () => {
         }
     };
 
+    const accesories = results.filter(obj => {
+		return obj.category === 'accesorio';
+	});
+	const food = results.filter(obj => {
+		return obj.category === 'comida';
+	});
+	const cleaning = results.filter(obj => {
+		return obj.category === 'limpieza';
+	});
+	const others = results.filter(obj => {
+		return obj.category === 'otros';
+	});
+
     useEffect(() => {
         searchApi("");
     }, []);
 
 
-    return [searchApi, results, errorMessage];
+    return [searchApi, results, accesories, food, cleaning, others, errorMessage];
 };
