@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { withNavigation } from 'react-navigation';
 import {Context as ProductContext} from '../../context/ProductContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
@@ -22,7 +23,22 @@ const ComAddProductScreen = () => {
 
 
     return (
-        <View>
+        <View style={styles.pageStyle}>
+            <View>
+                <TouchableOpacity style={styles.iconsStyle} onPress=
+                    {async () => {
+                        const imagen = await buscarImagen();
+                        setFoto(imagen);
+                    }}
+                >
+                    {foto ? (
+                        <Image source={{ uri: `data:image/gif;base64,${foto}` }} style={styles.image} />
+                    ) : (
+                        <FontAwesome name='camera' size={130} color='#000000' style={{marginLeft: '20%'}}/>
+                    )}
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.roundedContainerStyle}>
                 <TextInput
                     placeholder="Categoría"
@@ -86,20 +102,7 @@ const ComAddProductScreen = () => {
 				</TouchableOpacity>
 			</View>
 
-            <View>
-                <TouchableOpacity style={styles.iconsStyle} onPress=
-                    {async () => {
-                        const imagen = await buscarImagen();
-                        setFoto(imagen);
-                    }}
-                >
-                    {foto ? (
-                        <Image source={{ uri: `data:image/gif;base64,${foto}` }} style={styles.image} />
-                    ) : (
-                        <FontAwesome name='camera' size={100} color='#D1D1D1' />
-                    )}
-                </TouchableOpacity>
-            </View>
+            
             
             <View style={{ flexDirection: 'row' }}>
 				<View>
@@ -120,7 +123,7 @@ const ComAddProductScreen = () => {
 					>
 						<Text style={styles.text}>Agregar</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigate('Accesories')}>
+					<TouchableOpacity style={styles.buttom} onPress={() => navigate('ComProduct')}>
 						<Text style={styles.text}>Cancelar</Text>
 					</TouchableOpacity>
 				</View>
@@ -132,9 +135,9 @@ const ComAddProductScreen = () => {
 
 const styles = StyleSheet.create({
     roundedContainerStyle: {
-        marginTop: 30,
+        marginTop: 10,
         marginLeft: 30,
-        backgroundColor: "#B0EFEF",
+        backgroundColor: "#88CCF2",
         height: 42,
         width: 320,
         borderRadius: 75,
@@ -151,8 +154,8 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		height: 50,
 		width: 50,
-		margin: 15,
-		marginBottom: '5%',
+		margin: 10,
+		//marginBottom: '5%',
     },
     selectType: {
 		alignSelf: 'center',
@@ -161,12 +164,14 @@ const styles = StyleSheet.create({
     iconsStyle: {
 		alignSelf: 'center',
 		justifyContent: 'center',
-		marginTop: 30,
-		//marginLeft: '10%'
+        marginTop: 30,
+        height: 200,
+		width: 200,
+		//marginLeft: '25%'
     },
     image: {
-		width: 130,
-		height: 130,
+		width: 200,
+		height: 200,
 		borderRadius: 25,
 		alignSelf: 'center',
 		marginBottom: '5%',
@@ -174,19 +179,22 @@ const styles = StyleSheet.create({
     buttom: {
 		backgroundColor: '#DBAB9C',
 		height: 50,
-		width: 100,
+		width: 130,
 		borderRadius: 25,
 		marginLeft: '20%',
-		marginBottom: '5%',
-		marginTop: '15%',
+		marginTop: '2%',
     },
     text: {
-		fontSize: 15,
+		fontSize: 20,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		margin: '15%',
 		padding: 9,
-	},
+    },
+    pageStyle: {
+        flex: 1,
+        flexDirection: 'column',
+        backgroundColor: '#EDDF98',
+    },
 })
 
-export default ComAddProductScreen
+export default withNavigation(ComAddProductScreen);

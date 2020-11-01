@@ -10,12 +10,13 @@ const ProductComponent = props => {
 	const allowedTextSize = 15;
 	const name = useProductName(product.name, allowedTextSize);
 	const price = usePrice(product.price);
+	const pantalla = props.pantalla;
 	return (
 		<View style={styles.viewStyle}>
 			<TouchableOpacity
 				style={styles.buttonStyle}
 				onPress={() =>
-					navigate('ProductDetails', {
+					navigate(pantalla, {
 						product: product,
 					})
 				}

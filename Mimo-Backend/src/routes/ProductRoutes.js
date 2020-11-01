@@ -80,12 +80,37 @@ router.post('/allProducts', async (req, res) => {
 	}
 });
 
-router.get('/myProducts', async (req, res) => {
+router.post('/myProducts', async (req, res) => {
+	const { name, pets } = req.body;
+	let newName, newPets;
+
+	if (!pets) {
+		if (!name) {
+			newName = '';
+		} else {
+			newName = name;
+		}
+	} else {
+		newName = '-1';
+	}
+
+	!pets ? (newPets = '-1') : (newPets = pets);
+
 	try {
-		const products = await Product.find({ idUser: req.user._id });
+		const products = await Product.find({
+			$and: [ 
+				{idUser: req.user._id},
+				{$or: [
+					{ name: { $regex: newName, $options: 'i' } },
+					{ description: { $regex: newName, $options: 'i' } },
+					{ pets: { $in: [newPets] } },
+				],}
+		]
+		}).limit(25);
+
 		res.send({ products });
 	} catch (err) {
-		res.status(422).send({ error: 'No se ha podido publicar el producto' });
+		res.status(422).send({ error: 'No se han encontrado productos' });
 	}
 });
 

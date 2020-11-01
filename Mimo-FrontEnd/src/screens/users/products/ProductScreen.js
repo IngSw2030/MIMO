@@ -72,7 +72,7 @@ const ProductScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							return <ProductComponent product={item} />;
+							return <ProductComponent product={item} pantalla={'ProductDetails'} />;
 						}}
 					/>
 				</View>
@@ -83,7 +83,7 @@ const ProductScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							return <ProductComponent product={item} />;
+							return <ProductComponent product={item} pantalla={'ProductDetails'} />;
 						}}
 					/>
 				</View>
@@ -94,7 +94,7 @@ const ProductScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							return <ProductComponent product={item} />;
+							return <ProductComponent product={item} pantalla={'ProductDetails'} />;
 						}}
 					/>
 				</View>
@@ -105,7 +105,7 @@ const ProductScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							return <ProductComponent product={item} />;
+							return <ProductComponent product={item} pantalla={'ProductDetails'}/>;
 						}}
 					/>
 				</View>

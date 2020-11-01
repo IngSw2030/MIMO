@@ -15,7 +15,6 @@ const ComProductScreen = () => {
     const [term, setTerm] = useState('');
     const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
     
-    console.log({results});
     return (
         <View style={{ backgroundColor: '#FFF7BB', flex: 1, paddingTop: 20 }}>
             <ScrollView>
@@ -49,7 +48,7 @@ const ComProductScreen = () => {
                             keyExtractor={item => item._id}
                             horizontal={true}
                             renderItem={({ item }) => {
-                                return <ProductComponent product={item} />;
+                                return <ProductComponent product={item} pantalla={'ComProductDetails'} />;
                             }}
                         />
                     </View>
@@ -60,7 +59,7 @@ const ComProductScreen = () => {
                             keyExtractor={item => item._id}
                             horizontal={true}
                             renderItem={({ item }) => {
-                                return <ProductComponent product={item} />;
+                                return <ProductComponent product={item} pantalla={'ComProductDetails'}/>;
                             }}
                         />
                     </View>
@@ -71,7 +70,7 @@ const ComProductScreen = () => {
                             keyExtractor={item => item._id}
                             horizontal={true}
                             renderItem={({ item }) => {
-                                return <ProductComponent product={item} />;
+                                return <ProductComponent product={item} pantalla={'ComProductDetails'}/>;
                             }}
                         />
                     </View>
@@ -82,7 +81,7 @@ const ComProductScreen = () => {
                             keyExtractor={item => item._id}
                             horizontal={true}
                             renderItem={({ item }) => {
-                                return <ProductComponent product={item} />;
+                                return <ProductComponent product={item} pantalla={'ComProductDetails'} />;
                             }}
                         />
                     </View>

@@ -6,6 +6,7 @@ import { Context as ShoppingCartContext } from '../../../context/ShoppingCartCon
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+
 const ProductDetailsScreen = ({ navigation }) => {
 	const [quantity, setQuantity] = useState(1);
 	const [totalAmount, setTotalAmount] = useState(0);
