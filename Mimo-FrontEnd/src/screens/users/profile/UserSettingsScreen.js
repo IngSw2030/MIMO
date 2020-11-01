@@ -1,20 +1,24 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity ,ScrollView} from 'react-native';
 import uploadPhoto from '../../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
 import { Context as UserContext } from '../../../context/UserContext';
 import { Context as AuthContext } from '../../../context/AuthContext';
 import { useDispatch } from 'react-redux';
+import { TextInput } from 'react-native-gesture-handler';
 
 const UserSettingsScreen = ({ navigation }) => {
 	const dispatch = useDispatch();
 	const [buscarImagen] = uploadPhoto();
 	const { state: user, updateImage, updateName, updatePhone, updateAddress, deleteUser } = useContext(UserContext);
+	const[name,setName] = useState(user.name);
+	const[sAddress,setAddress] = useState(user.address);
+	const[Aphone,setPhone] = useState(user.phone);
 	const [imagenA, setImagenA] = useState(user.photo);
 	const { signout } = useContext(AuthContext);
-	let imagen = '';
+	let imagen = imagenA;
 	return (
-		<View>
+		<ScrollView style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View style={styles.uploadImageStyle}>
 				<TouchableOpacity
 					style={styles.iconsStyle}
@@ -24,21 +28,33 @@ const UserSettingsScreen = ({ navigation }) => {
 						setImagenA(imagen);
 					}}
 				>
-					{imagenA ? (
-						<Image source={{ uri: `data:image/gif;base64,${imagenA}` }} style={styles.image} />
+					{imagen ? (
+						<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
 					) : (
 							<FontAwesome name='user-circle-o' size={150} color='white' />
 						)}
 				</TouchableOpacity>
 			</View>
-			<Text style={styles.name}>Nombre de usuario</Text>
+			<Text style={styles.name}>{user.name}</Text>
 
-			<TouchableOpacity style={styles.button}>
-				<Text style={styles.text}>Nombre</Text>
-			</TouchableOpacity>
-			<TouchableOpacity style={styles.button}>
-				<Text style={styles.text}>Direccion</Text>
-			</TouchableOpacity>
+			<TextInput style={styles.button}
+				placeholder='Nombre de usuario'	
+				value={name}
+				onChangeText={name => setName(name)}
+			/>
+				
+			<TextInput style={styles.button}
+				placeholder='Dirección'
+				value={sAddress}
+				onChangeText={sAddress => setAddress(sAddress)}
+			/>
+			<TextInput style={styles.button}
+				//keyboardType='number-pad'
+				placeholder='Número de teléfono'
+				value={Aphone}
+				onChangeText={Aphone=> setPhone(Aphone)}
+			/>
+				
 			{/* <TouchableOpacity
 				style={styles.button}
 				onPress={() => {
@@ -57,11 +73,23 @@ const UserSettingsScreen = ({ navigation }) => {
 			>
 				<Text style={styles.text}>Ir al chat</Text>
 			</TouchableOpacity> */}
+		<TouchableOpacity style={styles.confirm} onPress={async() =>{
+	
+		await updateAddress({sAddress});
+		await updatePhone({Aphone});
+		await updateName({name});
+		navigation.navigate('UserProfile');
 
-			<TouchableOpacity style={styles.button} onPress={() => signout()}>
+		} 
+				
+		}>
+				<Text style={styles.text}>Confirmar</Text>
+			</TouchableOpacity>
+
+			<TouchableOpacity style={styles.closeSession} onPress={() => signout()}>
 				<Text style={styles.text}>sign out (antes correo)</Text>
 			</TouchableOpacity>
-		</View>
+		</ScrollView>
 	);
 };
 
@@ -88,6 +116,9 @@ const styles = StyleSheet.create({
 		borderRadius: 25,
 		alignSelf: 'center',
 		marginBottom: 20,
+		fontSize: 20,
+		fontWeight: 'bold',
+		textAlign:'center'
 	},
 	text: {
 		fontSize: 20,
@@ -106,6 +137,24 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		marginTop: 40,
 		borderRadius: 360,
+	},
+	closeSession: {
+		backgroundColor: '#DBAB9C',
+		borderRadius: 25,
+		height: 50,
+		width: 300,
+		margin: 15,
+		marginBottom: 25,
+		alignSelf: 'center',
+	},
+	confirm: {
+		backgroundColor: '#98E568',
+		borderRadius: 25,
+		height: 50,
+		width: 300,
+		margin: 15,
+		marginBottom: 25,
+		alignSelf: 'center',
 	},
 });
 export default UserSettingsScreen;

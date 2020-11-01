@@ -40,6 +40,7 @@ router.get('/delete', async (req, res) => {
 
 router.post('/update', async (req, res) => {
 	try {
+		console.log("dentro de la route---");
 		const { name, phone, retailName, address, photo } = req.body;
 
 		let newName, newPassword, newPhone, newRetailName, newAddress, newPhoto;
