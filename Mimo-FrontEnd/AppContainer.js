@@ -28,7 +28,7 @@ import PostDetailScreen from './src/screens/users/blog/PostDetailScreen';
 import AddPostScreen from './src/screens/users/blog/AddPostScreen';
 import myPostsScreen from './src/screens/users/blog/myPostsScreen';
 import pinnedPostsScreen from './src/screens/users/blog/pinnedPostsScreen';
-
+import recommendedPostsScreen from './src/screens/users/blog/recommendedPostScreen';
 //Comments
 import AddCommentScreen from './src/screens/comments/AddCommentScreen';
 import CommentsScreen from './src/screens/comments/CommentsScreen';
@@ -93,7 +93,8 @@ const ComercioHomeNavigation = createStackNavigator(
 		AddComment: AddCommentScreen,
 		Comments: CommentsScreen,
 		MyPosts: myPostsScreen,
-		PinnedPosts: pinnedPostsScreen
+		PinnedPosts: pinnedPostsScreen,
+		RecommendedPost: recommendedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {
@@ -127,7 +128,8 @@ const UserHomeNavigation = createStackNavigator(
 		AddComment: AddCommentScreen,
 		Comments: CommentsScreen,
 		MyPosts: myPostsScreen,
-		PinnedPosts: pinnedPostsScreen
+		PinnedPosts: pinnedPostsScreen,
+		RecommendedPost: recommendedPostsScreen
 	},
 	{
 		defaultNavigationOptions: {

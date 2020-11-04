@@ -59,7 +59,7 @@ router.post('/allPosts', async (req, res) => {
 				{ content: { $regex: newTerm, $options: 'i' } },
 				{ tags: { $in: [newTags] } },
 			],
-		}).populate('idUser').limit(25);
+		}).populate('idUser').sort({dateCreated: -1}).limit(25);
 
 		res.send({ posts });
 	} catch (err) {

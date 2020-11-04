@@ -19,7 +19,8 @@ const userReducer = (state, action) => {
 const getMyPets = dispatch => async () => {
 	try {
 		const response = await instance.get('/api/Pet/myPets');
-		dispatch({ type: 'getMyPets', payload: response.data.pet });
+		dispatch({ type: 'getMyPets', payload: response.data });
+        
 	} catch (error) {
 		dispatch({ type: 'add_error' });
 	}

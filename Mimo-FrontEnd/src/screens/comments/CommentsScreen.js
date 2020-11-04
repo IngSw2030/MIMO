@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { View, Text, StyleSheet, TextInput,FlatList } from 'react-native';
+import { View, Text, StyleSheet, TextInput, FlatList, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { navigate } from '../../navigationRef';
 import { Context as CommentContext } from '../../context/CommentContext';
@@ -10,18 +10,14 @@ const commentsScreen = ({ navigation }) => {
 
 	const id = navigation.getParam('id');
 	const [comment, setComment] = useState('');
-	const {state, saveComment} = useContext(CommentContext);
+	const {state, saveComment, ofPost} = useContext(CommentContext);
 
-	const [flag, setFlag] = useState(false);
+	const [refreshing, setRefreshing] = React.useState(false);
 
-	const handleSend = () => {
-		saveComment({content: comment, idPost: id});
-		setComment('');
-		setFlag(true);
-	}
-
-	useEffect(() => {
-	}, [handleSend])
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		ofPost({idPost: id}).then(() => setRefreshing(false));
+	}, []);
 
 	return (
 		<View style={styles.general}>
@@ -39,7 +35,8 @@ const commentsScreen = ({ navigation }) => {
 					/>
 				</View>
 				<TouchableOpacity onPress={()=>{
-					handleSend();
+					saveComment({content: comment, idPost: id});
+					setComment('');
 				}}>
 					<View style={styles.send}>
 						<FontAwesome5 name="paper-plane" size={25} color="black" />
@@ -47,6 +44,7 @@ const commentsScreen = ({ navigation }) => {
 				</TouchableOpacity>
 			</View>
 			<FlatList
+				refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 				showsVerticalScrollIndicator={false}
 				data={state.comments}
 				keyExtractor={(result) => result._id}
