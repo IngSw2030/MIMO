@@ -117,8 +117,9 @@ router.post('/myProducts', async (req, res) => {
 router.post('/update', async (req, res) => {
 	const { name, price, photo, description, available, id } = req.body;
 	try {
+		console.log("buscando...");
 		const product = await Product.findOne({ _id: id });
-
+		console.log("encontrado");
 		let newName, newPrice, newDescription, newAvailable, newPhoto;
 
 		!name ? (newName = product.name) : (newName = name);
@@ -130,7 +131,12 @@ router.post('/update', async (req, res) => {
 		!available ? (newAvailable = product.available) : (newAvailable = available);
 
 		!photo ? (newPhoto = product.photo) : (newPhoto = photo);
-
+		console.log("actualizando");
+		console.log(id);
+		console.log(newName);
+		console.log(newPrice);
+		console.log(newDescription);
+		console.log(newAvailable);
 		await Product.findOneAndUpdate(
 			{ _id: id },
 			{
@@ -144,6 +150,7 @@ router.post('/update', async (req, res) => {
 			},
 			{ useFindAndModify: false }
 		);
+		console.log("producto actualizado");
 		res.send('Modificado satisfactoriamente');
 	} catch (err) {
 		return res.status(422).send({ error: 'Error al modificar' });
@@ -155,7 +162,7 @@ router.post('/delete', async (req, res) => {
 
 	try {
 		await Product.findByIdAndDelete(id);
-		res.send('Producto borrada satisfactoriamente');
+		res.send('Producto borrado satisfactoriamente');
 	} catch (error) {
 		return res.status(422).send({ error: 'Error eliminando el producto' });
 	}

@@ -2,10 +2,15 @@ import React, { useContext, useState, useEffect }  from 'react'
 import { View, Text, Image, StyleSheet, Button,TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import usePrice from '../../hooks/usePrice';
+import {Context as ProductContext} from '../../context/ProductContext';
+import { navigate } from '../../navigationRef';
 
 const ComProductDetailsScreen = ({ navigation }) => {
     const product = navigation.getParam('product');
     const price = usePrice(product.price);
+    const id = product._id;
+    console.log({id});
+    const {deleteProduct} = useContext(ProductContext);
    
     return (
             <View style={styles.pageStyle}>
@@ -20,10 +25,23 @@ const ComProductDetailsScreen = ({ navigation }) => {
                         </View>
                     </View>
                     <View style={styles.buttonView}>
-                        <TouchableOpacity style={styles.editStyle}>
+                        <TouchableOpacity 
+                            style={styles.editStyle}
+                            onPress={()=>{
+                                navigate('ComEditProduct', {product})
+                            }}
+                        >
                             <Text style={styles.buttonText}>Editar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.eraseStyle}>
+                        <TouchableOpacity 
+                            style={styles.eraseStyle}
+                            onPress ={()=>{
+                                deleteProduct({
+                                    id: product._id
+                                });
+                                navigate('ComProduct');
+                            }}
+                        >
                             <Text style={styles.buttonText}>Eliminar</Text>
                         </TouchableOpacity>
                     </View>

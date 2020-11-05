@@ -72,7 +72,7 @@ const updateProduct = dispatch => async ({ name, price, photo, description, avai
 
 const deleteProduct = dispatch => async ({ id }) => {
 	try {
-		const response = await instance.post('/api/Product/delte', { id });
+		const response = await instance.post('/api/Product/delete', { id });
 		dispatch({ type: 'deleteProduct', action: response.data });
 	} catch (error) {
 		dispatch({ type: 'add_error' });
