@@ -17,7 +17,8 @@ const productReducer = (state, action) => {
 		case 'deleteProduct':
 			return { ...state, products: action.payload };
 		case 'updateProduct':
-			return { ...state, product: action.payload };
+			//return { ...state, product: action.payload };
+			return action.payload
 		case 'get_products':
 			return action.payload;
 		case 'add_error':
@@ -64,7 +65,7 @@ const updateProduct = dispatch => async ({ name, price, photo, description, avai
 			available,
 			id,
 		});
-		dispatch({ type: 'updateProduct', action: response.data });
+		dispatch({ type: 'updateProduct', payload: response.data });
 	} catch (error) {
 		dispatch({ type: 'add_error' });
 	}

@@ -11,7 +11,7 @@ const ComProductDetailsScreen = ({ navigation }) => {
     const id = product._id;
     console.log({id});
     const {deleteProduct} = useContext(ProductContext);
-   
+    
     return (
             <View style={styles.pageStyle}>
                 <ScrollView style={styles.scroll}>

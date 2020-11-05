@@ -44,7 +44,7 @@ const ComProductScreen = () => {
                     <Text style={styles.tiposDeArticulos}>Comida</Text>
                     <View style={styles.productListStyle}>
                         <FlatList
-                            data={results}
+                            data={food}
                             keyExtractor={item => item._id}
                             horizontal={true}
                             renderItem={({ item }) => {

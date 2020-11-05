@@ -117,9 +117,7 @@ router.post('/myProducts', async (req, res) => {
 router.post('/update', async (req, res) => {
 	const { name, price, photo, description, available, id } = req.body;
 	try {
-		console.log("buscando...");
 		const product = await Product.findOne({ _id: id });
-		console.log("encontrado");
 		let newName, newPrice, newDescription, newAvailable, newPhoto;
 
 		!name ? (newName = product.name) : (newName = name);
@@ -128,16 +126,11 @@ router.post('/update', async (req, res) => {
 
 		!description ? (newDescription = product.description) : (newDescription = description);
 
-		!available ? (newAvailable = product.available) : (newAvailable = available);
+		newAvailable = available;
 
 		!photo ? (newPhoto = product.photo) : (newPhoto = photo);
-		console.log("actualizando");
-		console.log(id);
-		console.log(newName);
-		console.log(newPrice);
-		console.log(newDescription);
-		console.log(newAvailable);
-		await Product.findOneAndUpdate(
+		
+		const newProduct = await Product.findOneAndUpdate(
 			{ _id: id },
 			{
 				$set: {
@@ -148,10 +141,9 @@ router.post('/update', async (req, res) => {
 					photo: newPhoto,
 				},
 			},
-			{ useFindAndModify: false }
+			{ useFindAndModify: false, new: true}
 		);
-		console.log("producto actualizado");
-		res.send('Modificado satisfactoriamente');
+		res.send(newProduct);
 	} catch (err) {
 		return res.status(422).send({ error: 'Error al modificar' });
 	}

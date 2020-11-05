@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, Switch } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {Context as ProductContext} from '../../context/ProductContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
@@ -11,14 +11,12 @@ import { navigate } from '../../navigationRef';
 const ComEditProductScreen = ({navigation}) => {
     const product= navigation.getParam('product');
     const {updateProduct} = useContext(ProductContext);
-    const price = usePrice(product.price);
-    const [precio, setPrecio] = useState(price);
+    const [precio, setPrecio] = useState(product.price + '');
     const [available, setAvailability] = useState(product.available)
     const [nombre, setNombre] = useState(product.name);
     const [descripcion, setDescripcion] = useState(product.description);
     const [foto, setFoto] = useState(product.photo);
     const [buscarImagen] = uploadPhoto();
-
 
     return (
         <View style={styles.pageStyle}>
@@ -49,7 +47,7 @@ const ComEditProductScreen = ({navigation}) => {
             </View>
             <View style={styles.roundedContainerStyle}>
                 <TextInput
-                    placeholder={price}
+                    placeholder={precio}
                     placeholderTextColor="#000"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -68,6 +66,18 @@ const ComEditProductScreen = ({navigation}) => {
                     value={descripcion}
                     onChangeText={(newDescripcion) => setDescripcion(newDescripcion)}
                 />
+            </View>
+            
+            <View style={styles.switchView}>
+                <Text style={styles.text}>
+                    Disponible:
+                </Text>
+                <Switch
+                    size="normal" 
+                    value={available}
+                    onValueChange={(value)=>setAvailability(value)}
+                    trackColor ={{true: 'blue'}}
+                />
             </View>   
             
             <View style={{ flexDirection: 'row' }}>
@@ -75,16 +85,15 @@ const ComEditProductScreen = ({navigation}) => {
 					<TouchableOpacity
                         style={styles.buttom}
 						onPress={() => {
-                            //console.log(price);
-                            //console.log(precio);
+                            console.log(available);
                             const numberPrice = precio * 1;
 							updateProduct({ 
                                 name:nombre, 
-                                price: precio, 
+                                price: numberPrice, 
                                 photo:foto, 
                                 description:descripcion,
                                 available: available,
-                                id: product.idUser,
+                                id: product._id,
 
                             });
                             navigate('ComProduct');
@@ -164,6 +173,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#EDDF98',
     },
+    switchView:{
+        alignSelf:"center",
+        height: 100,
+        flexDirection: "row"
+    }
 })
 
 export default withNavigation(ComEditProductScreen);
