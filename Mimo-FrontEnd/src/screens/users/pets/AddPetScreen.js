@@ -14,17 +14,17 @@ const AddPetScreen = ({ navigation }) => {
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
 	const [gender, setGender] = useState(true); //true = hembra false = macho
-	
+	const[imagenA,setImage] = useState();
 
 	const [type, setType] = useState('');
-	const [escogerImagen, imagen] = uploadPhoto();
+	const [escogerImagen] = uploadPhoto();
 	const buttons = [
 		{ name: 'dog', size: 60, color: 'black', type: 'perro', petColor: '#9FCAE2' },
 		{ name: 'cat', size: 60, color: 'black', type: 'gato', petColor: '#BCDB89' },
 		{ name: 'fish', size: 60, color: 'black', type: 'pez', petColor: '#FFAFB6' },
 		{ name: 'rabbit', size: 60, color: 'black', type: 'conejo', petColor: '#E8916C' }
 	];
-
+	let imagen=imagenA;
 
 
 	return (
@@ -69,10 +69,10 @@ const AddPetScreen = ({ navigation }) => {
 
 			<View style={styles.selectType}>
 				<TouchableOpacity style={styles.genderm} onPress={() => setGender(false)}>
-					<Text style={styles.text}>Macho ''</Text>
+					<Text style={styles.text}>Macho {''}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.genderf} onPress={() => setGender(true)}>
-					<Text style={styles.text}>Hembra ''</Text>
+					<Text style={styles.text}>Hembra {''}</Text>
 				</TouchableOpacity>
 			</View>
 
@@ -80,26 +80,30 @@ const AddPetScreen = ({ navigation }) => {
 				<View>
 					<TouchableOpacity
 						style={styles.buttom}
-						onPress={() => {
+						onPress={async () => {
 							if (name.length > 0 && age.length > 0 && type.length > 0) {
 								const numberAge = age * 1;
-								savePet({ name, numberAge, gender, species: type });
+								await savePet({ name, numberAge, gender, species: type,photo:imagenA });
 								navigation.navigate('Pets');
 							}
 							else {
-								<Text>faltan caracteristicas por llenar</Text>
+								<Text>Faltan caracteristicas por llenar</Text>
 							}
 						}}
 					>
-						<Text style={styles.text}>Agregar ''</Text>
+						<Text style={styles.text}>Agregar {''}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.buttom} onPress={() => navigation.navigate('Pets')}>
-						<Text style={styles.text}>Cancelar ''</Text>
+					<Text style={styles.text}>Cancelar {''}</Text>
 					</TouchableOpacity>
 				</View>
 
 				<View>
-					<TouchableOpacity style={styles.iconsStyle} onPress={() => escogerImagen()}>
+					<TouchableOpacity style={styles.iconsStyle} onPress={async () => {
+							imagen = await escogerImagen();
+							setImage(imagen);
+						}
+					}>
 						{imagen ? (
 							<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
 						) : (

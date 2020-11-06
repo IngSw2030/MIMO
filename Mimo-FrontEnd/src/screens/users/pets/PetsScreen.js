@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Context as PetContext } from '../../../context/PetContext';
 import {
 	View,
@@ -16,29 +16,37 @@ import { FontAwesome } from '@expo/vector-icons';
 
 const PetsScreen = ({ navigation }) => {
 	const [escogerImagen, imagen] = uploadPhoto();
-	const { state: listaDeMascotas } = useContext(PetContext); //state es la lista de perros. Viene del ultimo argumento en PetContext.js
+	const { state, getMyPets } = useContext(PetContext); //state es la lista de perros. Viene del ultimo argumento en PetContext.js
 	//Hola leo, seguro te preguntas donde esta la lista de mascotas inicial. Eso se encuentra en PetContext.js
-
+	function petSex(item)
+	{
+		if(item.gender)
+		{
+		return(<Text style={styles.petInfo}>Género:Hembra{''}{' '}</Text>);
+		}
+		else{
+			return(<Text style={styles.petInfo}>Género:Macho {''}{' '}</Text>);
+		}
+	}
+	useEffect(() => {
+		getMyPets();
+	}, [])
+	console.log(state.pets);
 	return (
 		<View style={styles.generalView}>
 			<View>
 				<Text style={styles.title}>Mis mascotas</Text>
 			</View>
-			<View>
+			<View style={styles.petsZone}>
 				<FlatList
-					keyExtractor={pet => pet.name}
-					data={listaDeMascotas}
+					data={state.pets}
+					keyExtractor={pets => pets._id}
+
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPhoto}>
 								<View>
-									<TouchableOpacity style={styles.image} onPress={() => escogerImagen()}>
-										{imagen ? (
-											<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
-										) : (
-											<FontAwesome style={styles.image} name='user-circle-o' size={80} color='white' />
-										)}
-									</TouchableOpacity>
+								<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
 								</View>
 								<View>
 									<Text style={styles.petInfo}>
@@ -47,11 +55,10 @@ const PetsScreen = ({ navigation }) => {
 									<Text style={styles.petInfo}>
 										Edad: {item.age} {''}{' '}
 									</Text>
+										 {petSex(item)}
+									
 									<Text style={styles.petInfo}>
-										Genero: {item.gender} {''}{' '}
-									</Text>
-									<Text style={styles.petInfo}>
-										Tipo: {item.type} {''}{' '}
+										Tipo: {item.species} {''}{' '}
 									</Text>
 								</View>
 							</View>
@@ -60,12 +67,12 @@ const PetsScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<View style = {styles.generalView} >
+			<View  >
 				<TouchableOpacity onPress={() => navigation.navigate('AddPet')} style={styles.petButtons}>
-					<Text style={styles.textButtons}>Agregar una mascota ''</Text>
+					<Text style={styles.textButtons}>Agregar una mascota {''}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.petButtons}>
-					<Text style={styles.textButtons}>Eliminar una mascota ''</Text>
+					<Text style={styles.textButtons}>Eliminar una mascota {''}</Text>
 				</TouchableOpacity>
 			</View>
 		</View>
@@ -89,7 +96,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		height: '50%',
+		backgroundColor: '#FFF7BB',
+		flex:1
 	},
 	petButtons: {
 		backgroundColor: 'rgba(159, 202, 226, 0.81)',
@@ -118,16 +126,20 @@ const styles = StyleSheet.create({
 	image: {
 		height: 80,
 		width: 80,
-		marginBottom: 3,
+		
 		borderRadius: 360,
+		alignSelf:'center',
 		alignContent: 'center',
-		margin: 2,
+		margin: 7,
 	},
 	petInfo: {
 		fontSize: 10,
 		fontWeight: 'bold',
 		marginTop: 4,
 	},
+	petsZone:{
+		height:'50%'
+	}
 });
 
 export default PetsScreen;

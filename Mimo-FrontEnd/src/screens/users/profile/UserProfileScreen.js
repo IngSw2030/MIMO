@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Button,ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as UserContext } from '../../../context/UserContext';
 
@@ -10,7 +10,7 @@ const UserProfileScreen = ({ navigation }) => {
 	const { state } = useContext(UserContext);
 
 	return (
-		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
+		<ScrollView style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 
 			<View>
 				<Image style={styles.photostyle} source={{ uri: `data:image/gif;base64,${state.photo}` }} />
@@ -22,16 +22,16 @@ const UserProfileScreen = ({ navigation }) => {
 			/>
 			<View style={styles.generalView}>
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Pets')}>
-					<Text style={styles.textInfoStyle}> Mis mascotas ''</Text>
+					<Text style={styles.textInfoStyle}> Mis mascotas {''}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('UserSettings')}>
-					<Text style={styles.textInfoStyle}> Información ''</Text>
+					<Text style={styles.textInfoStyle}> Información {''}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.userInfoStyle} onPress={() => navigation.navigate('Notifications')}>
-					<Text style={styles.textInfoStyle}> Notificaciones ''</Text>
+					<Text style={styles.textInfoStyle}> Notificaciones {''}</Text>
 				</TouchableOpacity>
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 const styles = StyleSheet.create({
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 		width: 180,
 		alignSelf: 'center',
 		marginTop: '20%',
-		marginBottom:'20%',
+		marginBottom:'5%',
 		borderRadius: 360,
 	},
 	nameStyle: {

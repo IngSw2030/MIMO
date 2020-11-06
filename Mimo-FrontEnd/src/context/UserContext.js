@@ -5,15 +5,9 @@ import { navigate } from '../navigationRef';
 const userReducer = (state, action) => {
     switch (action.type) {
         case 'getUser':
-            return { ...state, photo: action.payload.photo, name: action.payload.name, email: action.payload.email,phone:action.payload.phone,address:action.payload.address }
-        case 'updateImage':
-            return { ...state, photo: action.payload.photo };
-        case 'updateName':
-            return { ...state, name: action.payload.name };
-        case 'updatePhone':
-            return { ...state, phone: action.payload.phone };
-        case 'updateAddress':
-            return { ...state, address: action.payload.address };
+            return { ...state,tipo: action.payload.userType, photo: action.payload.photo, name: action.payload.name, email: action.payload.email,phone:action.payload.phone,address:action.payload.address }
+            case 'update':
+                return action.payload;
         case 'pinPost':
             return { ...state, pinnedPosts: action.payload};
         case 'unpinPost':
@@ -36,12 +30,23 @@ const getUser = dispatch => async () => {
     }
 }
 
+const update = (dispatch) => async({name,phone,imagen,address})=>{
+   
+        try {
+            const response = await instance.post('/api/User/update', {name,phone,imagen,address});
+            dispatch({ type: 'update', payload: response.data });
+            
+        } catch (error) {
+            dispatch({ type: 'add_error' })
+        }
+    
+}
 const updateImage = (dispatch) => async ({ imagen }) => {
     try {
-        console.log(imagen);
+        
         const response = await instance.post('/api/User/update', { photo:imagen });
        // console.log(imagen);
-        dispatch({ type: 'updateImage', payload: response.data });
+        dispatch({ type: 'update', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
@@ -49,7 +54,8 @@ const updateImage = (dispatch) => async ({ imagen }) => {
 const updateName = (dispatch) => async ({ name }) => {
     try {
         const response = await instance.post('/api/User/update', { name:name });
-        dispatch({ type: 'updateName', payload: response.data });
+        dispatch({ type: 'update', payload: response.data });
+        
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
@@ -59,7 +65,7 @@ const updatePhone = (dispatch) => async ({ Aphone }) => {
         console.log(Aphone);
         const response = await instance.post('/api/User/update', { phone:Aphone });
         console.log(Aphone);
-        dispatch({ type: 'updatePhone', payload: response.data });
+        dispatch({ type: 'update', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
@@ -69,7 +75,7 @@ const updateAddress = (dispatch) => async ({ sAddress }) => {
         console.log(sAddress);
         const response = await instance.post('/api/User/update', { address:sAddress });
         console.log(sAddress);
-        dispatch({ type: 'updateAddress', payload: response.data });
+        dispatch({ type: 'update', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' })
     }
@@ -113,6 +119,6 @@ const deleteUser = () => async () => {
 
 export const { Provider, Context } = createDataContext(
     userReducer,
-    { getUser, updateImage, updateName, updatePhone, updateAddress, deleteUser, pinPost, unpinPost, myPinnedPosts },
+    { getUser, updateImage, updateName, updatePhone,update, updateAddress, deleteUser, pinPost, unpinPost, myPinnedPosts },
     { errorMessage: '', photo: null, name: '', tipo: false, email: '', pinnedPosts: [] }
 );
