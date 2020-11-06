@@ -33,7 +33,7 @@ router.get('/myPets', async (req, res) => {
         const pets = await Pet.find({idUser: req.user._id});
         res.send({ pets });
     } catch (err) {
-        res.status(422).send({ error: "No se ha podido publicar el producto" });
+        res.status(422).send({ error: "No se han encontrado mascotas" });
     }
 });
 

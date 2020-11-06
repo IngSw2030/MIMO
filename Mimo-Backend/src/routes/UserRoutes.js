@@ -40,15 +40,15 @@ router.get('/delete', async (req, res) => {
 
 router.post('/update', async (req, res) => {
 	try {
+		
 		const { name, phone, retailName, address, photo } = req.body;
-
 		let newName, newPassword, newPhone, newRetailName, newAddress, newPhoto;
 
 		!name ? (newName = req.user.name) : (newName = name);
 
 		newPassword = req.user.password;
 
-		!phone ? (newphone = req.user.phone) : (newPhone = phone);
+		!phone ? (newPhone = req.user.phone) : (newPhone = phone);
 
 		!retailName ? (newRetailName = req.user.retailName) : (newRetailName = retailName);
 
@@ -56,7 +56,7 @@ router.post('/update', async (req, res) => {
 
 		!photo ? (newPhoto = req.user.photo) : (newPhoto = photo);
 
-		await User.findOneAndUpdate(
+		const newUser= await User.findOneAndUpdate(
 			{ _id: req.user._id },
 			{
 				$set: {
@@ -68,9 +68,9 @@ router.post('/update', async (req, res) => {
 					photo: newPhoto,
 				},
 			},
-			{ useFindAndModify: false }
+			{ useFindAndModify: false,new:true }
 		);
-		res.send(req.user);
+		res.send(newUser);
 	} catch (err) {
 		return res.status(422).send({ error: 'Error al modificar' });
 	}
