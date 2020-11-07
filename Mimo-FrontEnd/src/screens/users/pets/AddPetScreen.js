@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context as PetContext } from '../../../context/PetContext';
-import { View, Text, Button, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, ScrollView, Image, Modal } from 'react-native';
 import { FlatList, TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
 import uploadPhoto from '../../../hooks/uploadPhoto';
@@ -14,15 +14,16 @@ const AddPetScreen = ({ navigation }) => {
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
 	const [gender, setGender] = useState(true); //true = hembra false = macho
-	const[imagenA,setImage] = useState();
+	const [imagenA,setImage] = useState();
+	const [estado,setEstado]= useState(false);
 
 	const [type, setType] = useState('');
 	const [escogerImagen] = uploadPhoto();
 	const buttons = [
-		{ name: 'dog', size: 60, color: 'black', type: 'perro', petColor: '#9FCAE2' },
-		{ name: 'cat', size: 60, color: 'black', type: 'gato', petColor: '#BCDB89' },
-		{ name: 'fish', size: 60, color: 'black', type: 'pez', petColor: '#FFAFB6' },
-		{ name: 'rabbit', size: 60, color: 'black', type: 'conejo', petColor: '#E8916C' }
+		{ name: 'dog', size: 60, color: 'black', type: 'Perro', petColor: '#9FCAE2' },
+		{ name: 'cat', size: 60, color: 'black', type: 'Gato', petColor: '#BCDB89' },
+		{ name: 'fish', size: 60, color: 'black', type: 'Pez', petColor: '#FFAFB6' },
+		{ name: 'rabbit', size: 60, color: 'black', type: 'Conejo', petColor: '#E8916C' }
 	];
 	let imagen=imagenA;
 
@@ -87,7 +88,7 @@ const AddPetScreen = ({ navigation }) => {
 								navigation.navigate('Pets');
 							}
 							else {
-								<Text>Faltan caracteristicas por llenar</Text>
+								setEstado(true);
 							}
 						}}
 					>
@@ -112,11 +113,50 @@ const AddPetScreen = ({ navigation }) => {
 					</TouchableOpacity>
 				</View>
 			</View>
+			<Modal 
+				transparent={estado}
+				visible={estado}>
+				<View style={styles.popUp}>
+					<Text style={styles.text}>Advertencia</Text>
+					<View style={styles.inPopUp}>
+						<Text style={styles.text}>Faltan caracteristicas por llenar</Text>
+						<TouchableOpacity style={styles.volverButton} onPress ={()=>setEstado(false)}>
+							<Text style={styles.text}>Volver</Text>
+						</TouchableOpacity>
+					</View>
+										
+				</View>
+			</Modal>
 		</View>
 	);
 };
 
 const styles = StyleSheet.create({
+	volverButton: {
+		backgroundColor: '#7E9FD1',
+		height: 55,
+		width: 120,
+		margin: 15,
+		borderRadius: 25,
+		//alignSelf: 'center',
+		marginBottom: 20,
+	},
+	inPopUp: {
+		backgroundColor: "#EEE096",
+		marginTop: '5%',
+		flex: 1,
+		
+	},
+	popUp:{
+		backgroundColor:"#F6BF2F",
+		flex:1,
+		marginTop: '60%',
+		marginBottom: '60%',
+		marginLeft: '10%',
+		marginRight: '10%',
+		borderRadius: 10,
+
+	},
 	title: {
 		marginTop: 70,
 		fontSize: 30,
@@ -127,9 +167,8 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		marginTop:'9%'
-		//margin: '5%',
-		//padding: 15,
+		marginTop:'9%',
+		textAlign: 'center'
 	},
 	textInput: {
 		marginTop: 20,
