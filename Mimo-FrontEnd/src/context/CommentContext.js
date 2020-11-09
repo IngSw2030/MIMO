@@ -1,3 +1,4 @@
+import instance from '../api/mimo';
 import createDataContext from './createDataContext';
 
 const commentReducer = (state, action) => {
@@ -33,6 +34,6 @@ const ofPost = dispatch => async({ idPost }) => {
 export const { Provider, Context } = createDataContext(
 	commentReducer,
 	{ saveComment, ofPost }, 
-	{ errorMessage: '', comments: []}
+	{ errorMessage: '', comment: {}, comments: []}
 );
 

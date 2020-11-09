@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, LogBox } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, LogBox, RefreshControl } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as PostContext } from '../../../context/PostContext';
 import PostComponent from '../../../components/postComponent';
@@ -24,6 +24,13 @@ const PostScreen = ({ navigation }) => {
 		
 		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 	}, []);
+
+	const [refreshing, setRefreshing] = React.useState(false);
+	const onRefresh = React.useCallback(() => {
+		setRefreshing(true);
+		searchApi('', '').then(() => setRefreshing(false));
+	}, []);
+
 	return (
 		<View style={styles.general}>
 			<SearchBar
@@ -57,7 +64,7 @@ const PostScreen = ({ navigation }) => {
 					</TouchableOpacity>
 					<TouchableOpacity
 						onPress={() => {
-							navigation.navigate('PinnedPosts');
+							navigation.navigate('RecommendedPost');
 						}}
 					>
 						<MaterialCommunityIcons name='lightbulb-outline' size={50} color='black' style={styles.recommendButton} />
@@ -67,6 +74,7 @@ const PostScreen = ({ navigation }) => {
 				<View>
 					<FlatList
 						nestedScrollEnabled={true}
+						refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
 						showsVerticalScrollIndicator={false}
 						data={results}
 						keyExtractor={(result) => result._id}

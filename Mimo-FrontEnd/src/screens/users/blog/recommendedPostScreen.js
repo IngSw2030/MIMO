@@ -1,21 +1,24 @@
 import React, {useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { Context as UserContext } from '../../../context/UserContext';
+import { Context as PetContext } from '../../../context/PetContext';
 import PostComponent from '../../../components/postComponent';
 import useResults from '../../../hooks/useResultsPost';
 
-const pinnedPostsScreen = ({ navigation }) => {
+const recommendedPostsScreen = ({ navigation }) => {
 
-	const {state} = useContext(UserContext);
+    const {state, getMyPets} = useContext(PetContext);
+	const [searchApi, results, errorMessage] = useResults();
 
 	useEffect(() => {
-	}, [state]);
+        getMyPets();
+        searchApi('', state.pets[0].species);
+	}, []);
 	return (
 		<View style={styles.general}>
-			<Text style = {styles.titles}>Mis blogs Guardados</Text>
+			<Text style = {styles.titles}>Nuestras recomendaciones</Text>
 			<FlatList
 				showsVerticalScrollIndicator={false}
-				data={state.pinnedPosts}
+				data={results}
 				keyExtractor={(result) => result._id}
 				renderItem={({ item }) => {
 					return <PostComponent post = {item}/>
@@ -40,4 +43,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default (pinnedPostsScreen);
+export default (recommendedPostsScreen);

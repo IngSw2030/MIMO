@@ -5,13 +5,17 @@ import { Context as PostContext } from '../../../context/PostContext';
 import PostComponent from '../../../components/postComponent';
 import { Context as UserContext} from '../../../context/UserContext';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Context as CommentContext } from '../../../context/CommentContext';
 
 const PostDetailScreen = ({ navigation }) => {
 
+	const {ofPost} = useContext(CommentContext);
 	const {state, pinPost, unpinPost} = useContext(UserContext);
 	const [pinned, setPinned] = useState(false);
+	const post = navigation.getParam('id');
 
 	useEffect(() => {
+		ofPost({idPost: post._id});
 		if(!state.pinnedPosts.find(e => e._id === post._id)){
 			
 		}
@@ -21,7 +25,6 @@ const PostDetailScreen = ({ navigation }) => {
 	}, [pinned]);
 	
 
-	const post = navigation.getParam('id')
 	return (
 		<ScrollView style={styles.pageStyle}>
 			<Text style = {styles.titles}>{post.title}</Text>
@@ -56,7 +59,7 @@ const PostDetailScreen = ({ navigation }) => {
 				}
 			</View>
 			<Text style={styles.content}>{post.content}</Text>
-			<TouchableOpacity  onPress={()=>{ navigation.navigate('Comments')}}>
+			<TouchableOpacity  onPress={()=>{ navigation.navigate('Comments', {id: post._id})}}>
 				<View style={styles.roundedContainerStyle}>				
 						<MaterialCommunityIcons style={styles.insideRounded} name='message-processing' size={30} color='black'/>				
 					<Text style={styles.comments}>Ver Comentarios</Text>
@@ -102,7 +105,7 @@ const styles = StyleSheet.create({
 		padding: 15
 	},
 	roundedContainerStyle: {
-        marginTop: 10,
+        marginBottom: 20,
         backgroundColor: "#E8916C",
         height: 50,
         width: 250,
