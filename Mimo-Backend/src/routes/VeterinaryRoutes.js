@@ -15,7 +15,7 @@ router.post('/save', async (req, res) => {
         photo,
         address,
         description,
-        avgScore,
+        contact
     } = req.body;
 
     try {
@@ -24,8 +24,8 @@ router.post('/save', async (req, res) => {
             animals,
             photo,
             address,
-            avgScore,
             description,
+            contact,
             idUser: req.user._id,
         });
         await veterinary.save();

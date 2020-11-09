@@ -30,12 +30,12 @@ import myPostsScreen from './src/screens/users/blog/myPostsScreen';
 import pinnedPostsScreen from './src/screens/users/blog/pinnedPostsScreen';
 import recommendedPostsScreen from './src/screens/users/blog/recommendedPostScreen';
 //Comments
-import AddCommentScreen from './src/screens/comments/AddCommentScreen';
-import CommentsScreen from './src/screens/comments/CommentsScreen';
+import CommentsScreen from './src/screens/users/blog/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
 import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
+import ComAddVeterinaryScreen from './src/screens/commerces/ComAddVeterinaryScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComProductDetailsScreen';
 import ComProductScreen from './src/screens/commerces/ComProductScreen';
@@ -86,12 +86,12 @@ const ComercioHomeNavigation = createStackNavigator(
 		ComSettings: ComSettingsScreen,
 		ComVeterinaryProfile: ComVeterinaryProfileScreen,
 		ComEditProduct: ComEditProductScreen,
+		ComAddVeterinary: ComAddVeterinaryScreen,
 
 		//Pantalla Posts y Comentarios
 		Post: PostScreen,
 		AddPost: AddPostScreen,
 		PostDetails: PostDetailScreen,
-		AddComment: AddCommentScreen,
 		Comments: CommentsScreen,
 		MyPosts: myPostsScreen,
 		PinnedPosts: pinnedPostsScreen,
@@ -126,7 +126,6 @@ const UserHomeNavigation = createStackNavigator(
 		Post: PostScreen,
 		AddPost: AddPostScreen,
 		PostDetails: PostDetailScreen,
-		AddComment: AddCommentScreen,
 		Comments: CommentsScreen,
 		MyPosts: myPostsScreen,
 		PinnedPosts: pinnedPostsScreen,

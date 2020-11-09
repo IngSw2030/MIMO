@@ -1,12 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, RefreshControl } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { navigate } from '../../navigationRef';
-import { Context as CommentContext } from '../../context/CommentContext';
+import { navigate } from '../../../navigationRef';
+import { Context as CommentContext } from '../../../context/CommentContext';
 import { FontAwesome5 } from '@expo/vector-icons';
-import CommentComponent from '../../components/commentComponent';
+import CommentComponent from '../../../components/commentComponent';
 
-const commentsScreen = ({ navigation }) => {
+const CommentsScreen = ({ navigation }) => {
 
 	const id = navigation.getParam('id');
 	const [comment, setComment] = useState('');
@@ -103,4 +103,4 @@ styles = StyleSheet.create({
 	}
 });
 
-export default (commentsScreen);
+export default (CommentsScreen);

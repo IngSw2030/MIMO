@@ -48,7 +48,7 @@ const ComHomeScreen = ({ navigation }) => {
 					<Text style={styles.buttonNameStyle}>{servicesText}</Text>
 				</TouchableOpacity>
 
-				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('ComVet')}>
+				<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('ComVeterinary')}>
 					<Image style={styles.iconStyle} source={vetIcon} />
 					<Text style={styles.buttonNameStyle}>{vetText}</Text>
 				</TouchableOpacity>

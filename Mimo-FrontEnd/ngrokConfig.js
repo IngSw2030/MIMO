@@ -1,4 +1,4 @@
 export default ngrokAddr = {
 	socket: 'http://fdadaf060efb.ngrok.io',
-	db: 'http://7a8daaa7b069.ngrok.io',
+	db: 'http://45ce1f825f5c.ngrok.io',
 };

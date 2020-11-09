@@ -20,6 +20,11 @@ const VeterinarySchema = new mongoose.Schema({
     avgScore: {
         type: Number,
         required: true,
+        default: 0
+    },
+    contact: {
+        type: Number,
+        required: false
     },
     description:{
         type: String,
