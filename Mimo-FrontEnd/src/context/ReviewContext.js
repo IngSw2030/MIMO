@@ -17,12 +17,14 @@ const ReviewReducer = (state, action) => {
 };
 
 const addVetReview = dispatch => async ({ comment, score, idVet }) => {
+
     try {
         const response = await instance.post('/api/Review/saveVetReview', {
             score,
             comment,
             idVet,
         });
+        console.log(response.data);
         dispatch({ type: 'addVetReview', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' });
