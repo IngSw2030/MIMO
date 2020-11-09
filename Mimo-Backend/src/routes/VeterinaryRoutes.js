@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const requireAuth = require('../middlewares/requireAuth');
 
 const Veterinary = mongoose.model('Veterinary');
+const Review = mongoose.model('Review');
+
 
 const router = express.Router();
 
@@ -34,6 +36,27 @@ router.post('/save', async (req, res) => {
         res.status(422).send({ error: err });
     }
 });
+
+router.post('/updateAvgScore', async (req, res) => {
+    try {
+        const {
+            score,
+            id
+        } = req.body;
+
+        const veterinary = await Veterinary.findOne({ _id: id });
+
+        let antiguoScore = veterinary.avgScore;
+        const numeroReview = await Review.where({ idVet: veterinary._id }).count();
+
+        const aux = numeroReview * antiguoScore;
+        let nuevoScore = (aux + score) / (numeroReview + 1);
+
+        res.send({ nuevoScore });
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
+})
 
 router.post('/update', async (req, res) => {
     try {

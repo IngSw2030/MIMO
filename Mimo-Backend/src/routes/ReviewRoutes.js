@@ -15,6 +15,7 @@ router.post('/saveVetReview', async (req, res) => {
         comment,
         idVet,
     } = req.body;
+    console.log(req.body);
 
     try {
         const review = new Review({
