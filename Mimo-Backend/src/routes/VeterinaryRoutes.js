@@ -17,7 +17,9 @@ router.post('/save', async (req, res) => {
         photo,
         address,
         description,
-        contact
+        contact,
+        openAt,
+        closeAt,
     } = req.body;
 
     try {
@@ -28,6 +30,8 @@ router.post('/save', async (req, res) => {
             address,
             description,
             contact,
+            openAt,
+            closeAt,
             idUser: req.user._id,
         });
         await veterinary.save();

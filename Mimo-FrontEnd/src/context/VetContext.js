@@ -36,9 +36,9 @@ const getMyVets = dispatch => async ({ id }) => {
     }
 };
 
-const saveVet = dispatch => async({ name, animals, photo, address, description, contact }) => {
+const saveVet = dispatch => async({ name, animals, photo, address, description, contact, openAt, closeAt }) => {
     try {
-        const response = await instance.post('api/Veterinary/save', { name, animals, photo, address, description, contact });
+        const response = await instance.post('api/Veterinary/save', { name, animals, photo, address, description, contact, openAt, closeAt });
         dispatch({ type: 'saveVet', action: response.data.veterinary });
     } catch (error) {
         dispatch({ type: 'add_error' });

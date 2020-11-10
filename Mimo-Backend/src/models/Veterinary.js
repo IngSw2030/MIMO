@@ -35,6 +35,14 @@ const VeterinarySchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    openAt: {
+        type: Date,
+        required: false
+    },
+    closeAt: {
+        type: Date, 
+        required: false
+    }
 });
 
 mongoose.model('Veterinary', VeterinarySchema);
