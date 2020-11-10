@@ -6,6 +6,8 @@ import { navigate } from '../../navigationRef';
 import { Context as VetContext } from '../../context/VetContext';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { set } from 'react-native-reanimated';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const ComAddVeterinaryScreen = ({ navigation }) => {
 
@@ -20,6 +22,32 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
 
     const [buscarImagen] = uploadPhoto();
 
+	const [selectOpen, setSelectOpen] = useState(false);
+	const [selectClose, setSelectClose] = useState(false);
+	const [showOpen, setShowOpen] = useState(false);
+	const [showClose, setShowClose] = useState(false);
+	const [openAt, setOpenAt] = useState(new Date());
+	const [closeAt, setCloseAt] = useState(new Date());;
+
+	const onChangeOpen = (event, selectedDate) => {
+		const currentDate = selectedDate || date;
+		//setShowOpen(Platform.OS === 'ios');
+		setOpenAt(currentDate);
+		setTimeout(function(){
+			setShowOpen(false);
+			setSelectOpen(false);
+		}, 3000);
+	};
+
+	const onChangeClose = (event, selectedDate) => {
+		const currentDate = selectedDate || date;
+		//setShowClose(Platform.OS === 'ios');
+		setCloseAt(currentDate);
+		setTimeout(function(){
+			setShowClose(false);
+			setSelectClose(false);
+		}, 3000);
+	};
 
 	return (
 		<ScrollView style = {styles.general}>
@@ -85,6 +113,55 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
                 />
             </View>
 
+			<TouchableOpacity style = {styles.inputContainer} 
+				onPress={() => {
+					setSelectOpen(!selectOpen);
+					setShowOpen(!showOpen)
+				}}
+			>
+				{
+					selectOpen ?
+						<View>
+							{showOpen && (
+								<DateTimePicker
+								testID="dateTimePicker"
+								value={openAt}
+								mode={'time'}
+								is24Hour={true}
+								display="clock"
+								onChange={onChangeOpen}
+								/>
+							)}
+						</View>
+					: <Text style={styles.inputContainerText}> {(openAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,17)}</Text>
+				}
+			</TouchableOpacity>
+
+			<TouchableOpacity style = {styles.inputContainer} 
+				onPress={() =>{ 
+					setSelectClose(!selectClose);
+					setShowClose(!showClose)
+				}}
+			>
+
+				{  
+					selectClose ?
+						<View>
+						{showClose && (
+							<DateTimePicker
+								testID="dateTimePicker"
+								value={closeAt}
+								mode={'time'}
+								is24Hour={true}
+								display="clock"
+								onChange={onChangeClose}
+							/>
+						)}
+						</View>
+					: <Text style={styles.inputContainerText}> {(closeAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,17)}</Text>
+				}
+			</TouchableOpacity>
+
             <View style={styles.selectType}>
 				<TouchableOpacity style={styles.typeDog} onPress={() => setAnimals([...animals,'perro'])}>
 					<MaterialCommunityIcons name='dog' size={50} color='black' />
@@ -110,7 +187,9 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
                             photo,
                             address,
                             description,
-                            contact
+							contact,
+							openAt,
+							closeAt
 						});
 						getMyVets();
 						navigation.navigate('ComVeterinary');
