@@ -1,21 +1,19 @@
 import createDataContext from './createDataContext';
-import {instance} from '../api/mimo'
+import instance from '../api/mimo'
 
-const ServiceReducer = (ListaServicios, action) => {
+const ServiceReducer = (state, action) => {
 	switch (action.type) {
-		case 'addService':
-			return [
-				...ListaServicios,
-				{
+		case 'saveService':
+			return {
+				    ...state,
                     category: action.payload.category,
                     name :action.payload.name,
                     priceMax:action.payload.priceMax,
                     priceMin:action.payload.priceMin,
                     photo:action.payload.photo,
                     description:action.payload.description,
-                    avgScore: 0
-				},
-            ];
+                    avgScore: action.payload.avgScore,
+            };
         case 'filterService':
                 /*Esta es la version llamando a la base de datos
                 const listaServ = action.payload;
@@ -42,7 +40,7 @@ const ServiceReducer = (ListaServicios, action) => {
                 //console.log(filteredService);
                 return filteredService
 		default:
-			return ListaServicios;
+			return state;
 	}
 };
 const filterService = dispatch =>async({category})=>{
@@ -56,97 +54,29 @@ const filterService = dispatch =>async({category})=>{
         dispatch({ type: 'add_error' })
     }
 };
-const addService = dispatch => async () =>  {
+const saveService = dispatch => async  dispatch=> async ({category, name, description, photo, priceMax, priceMin})=>  {
+    console.log(category);
+    console.log(name);
+    console.log(description);
+    console.log(priceMax);
+    console.log(priceMin);
     try{
-        return (category, name, description, photo, priceMax, priceMin,avgScore, callback) => {
-            dispatch({ type: 'addService', payload: { category, name, description, photo, priceMax, priceMin, avgScore } });
-            callback(); //el callback es un navigate
-        };
+        const response = await instance.post('/api/Service/save',{
+            category, 
+            name, 
+            description, 
+            photo, 
+            priceMax, 
+            priceMin,
+            avgScore: 0,
+        });
+        dispatch({type: 'saveService', payload:response.data})
     } 
     catch (error) {
         dispatch({ type: 'add_error' })
     }
 };
-const servicios = [
-    {
-        id: '15',
-        category: 'Estilista',
-        name :'Dario',
-        priceMax:17000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 3
-    },
-    {
-        id: '10',
-        category: 'Estilista',
-        name :'McLovin',
-        priceMax:15000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 5
-    },
-    {
-        id: '17',
-        category: 'Paseador',
-        name :'Bob',
-        priceMax:11000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 3
-    },
-    {
-        id: '26',
-        category: 'Paseador',
-        name :'Pepsiman',
-        priceMax:15000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 5
-    },
-    {
-        id: '25',
-        category: 'Limpiador',
-        name :'Batman',
-        priceMax:17000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 4
-    },
-    {
-        id: '23',
-        category: 'Limpiador',
-        name :'Exodia',
-        priceMax:45000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 12
-    },
-    {
-        id: '22',
-        category: 'Cuidador',
-        name :'Gay Robin',
-        priceMax:17000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 1
-    },
-    {
-        id: '21',
-        category: 'Cuidador',
-        name :'Octavio rex',
-        priceMax:15000,
-        priceMin:10000,
-        photo:require('../../assets/mimo.png'),
-        description:'Paseo perros por 15 cuadras y en parques durante 30 minutos',
-        avgScore: 5
-    },
-];
-export const { Context, Provider } = createDataContext(ServiceReducer, { addService, filterService }, servicios);
+export const { Context, Provider } = createDataContext(
+    ServiceReducer, 
+    { saveService, filterService }, 
+);

@@ -35,6 +35,7 @@ import CommentsScreen from './src/screens/comments/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
+import ComAddServiceScreen from './src/screens/commerces/ComAddServiceScreen';
 import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
 import ComProductDetailsScreen from './src/screens/commerces/ComProductDetailsScreen';
@@ -77,6 +78,7 @@ const ComercioHomeNavigation = createStackNavigator(
 		//Pantallas Comercio
 		comercHome: ComHomeScreen,
 		ComAddProduct: ComAddProductScreen,
+		ComAddService: ComAddServiceScreen,
 		ComVeterinary: ComVeterinaryScreen,
 		ComNotifications: ComNotificationsScreen,
 		ComProductDetails: ComProductDetailsScreen,
