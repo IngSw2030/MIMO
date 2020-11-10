@@ -7,13 +7,13 @@ import { Context as ReviewContext } from '../../../context/ReviewContext';
 import { Feather } from '@expo/vector-icons';
 
 const ReviewsScreen = ({ navigation }) => {
-    const [comentario, setComentario] = useState('');
     const calificacion = navigation.getParam('calificacion');
     const id = navigation.getParam('id');
     const { state, getVetReviews, addVetReview } = useContext(ReviewContext);
     const mimo = require('../../../../assets/mimo.png')
 
     //estrellitas
+    const [comentario, setComentario] = useState('');
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
     const [miCalificacion, setMiCalificacion] = useState(3);
     const [escribirComentario, setEscribirComentario] = useState(0);
@@ -24,7 +24,7 @@ const ReviewsScreen = ({ navigation }) => {
 
     useEffect(() => {
         getVetReviews({ idVet: id });
-    }, [state])
+    }, [])
 
     return (
 

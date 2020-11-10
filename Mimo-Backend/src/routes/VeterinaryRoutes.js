@@ -43,15 +43,19 @@ router.post('/updateAvgScore', async (req, res) => {
             score,
             id
         } = req.body;
-
+        console.log(id);
         const veterinary = await Veterinary.findOne({ _id: id });
 
         let antiguoScore = veterinary.avgScore;
-        const numeroReview = await Review.where({ idVet: veterinary._id }).count();
+        const numeroReview = await Review.where({ idVet: veterinary._id }).countDocuments();
+        const aux = (numeroReview - 1) * antiguoScore;
+        let nuevoScore = (aux + score) / (numeroReview);
 
-        const aux = numeroReview * antiguoScore;
-        let nuevoScore = (aux + score) / (numeroReview + 1);
-
+        await Veterinary.findOneAndUpdate({ _id: id }, {
+            $set: {
+                "avgScore": nuevoScore,
+            }
+        }, { useFindAndModify: false });
         res.send({ nuevoScore });
     } catch (err) {
         return res.status(422).send({ error: 'Error al modificar' });
