@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
 
 
-const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, closeat }) => {
+const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, closeat, photo }) => {
 
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
@@ -16,26 +16,22 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
     const mimoIcon = require('../../assets/mimo.png');
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
 
-    console.log();
-
     return (
         <ScrollView style={{ marginHorizontal: '5%' }}>
             {
-                data.photo != ""
+                !photo
                     ?
                     <Image style={styles.imageStyle} source={mimoIcon} />
                     :
-                    <Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${data.photo}` }} />
+                    <Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${photo}` }} />
             }
             <Text style={styles.nombre}>{nombre}</Text>
             <Text style={styles.titleStyle}>Descripcion:</Text>
             <Text style={{ fontSize: 20 }}>{descripcion}</Text>
 
-            <Text style={styles.titleStyle}>Horario:
-            {
-                    (openat.toLocaleString("en-GB", { timeZone: "America/Bogota" }).slice(11, 17) -
-                        closeat.toLocaleString("en-GB", { timeZone: "America/Bogota" }).slice(11, 17))
-                }
+            <Text style={styles.titleStyle}>Horario: {" "}
+                 {(openat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)} -
+                 {(closeat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}
             </Text>
 
 
@@ -129,7 +125,6 @@ const styles = StyleSheet.create({
     titleStyle: {
         fontSize: 25,
         fontWeight: "bold",
-        fontFamily: ""
     },
     iconStyle: {
         height: 30,

@@ -17,6 +17,7 @@ const VeterinaryProfileScreen = (props) => {
                 id={data._id}
                 openat={data.openAt}
                 closeat={data.closeAt}
+                photo = {data.photo}
             />
             <View style={styles.bottomViewStyle}>
             </View>
