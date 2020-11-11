@@ -10,6 +10,11 @@ const ServiceSchema = new mongoose.Schema({
 		type: Number,
 		required: true,
 	},
+	available: {
+		type: Boolean,
+		required: true,
+		default: true,
+	},
 	name: {
 		type: String,
 		required: true,

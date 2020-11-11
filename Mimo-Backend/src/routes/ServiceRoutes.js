@@ -75,7 +75,18 @@ router.get('/getServices', async (req, res) => {
 		res.status(422).send({ error: 'No se ha podido publicar el producto' });
 	}
 });
+router.post('/myServices', async (req, res) => {
+	try {
+		const services = await Service.find({
+			idUser: req.user._id,
+		}).limit(25);
 
+		res.send({ services });
+	} catch (err) {
+		console.log('Error myServices');
+		res.status(422).send({ error: 'No se han encontrado productos' });
+	}
+});
 router.post('/update', async (req, res) => {
 	try {
 		const { name, price, photo, description, id } = req.body;

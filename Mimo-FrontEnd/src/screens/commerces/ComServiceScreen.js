@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Picker,FlatList, ScrollView} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Picker, FlatList, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
@@ -8,7 +8,7 @@ import ServiceComponent from '../../components/serviceComponent';
 
 const ComServicesScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
-	const text = 'Limpieza de pecera';
+	const text = 'Limpieza de Peceras';
 	const [selectedValue, setSelectedValue] = useState(text);
 	const [searchApi, results, errorMessage] = useSearch();
 	console.log(results);
@@ -21,36 +21,33 @@ const ComServicesScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.addServiceStyle}>
 				<View style={styles.pickerStyle}>
-					<Picker
-						selectedValue={selectedValue}
-						onValueChange={(itemValue) => setSelectedValue(itemValue)}
-					>
-						<Picker.Item label="Limpieza de Peceras" value="Limpieza de Peceras" />
-						<Picker.Item label="Paseos" value="Paseos" />
-						<Picker.Item label="Estilista" value="Estilista" />
-						<Picker.Item label="Cuidador" value="Cuidador" />
+					<Picker selectedValue={selectedValue} onValueChange={itemValue => setSelectedValue(itemValue)}>
+						<Picker.Item label='Limpieza de Peceras' value='Limpieza de Peceras' />
+						<Picker.Item label='Paseos' value='Paseos' />
+						<Picker.Item label='Estilista' value='Estilista' />
+						<Picker.Item label='Cuidador' value='Cuidador' />
 					</Picker>
 				</View>
-				<View style={styles.addButtonStyle}> 
+				<View style={styles.addButtonStyle}>
 					<TouchableOpacity
-					style = {{alignSelf:"center"}}
-					onPress ={()=>{
-							navigate('ComAddService',{
+						style={{ alignSelf: 'center' }}
+						onPress={() => {
+							navigate('ComAddService', {
 								categoria: selectedValue,
 							});
 						}}
 					>
-					<MaterialCommunityIcons name='plus' size={30} color='black'/>
+						<MaterialCommunityIcons name='plus' size={30} color='black' />
 					</TouchableOpacity>
 				</View>
 			</View>
 			<View>
-				<ServiceComponent service={'dasdsadsa'}/>
+				<ServiceComponent service={'dasdsadsa'} />
 				<FlatList
 					data={results}
 					keyExtractor={item => item._id}
 					renderItem={({ item }) => {
-						return <ServiceComponent service={item}/>;
+						return <ServiceComponent service={item} />;
 					}}
 				/>
 			</View>
@@ -61,14 +58,14 @@ const styles = StyleSheet.create({
 	logoStyle: {
 		height: 150,
 		width: 150,
-        alignSelf: 'center',
-        marginTop: 50,
+		alignSelf: 'center',
+		marginTop: 50,
 	},
 	titleStyle: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		marginBottom:5,
-		marginLeft: 10
+		marginBottom: 5,
+		marginLeft: 10,
 	},
 	iconStyle: {
 		height: 120,
@@ -86,24 +83,24 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		flexGrow: 1,
 	},
-	addServiceStyle:{
-		flexDirection:"row"
+	addServiceStyle: {
+		flexDirection: 'row',
 	},
 	pickerStyle: {
 		backgroundColor: '#88CCF2',
 		marginRight: 10,
 		marginHorizontal: 10,
 		borderRadius: 10,
-		flexGrow: 1
+		flexGrow: 1,
 	},
-	addButtonStyle:{
+	addButtonStyle: {
 		backgroundColor: '#88CCF2',
 		height: 40,
 		width: 40,
-		justifyContent:"center",
-		marginRight:10,
-		borderRadius:5,
-		alignSelf:"center"
-	}
+		justifyContent: 'center',
+		marginRight: 10,
+		borderRadius: 5,
+		alignSelf: 'center',
+	},
 });
 export default withNavigation(ComServicesScreen);
