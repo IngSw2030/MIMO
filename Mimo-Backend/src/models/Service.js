@@ -4,7 +4,7 @@ const ServiceSchema = new mongoose.Schema({
 	category: {
 		type: String,
 		required: true,
-		enum: ['Paseos', 'Cuidadores', 'Limpiado de peceras', 'Peluqueria'],
+		enum: ['Paseos', 'Cuidador', 'Limpieza de Peceras', 'Estilista'],
 	},
 	price: {
 		type: Number,

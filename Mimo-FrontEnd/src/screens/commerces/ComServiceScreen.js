@@ -22,7 +22,7 @@ const ComServicesScreen = ({ navigation }) => {
 						onValueChange={(itemValue) => setSelectedValue(itemValue)}
 					>
 						<Picker.Item label="Limpieza de Peceras" value="Limpieza de Peceras" />
-						<Picker.Item label="Paseo" value="Paseo" />
+						<Picker.Item label="Paseos" value="Paseos" />
 						<Picker.Item label="Estilista" value="Estilista" />
 						<Picker.Item label="Cuidador" value="Cuidador" />
 					</Picker>
