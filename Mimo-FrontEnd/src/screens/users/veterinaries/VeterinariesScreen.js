@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, SafeAreaView } from 'react-native'
 import { withNavigation } from 'react-navigation';
 import WideListComponent from '../../../components/wideListComponent'
 import VeterinaryList from '../../../components/veterinaryComponent'
@@ -9,18 +9,14 @@ import useSearch from '../../../hooks/useResultsProduct';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const VeterinariesScreen = () => {
-    const { state, getAllVets } = useContext(VetContext);
-
-    useEffect(() => {
-        getAllVets();
-    }, [])
+    const { state } = useContext(VetContext);
 
     return (
         <View style={styles.body}>
             <View style={styles.searchBarStyle}>
                 <SearchBar />
             </View>
-            <ScrollView>
+            <SafeAreaView style={{ flex: 1, marginBottom: 50 }}>
                 <Text style={styles.tituloPantalla}>Veterinarias</Text>
                 <View >
                     <FlatList
@@ -31,7 +27,7 @@ const VeterinariesScreen = () => {
                         }}
                     />
                 </View>
-            </ScrollView>
+            </SafeAreaView>
 
         </View>
     )

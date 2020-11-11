@@ -1,19 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { navigate } from '../navigationRef';
+import { ScrollView } from 'react-native-gesture-handler';
+import StarRating from 'react-native-star-rating';
 
-const ServiceDetails = ({ data, calificacion, descripcion, nombre, id }) => {
-    
+
+const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, closeat }) => {
+
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
     const estrellas = insertarEstrellas(calificacion);
     const mimoIcon = require('../../assets/mimo.png');
+    const [generalStarCount, setgeneralStarCount] = useState(calificacion);
+
+    console.log();
 
     return (
-        <View style={{ marginHorizontal: '5%', flex: 1 }}>
+        <ScrollView style={{ marginHorizontal: '5%' }}>
             {
                 data.photo != ""
                     ?
@@ -25,18 +31,25 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id }) => {
             <Text style={styles.titleStyle}>Descripcion:</Text>
             <Text style={{ fontSize: 20 }}>{descripcion}</Text>
 
+            <Text style={styles.titleStyle}>Horario:
+            {
+                    (openat.toLocaleString("en-GB", { timeZone: "America/Bogota" }).slice(11, 17) -
+                        closeat.toLocaleString("en-GB", { timeZone: "America/Bogota" }).slice(11, 17))
+                }
+            </Text>
+
+
+
             <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.titleStyle}>Calificacion ''</Text>
+                <Text style={styles.titleStyle}>Calificacion</Text>
                 <View style={{ marginLeft: 5 }}>
-                    <FlatList
-                        data={estrellas}
-                        keyExtractor={(estrella) => estrella.cantidad.toString()}
-                        numColumns={5}
-                        renderItem={({ estrellas }) => {
-                            return (
-                                <Image style={styles.iconStyle} source={ratingIcon} />
-                            )
-                        }}
+                    <StarRating
+                        disabled={true}
+                        maxStars={5}
+                        rating={generalStarCount}
+                        starSize={35}
+                        selectedStar={rating => setgeneralStarCount(rating)}
+                        buttonStyle={{ margin: 8 }}
                     />
                 </View>
             </View>
@@ -61,7 +74,7 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id }) => {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 
@@ -115,7 +128,8 @@ const styles = StyleSheet.create({
     },
     titleStyle: {
         fontSize: 25,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontFamily: ""
     },
     iconStyle: {
         height: 30,
