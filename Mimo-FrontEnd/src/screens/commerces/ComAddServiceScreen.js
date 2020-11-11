@@ -82,15 +82,14 @@ const ComAddServiceScreen = ({navigation}) => {
 						style={styles.buttom}
 						onPress={() => {
                             const numberPrice = precio * 1;
-							saveService({ 
+							 saveService({ 
                                 category: categoria, 
                                 name: nombre, 
-                                description: descripcion, 
+                                price: numberPrice,
                                 photo:  foto, 
-                                priceMax: numberPrice, 
-                                priceMin: numberPrice,
+                                description: descripcion, 
                             });
-                            console.log('servicio guardado existosamente alv')
+                            console.log('servicio guardado existosamente')
                             navigate('ComService');
 						}}
 					>

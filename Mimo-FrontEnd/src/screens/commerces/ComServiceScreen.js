@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Picker} from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, Picker,FlatList, ScrollView} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
+import useSearch from '../../hooks/useResultsMyServices';
+import ServiceComponent from '../../components/serviceComponent';
 
 const ComServicesScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
-	const [selectedValue, setSelectedValue] = useState("Limpieza de Peceras");
 	const text = 'Limpieza de pecera';
+	const [selectedValue, setSelectedValue] = useState(text);
+	const [searchApi, results, errorMessage] = useSearch();
+	console.log(results);
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
@@ -39,6 +43,16 @@ const ComServicesScreen = ({ navigation }) => {
 					<MaterialCommunityIcons name='plus' size={30} color='black'/>
 					</TouchableOpacity>
 				</View>
+			</View>
+			<View>
+				<ServiceComponent service={'dasdsadsa'}/>
+				<FlatList
+					data={results}
+					keyExtractor={item => item._id}
+					renderItem={({ item }) => {
+						return <ServiceComponent service={item}/>;
+					}}
+				/>
 			</View>
 		</View>
 	);

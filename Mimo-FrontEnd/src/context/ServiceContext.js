@@ -1,7 +1,7 @@
 import createDataContext from './createDataContext';
 import instance from '../api/mimo'
 
-const ServiceReducer = (state, action) => {
+const serviceReducer = (state, action) => {
 	switch (action.type) {
 		case 'saveService':
 			return {
@@ -54,21 +54,14 @@ const filterService = dispatch =>async({category})=>{
         dispatch({ type: 'add_error' })
     }
 };
-const saveService = dispatch => async  dispatch=> async ({category, name, description, photo, priceMax, priceMin})=>  {
-    console.log(category);
-    console.log(name);
-    console.log(description);
-    console.log(priceMax);
-    console.log(priceMin);
+const saveService =dispatch=> async ({category, name, description, photo, price})=>  {
     try{
         const response = await instance.post('/api/Service/save',{
             category, 
             name, 
+            price,
             description, 
             photo, 
-            priceMax, 
-            priceMin,
-            avgScore: 0,
         });
         dispatch({type: 'saveService', payload:response.data})
     } 
@@ -77,6 +70,7 @@ const saveService = dispatch => async  dispatch=> async ({category, name, descri
     }
 };
 export const { Context, Provider } = createDataContext(
-    ServiceReducer, 
+    serviceReducer, 
     { saveService, filterService }, 
+    {errorMessage: '', category: '', name: '', price: '', photo: '', description: ''}
 );
