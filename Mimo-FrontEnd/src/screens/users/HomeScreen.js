@@ -37,7 +37,7 @@ const HomeScreen = ({ navigation }) => {
 
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
-					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
+					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
 						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>

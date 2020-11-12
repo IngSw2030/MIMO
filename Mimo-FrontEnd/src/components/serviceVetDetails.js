@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import StarRating from 'react-native-star-rating';
 
 
-const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, closeat, photo }) => {
+const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, closeat, photo, precioMax, precioMin }) => {
 
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
@@ -17,60 +17,64 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
 
     return (
-        <ScrollView style={{ marginHorizontal: '5%' }}>
-            {
-                !photo
-                    ?
-                    <Image style={styles.imageStyle} source={mimoIcon} />
-                    :
-                    <Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${photo}` }} />
-            }
-            <Text style={styles.nombre}>{nombre}</Text>
-            <Text style={styles.titleStyle}>Descripcion:</Text>
-            <Text style={{ fontSize: 20 }}>{descripcion}</Text>
+        <View style = {{backgroundColor: '#FFF7BB'}}> 
+            <ScrollView style={{ margin: '2.5%' }}>
+                {
+                    !photo
+                        ?
+                        <Image style={styles.imageStyle} source={mimoIcon} />
+                        :
+                        <Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${photo}` }} />
+                }
+                <Text style={styles.nombre}>{nombre}</Text>
+                <Text style={styles.titleStyle}>Descripcion:</Text>
+                <Text style={{ fontSize: 20 }}>{descripcion}</Text>
 
-            <Text style={styles.titleStyle}>Horario: {" "}
-                 {(openat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)} -
-                 {(closeat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}
-            </Text>
+                {
+                    data == 'servicio' ?
+                    <Text style={styles.titleStyle}>Precio: {" "} {precioMin} - {precioMax}</Text>
+                    :<Text style={styles.titleStyle}>Horario: {" "}
+                        {(openat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)} -
+                        {(closeat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}
+                    </Text>
+                }
 
-
-
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={styles.titleStyle}>Calificacion</Text>
-                <View style={{ marginLeft: 5 }}>
-                    <StarRating
-                        disabled={true}
-                        maxStars={5}
-                        rating={generalStarCount}
-                        starSize={35}
-                        selectedStar={rating => setgeneralStarCount(rating)}
-                        buttonStyle={{ margin: 8 }}
-                    />
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={styles.titleStyle}>Calificacion</Text>
+                    <View style={{ marginLeft: 5 }}>
+                        <StarRating
+                            disabled={true}
+                            maxStars={5}
+                            rating={generalStarCount}
+                            starSize={35}
+                            selectedStar={rating => setgeneralStarCount(rating)}
+                            buttonStyle={{ margin: 8 }}
+                        />
+                    </View>
                 </View>
-            </View>
 
-            <View style={{ flexDirection: 'column', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-                <TouchableOpacity
-                    onPress={() =>
-                        navigate('Reviews', {
-                            id: id,
-                            calificacion: calificacion
-                        })
-                    }
-                    style={styles.comentarios}
-                >
-                    <FontAwesome5 name="comment-dots" size={24} color="black" />
-                    <Text style={styles.textoBotones}>Comentarios</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.contactar}>
-                    <FontAwesome name="send-o" size={24} color="black" />
+                <View style={{ flexDirection: 'column', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigate('Reviews', {
+                                id: id,
+                                calificacion: calificacion
+                            })
+                        }
+                        style={styles.comentarios}
+                    >
+                        <FontAwesome5 name="comment-dots" size={24} color="black" />
+                        <Text style={styles.textoBotones}>Comentarios</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.contactar}>
+                        <FontAwesome name="send-o" size={24} color="black" />
 
-                    <Text style={styles.textoBotones}>Contactar</Text>
-                </TouchableOpacity>
-            </View>
+                        <Text style={styles.textoBotones}>Contactar</Text>
+                    </TouchableOpacity>
+                </View>
 
-        </ScrollView>
+            </ScrollView>
+        </View>
     )
 }
 

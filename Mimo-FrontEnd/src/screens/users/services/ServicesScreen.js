@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 
 const ServicesScreen = ({ navigation }) => {
@@ -11,46 +11,36 @@ const ServicesScreen = ({ navigation }) => {
 	const petSittingText = 'Cuidadores';
 
 	return (
-		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
+		<ScrollView style={{ backgroundColor: '#FFF7BB', flex: 1 }} showsHorizontalScrollIndicator={false}>
 			<View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<Text style={styles.titleStyle}> Servicios </Text>
 			</View>
-			<View style={styles.generalView}>
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}
-				>
-					<Image style={styles.iconStyle} source={mimoIcon} />
-					<Text style={styles.serviceNameStyle}> {aquariumCleanerText}</Text>
-				</TouchableOpacity>
+			<View style={styles.parteInferior}>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.aquariumStyle} onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}>
+						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Text style={styles.buttonNameStyle}>{aquariumCleanerText}</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText })}
-				>
-					<Image style={styles.iconStyle} source={mimoIcon} />
-					<Text style={styles.serviceNameStyle}> {petWalkerText}</Text>
-				</TouchableOpacity>
-			</View>
-			<View style={styles.generalView}>
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText })}
-				>
-					<Image style={styles.iconStyle} source={mimoEstilista} />
-					<Text style={styles.serviceNameStyle}> {groomingText}</Text>
-				</TouchableOpacity>
+					<TouchableOpacity style={styles.walkerStyle} onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText })}>
+						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Text style={styles.buttonNameStyle}>{petWalkerText}</Text>
+					</TouchableOpacity>
+				</View>
+				<View style={styles.generalView}>
+					<TouchableOpacity style={styles.groomingStyle} onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText })}>
+						<Image style={{ height: 125, width: 90, alignSelf: 'center' }} source={mimoEstilista} />
+						<Text style={styles.buttonNameStyle}>{groomingText}</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity
-					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText })}
-				>
-					<Image style={styles.iconStyle} source={mimoIcon} />
-					<Text style={styles.serviceNameStyle}> {petSittingText}</Text>
-				</TouchableOpacity>
+					<TouchableOpacity style={styles.sittingStyle} onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText })}>
+						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Text style={styles.buttonNameStyle}>{petSittingText}</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 const styles = StyleSheet.create({
@@ -60,36 +50,70 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 	},
 	titleStyle: {
-		fontSize: 20,
+		fontSize: 30,
 		fontWeight: 'bold',
-		alignSelf: 'center',
-		marginBottom:5
+		marginLeft: '5%',
+		marginBottom: '2%',
 	},
 	serviceNameStyle: {
-		alignSelf: 'center',
+		fontSize: 23,
+		textAlign: 'center',
 	},
 	iconStyle: {
 		height: 120,
-		width: 120,
+		width: 110,
 		alignSelf: 'center',
 		//flexGrow: 1,
 	},
-	buttonStyle: {
+
+	parteInferior: {
+		flex: 1,
+		justifyContent: 'space-around',
+	},
+	buttonNameStyle: {
+		fontSize: 23,
+		textAlign: 'center',
+
+	},
+	aquariumStyle: {
+		backgroundColor: '#B8DC7D',
+		borderRadius: 25,
+		marginRight: '2.5%',
+		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
+	},
+	walkerStyle: {
+		backgroundColor: '#7E9FD1',
+		borderRadius: 25,
+		marginLeft: '2.5%',
+		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
+	},
+	groomingStyle: {
+		backgroundColor: '#E8778B',
+		borderRadius: 25,
+		marginRight: '2.5%',
+		flex: 1,
+		justifyContent: 'center',
+		flexDirection: 'column',
+	},
+	sittingStyle: {
 		backgroundColor: '#88CCF2',
 		borderRadius: 25,
-		height: 150,
-		width: 150,
-		marginLeft: 10,
-		marginBottom: 10,
-		flexDirection: 'column',
-		flexGrow: 1,
-	},
-
-	generalView: {
+		marginLeft: '2.5%',
+		flex: 1,
 		justifyContent: 'center',
+		flexDirection: 'column',
+	},
+	generalView: {
 		flexDirection: 'row',
-		flexWrap: 'wrap',
-		marginRight: 10,
+		justifyContent: 'space-around',
+		paddingHorizontal: '5%',
+		flex: 1,
+		paddingBottom: '5%',
+
 	},
 });
 export default withNavigation(ServicesScreen);

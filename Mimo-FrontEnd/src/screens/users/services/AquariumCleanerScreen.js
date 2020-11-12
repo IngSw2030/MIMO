@@ -7,7 +7,8 @@ import {Context as ServiceContext} from '../../../context/ServiceContext'
 
 const AquariumCleanerScreen = screenProps => {
 	const imageSource = require('../../../../assets/mimo.png');
-	const {state:servicios}= useContext(ServiceContext);
+	const {state}= useContext(ServiceContext);
+
 	return (
 		<View style={styles.generalStyle}>
 			<Text style={styles.headerStyle}>{screenProps.navigation.getParam('screenTitle')}</Text>
@@ -23,9 +24,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#88CCF2',
 	},
 	headerStyle: {
-		marginTop: 30,
-		marginLeft: 15,
-		fontSize: 20,
+		marginTop: '3.5%',
+		marginLeft: '2.5%',
+		fontSize: 32,
 		fontWeight: 'bold',
 	},
 	generalStyle: {
