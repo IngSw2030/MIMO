@@ -93,7 +93,7 @@ router.post('/update', async (req, res) => {
 
 		const service = await Service.findOne({ _id: id });
 
-		let newName, newPrice, newDescription, newPhoto;
+		let newName, newPrice, newDescription, newPhoto, newAvailable;
 
 		!name ? (newName = service.name) : (newName = name);
 
@@ -103,6 +103,8 @@ router.post('/update', async (req, res) => {
 
 		!photo ? (newPhoto = service.photo) : (newPhoto = photo);
 
+		newAvailable = service.available;
+		
 		await Service.findOneAndUpdate(
 			{ _id: id },
 			{
@@ -111,6 +113,7 @@ router.post('/update', async (req, res) => {
 					price: newPrice,
 					description: newDescription,
 					photo: newPhoto,
+					available: newAvailable,
 				},
 			},
 			{ useFindAndModify: false }

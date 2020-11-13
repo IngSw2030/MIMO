@@ -7,13 +7,26 @@ import { navigate } from '../navigationRef';
 
 const ServiceComponent = props => {
 	const service = props.service;
+	//const pantalla = props.pantalla;
 	const allowedTextSize = 15;
 	return (
 		<View style={styles.viewStyle}>
 			<TouchableOpacity
 				style={styles.buttonStyle}
+				onPress={()=>{
+					console.log(service);
+					navigate('ComEditService',{
+						service: service,
+					});
+				}}
 			>
-
+				<Image style={styles.imageStyle} source={{ uri: `data:image/gif;base64,${service.photo}` }}/>
+				<View style={styles.textStyle}>
+					<Text style={styles.nameStyle}>{service.name}</Text>
+					<Text style={styles.nameStyle}>{service.category}</Text>
+					<Text style={styles.priceStyle}>$ {service.price}</Text>
+					<Text style={styles.priceStyle}>{service.description}</Text>
+				</View>
 			</TouchableOpacity>
 		</View>
 	);
@@ -22,28 +35,33 @@ const ServiceComponent = props => {
 const styles = StyleSheet.create({
 	buttonStyle: {
 		flex: 1,
-		flexDirection: 'column',
+		flexDirection: 'row',
 		backgroundColor: '#FFA1A9',
 		borderRadius: 10,
 		margin: 5,
 	},
 	imageStyle: {
-		height: 90,
-		width: 90,
-		alignSelf: 'center',
-		marginTop: 5,
-		borderRadius: 25
+		height: '90%',
+		width: 120,
+		marginTop: 7,
+		marginHorizontal:7,
+		borderRadius: 10,
 	},
 	nameStyle: {
 		fontWeight: 'bold',
 		marginLeft: 5,
-		alignSelf: 'center'
+		fontSize: 15,
 	},
 	priceStyle: {
-		alignSelf: 'center',
+		marginLeft: 5,
 	},
 	viewStyle: {
         marginHorizontal: 5,
+        height: 150,
+        flexGrow: 1,
+	},
+	textStyle: {
+        marginTop: 5,
         height: 150,
         flexGrow: 1,
 	},

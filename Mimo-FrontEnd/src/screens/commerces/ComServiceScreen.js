@@ -11,7 +11,6 @@ const ComServicesScreen = ({ navigation }) => {
 	const text = 'Limpieza de Peceras';
 	const [selectedValue, setSelectedValue] = useState(text);
 	const [searchApi, results, errorMessage] = useSearch();
-	console.log(results);
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
@@ -42,12 +41,11 @@ const ComServicesScreen = ({ navigation }) => {
 				</View>
 			</View>
 			<View>
-				<ServiceComponent service={'dasdsadsa'} />
 				<FlatList
-					data={results}
+					data={results.services}
 					keyExtractor={item => item._id}
 					renderItem={({ item }) => {
-						return <ServiceComponent service={item} />;
+						return <ServiceComponent service={item} pantalla={'ComEditService'}/>;
 					}}
 				/>
 			</View>

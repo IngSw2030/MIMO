@@ -45,6 +45,7 @@ import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
 import ComSettingsScreen from './src/screens/commerces/ComSettingsScreen';
 import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryProfileScreen';
 import ComEditProductScreen from './src/screens/commerces/ComEditProductScreen';
+import ComEditServiceScreen from './src/screens/commerces/ComEditServiceScreen';
 
 //Imports de Usuario
 //pets
@@ -88,6 +89,7 @@ const ComercioHomeNavigation = createStackNavigator(
 		ComSettings: ComSettingsScreen,
 		ComVeterinaryProfile: ComVeterinaryProfileScreen,
 		ComEditProduct: ComEditProductScreen,
+		ComEditService: ComEditServiceScreen,
 
 		//Pantalla Posts y Comentarios
 		Post: PostScreen,

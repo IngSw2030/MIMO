@@ -39,6 +39,10 @@ const serviceReducer = (state, action) => {
                 };
                 //console.log(filteredService);
                 return filteredService
+        case 'saveService':
+            return action.payload;
+        case 'deleteService':
+            return {...state, services: action.payload};
 		default:
 			return state;
 	}
@@ -69,8 +73,30 @@ const saveService =dispatch=> async ({category, name, description, photo, price}
         dispatch({ type: 'add_error' })
     }
 };
+const updateService = dispatch => async({name, price,photo, description, available, id,}) => {
+    try{
+        const response = await instance.post('/api/Service/update',{
+            name,
+            price,
+            description,
+            photo,
+            available,
+            id,
+        });
+    }catch(error){
+        dispatch({ type: 'add_error' });
+    }
+};
+const deleteService = dispatch => async({id})=>{
+    try{
+        const response = await instance.post('/api/Service/delete',{id});
+        dispatch({type: 'deleteService', action: response.data});
+    }catch(error){
+        dispatch({ type: 'add_error' });
+    }
+}
 export const { Context, Provider } = createDataContext(
     serviceReducer, 
-    { saveService, filterService }, 
+    { saveService, filterService, updateService, deleteService }, 
     {errorMessage: '', category: '', name: '', price: '', photo: '', description: ''}
 );

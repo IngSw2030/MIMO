@@ -1,21 +1,25 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet,ScrollView, TouchableOpacity, Switch, TextInput, Image } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as ServiceContext } from '../../context/ServiceContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
 
-const ComAddServiceScreen = ({ navigation }) => {
-	const { saveService } = useContext(ServiceContext);
-
-	const categoria = navigation.getParam('categoria');
-	const [nombre, setNombre] = useState('');
-	const [precio, setPrecio] = useState('');
-	const [descripcion, setDescripcion] = useState('');
-	const [foto, setFoto] = useState('');
-
+const ComEditServiceScreen = ({ navigation }) => {
+	const service = navigation.getParam('service');
+	const { updateService } = useContext(ServiceContext);
+	const { deleteService } = useContext(ServiceContext);
+	
+	
+	const categoria = service.category;
+	const [nombre, setNombre] = useState(service.name);
+	const [precio, setPrecio] = useState(service.price + '');
+	const [descripcion, setDescripcion] = useState(service.description);
+	const [foto, setFoto] = useState(service.photo);
+	const [available, setAvailability] = useState(service.available);
 	const [buscarImagen] = uploadPhoto();
+
 	return (
 		<View style={styles.pageStyle}>
 			<View>
@@ -39,7 +43,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
-					placeholder='Nombre'
+					placeholder= {nombre}
 					placeholderTextColor='#000'
 					autoCapitalize='none'
 					autoCorrect={false}
@@ -50,7 +54,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
-					placeholder='Precio'
+					placeholder= {precio}
 					placeholderTextColor='#000'
 					autoCapitalize='none'
 					autoCorrect={false}
@@ -61,7 +65,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
-					placeholder='Descripción'
+					placeholder={descripcion}
 					placeholderTextColor='#000'
 					autoCapitalize='none'
 					autoCorrect={false}
@@ -71,30 +75,56 @@ const ComAddServiceScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<View style={{ flexDirection: 'row' }}>
-				<View>
-					<TouchableOpacity
-						style={styles.buttom}
-						onPress={() => {
-							const numberPrice = precio * 1;
-							saveService({
-								category: categoria,
-								name: nombre,
-								price: numberPrice,
-								photo: foto,
-								description: descripcion,
-							});
-							console.log('Termina el save');
-							navigate('ComService');
-						}}
-					>
-						<Text style={styles.text}>Agregar</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigate('ComService')}>
-						<Text style={styles.text}>Cancelar</Text>
-					</TouchableOpacity>
+			<View style={styles.switchView}>
+                <Text style={styles.text}>
+                    Disponible:
+                </Text>
+                <Switch
+                    size="normal" 
+                    value={available}
+                    onValueChange={(value)=>setAvailability(value)}
+                    trackColor ={{true: 'blue'}}
+                />
+            </View> 
+			<ScrollView>
+				<View style={{ flexDirection: 'row' }}>
+					<View>
+						<TouchableOpacity
+							style={styles.buttom}
+							onPress={() => {
+								const numberPrice = precio * 1;
+								updateService({
+									name:nombre, 
+									price: numberPrice, 
+									photo:foto, 
+									description:descripcion,
+									available: available,
+									id: service._id,
+								});
+								navigate('ComService');
+							}}
+						>
+							<Text style={styles.text}>Actualizar</Text>
+						</TouchableOpacity>
+						<TouchableOpacity 
+							style={styles.buttom} 
+							onPress={() => navigate('ComService')}>
+							<Text style={styles.text}>Cancelar</Text>
+						</TouchableOpacity>
+						<TouchableOpacity 
+							style={styles.buttom} 	
+							onPress={() => {
+								deleteService({
+									id: service._id
+								});
+								navigate('ComService');
+							}}
+						>
+							<Text style={styles.text}>Eliminar Servicio</Text>
+						</TouchableOpacity>
+					</View>
 				</View>
-			</View>
+			</ScrollView>
 		</View>
 	);
 };
@@ -145,7 +175,7 @@ const styles = StyleSheet.create({
 	buttom: {
 		backgroundColor: '#DBAB9C',
 		height: 50,
-		width: 130,
+		width: 200,
 		borderRadius: 25,
 		marginLeft: '20%',
 		marginTop: '2%',
@@ -156,6 +186,11 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		padding: 9,
 	},
+	switchView:{
+        alignSelf:"center",
+        height: 70,
+        flexDirection: "row"
+    },
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
@@ -163,4 +198,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default withNavigation(ComAddServiceScreen);
+export default withNavigation(ComEditServiceScreen);
