@@ -6,15 +6,22 @@ import VeterinaryList from '../../../components/veterinaryComponent'
 import { Context as VetContext } from '../../../context/VetContext';
 import SearchBar from '../../../components/searchBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useResults from '../../../hooks/useResultsVet';
 
 const VeterinariesScreen = () => {
     const { state } = useContext(VetContext);
-    const results = state.veterinarias;
+    //const results = state.veterinarias;
+    const [term, setTerm] = useState('');
+    const [searchApi, results, errorMessage] = useResults();
 
     return (
         <View style={styles.body}>
             <View style={styles.searchBarStyle}>
-                <SearchBar />
+                <SearchBar 
+                    term={term}
+                    onTermChange={(newTerm) => setTerm(newTerm)}
+                    onTermSubmit={() => searchApi(term)}
+                />
             </View>
             <SafeAreaView style = {{flex:1}}>
                 <Text style={styles.tituloPantalla}>Veterinarias</Text>

@@ -122,7 +122,7 @@ router.get('/myVets', async (req, res) => {
 });
 
 //Query para encontrar todas las veterinarias por nombre
-router.get('/allVets', async (req, res) => {
+router.post('/allVets', async (req, res) => {
     const { name, description, animals } = req.body;
 
     let newName, newAnimals, newDescription;

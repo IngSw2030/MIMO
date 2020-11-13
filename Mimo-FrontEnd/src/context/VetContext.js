@@ -19,7 +19,7 @@ const veterinaryReducer = (state, action) => {
 const getAllVets = dispatch => async () => {
     try {
 
-        const response = await instance.get('api/Veterinary/allVets');
+        const response = await instance.post('api/Veterinary/allVets');
         dispatch({ type: 'getAllVets', payload: response.data.vets });
     } catch (err) {
         dispatch({ type: 'add_error', action: err });

@@ -32,12 +32,30 @@ const HistoryScreen = () => {
 						<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.foto}` }} />
 					</View>
 					<View style={styles.infoContainerStyle}>
-						<Text style={styles.info}>Producto: {item.producto}</Text>
-						<Text style={styles.info}>Unidades: {item.unidades}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.precio)}</Text>
-						<Text style={styles.info}>Vendedor: {item.vendedor}</Text>
-						<Text style={styles.info}>Numero: {item.numero} </Text>
-						<Text style={styles.infoId}>ID Venta: {item.id}</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>Producto:</Text>
+							<Text style={styles.info}> {item.producto}</Text>
+						</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>Unidades:</Text>
+							<Text style={styles.info}> {item.unidades}</Text>
+						</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>Precio Total:</Text>
+							<Text style={styles.info}> {usePrice(item.precio)}</Text>
+						</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>Vendedor:</Text>
+							<Text style={styles.info}> {item.vendedor}</Text>
+						</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>Numero:</Text>
+							<Text style={styles.info}> {item.numero}</Text>
+						</Text>
+						<Text>
+							<Text style = {{fontSize: 16, fontWeight: 'bold'}}>ID Venta:</Text>
+							<Text style={styles.infoId}> {item.id}</Text>
+						</Text>
 					</View>
 				</View>
 			);
@@ -45,16 +63,16 @@ const HistoryScreen = () => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column', alignItems: 'stretch' }}>
+		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column' }}>
 			<Text style={styles.title}>Historial de Compras</Text>
 			<View style={styles.selectorStyle}>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Completada')}>
+				<TouchableOpacity style={styles.desplegablesCompletada} onPress={() => setEstado('Completada')}>
 					<Text style={styles.textoDesplegable}>Completadas</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Pendiente')}>
+				<TouchableOpacity style={styles.desplegablesPendiente} onPress={() => setEstado('Pendiente')}>
 					<Text style={styles.textoDesplegable}>Por Confirmar</Text>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.desplegables} onPress={() => setEstado('Rechazada')}>
+				<TouchableOpacity style={styles.desplegablesRechazada} onPress={() => setEstado('Rechazada')}>
 					<Text style={styles.textoDesplegable}>Declinadas</Text>
 				</TouchableOpacity>
 			</View>
@@ -82,8 +100,24 @@ const styles = StyleSheet.create({
 	textoDesplegable: {
 		alignSelf: 'center',
 	},
-	desplegables: {
-		backgroundColor: '#B0EFEF',
+	desplegablesCompletada: {
+		backgroundColor: '#B8DC7D',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
+	},
+	desplegablesPendiente: {
+		backgroundColor: '#E8916C',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
+	},
+	desplegablesRechazada: {
+		backgroundColor: '#88CCF2',
 		borderRadius: 25,
 		justifyContent: 'center',
 		includeFontPadding: true,
@@ -91,26 +125,24 @@ const styles = StyleSheet.create({
 		width: '30%',
 	},
 	title: {
-		marginTop: '5%',
+		marginVertical: '5%',
 		fontSize: 25,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
 	flatListStyle: {
 		marginTop: '5%',
+		marginHorizontal: '2%',
 		flexWrap: 'nowrap',
-		marginHorizontal: '3%',
-		flex: 1,
 	},
 	image: {
 		height: '85%',
 		width: 100,
 		borderRadius: 30,
-		marginLeft: '17%',
+		marginLeft: '10%',
 	},
 	info: {
-		fontSize: 13,
-		fontWeight: 'bold',
+		fontSize: 15,
 	},
 	infoId: {
 		fontSize: 12,
@@ -122,12 +154,12 @@ const styles = StyleSheet.create({
 		marginTop: '2%',
 		marginBottom: '2%',
 		flexDirection: 'row',
-		borderRadius: 15,
+		borderRadius: 25,
 	},
 	infoContainerStyle: {
 		backgroundColor: '#FFA1A9',
-		flexGrow: 1,
-		flexWrap: 'wrap',
+		borderRadius: 25,
+		marginTop: '2%'
 	},
 });
 

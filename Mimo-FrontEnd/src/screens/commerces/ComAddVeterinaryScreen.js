@@ -30,7 +30,7 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
 	const [closeAt, setCloseAt] = useState(new Date());;
 
 	const onChangeOpen = (event, selectedDate) => {
-		const currentDate = selectedDate || date;
+		const currentDate = selectedDate || openAt;
 		//setShowOpen(Platform.OS === 'ios');
 		setOpenAt(currentDate);
 		setTimeout(function(){
@@ -40,7 +40,7 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
 	};
 
 	const onChangeClose = (event, selectedDate) => {
-		const currentDate = selectedDate || date;
+		const currentDate = selectedDate || closeAt;
 		//setShowClose(Platform.OS === 'ios');
 		setCloseAt(currentDate);
 		setTimeout(function(){
@@ -133,7 +133,7 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
 								/>
 							)}
 						</View>
-					: <Text style={styles.inputContainerText}> {(openAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,17)}</Text>
+					: <Text style={styles.inputContainerText}> {(openAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
 				}
 			</TouchableOpacity>
 
@@ -158,7 +158,7 @@ const ComAddVeterinaryScreen = ({ navigation }) => {
 							/>
 						)}
 						</View>
-					: <Text style={styles.inputContainerText}> {(closeAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,17)}</Text>
+					: <Text style={styles.inputContainerText}> {(closeAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
 				}
 			</TouchableOpacity>
 

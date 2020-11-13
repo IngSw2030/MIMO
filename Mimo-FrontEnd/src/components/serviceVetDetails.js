@@ -40,13 +40,13 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
                 }
 
                 <View style={{ flexDirection: 'row' }}>
-                    <Text style={styles.titleStyle}>Calificacion</Text>
+                    <Text style={styles.titleStyle}>Calificacion: </Text>
                     <View style={{ marginLeft: 5 }}>
                         <StarRating
                             disabled={true}
                             maxStars={5}
                             rating={generalStarCount}
-                            starSize={35}
+                            starSize={28}
                             selectedStar={rating => setgeneralStarCount(rating)}
                             buttonStyle={{ margin: 8 }}
                         />
@@ -119,12 +119,12 @@ const styles = StyleSheet.create({
         marginBottom: '5%'
     },
     imageStyle: {
-        marginTop: 40,
+        
         height: 300,
         width: 300,
         alignSelf: "center",
         marginBottom: 10,
-        borderRadius: 10
+        borderRadius: 30
     },
     titleStyle: {
         fontSize: 25,

@@ -16,9 +16,13 @@ const app = express();
 
 connectDB();
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ 
+	parameterLimit: 100000,
+	limit: '50mb', 
+	extended: true 
+}));
+app.use(bodyParser.json({limit: '50mb' }));
+//app.use(bodyParser.json({ limit: '20MB' }));
 
 // Init Middleware
 //app.use(express.urlencoded({ extended: true }));
