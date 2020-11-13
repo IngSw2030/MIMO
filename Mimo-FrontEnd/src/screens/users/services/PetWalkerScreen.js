@@ -22,9 +22,9 @@ viewStyle: {
 	backgroundColor: '#88CCF2',
 },
 headerStyle: {
-	marginTop: 30,
-	marginLeft: 15,
-	fontSize: 20,
+	marginTop: '3.5%',
+	marginLeft: '2.5%',
+	fontSize: 32,
 	fontWeight: 'bold',
 },
 generalStyle: {
