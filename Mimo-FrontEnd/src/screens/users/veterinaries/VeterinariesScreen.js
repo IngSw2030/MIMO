@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { withNavigation } from 'react-navigation';
 import WideListComponent from '../../../components/wideListComponent'
 import VeterinaryList from '../../../components/veterinaryComponent'
@@ -23,23 +23,30 @@ const VeterinariesScreen = () => {
                     onTermSubmit={() => searchApi(term)}
                 />
             </View>
-            <SafeAreaView style = {{flex:1}}>
-                <Text style={styles.tituloPantalla}>Veterinarias</Text>
-                <View >
-                    <FlatList
-                        data={results}
-                        keyExtractor={result => result.photo}
-                        renderItem={({ item }) => {
-                            return <VeterinaryList veterinary={item} />;
-                        }}
-                    />
-                </View>
-            </SafeAreaView>
-
+            <FlatList
+                data={results}
+                keyExtractor={result => result.photo}
+                renderItem={({ item }) => {
+                    return <VeterinaryList veterinary={item} />;
+                }}
+                ListFooterComponent={
+                    <TouchableOpacity style={styles.botonCargar} onPress={() => getAllVets({ initial: state.initial, limit: 10 })}>
+                        <Text style={{ textAlign: 'center', fontSize: 25 }}>Más resultados </Text>
+                    </TouchableOpacity>
+                }
+                ListHeaderComponent={<Text style={styles.tituloPantalla}>Veterinarias</Text>}
+            />
         </View>
     )
 };
 const styles = StyleSheet.create({
+    botonCargar: {
+        backgroundColor: '#B8DC7D',
+        marginBottom: 10,
+        marginHorizontal: 15,
+        borderRadius: 25,
+        paddingVertical: 5
+    },
     body: {
         backgroundColor: '#FFF7BB',
         flex: 1,

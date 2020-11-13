@@ -276,6 +276,9 @@ const login = createStackNavigator(
 		Loading: LoadingScreen,
 	},
 	{
+		defaultNavigationOptions: {
+			headerShown: false,
+		},
 		initialRouteParams: StartScreen
 	}
 )

@@ -37,33 +37,36 @@ router.post('/save', async (req, res) => {
 
 //Query para encontrar todas las veterinarias por nombre
 router.get('/allServices', async (req, res) => {
-    const {name, description, category} = req.body;
+    const { name, description, category } = req.body;
 
     let newName, newDescription;
 
-    if(!description){
-        if(!name){
+    if (!description) {
+        if (!name) {
             newName = "";
         }
-        else{
+        else {
             newName = name;
         }
     }
-    else{
+    else {
         newName = "-1";
     }
 
     !description ? newDescription = "-1" : newDescription = description;
 
     try {
-        const services = await Service.find(({$or: 
-            [
-                {$and: [
-                    { name : { "$regex": newName, "$options": "i" }},
-                    { category: category }
-                ]},
-                { description : { "$regex": newDescription, "$options": "i" }}
-            ]
+        const services = await Service.find(({
+            $or:
+                [
+                    {
+                        $and: [
+                            { name: { "$regex": newName, "$options": "i" } },
+                            { category: category }
+                        ]
+                    },
+                    { description: { "$regex": newDescription, "$options": "i" } }
+                ]
         })).limit(25);
         res.send({ services });
     } catch (err) {
@@ -71,19 +74,45 @@ router.get('/allServices', async (req, res) => {
     }
 });
 
+router.post('/updateAvgScore', async (req, res) => {
+    try {
+        const {
+            score,
+            id
+        } = req.body;
+        console.log(id);
+        const services = await Service.findOne({ _id: id });
+
+        let antiguoScore = services.avgScore;
+        const numeroReview = await Review.where({ idService: services._id }).countDocuments();
+        const aux = (numeroReview - 1) * antiguoScore;
+        let nuevoScore = (aux + score) / (numeroReview);
+
+        await Service.findOneAndUpdate({ _id: id }, {
+            $set: {
+                "avgScore": nuevoScore,
+            }
+        }, { useFindAndModify: false });
+        res.send({ nuevoScore });
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
+})
+
+
 router.post('/update', async (req, res) => {
     try {
 
-        const { 
+        const {
             name,
             priceMax,
             priceMin,
             photo,
             description,
-            id 
+            id
         } = req.body;
 
-        const service = await Service.findOne({_id: id});
+        const service = await Service.findOne({ _id: id });
 
         let newName, newPriceMax, newPriceMin, newDescription, newPhoto;
 
@@ -94,16 +123,18 @@ router.post('/update', async (req, res) => {
         !priceMin ? newPriceMin = service.priceMin : newPriceMin = priceMin;
 
         !description ? newDescription = service.description : newDescription = description;
-        
+
         !photo ? newPhoto = service.photo : newPhoto = photo;
 
-        await Service.findOneAndUpdate({ _id: id }, { $set: { 
-            "name": newName,
-            "priceMin": newPriceMin,
-            "priceMax": newPriceMax,
-            "description": newDescription,
-            "photo": newPhoto 
-        }}, { useFindAndModify: false });
+        await Service.findOneAndUpdate({ _id: id }, {
+            $set: {
+                "name": newName,
+                "priceMin": newPriceMin,
+                "priceMax": newPriceMax,
+                "description": newDescription,
+                "photo": newPhoto
+            }
+        }, { useFindAndModify: false });
         res.send("Modificado satisfactoriamente");
     } catch (err) {
         return res.status(422).send({ error: 'Error al modificar' });

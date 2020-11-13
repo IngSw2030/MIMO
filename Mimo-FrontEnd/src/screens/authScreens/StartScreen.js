@@ -2,35 +2,34 @@ import React, { useContext, useEffect } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Context as AuthContext } from '../../context/AuthContext';
-import { Context as UserContext } from '../../context/UserContext';
 
 const StartScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
 
-	const { getUser } = useContext(UserContext);
 	const { tryLocalSignin } = useContext(AuthContext);
 	useEffect(() => {
 		tryLocalSignin();
-		//getUser();
 	}, []);
 
 	return (
-		<View>
-			<Image style={styles.logoStyle} source={mimoIcon} />
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity style={styles.roundedContainerStyle1} onPress={() => navigation.navigate('Signin')}>
-					<Text style={styles.buttonTextStyle}>INICIAR SESIÓN ''</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.roundedContainerStyle2} onPress={() => navigation.navigate('Signup')}>
-					<Text style={styles.buttonTextStyle}>REGISTRARSE</Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-					<Text style={styles.registerEntStyle}>Registrarse como empresa</Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => navigation.navigate('Join')}>
-					<Text style={styles.registerEntStyle}>Ir al chat</Text>
-				</TouchableOpacity>
+		<View style={styles.screenContainer}>
+			<View style={{ flex: 1, justifyContent: 'center', marginTop: 200 }}>
+				<Image style={styles.logoStyle} source={mimoIcon} />
+				<View style={styles.buttonContainer}>
+					<TouchableOpacity style={styles.roundedContainerStyle1} onPress={() => navigation.navigate('Signin')}>
+						<Text style={styles.buttonTextStyle}>INICIAR SESIÓN ''</Text>
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.roundedContainerStyle2} onPress={() => navigation.navigate('Signup')}>
+						<Text style={styles.buttonTextStyle}>REGISTRARSE</Text>
+					</TouchableOpacity>
+					<TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+						<Text style={styles.registerEntStyle}>Registrarse como</Text>
+						<Text style={styles.registerEntStyle}>empresa</Text>
+
+					</TouchableOpacity>
+				</View>
 			</View>
+			<Text style={styles.texto}>Zorah Inc 2020</Text>
 		</View>
 	);
 };
@@ -42,17 +41,22 @@ StartScreen.navigationOptions = () => {
 };
 
 const styles = StyleSheet.create({
+	texto: {
+		textAlign: 'center',
+		fontSize: 20
+	},
 	screenContainer: {
 		flex: 1,
 		backgroundColor: '#FFF7BB',
+		alignContent: 'center',
+		justifyContent: 'center'
 	},
 	buttonContainer: {
 		justifyContent: 'center',
 		marginBottom: 200,
-		marginTop: 1,
 	},
 	logoStyle: {
-		marginTop: 60,
+		paddingTop: 200,
 		height: 250,
 		width: 250,
 		alignSelf: 'center',
@@ -81,8 +85,8 @@ const styles = StyleSheet.create({
 		fontWeight: '300',
 	},
 	registerEntStyle: {
-		fontSize: 15,
-		marginTop: 25,
+		fontSize: 20,
+		marginTop: 0,
 		color: '#005CCA',
 		alignSelf: 'center',
 	},

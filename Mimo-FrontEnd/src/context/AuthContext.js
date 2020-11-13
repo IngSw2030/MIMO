@@ -2,7 +2,7 @@ import { useEffect, useContext } from 'react';
 import { AsyncStorage } from 'react-native';
 import createDataContext from './createDataContext';
 import instance from '../api/mimo';
-import {Context as UserContext} from './UserContext';
+import { Context as UserContext } from './UserContext';
 import { navigate } from '../navigationRef';
 
 const authReducer = (state, action) => {
@@ -33,7 +33,7 @@ const tryLocalSignin = dispatch => async () => {
 		navigate('Loading');
 
 	} else {
-		navigate('Signup');
+		navigate('Start');
 	}
 };
 

@@ -4,7 +4,7 @@ import createDataContext from './createDataContext';
 const veterinaryReducer = (state, action) => {
     switch (action.type) {
         case 'getAllVets':
-            return { ...state, veterinarias: action.payload };
+            return { ...state, veterinarias: state.veterinarias.concat(action.payload), initial: state.initial + 10 };
         case 'getMyVets':
             return { ...state, veterinarias: action.payload };
         case 'saveVet':
@@ -16,10 +16,12 @@ const veterinaryReducer = (state, action) => {
     }
 };
 
-const getAllVets = dispatch => async () => {
+const getAllVets = dispatch => async ({ initial, limit }) => {
+    //console.log(initial);
+    //console.log(limit);
     try {
-
-        const response = await instance.post('api/Veterinary/allVets');
+        const response = await instance.post('api/Veterinary/Vets', { initial, limit });
+        //console.log(response.data.vets);
         dispatch({ type: 'getAllVets', payload: response.data.vets });
     } catch (err) {
         dispatch({ type: 'add_error', action: err });
@@ -36,7 +38,7 @@ const getMyVets = dispatch => async ({ id }) => {
     }
 };
 
-const saveVet = dispatch => async({ name, animals, photo, address, description, contact, openAt, closeAt }) => {
+const saveVet = dispatch => async ({ name, animals, photo, address, description, contact, openAt, closeAt }) => {
     try {
         const response = await instance.post('api/Veterinary/save', { name, animals, photo, address, description, contact, openAt, closeAt });
         dispatch({ type: 'saveVet', action: response.data.veterinary });
@@ -48,5 +50,5 @@ const saveVet = dispatch => async({ name, animals, photo, address, description, 
 export const { Context, Provider } = createDataContext(
     veterinaryReducer,
     { getMyVets, getAllVets, saveVet },
-    { veterinarias: [{}], veterinaria: {}, errorMessage: '' }
+    { veterinarias: [], veterinaria: {}, errorMessage: '', initial: 0 }
 );
