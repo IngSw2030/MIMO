@@ -6,6 +6,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [defaultCorreo, setDefaultCorreo] = useState("tucorreo@ejemplo.com");
+    const [defaultPassword, setDefaultPassword] = useState('••••••••••••');
 
     return (
         <>
@@ -27,7 +29,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
                         </View>
                         <View style={styles.roundedContainerStyle}>
                             <TextInput
-                                placeholder="tucorreo@ejemplo.com"
+                                placeholder={defaultCorreo}
                                 placeholderTextColor="#000"
                                 autoCapitalize="none"
                                 autoCorrect={false}
@@ -39,7 +41,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
                     </> :
                     <View style={styles.roundedContainerStyle}>
                         <TextInput
-                            placeholder="tucorreo@ejemplo.com"
+                            placeholder={defaultCorreo}
                             placeholderTextColor="#000"
                             autoCapitalize="none"
                             autoCorrect={false}
@@ -54,7 +56,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
             }
             <View style={styles.roundedContainerStyle}>
                 <TextInput
-                    placeholder="••••••••••••"
+                    placeholder={defaultPassword}
                     placeholderTextColor="#000"
                     autoCapitalize="none"
                     autoCorrect={false}
@@ -102,9 +104,8 @@ const styles = StyleSheet.create({
     inputStyle: {
         color: "#000",
         fontSize: 18,
-        marginLeft: 15,
         alignSelf: "center",
-
+        textAlign: "center"
     },
 
     errorMessage: {

@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Image, View, Text, StyleSheet, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ProductComponent from '../../../components/productComponent';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import useSearch from '../../../hooks/useResultsProduct';
 import SearchBar from '../../../components/searchBar';
 const mimoIcon = require('../../../../assets/mimo.png');
+import { Context as ProductContext } from '../../../context/ProductContext';
+
 
 const ProductScreen = ({ navigation }) => {
 	const [term, setTerm] = useState('');
+	const { state, getProduct } = useContext(ProductContext);
 
-	const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
+	//const results = state.productos;
+	const accesories = state.accesories;
+	const food = state.food;
+	const cleaning = state.cleaning;
+	const others = state.others;
+
+	//const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
 
 	//Lista Inicial de productos se encuentra en ProductContext
 	return (
 		<View style={styles.pageStyle}>
 			<View style={styles.searchBarStyle}>
-				<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => searchApi(term)} />
+				<SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => getProduct({ name: term, pets: '' })} />
 			</View>
 			<ScrollView>
 				<View style={styles.parteSuperior}>
@@ -27,7 +35,7 @@ const ProductScreen = ({ navigation }) => {
 					<View>
 						<TouchableOpacity
 							onPress={() => {
-								searchApi('', 'perro');
+								getProduct({ name: '', pets: 'perro' });
 							}}
 						>
 							<MaterialCommunityIcons name='dog' size={70} color='black' style={styles.botonPerro} />
@@ -37,7 +45,7 @@ const ProductScreen = ({ navigation }) => {
 					<View>
 						<TouchableOpacity
 							onPress={() => {
-								searchApi('', 'gato');
+								getProduct({ name: '', pets: 'gato' });
 							}}
 						>
 							<MaterialCommunityIcons name='cat' size={70} color='black' style={styles.botonGato} />
@@ -47,7 +55,7 @@ const ProductScreen = ({ navigation }) => {
 					<View>
 						<TouchableOpacity
 							onPress={() => {
-								searchApi('', 'pez');
+								getProduct({ name: '', pets: 'pez' });
 							}}
 						>
 							<MaterialCommunityIcons name='fish' size={70} color='black' style={styles.botonPez} />
@@ -57,7 +65,7 @@ const ProductScreen = ({ navigation }) => {
 					<View>
 						<TouchableOpacity
 							onPress={() => {
-								searchApi('', 'conejo');
+								getProduct({ name: '', pets: 'conejo' });
 							}}
 						>
 							<MaterialCommunityIcons name='rabbit' size={70} color='black' style={styles.botonConejo} />
@@ -105,7 +113,7 @@ const ProductScreen = ({ navigation }) => {
 						keyExtractor={item => item._id}
 						horizontal={true}
 						renderItem={({ item }) => {
-							return <ProductComponent product={item} pantalla={'ProductDetails'}/>;
+							return <ProductComponent product={item} pantalla={'ProductDetails'} />;
 						}}
 					/>
 				</View>
