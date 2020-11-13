@@ -8,7 +8,7 @@ export default () => {
 	const searchApi = async () => {
 		try {
 			const response = await instance.post('/api/Service/myServices');
-			console.log('Response servicios: ', response.data);
+			//console.log('Response servicios: ', await response.data.services);
 			setResults(await response.data);
 		} catch (err) {
 			console.log(err);
