@@ -7,15 +7,14 @@ import { navigate } from '../navigationRef';
 
 const ServiceComponent = props => {
 	const service = props.service;
-	//const pantalla = props.pantalla;
+	const pantalla = props.pantalla;
 	const allowedTextSize = 15;
 	return (
 		<View style={styles.viewStyle}>
 			<TouchableOpacity
 				style={styles.buttonStyle}
 				onPress={()=>{
-					console.log(service);
-					navigate('ComEditService',{
+					navigate(pantalla,{
 						service: service,
 					});
 				}}

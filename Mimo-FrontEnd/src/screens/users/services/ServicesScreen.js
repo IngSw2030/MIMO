@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import useSearch from '../../../hooks/useResultsServices'
 
 const ServicesScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../../assets/mimo.png');
@@ -9,6 +10,7 @@ const ServicesScreen = ({ navigation }) => {
 	const petWalkerText = 'Paseos';
 	const groomingText = 'Estilista';
 	const petSittingText = 'Cuidadores';
+	const [searchApi, results,cuidadores, paseadores,estilistas,limpiadores, errorMessage] = useSearch();
 
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
@@ -19,7 +21,7 @@ const ServicesScreen = ({ navigation }) => {
 			<View style={styles.generalView}>
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}
+					onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText, datos: limpiadores})}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
 					<Text style={styles.serviceNameStyle}> {aquariumCleanerText}</Text>

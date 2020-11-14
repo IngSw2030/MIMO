@@ -5,7 +5,7 @@ import { Context as ServiceContext } from '../context/ServiceContext'
 
 const serviceList = (props) => {
     const { state: servicios } = useContext(ServiceContext);
-    const servicio = servicios.find(thisservicio => thisservicio.id === props.id);
+    const servicio = props.navigate.getParam('service');
     const rating = require('../../assets/rating.png');
     const estrellas = insertarEstrellas(servicio.avgScore);
 

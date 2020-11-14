@@ -114,6 +114,7 @@ const ComEditServiceScreen = ({ navigation }) => {
 						<TouchableOpacity 
 							style={styles.buttom} 	
 							onPress={() => {
+								console.log(service._id);
 								deleteService({
 									id: service._id
 								});

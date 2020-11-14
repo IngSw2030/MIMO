@@ -7,10 +7,17 @@ import {Context as ServiceContext} from '../../../context/ServiceContext'
 
 const AquariumCleanerScreen = screenProps => {
 	const imageSource = require('../../../../assets/mimo.png');
-	const {state:servicios}= useContext(ServiceContext);
+	const [servicios, setServicios]= screenProps.navigation.getParam('datos');
 	return (
 		<View style={styles.generalStyle}>
 			<Text style={styles.headerStyle}>{screenProps.navigation.getParam('screenTitle')}</Text>
+			<FlatList
+                data={servicios}
+                keyExtractor={item => item._id}
+                renderItem={({ item }) => {
+                return <ServiceList service={item} />;
+            }}
+                        />
 			<WideListComponent
 				list ={servicios}
 				componentToRender={(item)=>{return <ServiceList id = {item}/>}}

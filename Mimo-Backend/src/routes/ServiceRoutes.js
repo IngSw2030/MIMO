@@ -30,9 +30,8 @@ router.post('/save', async (req, res) => {
 });
 
 //Query para encontrar todas las veterinarias por nombre
-router.get('/allServices', async (req, res) => {
+router.post('/allServices', async (req, res) => {
 	const { name, description, category } = req.body;
-
 	let newName, newDescription;
 
 	if (!description) {
@@ -126,8 +125,8 @@ router.post('/update', async (req, res) => {
 
 router.get('/delete', async (req, res) => {
 	const { id } = req.body;
-
 	try {
+		console.log(id);
 		await Service.findByIdAndDelete(id);
 		res.send('Servicio borrado satisfactoriamente');
 	} catch (error) {

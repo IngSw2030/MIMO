@@ -12,6 +12,7 @@ const ComServicesScreen = ({ navigation }) => {
 	const text = 'Limpieza de Peceras';
 	const [selectedValue, setSelectedValue] = useState(text);
 	const [searchApi, results, errorMessage] = useSearch();
+	
 	//useEffect permite que lo que esta adentro se realice unicamente si la pantalla esta "dibujada" y lista para mostrarse
 	useEffect(() => {
 		console.log('Entra al useEffect ComServiceScreen');

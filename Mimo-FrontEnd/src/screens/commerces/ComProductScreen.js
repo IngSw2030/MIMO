@@ -14,7 +14,7 @@ const ComProductScreen = () => {
 
     const [term, setTerm] = useState('');
     const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
-    console.log(results);
+    
     return (
         <View style={{ backgroundColor: '#FFF7BB', flex: 1, paddingTop: 20 }}>
             <ScrollView>
