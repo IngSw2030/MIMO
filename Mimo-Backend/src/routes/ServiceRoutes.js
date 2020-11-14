@@ -58,7 +58,15 @@ router.post('/allServices', async (req, res) => {
 		res.status(422).send({ error: 'No se ha podido publicar el producto' });
 	}
 });
-
+//Trae TODOS los servicios
+router.get('/getAllAvailableServices', async (req, res) => {
+	try {
+		const services = await Service.find({ available: true });
+		res.send({ services });
+	} catch (err) {
+		res.status(422).send({ error: 'No se ha podido publicar el producto' });
+	}
+});
 //Query para encontrar todas las veterinarias por nombre
 router.get('/getServices', async (req, res) => {
 	try {
@@ -103,7 +111,7 @@ router.post('/update', async (req, res) => {
 		!photo ? (newPhoto = service.photo) : (newPhoto = photo);
 
 		newAvailable = service.available;
-		
+
 		await Service.findOneAndUpdate(
 			{ _id: id },
 			{

@@ -3,20 +3,19 @@ import instance from '../api/mimo';
 
 export default () => {
 	const [results, setResults] = useState([]);
-	const [errorMessage, setErrorMessage] = useState("");
+	const [errorMessage, setErrorMessage] = useState('');
 
-	const searchApi = async (searchTerm) => {
+	const searchApi = async searchTerm => {
 		try {
-			const response = await instance.post('api/Service/allServices');
-			setResults(await response.data);
-			console.log(results);
-			
-		}catch (err) {
+			const response = await instance.get('api/Service/getAllAvailableServices');
+			setResults(response.data.services);
+		} catch (err) {
+			console.log('Entra al catch useREsultsServices');
 			console.log(err);
-			setErrorMessage(err + " Something went wrong! :( ");
+			setErrorMessage(err + ' Something went wrong! :( ');
 		}
 	};
-	const availables = results.filter(obj=>{
+	const availables = results.filter(obj => {
 		return obj.available === 'true';
 	});
 	const limpiadores = results.filter(obj => {
@@ -32,8 +31,8 @@ export default () => {
 		return obj.category === 'Cuidador';
 	});
 	useEffect(() => {
-		searchApi("");
+		searchApi('');
 	}, []);
 
-	return [searchApi, results,cuidadores, paseadores,estilistas,limpiadores, availables ,errorMessage];
+	return [searchApi, results, cuidadores, paseadores, estilistas, limpiadores, availables, errorMessage];
 };
