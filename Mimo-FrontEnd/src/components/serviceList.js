@@ -6,7 +6,6 @@ import { Context as ServiceContext } from '../context/ServiceContext';
 const serviceList = props => {
 	const { state: servicios } = useContext(ServiceContext);
 	const servicio = props.service;
-	console.log('servicio en serviceList: ', servicio);
 	const rating = require('../../assets/rating.png');
 
 	return (

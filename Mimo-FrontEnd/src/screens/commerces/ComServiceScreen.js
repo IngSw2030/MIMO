@@ -18,8 +18,9 @@ const ComServicesScreen = ({ navigation }) => {
 		console.log('Entra al useEffect ComServiceScreen');
 		//willFocus es un evento que indica si estamos viendo la pantalla.
 		navigation.addListener('willFocus', async () => {
+			await searchApi();
+			await searchApi();
 			console.log('willFocus runs');
-			searchApi();
 		});
 	}, []);
 
