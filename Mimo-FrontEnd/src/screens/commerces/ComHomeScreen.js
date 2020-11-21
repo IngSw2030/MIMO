@@ -7,10 +7,10 @@ import { Context as PurchaseContext } from '../../context/PurchaseContext';
 
 const ComHomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
-	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
-	const foodIcon = require('../../../assets/mimoIconComida.png');
-	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
-	const servicesIcon = require('../../../assets/mimoIconServicios.png');
+	const vetIcon = require('../../../assets/veterinaria.png');
+	const foodIcon = require('../../../assets/blog.png');
+	const accesoriesIcon = require('../../../assets/productos.png');
+	const servicesIcon = require('../../../assets/servicios.png');
 	const questionText = 'Administrar';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
@@ -97,14 +97,15 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 	},
 	iconStyle: {
-		height: 100,
-		width: 100,
+		marginTop:10,
+		height: 110,
+		width: 110,
 		alignSelf: 'center',
-		flexGrow: 1,
 	},
 	buttonNameStyle: {
+		fontSize: 20,
 		alignSelf: 'center',
-		marginBottom: 10,
+
 	},
 	servicesStyle: {
 		backgroundColor: '#88CCF2',
