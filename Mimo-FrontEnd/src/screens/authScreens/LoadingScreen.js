@@ -16,6 +16,8 @@ const LoadingScreen = ({ navigation }) => {
 	const { getMySells } = useContext(SellsContext);
 	const { state, getUser } = useContext(UserContext);
 	const { getMyShopingCart } = useContext(ShoppingCartContext);
+	const { getAllVets } = useContext(VetContext);
+
 	// const { getPet } = useContext(PetContext);
 
 	function timeout(delay) {
@@ -36,6 +38,7 @@ const LoadingScreen = ({ navigation }) => {
 			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 			getMySells();
 			getMyShopingCart();
+			getAllVets();
 		}
 		fetchData();
 	}, [state]); // Or [] if effect doesn't need props or state

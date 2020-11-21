@@ -7,6 +7,8 @@ const veterinaryReducer = (state, action) => {
             return { ...state, veterinarias: action.payload };
         case 'getMyVets':
             return { ...state, veterinarias: action.payload };
+        case 'saveVet':
+            return { ...state, veterinaria: action.payload };
         case 'add_error':
             return { ...state, errorMessage: action.payload };
         default:
@@ -34,8 +36,17 @@ const getMyVets = dispatch => async ({ id }) => {
     }
 };
 
+const saveVet = dispatch => async({ name, animals, photo, address, description, contact, openAt, closeAt }) => {
+    try {
+        const response = await instance.post('api/Veterinary/save', { name, animals, photo, address, description, contact, openAt, closeAt });
+        dispatch({ type: 'saveVet', action: response.data.veterinary });
+    } catch (error) {
+        dispatch({ type: 'add_error' });
+    }
+}
+
 export const { Context, Provider } = createDataContext(
     veterinaryReducer,
-    { getMyVets, getAllVets },
-    { veterinarias: [{}], veterinaria: [], errorMessage: '' }
+    { getMyVets, getAllVets, saveVet },
+    { veterinarias: [{}], veterinaria: {}, errorMessage: '' }
 );

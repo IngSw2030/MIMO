@@ -18,7 +18,7 @@ const VeterinaryListComponent = props => {
                 }
             >
                 {
-                    veterinary.photo != ""
+                    !veterinary.photo
                         ?
                         <Image style={styles.imageStyle} source={mimoIcon} />
                         :
@@ -26,7 +26,7 @@ const VeterinaryListComponent = props => {
                 }
                 <View style={styles.contenedorTexto}>
                     <Text style={styles.texto}>Dirección: {veterinary.address}</Text>
-                    <Text style={styles.texto}>Numero: {veterinary.number}</Text>
+                    <Text style={styles.texto}>Numero: {veterinary.contact}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <Text style={styles.descripcion}>Descripción: {veterinary.description}</Text>
                     </View>
@@ -58,6 +58,8 @@ const styles = StyleSheet.create({
     imageStyle: {
         height: 130,
         width: 130,
+        borderRadius: 40,
+        margin: 6
     },
     contenedorTexto: {
         flexDirection: 'column',

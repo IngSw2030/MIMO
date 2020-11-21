@@ -5,33 +5,29 @@ import WideListComponent from '../../../components/wideListComponent'
 import VeterinaryList from '../../../components/veterinaryComponent'
 import { Context as VetContext } from '../../../context/VetContext';
 import SearchBar from '../../../components/searchBar';
-import useSearch from '../../../hooks/useResultsProduct';
-import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const VeterinariesScreen = () => {
-    const { state, getAllVets } = useContext(VetContext);
-
-    useEffect(() => {
-        getAllVets();
-    }, [])
+    const { state } = useContext(VetContext);
+    const results = state.veterinarias;
 
     return (
         <View style={styles.body}>
             <View style={styles.searchBarStyle}>
                 <SearchBar />
             </View>
-            <ScrollView>
+            <SafeAreaView style = {{flex:1}}>
                 <Text style={styles.tituloPantalla}>Veterinarias</Text>
                 <View >
                     <FlatList
-                        data={state.veterinarias}
-                        keyExtractor={item => item._id}
+                        data={results}
+                        keyExtractor={result => result.photo}
                         renderItem={({ item }) => {
                             return <VeterinaryList veterinary={item} />;
                         }}
                     />
                 </View>
-            </ScrollView>
+            </SafeAreaView>
 
         </View>
     )

@@ -4,24 +4,29 @@ import instance from '../api/mimo';
 const ReviewReducer = (state, action) => {
     switch (action.type) {
         case 'addVetReview':
-            return action.payload;
+            return { ...state, reviews: [...state.reviews, action.payload.review] };
         case 'addServiceReview':
-            return action.payload;
+            return { ...state, reviews: action.payload };
         case 'getVetReviews':
             return action.payload;
         case 'getServiceReviews':
-            return action.payload;
+            return { ...state, reviews: action.payload };
         case 'add_error':
             return { ...state };
     }
 };
 
 const addVetReview = dispatch => async ({ comment, score, idVet }) => {
+
     try {
         const response = await instance.post('/api/Review/saveVetReview', {
             score,
             comment,
             idVet,
+        });
+        const response2 = await instance.post('/api/Veterinary/updateAvgScore', {
+            score,
+            id: idVet
         });
         dispatch({ type: 'addVetReview', payload: response.data });
     } catch (error) {

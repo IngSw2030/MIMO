@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const requireAuth = require('../middlewares/requireAuth');
 
 const Veterinary = mongoose.model('Veterinary');
+const Review = mongoose.model('Review');
+
 
 const router = express.Router();
 
@@ -15,7 +17,9 @@ router.post('/save', async (req, res) => {
         photo,
         address,
         description,
-        avgScore,
+        contact,
+        openAt,
+        closeAt,
     } = req.body;
 
     try {
@@ -24,8 +28,10 @@ router.post('/save', async (req, res) => {
             animals,
             photo,
             address,
-            avgScore,
             description,
+            contact,
+            openAt,
+            closeAt,
             idUser: req.user._id,
         });
         await veterinary.save();
@@ -34,6 +40,31 @@ router.post('/save', async (req, res) => {
         res.status(422).send({ error: err });
     }
 });
+
+router.post('/updateAvgScore', async (req, res) => {
+    try {
+        const {
+            score,
+            id
+        } = req.body;
+        console.log(id);
+        const veterinary = await Veterinary.findOne({ _id: id });
+
+        let antiguoScore = veterinary.avgScore;
+        const numeroReview = await Review.where({ idVet: veterinary._id }).countDocuments();
+        const aux = (numeroReview - 1) * antiguoScore;
+        let nuevoScore = (aux + score) / (numeroReview);
+
+        await Veterinary.findOneAndUpdate({ _id: id }, {
+            $set: {
+                "avgScore": nuevoScore,
+            }
+        }, { useFindAndModify: false });
+        res.send({ nuevoScore });
+    } catch (err) {
+        return res.status(422).send({ error: 'Error al modificar' });
+    }
+})
 
 router.post('/update', async (req, res) => {
     try {

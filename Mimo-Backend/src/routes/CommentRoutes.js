@@ -28,7 +28,7 @@ router.post('/ofPost', async (req, res) => {
 	const { idPost } = req.body;
 
 	try {
-		const comments = await Comment.find({idPost}).populate('idUser');
+		const comments = await Comment.find({idPost}).populate('idUser').sort({dateCreated: -1});
 
 		res.send({ comments });
 	} catch (err) {
