@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ce82b309-2284-4929-8830-3c6b031b0aa6" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Mimo-FrontEnd/src/screens/commerces/ComHomeScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-FrontEnd/src/screens/commerces/ComHomeScreen.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mimo-Backend/src/routes/ServiceRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-Backend/src/routes/ServiceRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mimo-FrontEnd/AppContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-FrontEnd/AppContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mimo-FrontEnd/ngrokConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-FrontEnd/ngrokConfig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mimo-FrontEnd/src/components/serviceComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-FrontEnd/src/components/serviceComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mimo-FrontEnd/src/screens/commerces/ComServiceScreen.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mimo-FrontEnd/src/screens/commerces/ComServiceScreen.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

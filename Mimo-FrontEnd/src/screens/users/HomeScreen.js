@@ -7,10 +7,10 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 const HomeScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../assets/mimo.png');
-	const vetIcon = require('../../../assets/mimoIconVeterinaria.png');
-	const postIcon = require('../../../assets/mimoIconComida.png');
-	const accesoriesIcon = require('../../../assets/mimoIconAccesorios.png');
-	const servicesIcon = require('../../../assets/mimoIconServicios.png');
+	const vetIcon = require('../../../assets/veterinaria.png');
+	const postIcon = require('../../../assets/blog.png');
+	const accesoriesIcon = require('../../../assets/productos.png');
+	const servicesIcon = require('../../../assets/servicios.png');
 	const dispatch = useDispatch();
 	const { state: user, getUser } = useContext(UserContext);
 
@@ -37,24 +37,24 @@ const HomeScreen = ({ navigation }) => {
 
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
-					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={servicesIcon} />
+					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
+						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={vetIcon} />
+						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={vetIcon} />
 						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={{ height: 125, width: 90, alignSelf: 'center' }} source={accesoriesIcon} />
+						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={accesoriesIcon} />
 						<Text style={styles.buttonNameStyle}>Productos</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-						<Image style={{ height: 115, width: 75, alignSelf: 'center' }} source={postIcon} />
+						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={postIcon} />
 						<Text style={styles.buttonNameStyle}>Blogs</Text>
 					</TouchableOpacity>
 				</View>
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
 		marginBottom: '2%',
 	},
 	buttonNameStyle: {
-		fontSize: 23,
+		fontSize: 20,
 		alignSelf: 'center',
 
 	},

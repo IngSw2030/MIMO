@@ -3,9 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, Switch } fr
 import { withNavigation } from 'react-navigation';
 import {Context as ProductContext} from '../../context/ProductContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
-import usePrice from '../../hooks/usePrice';
-import { FontAwesome } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
 
 const ComEditProductScreen = ({navigation}) => {
@@ -177,7 +174,7 @@ const styles = StyleSheet.create({
         alignSelf:"center",
         height: 100,
         flexDirection: "row"
-    }
+    },
 })
 
 export default withNavigation(ComEditProductScreen);

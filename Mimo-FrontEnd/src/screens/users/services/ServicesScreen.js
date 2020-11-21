@@ -1,6 +1,8 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import useSearch from '../../../hooks/useResultsServices';
 
 const ServicesScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../../assets/mimo.png');
@@ -9,7 +11,11 @@ const ServicesScreen = ({ navigation }) => {
 	const petWalkerText = 'Paseos';
 	const groomingText = 'Estilista';
 	const petSittingText = 'Cuidadores';
+	const [searchApi, results, cuidadores, paseadores, estilistas, limpiadores, errorMessage] = useSearch();
 
+	useEffect(() => {
+		searchApi();
+	}, []);
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View>
@@ -19,7 +25,9 @@ const ServicesScreen = ({ navigation }) => {
 			<View style={styles.generalView}>
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}
+					onPress={() =>
+						navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText, datos: limpiadores })
+					}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
 					<Text style={styles.serviceNameStyle}> {aquariumCleanerText}</Text>
@@ -27,7 +35,7 @@ const ServicesScreen = ({ navigation }) => {
 
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText })}
+					onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText, datos: paseadores })}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
 					<Text style={styles.serviceNameStyle}> {petWalkerText}</Text>
@@ -36,7 +44,7 @@ const ServicesScreen = ({ navigation }) => {
 			<View style={styles.generalView}>
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText })}
+					onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText, datos: estilistas })}
 				>
 					<Image style={styles.iconStyle} source={mimoEstilista} />
 					<Text style={styles.serviceNameStyle}> {groomingText}</Text>
@@ -44,7 +52,7 @@ const ServicesScreen = ({ navigation }) => {
 
 				<TouchableOpacity
 					style={styles.buttonStyle}
-					onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText })}
+					onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText, datos: cuidadores })}
 				>
 					<Image style={styles.iconStyle} source={mimoIcon} />
 					<Text style={styles.serviceNameStyle}> {petSittingText}</Text>
@@ -63,7 +71,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: 'bold',
 		alignSelf: 'center',
-		marginBottom:5
+		marginBottom: 5,
 	},
 	serviceNameStyle: {
 		alignSelf: 'center',
