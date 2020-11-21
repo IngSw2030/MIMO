@@ -9,7 +9,7 @@ export default () => {
 
 	const searchApi = async (searchTerm, animal) => {
 		try {
-			const response = await instance.post('api/Veterinary/allVets', {
+			const response = await instance.post('api/Veterinary/Vets', {
 				name: searchTerm,
 				description: searchTerm,
 				animals: animal

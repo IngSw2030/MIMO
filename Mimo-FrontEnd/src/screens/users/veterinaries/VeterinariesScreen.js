@@ -9,7 +9,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import useResults from '../../../hooks/useResultsVet';
 
 const VeterinariesScreen = () => {
-    const { state } = useContext(VetContext);
+    const { state, getAllVets } = useContext(VetContext);
     //const results = state.veterinarias;
     const [term, setTerm] = useState('');
     const [searchApi, results, errorMessage] = useResults();
@@ -27,7 +27,7 @@ const VeterinariesScreen = () => {
                 data={results}
                 keyExtractor={result => result.photo}
                 renderItem={({ item }) => {
-                    return <VeterinaryList veterinary={item} />;
+                    return <VeterinaryList veterinary={item} goTo={'VeterinaryProfile'}/>;
                 }}
                 ListFooterComponent={
                     <TouchableOpacity style={styles.botonCargar} onPress={() => getAllVets({ initial: state.initial, limit: 10 })}>

@@ -6,7 +6,7 @@ const veterinaryReducer = (state, action) => {
         case 'getAllVets':
             return { ...state, veterinarias: state.veterinarias.concat(action.payload), initial: state.initial + 10 };
         case 'getMyVets':
-            return { ...state, veterinarias: action.payload };
+            return { ...state, myVets: action.payload };
         case 'saveVet':
             return { ...state, veterinaria: action.payload };
         case 'add_error':
@@ -24,14 +24,14 @@ const getAllVets = dispatch => async ({ initial, limit }) => {
         //console.log(response.data.vets);
         dispatch({ type: 'getAllVets', payload: response.data.vets });
     } catch (err) {
-        dispatch({ type: 'add_error', action: err });
+        dispatch({ type: 'add_error', payload: err });
     }
 }
 
-const getMyVets = dispatch => async ({ id }) => {
+const getMyVets = dispatch => async() => {
     try {
-        const response = await instance.post('api/Veterinary/myVets', { id });
-        dispatch({ type: 'getMyVets', action: response.data });
+        const response = await instance.get('api/Veterinary/myVets');
+        dispatch({ type: 'getMyVets', payload: response.data.vets });
     }
     catch (error) {
         dispatch({ type: 'add_error' });
@@ -41,7 +41,16 @@ const getMyVets = dispatch => async ({ id }) => {
 const saveVet = dispatch => async ({ name, animals, photo, address, description, contact, openAt, closeAt }) => {
     try {
         const response = await instance.post('api/Veterinary/save', { name, animals, photo, address, description, contact, openAt, closeAt });
-        dispatch({ type: 'saveVet', action: response.data.veterinary });
+        dispatch({ type: 'saveVet', payload: response.data.veterinary });
+    } catch (error) {
+        dispatch({ type: 'add_error' });
+    }
+}
+
+const updateVet = dispatch => async ({ name, animals, photo, address, description, contact, openAt, closeAt, id }) => {
+    try {
+        const response = await instance.post('api/Veterinary/update', { name, animals, photo, address, description, contact, openAt, closeAt, id });
+        dispatch({ type: 'updateVet', payload: response.data.veterinary });
     } catch (error) {
         dispatch({ type: 'add_error' });
     }
@@ -49,6 +58,6 @@ const saveVet = dispatch => async ({ name, animals, photo, address, description,
 
 export const { Context, Provider } = createDataContext(
     veterinaryReducer,
-    { getMyVets, getAllVets, saveVet },
-    { veterinarias: [], veterinaria: {}, errorMessage: '', initial: 0 }
+    { getMyVets, getAllVets, saveVet, updateVet },
+    { myVets: [], veterinarias: [], veterinaria: {}, errorMessage: '', initial: 0 }
 );

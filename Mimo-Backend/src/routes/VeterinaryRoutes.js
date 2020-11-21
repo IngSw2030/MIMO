@@ -76,6 +76,9 @@ router.post('/update', async (req, res) => {
             address,
             avgScore,
             description,
+            contact,
+            openAt,
+            closeAt,
             id
         } = req.body;
 
@@ -95,6 +98,12 @@ router.post('/update', async (req, res) => {
 
         !description ? newDescription = veterinary.description : newDescription = description;
 
+        !contact ? newContact = veterinary.contact : newContact = contact;
+
+        !openAt ? newOpenAt = veterinary.openAt : newOpenAt = openAt;
+
+        !closeAt ? newCloseAt = veterinary.closeAt : newCloseAt = closeAt;
+
         await Veterinary.findOneAndUpdate({ _id: id }, {
             $set: {
                 "name": newName,
@@ -102,7 +111,10 @@ router.post('/update', async (req, res) => {
                 "address": newAddress,
                 "avgScore": newAvgScore,
                 "photo": newPhoto,
-                "description": newDescription
+                "description": newDescription,
+                "contact": newContact,
+                "openAt": newOpenAt,
+                "closeAt": newCloseAt
             }
         }, { useFindAndModify: false });
         res.send("Modificado satisfactoriamente");

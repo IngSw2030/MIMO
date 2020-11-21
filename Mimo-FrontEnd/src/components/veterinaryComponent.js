@@ -14,7 +14,7 @@ const VeterinaryListComponent = props => {
             <TouchableOpacity
                 style={styles.componente}
                 onPress={() =>
-                    navigate('VeterinaryProfile', {
+                    navigate(props.goTo, {
                         veterinary: veterinary,
                     })
                 }
