@@ -34,6 +34,7 @@ import CommentsScreen from './src/screens/users/blog/CommentsScreen';
 
 //Imports de comercio
 import ComAddProductScreen from './src/screens/commerces/ComAddProductScreen';
+import ComAddServiceScreen from './src/screens/commerces/ComAddServiceScreen';
 import ComVeterinaryScreen from './src/screens/commerces/ComeVeterinaryScreen';
 import ComAddVeterinaryScreen from './src/screens/commerces/ComAddVeterinaryScreen';
 import ComNotificationsScreen from './src/screens/commerces/ComNotificationsScreen';
@@ -44,6 +45,7 @@ import ComServiceScreen from './src/screens/commerces/ComServiceScreen';
 import ComSettingsScreen from './src/screens/commerces/ComSettingsScreen';
 import ComVeterinaryProfileScreen from './src/screens/commerces/ComVeterinaryProfileScreen';
 import ComEditProductScreen from './src/screens/commerces/ComEditProductScreen';
+import ComEditServiceScreen from './src/screens/commerces/ComEditServiceScreen';
 
 //Imports de Usuario
 //pets
@@ -77,6 +79,7 @@ const ComercioHomeNavigation = createStackNavigator(
 		//Pantallas Comercio
 		comercHome: ComHomeScreen,
 		ComAddProduct: ComAddProductScreen,
+		ComAddService: ComAddServiceScreen,
 		ComVeterinary: ComVeterinaryScreen,
 		ComNotifications: ComNotificationsScreen,
 		ComProductDetails: ComProductDetailsScreen,
@@ -86,6 +89,7 @@ const ComercioHomeNavigation = createStackNavigator(
 		ComSettings: ComSettingsScreen,
 		ComVeterinaryProfile: ComVeterinaryProfileScreen,
 		ComEditProduct: ComEditProductScreen,
+		ComEditService: ComEditServiceScreen,
 		ComAddVeterinary: ComAddVeterinaryScreen,
 
 		//Pantalla Posts y Comentarios

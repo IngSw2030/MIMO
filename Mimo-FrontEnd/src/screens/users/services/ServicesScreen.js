@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
+import useSearch from '../../../hooks/useResultsServices';
 
 const ServicesScreen = ({ navigation }) => {
 	const mimoIcon = require('../../../../assets/mimo.png');
@@ -9,7 +10,11 @@ const ServicesScreen = ({ navigation }) => {
 	const petWalkerText = 'Paseos';
 	const groomingText = 'Estilista';
 	const petSittingText = 'Cuidadores';
+	const [searchApi, results, cuidadores, paseadores, estilistas, limpiadores, errorMessage] = useSearch();
 
+	useEffect(() => {
+		searchApi();
+	}, []);
 	return (
 		<ScrollView style={{ backgroundColor: '#FFF7BB', flex: 1 }} showsHorizontalScrollIndicator={false}>
 			<View>

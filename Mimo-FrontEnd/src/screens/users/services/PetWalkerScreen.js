@@ -1,21 +1,29 @@
-import React, {useContext} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import ServiceList from '../../../components/serviceList';
-import WideListComponent from '../../../components/wideListComponent'
-import {Context as ServiceContext} from '../../../context/ServiceContext'
+import WideListComponent from '../../../components/wideListComponent';
+import { Context as ServiceContext } from '../../../context/ServiceContext';
 
-const PetWalkerScreen = screenProps => {const imageSource = require('../../../../assets/mimo.png');
-const {state:servicios}= useContext(ServiceContext);
-return (
-	<View style={styles.generalStyle}>
-		<Text style={styles.headerStyle}>{screenProps.navigation.getParam('screenTitle')}</Text>
-		<WideListComponent
-			list ={servicios}
-			componentToRender={(item)=>{return <ServiceList id = {item}/>}}
-		/>
-	</View>
-);
+const PetWalkerScreen = screenProps => {
+	const imageSource = require('../../../../assets/mimo.png');
+	const [servicios, setServicios] = useState([]);
+	useEffect(() => {
+		setServicios(screenProps.navigation.getParam('datos'));
+	}, []);
+
+	return (
+		<View style={styles.generalStyle}>
+			<Text style={styles.headerStyle}>{screenProps.navigation.getParam('screenTitle')}</Text>
+			<FlatList
+				data={servicios}
+				keyExtractor={item => item._id}
+				renderItem={({ item }) => {
+					return <ServiceList service={item} />;
+				}}
+			/>
+		</View>
+	);
 };
 const styles = StyleSheet.create({
 viewStyle: {

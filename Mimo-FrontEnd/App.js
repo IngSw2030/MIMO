@@ -6,6 +6,7 @@ import { setNavigator } from './src/navigationRef';
 //contextos
 import { Provider as PetContext } from './src/context/PetContext';
 import { Provider as ProductContext } from './src/context/ProductContext';
+import { Provider as ServiceContext } from './src/context/ServiceContext';
 import { Provider as PurchaseContext } from './src/context/PurchaseContext';
 import { Provider as PostContext } from './src/context/PostContext';
 import { Provider as PetProvider } from './src/context/PetContext';
@@ -21,6 +22,7 @@ import store from './src/context/ChatContext';
 
 export default () => {
 	return (
+		<ServiceContext>
 		<CommentProvider>
 			<ReviewsProvider>
 				<VetsProvider>
@@ -49,7 +51,9 @@ export default () => {
 					</SellsProvider>
 				</VetsProvider>
 			</ReviewsProvider>
+		
 		</CommentProvider>
+		</ServiceContext>
 
 	);
 };

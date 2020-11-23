@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Context as ServiceContext } from '../context/ServiceContext'
+import { Context as ServiceContext } from '../context/ServiceContext';
 
 const serviceList = (props) => {
     
@@ -11,8 +11,7 @@ const serviceList = (props) => {
     const estrellas = insertarEstrellas(servicio.avgScore);
     const mimoIcon = require('../../assets/mimo.png');
 
-
-    return (
+	return (
         <View>
             <TouchableOpacity
                 style={styles.viewStyle}
@@ -55,8 +54,9 @@ const serviceList = (props) => {
 
         </View>
     )
+};
 
-}
+    
 const insertarEstrellas = (cantidad) => {
     if (cantidad > 0) {
         const estrellas = [...insertarEstrellas(cantidad - 1), { cantidad }];
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
         paddingRight: '10%'
     }
 });
-export default withNavigation(serviceList)
+export default withNavigation(serviceList);

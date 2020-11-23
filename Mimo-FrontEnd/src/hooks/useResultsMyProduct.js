@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import instance from "../api/mimo";
 
 export default () => {
-
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
 

@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, Picker } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import {Context as ProductContext} from '../../context/ProductContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
@@ -17,6 +17,7 @@ const ComAddProductScreen = () => {
     const [descripcion, setDescripcion] = useState('');
     const [mascotas, setMascotas] = useState(['']);
     const [foto, setFoto] = useState('')
+    const [selectedValue, setSelectedValue] = useState("");
 
     const [buscarImagen] = uploadPhoto();
 
@@ -38,18 +39,14 @@ const ComAddProductScreen = () => {
                     )}
                 </TouchableOpacity>
             </View>
-
             <View style={styles.roundedContainerStyle}>
-                <TextInput
-                    placeholder="Categoría"
-                    placeholderTextColor="#000"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                    style={styles.inputStyle}
-                    value={categoria}
-                    onChangeText={(newCategoria) => setCategoria(newCategoria)}
-                />
-            </View>
+				<Picker itemStyle={styles.text} selectedValue={categoria} onValueChange={itemValue => setCategoria(itemValue)}>
+					<Picker.Item label='Comida' value='comida' style={styles.pickerStyle}/>
+					<Picker.Item label='Accesorios' value='accesorio' style={styles.pickerStyle} />
+					<Picker.Item label='Limpieza' value='limpieza' style={styles.pickerStyle}/>
+					<Picker.Item label='Otros' value='otros' style={styles.pickerStyle}/>
+				</Picker>
+			</View>
             <View style={styles.roundedContainerStyle}>
                 <TextInput
                     placeholder="Nombre"
@@ -140,7 +137,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#88CCF2",
         height: 42,
         width: 320,
-        borderRadius: 75,
+        borderRadius: 10,
         justifyContent: 'center'
     },
     inputStyle: {
@@ -195,6 +192,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         backgroundColor: '#EDDF98',
     },
+    pickerStyle: {
+		alignSelf: "center"
+	},
 })
 
 export default withNavigation(ComAddProductScreen);
