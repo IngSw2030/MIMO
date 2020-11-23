@@ -30,70 +30,71 @@ router.post('/save', async (req, res) => {
 });
 
 router.post('/updateAvgScore', async (req, res) => {
-    try {
-        const {
-            score,
-            id
-        } = req.body;
-        console.log(id);
-        const services = await Service.findOne({ _id: id });
+	try {
+		const {
+			score,
+			id
+		} = req.body;
+		console.log(id);
+		const services = await Service.findOne({ _id: id });
 
-        let antiguoScore = services.avgScore;
-        const numeroReview = await Review.where({ idService: services._id }).countDocuments();
-        const aux = (numeroReview - 1) * antiguoScore;
-        let nuevoScore = (aux + score) / (numeroReview);
+		let antiguoScore = services.avgScore;
+		const numeroReview = await Review.where({ idService: services._id }).countDocuments();
+		const aux = (numeroReview - 1) * antiguoScore;
+		let nuevoScore = (aux + score) / (numeroReview);
 
-        await Service.findOneAndUpdate({ _id: id }, {
-            $set: {
-                "avgScore": nuevoScore,
-            }
-        }, { useFindAndModify: false });
-        res.send({ nuevoScore });
-    } catch (err) {
-        return res.status(422).send({ error: 'Error al modificar' });
-    }
+		await Service.findOneAndUpdate({ _id: id }, {
+			$set: {
+				"avgScore": nuevoScore,
+			}
+		}, { useFindAndModify: false });
+		res.send({ nuevoScore });
+	} catch (err) {
+		return res.status(422).send({ error: 'Error al modificar' });
+	}
 })
 
 
 router.post('/update', async (req, res) => {
-    try {
+	try {
 
-        const {
-            name,
-            priceMax,
-            priceMin,
-            photo,
-            description,
-            id
-        } = req.body;
+		const {
+			name,
+			priceMax,
+			priceMin,
+			photo,
+			description,
+			id
+		} = req.body;
 
-        const service = await Service.findOne({ _id: id });
+		const service = await Service.findOne({ _id: id });
 
-        let newName, newPriceMax, newPriceMin, newDescription, newPhoto;
+		let newName, newPriceMax, newPriceMin, newDescription, newPhoto;
 
-        !name ? newName = service.name : newName = name;
+		!name ? newName = service.name : newName = name;
 
-        !priceMax ? newPriceMax = service.priceMax : newPriceMax = priceMax;
+		!priceMax ? newPriceMax = service.priceMax : newPriceMax = priceMax;
 
-        !priceMin ? newPriceMin = service.priceMin : newPriceMin = priceMin;
+		!priceMin ? newPriceMin = service.priceMin : newPriceMin = priceMin;
 
-        !description ? newDescription = service.description : newDescription = description;
+		!description ? newDescription = service.description : newDescription = description;
 
-        !photo ? newPhoto = service.photo : newPhoto = photo;
+		!photo ? newPhoto = service.photo : newPhoto = photo;
 
-        await Service.findOneAndUpdate({ _id: id }, {
-            $set: {
-                "name": newName,
-                "priceMin": newPriceMin,
-                "priceMax": newPriceMax,
-                "description": newDescription,
-                "photo": newPhoto
-            }
-        }, { useFindAndModify: false });
-        res.send("Modificado satisfactoriamente");
-    } catch (err) {
-        return res.status(422).send({ error: 'Error al modificar' });
-    }
+		await Service.findOneAndUpdate({ _id: id }, {
+			$set: {
+				"name": newName,
+				"priceMin": newPriceMin,
+				"priceMax": newPriceMax,
+				"description": newDescription,
+				"photo": newPhoto
+			}
+		}, { useFindAndModify: false });
+		res.send("Modificado satisfactoriamente");
+	} catch (err) {
+		return res.status(422).send({ error: 'Error al modificar' });
+	}
+});
 router.post('/allServices', async (req, res) => {
 	const { name, description, category } = req.body;
 	let newName, newDescription;

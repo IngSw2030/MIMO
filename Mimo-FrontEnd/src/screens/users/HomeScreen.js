@@ -38,23 +38,23 @@ const HomeScreen = ({ navigation }) => {
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.servicesStyle} onPress={() => navigation.navigate('Services')}>
-						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={servicesIcon} />
+						<Image style={{ height: 130, width: 130, alignSelf: 'center' }} source={servicesIcon} />
 						<Text style={styles.buttonNameStyle}>Servicios</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.vetStyle} onPress={() => navigation.navigate('Veterinaries')}>
-						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={vetIcon} />
+						<Image style={{ height: 130, width: 130, alignSelf: 'center' }} source={vetIcon} />
 						<Text style={styles.buttonNameStyle}>Veterinaria</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.generalView}>
 					<TouchableOpacity style={styles.blogStyle} onPress={() => navigation.navigate('Product')}>
-						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={accesoriesIcon} />
+						<Image style={{ height: 130, width: 130, alignSelf: 'center' }} source={accesoriesIcon} />
 						<Text style={styles.buttonNameStyle}>Productos</Text>
 					</TouchableOpacity>
 
 					<TouchableOpacity style={styles.postStyle} onPress={() => navigation.navigate('Post')}>
-						<Image style={{ height: 110, width: 110, alignSelf: 'center' }} source={postIcon} />
+						<Image style={{ height: 130, width: 130, alignSelf: 'center' }} source={postIcon} />
 						<Text style={styles.buttonNameStyle}>Blogs</Text>
 					</TouchableOpacity>
 				</View>

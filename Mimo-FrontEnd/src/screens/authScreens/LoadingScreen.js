@@ -31,19 +31,18 @@ const LoadingScreen = ({ navigation }) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			if (state.tipo === null) {
-
+				getUser();
+				getProduct({ name: "", pets: '' });
+				getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
+				getMySells();
+				getMyShopingCart();
+				getAllVets({ initial: 0, limit: 20 });
 			} else {
 				state.tipo == false ?
 					navigation.navigate('HomePage')
 					: navigation.navigate('comercHome')
 			}
-			getUser();
-			getProduct({ name: "", pets: '' });
 
-			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
-			getMySells();
-			getMyShopingCart();
-			getAllVets({ initial: 0, limit: 10 });
 		}
 		fetchData();
 	}, [state]); // Or [] if effect doesn't need props or state

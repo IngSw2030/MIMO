@@ -17,8 +17,8 @@ const veterinaryReducer = (state, action) => {
 };
 
 const getAllVets = dispatch => async ({ initial, limit }) => {
-    //console.log(initial);
-    //console.log(limit);
+    console.log(initial);
+    console.log(limit);
     try {
         const response = await instance.post('api/Veterinary/Vets', { initial, limit });
         //console.log(response.data.vets);
@@ -28,7 +28,7 @@ const getAllVets = dispatch => async ({ initial, limit }) => {
     }
 }
 
-const getMyVets = dispatch => async() => {
+const getMyVets = dispatch => async () => {
     try {
         const response = await instance.get('api/Veterinary/myVets');
         dispatch({ type: 'getMyVets', payload: response.data.vets });

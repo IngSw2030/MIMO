@@ -65,8 +65,8 @@ const ReviewsScreen = ({ navigation }) => {
                         />
                         <Text style={{
                             fontWeight: 'bold', fontSize: 20
-                        }}>Calficanos</Text>
-                        <View style={{ flexDirection: 'row' }}>
+                        }}>Calificanos</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: "space-around" }}>
                             <StarRating
                                 maxStars={5}
                                 rating={miCalificacion}
@@ -81,8 +81,7 @@ const ReviewsScreen = ({ navigation }) => {
                                     setEscribirComentario(0);
                                 }}
                             >
-                                <FontAwesome name="send-o" size={20} color="black" />
-                                <Text>Enviar</Text>
+                                <FontAwesome name="send-o" size={30} color="black" />
                             </TouchableOpacity>
                         </View>
 
@@ -121,7 +120,7 @@ const ReviewsScreen = ({ navigation }) => {
                                         disabled={true}
                                         maxStars={5}
                                         rating={item.score}
-                                        starSize={40}
+                                        starSize={35}
                                     />
                                 </View>
                                 <Text style={{ fontSize: 18 }}>Comentario: {item.comment}</Text>
@@ -176,6 +175,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#EDDF98",
         fontSize: 18,
         marginHorizontal: 15,
+        paddingLeft: 5,
         borderRadius: 25,
         width: '90%',
         height: 250,

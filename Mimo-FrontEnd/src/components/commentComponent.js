@@ -1,21 +1,19 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 
 const CommentComponent = props => {
 
-    const comment = props.post;
+	const comment = props.post;
 
 	return (
 		<View style={styles.pageStyle}>
-            <Text style={styles.postDescription}>
-                {comment.content}{'  '}
-            </Text>
-            <View style = {styles.info}>
-                <View style = {styles.nameDate}>
-                    <Text>{comment.idUser.name} {'  '}</Text>
-                    <Text>{comment.dateCreated.slice(0, 10)} {comment.dateCreated.slice(14, 19)} {'  '}</Text>
-                </View>
-            </View>
+			<Text style={styles.postDescription}>
+				{comment.content}{'  '}
+			</Text>
+			<View style={styles.info}>
+				<Text style={{ fontSize: 16 }}> {comment.idUser.name} {'  '}</Text>
+				<Text style={{ fontSize: 14 }}>{comment.dateCreated.slice(0, 10)} {comment.dateCreated.slice(14, 19)} {'  '}</Text>
+			</View>
 		</View>
 	);
 };
@@ -26,12 +24,11 @@ const styles = StyleSheet.create({
 		fontSize: 24,
 	},
 	pageStyle: {
-		backgroundColor: '#E8916C',
+		backgroundColor: '#B0EFEF',
 		margin: 10,
 		flexDirection: 'column',
 		borderRadius: 25,
-		borderColor: '#E8916C',
-		borderWidth: 15,
+		padding: 12
 	},
 	postDescription: {
 		fontSize: 20,
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
 	info: {
 		flexDirection: 'row',
 		justifyContent: 'space-between'
-	}
+	},
 });
 
 export default (CommentComponent);

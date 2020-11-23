@@ -17,17 +17,17 @@ const VeterinariesScreen = () => {
     return (
         <View style={styles.body}>
             <View style={styles.searchBarStyle}>
-                <SearchBar 
+                <SearchBar
                     term={term}
                     onTermChange={(newTerm) => setTerm(newTerm)}
                     onTermSubmit={() => searchApi(term)}
                 />
             </View>
             <FlatList
-                data={results}
+                data={state.veterinarias}
                 keyExtractor={result => result.photo}
                 renderItem={({ item }) => {
-                    return <VeterinaryList veterinary={item} goTo={'VeterinaryProfile'}/>;
+                    return <VeterinaryList veterinary={item} goTo={'VeterinaryProfile'} />;
                 }}
                 ListFooterComponent={
                     <TouchableOpacity style={styles.botonCargar} onPress={() => getAllVets({ initial: state.initial, limit: 10 })}>
@@ -41,7 +41,7 @@ const VeterinariesScreen = () => {
 };
 const styles = StyleSheet.create({
     botonCargar: {
-        backgroundColor: '#B8DC7D',
+        backgroundColor: '#9FCAE2',
         marginBottom: 10,
         marginHorizontal: 15,
         borderRadius: 25,

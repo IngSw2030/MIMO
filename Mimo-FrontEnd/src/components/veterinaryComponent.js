@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Image, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { navigate } from '../navigationRef';
@@ -28,39 +28,39 @@ const VeterinaryListComponent = props => {
                 }
                 <View style={styles.contenedorTexto}>
                     <Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>Nombre: </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Nombre: </Text>
                         <Text style={styles.texto}>{veterinary.name}</Text>
                     </Text>
                     <Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>Dirección: </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Dirección: </Text>
                         <Text style={styles.texto}>{veterinary.address}</Text>
                     </Text>
                     <Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>Número: </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Número: </Text>
                         <Text style={styles.texto}>{veterinary.contact}</Text>
                     </Text>
                     <Text>
-                        <Text style={{fontWeight: 'bold', fontSize: 16}}>Nombre: </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Nombre: </Text>
                         <Text style={styles.texto}>{veterinary.name}</Text>
                     </Text>
                     <View style={{ flexDirection: 'row' }}>
                         <Text>
-                            <Text style={{fontWeight: 'bold', fontSize: 16}}>Descripción: </Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Descripción: </Text>
                             <Text style={styles.texto}>{veterinary.description}</Text>
                         </Text>
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                    <Text style={{fontWeight: 'bold', fontSize: 16}}>Calificacion: </Text>
-                    <View style={{ marginLeft: 5 }}>
-                        <StarRating
-                            disabled={true}
-                            maxStars={5}
-                            rating={veterinary.avgScore}
-                            starSize={16}
-                            buttonStyle={{ margin: 2 }}
-                        />
+                        <Text style={{ fontWeight: 'bold', fontSize: 16 }}>Calificacion: </Text>
+                        <View style={{ marginLeft: 5 }}>
+                            <StarRating
+                                disabled={true}
+                                maxStars={5}
+                                rating={veterinary.avgScore}
+                                starSize={16}
+                                buttonStyle={{ margin: 2 }}
+                            />
+                        </View>
                     </View>
-                </View>
                 </View>
             </TouchableOpacity>
         </View>
@@ -87,10 +87,11 @@ const styles = StyleSheet.create({
         flex: 1
     },
     imageStyle: {
-        height: 130,
+        height: '85%',
         width: 130,
         borderRadius: 40,
-        margin: 6
+        margin: 10,
+        alignSelf: "center"
     },
     contenedorTexto: {
         flexDirection: 'column',

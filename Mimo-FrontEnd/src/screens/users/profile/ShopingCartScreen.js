@@ -52,12 +52,12 @@ const ShopingCartScreen = ({ navigation }) => {
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPurchase}>
-								<View style={{ flex: 1, flexDirection: 'column', alignContent: 'center', justifyContent: 'center' }}>
+								<View style={{ alignContent: 'center', justifyContent: 'center' }}>
 									{item.foto ? (
 										<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.foto}` }} />
 									) : (
-										<Image style={styles.image} source={mimoIcon} />
-									)}
+											<Image style={styles.image} source={mimoIcon} />
+										)}
 								</View>
 								<View style={styles.containerPurchaseAmount}>
 									<View style={styles.deleteStyle}>
@@ -99,8 +99,8 @@ const ShopingCartScreen = ({ navigation }) => {
 										{quantity === 1 ? (
 											<Text style={{ fontSize: 30 }}> {item.unidades} </Text>
 										) : (
-											<Text style={{ fontSize: 30 }}> {quantity} </Text>
-										)}
+												<Text style={{ fontSize: 30 }}> {quantity} </Text>
+											)}
 										<TouchableOpacity
 											onPress={() => {
 												setQuantity(quantity < 15 ? quantity + 1 : quantity);
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
 	},
 	titleStyle: {
 		marginTop: 20,
-		marginBottom: 30,
+		marginBottom: 10,
 		fontSize: 34,
 		fontWeight: 'bold',
 		alignSelf: 'center',
@@ -165,19 +165,19 @@ const styles = StyleSheet.create({
 		height: 150,
 		width: 330,
 		backgroundColor: '#FFA1A9',
-		marginBottom: 10,
-		flexDirection: 'row',
+		marginBottom: 15,
 		borderRadius: 25,
-		justifyContent: 'space-between',
+		flex: 1,
+		flexDirection: "row"
 	},
 	info: {
 		fontSize: 14,
 		fontWeight: 'bold',
 	},
 	image: {
-		height: 90,
-		width: 90,
-		margin: 5,
+		height: '85%',
+		width: 120,
+		margin: 10,
 		borderRadius: 25,
 	},
 	container: {
@@ -193,11 +193,10 @@ const styles = StyleSheet.create({
 	},
 	deleteStyle: {
 		marginTop: 12,
-		marginRight: 12,
-		alignItems: 'flex-end',
+		marginLeft: 80,
+		alignItems: 'center',
 	},
 	containerPurchaseAmount: {
-		width: 220,
 		flexDirection: 'column',
 	},
 	amountStyle: {
@@ -212,7 +211,7 @@ const styles = StyleSheet.create({
 		marginTop: 15,
 		marginLeft: 15,
 		backgroundColor: '#B0EFEF',
-		height: 50,
+		height: 58,
 		width: 250,
 		borderRadius: 75,
 		justifyContent: 'center',

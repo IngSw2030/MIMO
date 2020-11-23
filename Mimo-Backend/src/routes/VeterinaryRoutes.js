@@ -174,7 +174,7 @@ router.post('/Vets', async (req, res) => {
                     { description: { "$regex": newDescription, "$options": "i" } },
                     { animals: newAnimals }
                 ]
-        })).skip(inicial).limit(limite);
+        }));
         res.send({ vets });
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });

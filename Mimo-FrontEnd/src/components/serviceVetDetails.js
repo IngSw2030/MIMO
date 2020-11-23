@@ -17,7 +17,7 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
 
     return (
-        <View style = {{backgroundColor: '#FFF7BB'}}> 
+        <View style={{ backgroundColor: '#FFF7BB' }}>
             <ScrollView style={{ margin: '2.5%' }}>
                 {
                     !photo
@@ -32,11 +32,11 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
 
                 {
                     data == 'servicio' ?
-                    <Text style={styles.titleStyle}>Precio: {" "} {precioMin} - {precioMax}</Text>
-                    :<Text style={styles.titleStyle}>Horario: {" "}
-                        {(openat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)} -
-                        {(closeat.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}
-                    </Text>
+                        <Text style={styles.titleStyle}>Precio: {" "} {precioMin} - {precioMax}</Text>
+                        : <Text style={styles.titleStyle}>Horario: {" "}
+                            {(openat.toLocaleString("en-GB", { timeZone: "America/Bogota" })).slice(11, 16)} -
+                        {(closeat.toLocaleString("en-GB", { timeZone: "America/Bogota" })).slice(11, 16)}
+                        </Text>
                 }
 
                 <View style={{ flexDirection: 'row' }}>
@@ -116,10 +116,9 @@ const styles = StyleSheet.create({
     nombre: {
         fontSize: 30,
         fontWeight: 'bold',
-        marginBottom: '5%'
     },
     imageStyle: {
-        
+
         height: 300,
         width: 300,
         alignSelf: "center",
