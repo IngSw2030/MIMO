@@ -120,5 +120,5 @@ const deleteUser = () => async () => {
 export const { Provider, Context } = createDataContext(
     userReducer,
     { getUser, updateImage, updateName, updatePhone,update, updateAddress, deleteUser, pinPost, unpinPost, myPinnedPosts },
-    { errorMessage: '', photo: null, name: '', tipo: false, email: '', pinnedPosts: [] }
+    { errorMessage: '', photo: null, name: '', tipo: null, email: '', pinnedPosts: [] }
 );

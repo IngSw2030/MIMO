@@ -8,6 +8,7 @@ import { Context } from '../../context/AuthContext';
 const SignupScreen = ({ navigation }) => {
   const { state, signup, clearErrorMessage } = useContext(Context);
   const mimoIcon = require('../../../assets/mimo.png');
+  const tipo = navigation.getParam('ent');
 
   return (
     <View style={styles.screenContainer}>
@@ -19,6 +20,7 @@ const SignupScreen = ({ navigation }) => {
           errorMessage={state.errorMessage}
           submitButtonText="¡Hecho!"
           onSubmit={signup}
+          tipo = {tipo}
         />
         <NavLink
           routeName="Signin"

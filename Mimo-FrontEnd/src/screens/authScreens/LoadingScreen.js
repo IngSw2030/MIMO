@@ -40,9 +40,9 @@ const LoadingScreen = ({ navigation }) => {
 			getUser();
 			getProduct({ name: "", pets: '' });
 
-			//getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
-			//getMySells();
-			//getMyShopingCart();
+			getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
+			getMySells();
+			getMyShopingCart();
 			getAllVets({ initial: 0, limit: 10 });
 		}
 		fetchData();

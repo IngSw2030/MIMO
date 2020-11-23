@@ -43,9 +43,9 @@ const clearErrorMessage = dispatch => () => {
 	});
 };
 
-const signup = dispatch => async ({ email, name, password }) => {
+const signup = dispatch => async ({ email, name, password, tipoUser }) => {
 	try {
-		const response = await instance.post('/api/Auth/signup', { email, name, password });
+		const response = await instance.post('/api/Auth/signup', { email, name, password, tipoUser });
 		await AsyncStorage.setItem('token', response.data.token);
 		dispatch({ type: 'signin', payload: response.data.token });
 

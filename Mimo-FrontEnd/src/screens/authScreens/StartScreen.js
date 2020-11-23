@@ -17,12 +17,12 @@ const StartScreen = ({ navigation }) => {
 				<Image style={styles.logoStyle} source={mimoIcon} />
 				<View style={styles.buttonContainer}>
 					<TouchableOpacity style={styles.roundedContainerStyle1} onPress={() => navigation.navigate('Signin')}>
-						<Text style={styles.buttonTextStyle}>INICIAR SESIÓN ''</Text>
+						<Text style={styles.buttonTextStyle}>INICIAR SESIÓN {''}</Text>
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.roundedContainerStyle2} onPress={() => navigation.navigate('Signup')}>
 						<Text style={styles.buttonTextStyle}>REGISTRARSE</Text>
 					</TouchableOpacity>
-					<TouchableOpacity onPress={() => navigation.navigate('Signup')}>
+					<TouchableOpacity onPress={() => navigation.navigate('Signup', {ent: 1})}>
 						<Text style={styles.registerEntStyle}>Registrarse como</Text>
 						<Text style={styles.registerEntStyle}>empresa</Text>
 
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
 		width: 280,
 		borderRadius: 75,
 		justifyContent: 'center',
+		marginBottom: 10
 	},
 	buttonTextStyle: {
 		fontSize: 30,

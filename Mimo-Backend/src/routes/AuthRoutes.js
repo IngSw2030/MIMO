@@ -8,11 +8,16 @@ const router = express.Router();
 
 //signup
 router.post('/signup', async (req, res) => {
-    const { email, name, password, retailName, userType } = req.body;
-
+    const { email, name, password, retailName, tipoUser } = req.body;
     try {
         
-        const user = new User({ email, name, password, retailName, userType });
+        const user = new User({ 
+            email, 
+            name, 
+            password, 
+            retailName, 
+            userType:tipoUser 
+        });
         await user.save();
 
         const token = jwt.sign({ userId: user._id }, 'merlinylisa');

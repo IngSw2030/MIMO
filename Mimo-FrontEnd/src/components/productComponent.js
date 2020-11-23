@@ -34,14 +34,14 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		backgroundColor: '#FFA1A9',
-		borderRadius: 20,
-		margin: 5,
+		borderRadius: 30,
+		margin: 6,
 	},
 	imageStyle: {
 		height: 90,
 		width: 90,
 		alignSelf: 'center',
-		marginTop: 5,
+		marginTop: 10,
 		borderRadius: 25
 	},
 	nameStyle: {
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
 	},
 	viewStyle: {
 		flex: 1,
-		width: 140
+		width: 160,
+		height: 160
 	},
 });
 

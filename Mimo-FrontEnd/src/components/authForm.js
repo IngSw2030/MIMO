@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, TextInput, StyleSheet, View } from 'react-native';
 
-const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText, tipo }) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [defaultCorreo, setDefaultCorreo] = useState("tucorreo@ejemplo.com");
-    const [defaultPassword, setDefaultPassword] = useState('••••••••••••');
+    var tipoUser;
+    tipo ? 
+        tipoUser = tipo
+    : tipoUser = 0;
 
     return (
         <>
@@ -18,8 +20,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
                     <>
                         <View style={styles.roundedContainerStyle}>
                             <TextInput
-                                placeholder="Tu nombre"
-                                placeholderTextColor="#000"
+                                placeholder='Tu nombre'
+                                placeholderTextColor="#5c5c5c"
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 style={styles.inputStyle}
@@ -29,8 +31,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
                         </View>
                         <View style={styles.roundedContainerStyle}>
                             <TextInput
-                                placeholder={defaultCorreo}
-                                placeholderTextColor="#000"
+                                placeholder="tucorreo@ejemplo.com"
+                                placeholderTextColor="#5c5c5c"
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 style={styles.inputStyle}
@@ -41,8 +43,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
                     </> :
                     <View style={styles.roundedContainerStyle}>
                         <TextInput
-                            placeholder={defaultCorreo}
-                            placeholderTextColor="#000"
+                            placeholder="tucorreo@ejemplo.com"
+                            placeholderTextColor="#5c5c5c"
                             autoCapitalize="none"
                             autoCorrect={false}
                             style={styles.inputStyle}
@@ -56,8 +58,8 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
             }
             <View style={styles.roundedContainerStyle}>
                 <TextInput
-                    placeholder={defaultPassword}
-                    placeholderTextColor="#000"
+                    placeholder='••••••••••••'
+                    placeholderTextColor="#5c5c5c"
                     autoCapitalize="none"
                     autoCorrect={false}
                     secureTextEntry={true}
@@ -72,7 +74,7 @@ const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.submitTextContainer}
-                    onPress={() => onSubmit({ email, name, password })}
+                    onPress={() => onSubmit({ email, name, password, tipoUser })}
                 >
                     <Text style={styles.buttonText}>{submitButtonText}</Text>
                 </TouchableOpacity>
