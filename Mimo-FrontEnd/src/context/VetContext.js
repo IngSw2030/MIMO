@@ -1,10 +1,12 @@
 import instance from '../api/mimo';
 import createDataContext from './createDataContext';
 
+//veterinarias: state.veterinarias.concat(action.payload)
+
 const veterinaryReducer = (state, action) => {
     switch (action.type) {
         case 'getAllVets':
-            return { ...state, veterinarias: state.veterinarias.concat(action.payload), initial: state.initial + 10 };
+            return { ...state, veterinarias: action.payload, initial: state.initial + 10 };
         case 'getMyVets':
             return { ...state, myVets: action.payload };
         case 'saveVet':
@@ -16,12 +18,12 @@ const veterinaryReducer = (state, action) => {
     }
 };
 
-const getAllVets = dispatch => async ({ initial, limit }) => {
-    console.log(initial);
-    console.log(limit);
+const getAllVets = dispatch => async ({ initial, limit, name }) => {
+    //console.log(initial);
+    //console.log(limit);
     try {
-        const response = await instance.post('api/Veterinary/Vets', { initial, limit });
-        //console.log(response.data.vets);
+        const response = await instance.post('api/Veterinary/Vets', { initial, limit, name });
+        console.log("llego la respuesta");
         dispatch({ type: 'getAllVets', payload: response.data.vets });
     } catch (err) {
         dispatch({ type: 'add_error', payload: err });

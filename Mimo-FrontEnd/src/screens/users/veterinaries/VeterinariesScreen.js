@@ -6,22 +6,15 @@ import VeterinaryList from '../../../components/veterinaryComponent'
 import { Context as VetContext } from '../../../context/VetContext';
 import SearchBar from '../../../components/searchBar';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useResults from '../../../hooks/useResultsVet';
 
 const VeterinariesScreen = () => {
     const { state, getAllVets } = useContext(VetContext);
-    //const results = state.veterinarias;
     const [term, setTerm] = useState('');
-    const [searchApi, results, errorMessage] = useResults();
 
     return (
         <View style={styles.body}>
             <View style={styles.searchBarStyle}>
-                <SearchBar
-                    term={term}
-                    onTermChange={(newTerm) => setTerm(newTerm)}
-                    onTermSubmit={() => searchApi(term)}
-                />
+                <SearchBar term={term} onTermChange={newTerm => setTerm(newTerm)} onTermSubmit={() => getAllVets({ name: term, pets: '' })} />
             </View>
             <FlatList
                 data={state.veterinarias}
@@ -30,7 +23,7 @@ const VeterinariesScreen = () => {
                     return <VeterinaryList veterinary={item} goTo={'VeterinaryProfile'} />;
                 }}
                 ListFooterComponent={
-                    <TouchableOpacity style={styles.botonCargar} onPress={() => getAllVets({ initial: state.initial, limit: 10 })}>
+                    <TouchableOpacity style={styles.botonCargar} onPress={() => { }/*getAllVets({ initial: state.initial, limit: 10 })*/}>
                         <Text style={{ textAlign: 'center', fontSize: 25 }}>Más resultados </Text>
                     </TouchableOpacity>
                 }

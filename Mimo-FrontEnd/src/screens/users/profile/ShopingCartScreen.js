@@ -7,21 +7,11 @@ import { Feather } from '@expo/vector-icons';
 import { withNavigation } from 'react-navigation';
 import { navigate } from '../../../navigationRef';
 
-const pagar = function (purchases) {
-	let acum = 0;
-	if (!purchases) {
-		return acum;
-	}
-	for (var i = 0; i < purchases.length; i++) {
-		acum += purchases[i].precioUn * purchases[i].unidades;
-	}
-
-	return acum;
-};
 const ShopingCartScreen = ({ navigation }) => {
-	const { state: cart, deleteCartItem, updateStatus } = useContext(ShoppingCartContext);
+	const { state: cart, deleteCartItem, updateStatus, updateLocal } = useContext(ShoppingCartContext);
 	const { addPurchase } = useContext(PurchaseContext);
 
+	//funcion para pasar los objetos del carrito a estado pendiente
 	const comprarPurchases = function () {
 		cart.forEach(element => {
 			updateStatus({ idPurchase: element.id, status: 'Pendiente' });
@@ -30,17 +20,23 @@ const ShopingCartScreen = ({ navigation }) => {
 		});
 	};
 
-	const [quantity, setQuantity] = useState(1);
+	//funcion para calcular el precio a pagar de todos los productos
+	const pagar = function (purchases) {
+		let acum = 0;
+		if (!purchases) {
+			return acum;
+		}
+		for (var i = 0; i < purchases.length; i++) {
+			acum += purchases[i].precioUn * purchases[i].unidades;
+		}
+
+		return acum;
+	};
 
 	const bPagar = pagar(cart);
 	const [aPagar, setAPagar] = useState(bPagar);
 
 	const mimoIcon = require('../../../../assets/mimo.png');
-	/* useEffect(() => {
-		cart.forEach(element => {
-			console.log(element.producto);
-		});
-	}, []); */
 
 	return (
 		<View style={styles.generalViewStyle}>
@@ -90,21 +86,22 @@ const ShopingCartScreen = ({ navigation }) => {
 									<View style={styles.amountStyle}>
 										<TouchableOpacity
 											onPress={() => {
-												setQuantity(quantity > 1 ? quantity - 1 : quantity);
-												setAPagar(aPagar - item.precioUn);
+												if (item.unidades > 1) {
+													updateStatus({ idPurchase: item.id, status: 'En carrito', unidades: (item.unidades - 1) });
+													updateLocal({ idPurchase: item.id, unidades: (item.unidades - 1) })
+
+													setAPagar(aPagar - item.precioUn)
+												}
 											}}
 										>
 											<Feather name='minus' size={35} color='black' />
 										</TouchableOpacity>
-										{quantity === 1 ? (
-											<Text style={{ fontSize: 30 }}> {item.unidades} </Text>
-										) : (
-												<Text style={{ fontSize: 30 }}> {quantity} </Text>
-											)}
+										<Text style={{ fontSize: 30 }}> {item.unidades} </Text>
 										<TouchableOpacity
 											onPress={() => {
-												setQuantity(quantity < 15 ? quantity + 1 : quantity);
-												setAPagar(aPagar + item.precioUn);
+												updateStatus({ idPurchase: item.id, status: 'En carrito', unidades: (item.unidades + 1) });
+												updateLocal({ idPurchase: item.id, unidades: (item.unidades + 1) })
+												setAPagar(aPagar + item.precioUn)
 											}}
 										>
 											<Feather name='plus' size={35} color='black' />
@@ -134,6 +131,7 @@ const ShopingCartScreen = ({ navigation }) => {
 					onPress={async () => {
 						navigation.navigate('HistoryScreen');
 						await comprarPurchases();
+						setAPagar(0);
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>

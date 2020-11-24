@@ -98,14 +98,16 @@ router.post('/myProducts', async (req, res) => {
 
 	try {
 		const products = await Product.find({
-			$and: [ 
-				{idUser: req.user._id},
-				{$or: [
-					{ name: { $regex: newName, $options: 'i' } },
-					{ description: { $regex: newName, $options: 'i' } },
-					{ pets: { $in: [newPets] } },
-				],}
-		]
+			$and: [
+				{ idUser: req.user._id },
+				{
+					$or: [
+						{ name: { $regex: newName, $options: 'i' } },
+						{ description: { $regex: newName, $options: 'i' } },
+						{ pets: { $in: [newPets] } },
+					],
+				}
+			]
 		}).limit(25);
 
 		res.send({ products });
@@ -129,7 +131,7 @@ router.post('/update', async (req, res) => {
 		newAvailable = available;
 
 		!photo ? (newPhoto = product.photo) : (newPhoto = photo);
-		
+
 		const newProduct = await Product.findOneAndUpdate(
 			{ _id: id },
 			{
@@ -141,7 +143,7 @@ router.post('/update', async (req, res) => {
 					photo: newPhoto,
 				},
 			},
-			{ useFindAndModify: false, new: true}
+			{ useFindAndModify: false, new: true }
 		);
 		res.send(newProduct);
 	} catch (err) {

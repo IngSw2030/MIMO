@@ -16,12 +16,12 @@ const app = express();
 
 connectDB();
 
-app.use(bodyParser.urlencoded({ 
+app.use(bodyParser.urlencoded({
 	parameterLimit: 100000,
-	limit: '50mb', 
-	extended: true 
+	limit: '30mb',
+	extended: true
 }));
-app.use(bodyParser.json({limit: '50mb' }));
+app.use(bodyParser.json({ limit: '30mb' }));
 //app.use(bodyParser.json({ limit: '20MB' }));
 
 // Init Middleware

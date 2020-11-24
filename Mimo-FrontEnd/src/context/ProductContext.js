@@ -17,7 +17,6 @@ const productReducer = (state, action) => {
 		case 'deleteProduct':
 			return { ...state, products: action.payload };
 		case 'updateProduct':
-			//return { ...state, product: action.payload };
 			return action.payload;
 		case 'get_products':
 			return {
@@ -35,7 +34,6 @@ const productReducer = (state, action) => {
 };
 
 const getProduct = dispatch => async ({ category, name, pets }) => {
-	console.log("ayuda");
 	try {
 		const response = await instance.post('api/Product/allProducts', {
 			name,

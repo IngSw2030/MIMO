@@ -32,11 +32,11 @@ const LoadingScreen = ({ navigation }) => {
 		const fetchData = async () => {
 			if (state.tipo === null) {
 				getUser();
+				getAllVets({ name: "" });
 				getProduct({ name: "", pets: '' });
 				getMyPurchases(); //Posible mejora: hacer solo una llamada de purchase y filtrar la lista aqui.
 				getMySells();
 				getMyShopingCart();
-				getAllVets({ initial: 0, limit: 20 });
 			} else {
 				state.tipo == false ?
 					navigation.navigate('HomePage')

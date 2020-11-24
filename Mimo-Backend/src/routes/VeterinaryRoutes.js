@@ -138,15 +138,13 @@ router.post('/Vets', async (req, res) => {
     const { name, description, animals, initial, limit } = req.body;
 
 
-    var inicial;
+    /*var inicial;
     initial == undefined ? inicial = 0 : inicial = initial;
     var limite;
-    limit == undefined ? limite = 10 : limite = limit;
+    limit == undefined ? limite = 10 : limite = limit;*/
 
-    console.log(inicial);
-
-    console.log(limite);
-
+    //console.log(inicial);
+    //console.log(limite);
 
     let newName, newAnimals, newDescription;
 
@@ -174,8 +172,10 @@ router.post('/Vets', async (req, res) => {
                     { description: { "$regex": newDescription, "$options": "i" } },
                     { animals: newAnimals }
                 ]
-        }));
+        })).limit(15);
+        console.log("Voy a enviar solicitud")
         res.send({ vets });
+        console.log("Voy a llegar solicitud")
     } catch (err) {
         res.status(422).send({ error: "No se ha podido publicar el producto" });
     }

@@ -247,17 +247,50 @@ router.post('/savePurchase', async (req, res) => {
 });
 
 router.post('/updateStatus', async (req, res) => {
-	const { idPurchase, status } = req.body;
+	const { idPurchase, status, unidades } = req.body;
 	try {
 		const purchase = await Purchase.findOneAndUpdate(
 			{ _id: idPurchase },
 			{
 				$set: {
 					status: status,
+					amount: unidades,
 				},
 			}
 		);
-		res.send({ purchase });
+
+		const purchasesRaw = await Purchase.find({ idUser: req.user._id, status: 'En carrito' });
+		var product;
+		var retailer;
+		var purchases = [];
+		for (let index = 0; index < purchasesRaw.length; index++) {
+			product = await Product.findById(purchasesRaw[index].idProduct);
+			if (product !== null) {
+				retailer = await User.findById(product.idUser);
+				if (retailer === null) {
+					nombreVendedor = 'EsteMan';
+					numeroVendedor = '305111111';
+				} else {
+					nombreVendedor = retailer.retailName;
+					numeroVendedor = retailer.phone;
+				}
+				purchases.push({
+					producto: product.name,
+					foto: product.photo,
+					unidades: purchasesRaw[index].amount,
+					precioUn: product.price,
+					precio: product.price * purchasesRaw[index].amount,
+					vendedor: nombreVendedor,
+					numero: numeroVendedor,
+					id: purchasesRaw[index]._id,
+					status: purchasesRaw[index].status,
+				});
+			}
+		}
+
+
+
+		res.send({ purchases });
 	} catch (error) {
 		res.status(422).send({ error: 'No se ha podido actualizar el estado de la compra' });
 	}

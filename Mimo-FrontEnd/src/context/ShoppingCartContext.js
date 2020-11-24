@@ -11,7 +11,11 @@ const userReducer = (state, action) => {
 		case 'addItem':
 			return [...state, action.payload];
 		case 'clear_cart':
-			return [];
+			return action.payload;
+		case 'update_local':
+			const found = state.findIndex(element => element._id = action.payload.idPurchase)
+			state[found].unidades = action.payload.unidades;
+			return [...state]
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
 	}
@@ -41,10 +45,22 @@ const deleteCartItem = dispatch => async ({ idPurchase }) => {
 		console.log('Error en deleteCartItem', error);
 	}
 };
-const updateStatus = dispatch => async ({ idPurchase, status }) => {
+const updateStatus = dispatch => async ({ idPurchase, status, unidades }) => {
 	try {
-		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status });
-		dispatch({ type: 'clear_cart' });
+		const response = await instance.post('/api/Purchase/updateStatus', { idPurchase, status, unidades });
+		dispatch({ type: 'clear_cart', payload: response.data.purchases });
+	} catch (error) {
+		console.log('Error updateStatus', err);
+	}
+};
+
+const updateLocal = dispatch => async ({ idPurchase, unidades }) => {
+	try {
+		const response = {
+			idPurchase,
+			unidades
+		}
+		dispatch({ type: 'update_local', payload: response });
 	} catch (error) {
 		console.log('Error updateStatus', err);
 	}
@@ -52,6 +68,6 @@ const updateStatus = dispatch => async ({ idPurchase, status }) => {
 
 export const { Provider, Context } = createDataContext(
 	userReducer,
-	{ getMyShopingCart, deleteCartItem, addToCart, updateStatus },
+	{ getMyShopingCart, deleteCartItem, addToCart, updateStatus, updateLocal },
 	[]
 );
