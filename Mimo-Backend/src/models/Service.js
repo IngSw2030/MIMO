@@ -6,7 +6,11 @@ const ServiceSchema = new mongoose.Schema({
 		required: true,
 		enum: ['Paseos', 'Cuidador', 'Limpieza de Peceras', 'Estilista'],
 	},
-	price: {
+	priceMax: {
+		type: Number,
+		required: true,
+	},
+	priceMin: {
 		type: Number,
 		required: true,
 	},
@@ -27,6 +31,11 @@ const ServiceSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	avgScore: {
+        type: Number,
+        required: true,
+        default: 0
+    },
 	idUser: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User',

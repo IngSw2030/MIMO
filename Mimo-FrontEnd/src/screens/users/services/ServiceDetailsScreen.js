@@ -9,8 +9,9 @@ const ServiceDetailsScreen = (props) => {
     const precioMax = props.navigation.getParam('precioMax');
     const precioMin = props.navigation.getParam('precioMin');
     const descripcion = props.navigation.getParam('descripcion');
-    const foto = props.navigation.getParam('foto');
-
+    const foto = props.navigation.getParam('photo');
+    const nombre = props.navigation.getParam('nombre');
+    const id = props.navigation.getParam('id');
     return(
         <ServiceDetails 
             data = {data}
@@ -19,6 +20,8 @@ const ServiceDetailsScreen = (props) => {
             precioMax = {precioMax}
             precioMin = {precioMin}
             photo = {foto}
+            id = {id}
+            name = {nombre}
         />
     )
 }

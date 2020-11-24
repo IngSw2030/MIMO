@@ -58,12 +58,13 @@ const filterService = dispatch =>async({category})=>{
         dispatch({ type: 'add_error' })
     }
 };
-const saveService =dispatch=> async ({category, name, description, photo, price})=>  {
+const saveService =dispatch=> async ({category, name, description, photo, priceMax, priceMin})=>  {
     try{
         const response = await instance.post('/api/Service/save',{
             category, 
             name, 
-            price,
+            priceMax,
+            priceMin,
             description, 
             photo, 
         });
@@ -95,6 +96,9 @@ const deleteService = dispatch => async({id})=>{
         dispatch({ type: 'add_error' });
     }
 }
+
+
+
 export const { Context, Provider } = createDataContext(
     serviceReducer, 
     { saveService, filterService, updateService, deleteService }, 

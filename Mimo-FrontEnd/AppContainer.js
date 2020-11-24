@@ -126,6 +126,7 @@ const UserHomeNavigation = createStackNavigator(
 		ServiceDetails: ServiceDetailsScreen,
 		ShopingCart: ShopingCartScreen,
 		Reviews: ReviewScreen,
+		
 		//Pantalla Posts y Comentarios
 		Post: PostScreen,
 		AddPost: AddPostScreen,
