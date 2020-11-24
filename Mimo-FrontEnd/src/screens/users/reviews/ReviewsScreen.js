@@ -7,9 +7,10 @@ import { Context as ReviewContext } from '../../../context/ReviewContext';
 import { Feather } from '@expo/vector-icons';
 
 const ReviewsScreen = ({ navigation }) => {
+    const tipo = navigation.getParam('tipo');
     const calificacion = navigation.getParam('calificacion');
     const id = navigation.getParam('id');
-    const { state, getVetReviews, addVetReview } = useContext(ReviewContext);
+    const { state, getVetReviews, addVetReview, getServiceReviews, addServiceReview} = useContext(ReviewContext);
     const mimo = require('../../../../assets/mimo.png')
 
     //estrellitas
@@ -23,7 +24,9 @@ const ReviewsScreen = ({ navigation }) => {
     }
 
     useEffect(() => {
-        getVetReviews({ idVet: id });
+        !tipo ?
+            getVetReviews({ idVet: id })
+        : getServiceReviews({ idService: id })
     }, [])
 
     return (
@@ -77,7 +80,9 @@ const ReviewsScreen = ({ navigation }) => {
                             <TouchableOpacity
                                 style={styles.enviarReview}
                                 onPress={() => {
-                                    addVetReview({ comment: comentario, score: miCalificacion, idVet: id })
+                                    !tipo ?
+                                        addVetReview({ comment: comentario, score: miCalificacion, idVet: id })
+                                    : addServiceReview({ comment: comentario, score: miCalificacion, idService: id });
                                     setEscribirComentario(0);
                                 }}
                             >

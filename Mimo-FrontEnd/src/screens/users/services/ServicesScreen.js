@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import useSearch from '../../../hooks/useResultsServices';
@@ -8,7 +8,7 @@ const ServicesScreen = ({ navigation }) => {
 	const mimoEstilista = require('../../../../assets/mimoEstilista.png');
 	const aquariumCleanerText = 'Limpieza de pecera';
 	const petWalkerText = 'Paseos';
-	const groomingText = 'Estilista';
+	const groomingText = 'Estilistas';
 	const petSittingText = 'Cuidadores';
 	const [searchApi, results, cuidadores, paseadores, estilistas, limpiadores, errorMessage] = useSearch();
 
@@ -23,23 +23,39 @@ const ServicesScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.parteInferior}>
 				<View style={styles.generalView}>
-					<TouchableOpacity style={styles.aquariumStyle} onPress={() => navigation.navigate('AquariumCleaner', { screenTitle: aquariumCleanerText })}>
+					<TouchableOpacity style={styles.aquariumStyle} onPress={() => 
+						navigation.navigate('AquariumCleaner', { 
+							screenTitle: aquariumCleanerText, 
+							datos: limpiadores
+						})}>
 						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
 						<Text style={styles.buttonNameStyle}>{aquariumCleanerText}</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={styles.walkerStyle} onPress={() => navigation.navigate('PetWalker', { screenTitle: petWalkerText })}>
+					<TouchableOpacity style={styles.walkerStyle} onPress={() => 
+						navigation.navigate('PetWalker', { 
+							screenTitle: petWalkerText, 
+							datos: paseadores 
+						})}>
 						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
 						<Text style={styles.buttonNameStyle}>{petWalkerText}</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.generalView}>
-					<TouchableOpacity style={styles.groomingStyle} onPress={() => navigation.navigate('Grooming', { screenTitle: groomingText })}>
+					<TouchableOpacity style={styles.groomingStyle} onPress={() => 
+						navigation.navigate('Grooming', { 
+							screenTitle: groomingText, 
+							datos: estilistas  
+						})}>
 						<Image style={{ height: 125, width: 90, alignSelf: 'center' }} source={mimoEstilista} />
 						<Text style={styles.buttonNameStyle}>{groomingText}</Text>
 					</TouchableOpacity>
 
-					<TouchableOpacity style={styles.sittingStyle} onPress={() => navigation.navigate('PetSitting', { screenTitle: petSittingText })}>
+					<TouchableOpacity style={styles.sittingStyle} onPress={() => 
+						navigation.navigate('PetSitting', { 
+							screenTitle: petSittingText, 
+							datos: cuidadores 
+						})}>
 						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
 						<Text style={styles.buttonNameStyle}>{petSittingText}</Text>
 					</TouchableOpacity>

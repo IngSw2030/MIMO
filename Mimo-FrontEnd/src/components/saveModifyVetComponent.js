@@ -29,7 +29,7 @@ const SaveModifyVetComponent = (props) => {
     const [photo, setPhoto] = useState(data.photo);
     const [address, setAddress] = useState(data.address);
     const [description, setDescription] = useState(data.description);
-    const [contact, setContact] = useState(data.contact)
+    const [contact, setContact] = useState(data.contact.toString());
 
     const [buscarImagen] = uploadPhoto();
 
@@ -45,8 +45,7 @@ const SaveModifyVetComponent = (props) => {
 		//setShowOpen(Platform.OS === 'ios');
 		setOpenAt(currentDate);
 		//setTimeout(function(){
-			setShowOpen(false);
-			setSelectOpen(false);
+			setSelectOpen(!selectOpen);
 		//}, 3000);
 	};
 
@@ -128,13 +127,13 @@ const SaveModifyVetComponent = (props) => {
 			<TouchableOpacity style = {styles.inputContainer} 
 				onPress={() => {
 					setSelectOpen(!selectOpen);
-					setShowOpen(!showOpen)
 				}}
 			>
 				{
 					selectOpen ?
 						<View>
-							{showOpen && (
+							<Text>
+							(
 								<DateTimePicker
 								testID="dateTimePicker"
 								value={openAt}
@@ -143,9 +142,9 @@ const SaveModifyVetComponent = (props) => {
 								display="clock"
 								onChange={onChangeOpen}
 								/>
-							)}
+							)</Text>
 						</View>
-					: <Text style={styles.inputContainerText}> {(placeOpen.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
+					: <Text style={styles.inputContainerText}> {(openAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
 				}
 			</TouchableOpacity>
 
@@ -170,7 +169,7 @@ const SaveModifyVetComponent = (props) => {
 							/>
 						)}
 						</View>
-					: <Text style={styles.inputContainerText}> {(placeClose.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
+					: <Text style={styles.inputContainerText}> {(closeAt.toLocaleString("en-GB", {timeZone: "America/Bogota"})).slice(11,16)}</Text>
 				}
 			</TouchableOpacity>
 

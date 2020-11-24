@@ -34,12 +34,17 @@ const addVetReview = dispatch => async ({ comment, score, idVet }) => {
     }
 };
 
-const addServiceReview = dispatch => async ({ comment, score, idVet }) => {
+const addServiceReview = dispatch => async ({ comment, score, idService }) => {
     try {
+        
         const response = await instance.post('/api/Review/saveServiceReview', {
             score,
             comment,
-            idVet,
+            idService,
+        });
+        const response2 = await instance.post('/api/Service/updateAvgScore', {
+            score,
+            id: idService
         });
         dispatch({ type: 'addServiceReview', payload: response.data });
     } catch (error) {

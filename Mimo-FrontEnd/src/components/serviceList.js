@@ -21,7 +21,7 @@ const serviceList = (props) => {
                         data: 'servicio',
                         calificacion: servicio.avgScore,
                         precioMax: servicio.priceMax,
-                        precioMin: servicio.priceMax,
+                        precioMin: servicio.priceMin,
                         descripcion: servicio.description,
                         foto: servicio.photo
                     }

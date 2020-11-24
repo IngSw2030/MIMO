@@ -11,7 +11,8 @@ const ComAddServiceScreen = ({ navigation }) => {
 
 	const categoria = navigation.getParam('categoria');
 	const [nombre, setNombre] = useState('');
-	const [precio, setPrecio] = useState('');
+	const [precioMax, setPrecioMax] = useState('');
+	const [precioMin, setPrecioMin] = useState('');
 	const [descripcion, setDescripcion] = useState('');
 	const [foto, setFoto] = useState('');
 
@@ -39,6 +40,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
+					
 					placeholder='Nombre'
 					placeholderTextColor='#000'
 					autoCapitalize='none'
@@ -50,13 +52,26 @@ const ComAddServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
-					placeholder='Precio'
+					keyboardType = {'numeric'}
+					placeholder='Precio Minimo' 
 					placeholderTextColor='#000'
 					autoCapitalize='none'
 					autoCorrect={false}
 					style={styles.inputStyle}
-					value={precio}
-					onChangeText={newPrecio => setPrecio(newPrecio)}
+					value={precioMin}
+					onChangeText={newPrecioMin => setPrecioMin(newPrecioMin)}
+				/>
+			</View>
+			<View style={styles.roundedContainerStyle}>
+				<TextInput
+					keyboardType = {'numeric'}
+					placeholder='Precio Máximo'
+					placeholderTextColor='#000'
+					autoCapitalize='none'
+					autoCorrect={false}
+					style={styles.inputStyle}
+					value={precioMax}
+					onChangeText={newPrecioMax => setPrecioMax(newPrecioMax)}
 				/>
 			</View>
 			<View style={styles.roundedContainerStyle}>
@@ -76,11 +91,13 @@ const ComAddServiceScreen = ({ navigation }) => {
 					<TouchableOpacity
 						style={styles.buttom}
 						onPress={() => {
-							const numberPrice = precio * 1;
+							const numberPriceMin = precioMin * 1;
+							const numberPriceMax = precioMax * 1;
 							saveService({
 								category: categoria,
 								name: nombre,
-								price: numberPrice,
+								priceMin: numberPriceMin,
+								priceMax: numberPriceMax,
 								photo: foto,
 								description: descripcion,
 							});

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { withNavigation } from 'react-navigation';
-import ServiceList from '../../../components/serviceList';
+import ServiceComponent from '../../../components/serviceComponent';
 import WideListComponent from '../../../components/wideListComponent';
 import { Context as ServiceContext } from '../../../context/ServiceContext';
 
@@ -19,7 +19,7 @@ const GroomingScreen = screenProps => {
 				data={servicios}
 				keyExtractor={item => item._id}
 				renderItem={({ item }) => {
-					return <ServiceList service={item} />;
+					return <ServiceComponent service={item} />;
 				}}
 			/>
 		</View>
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
 		backgroundColor: '#88CCF2',
 	},
 	headerStyle: {
-		marginTop: '3.5%',
-		marginLeft: '2.5%',
-		fontSize: 32,
+		marginTop: '4%',
+		marginLeft: '4%',
+		fontSize: 36,
 		fontWeight: 'bold',
 	},
 	generalStyle: {

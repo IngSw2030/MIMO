@@ -10,13 +10,14 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
-	const { category, name, price, photo, description } = req.body;
+	const { category, name, priceMax, priceMin, photo, description } = req.body;
 	console.log('Entra');
 	try {
 		const service = new Service({
 			category,
 			name,
-			price,
+			priceMax,
+			priceMin,
 			photo,
 			description,
 			idUser: req.user._id,
@@ -35,7 +36,6 @@ router.post('/updateAvgScore', async (req, res) => {
 			score,
 			id
 		} = req.body;
-		console.log(id);
 		const services = await Service.findOne({ _id: id });
 
 		let antiguoScore = services.avgScore;
@@ -157,42 +157,6 @@ router.post('/myServices', async (req, res) => {
 	} catch (err) {
 		console.log('Error myServices');
 		res.status(422).send({ error: 'No se han encontrado productos' });
-	}
-});
-router.post('/update', async (req, res) => {
-	try {
-		const { name, price, photo, description, id } = req.body;
-
-		const service = await Service.findOne({ _id: id });
-
-		let newName, newPrice, newDescription, newPhoto, newAvailable;
-
-		!name ? (newName = service.name) : (newName = name);
-
-		!price ? (newPriceMin = service.price) : (newPrice = price);
-
-		!description ? (newDescription = service.description) : (newDescription = description);
-
-		!photo ? (newPhoto = service.photo) : (newPhoto = photo);
-
-		newAvailable = service.available;
-
-		await Service.findOneAndUpdate(
-			{ _id: id },
-			{
-				$set: {
-					name: newName,
-					price: newPrice,
-					description: newDescription,
-					photo: newPhoto,
-					available: newAvailable,
-				},
-			},
-			{ useFindAndModify: false }
-		);
-		res.send('Modificado satisfactoriamente');
-	} catch (err) {
-		return res.status(422).send({ error: 'Error al modificar' });
 	}
 });
 

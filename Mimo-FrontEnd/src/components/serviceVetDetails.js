@@ -12,13 +12,12 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
 
     const ratingIcon = require('../../assets/rating.png');
     const tipo = (data);
-    const estrellas = insertarEstrellas(calificacion);
     const mimoIcon = require('../../assets/mimo.png');
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
 
     return (
-        <View style={{ backgroundColor: '#FFF7BB' }}>
-            <ScrollView style={{ margin: '2.5%' }}>
+        <View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
+            <ScrollView style={{ marginHorizontal: '3%', marginVertical: '6%' }}>
                 {
                     !photo
                         ?
@@ -32,7 +31,7 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
 
                 {
                     data == 'servicio' ?
-                        <Text style={styles.titleStyle}>Precio: {" "} {precioMin} - {precioMax}</Text>
+                        <Text style={styles.titleStyle}>Precio: {" "} ${precioMin} - ${precioMax}</Text>
                         : <Text style={styles.titleStyle}>Horario: {" "}
                             {(openat.toLocaleString("en-GB", { timeZone: "America/Bogota" })).slice(11, 16)} -
                         {(closeat.toLocaleString("en-GB", { timeZone: "America/Bogota" })).slice(11, 16)}
@@ -56,7 +55,13 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
                 <View style={{ flexDirection: 'column', alignItems: 'center', flex: 1, justifyContent: 'center' }}>
                     <TouchableOpacity
                         onPress={() =>
-                            navigate('Reviews', {
+                            data == 'servicio' ?
+                                navigate('Reviews', {
+                                    id: id,
+                                    calificacion: calificacion,
+                                    tipo: 'service'
+                                })
+                            :navigate('Reviews', {
                                 id: id,
                                 calificacion: calificacion
                             })
@@ -78,16 +83,6 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
     )
 }
 
-const insertarEstrellas = (cantidad) => {
-    if (cantidad > 0) {
-        const estrellas = [...insertarEstrellas(cantidad - 1), { cantidad }];
-        return estrellas;
-    }
-    else {
-        const estrellas = [];
-        return estrellas;
-    }
-}
 const styles = StyleSheet.create({
     contactar: {
         backgroundColor: '#B0EFEF',
