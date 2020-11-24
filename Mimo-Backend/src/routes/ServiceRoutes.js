@@ -4,6 +4,7 @@ const requireAuth = require('../middlewares/requireAuth');
 
 const Service = mongoose.model('Service');
 const User = mongoose.model('User');
+const Review = mongoose.model('Review');
 
 const router = express.Router();
 
