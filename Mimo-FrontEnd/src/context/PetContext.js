@@ -4,6 +4,7 @@ import instance from '../api/mimo';
 const userReducer = (state, action) => {
 	switch (action.type) {
 		case 'savePet':
+			state.pets.push(action.payload.pet)
 			return { ...state, pet: action.payload.pet };
 		case 'getMyPets':
 			return { ...state, pets: action.payload.pets };
@@ -11,8 +12,12 @@ const userReducer = (state, action) => {
 			return { ...state, photo: action.payload.photo };
 		case 'updateName':
 			return { ...state, name: action.payload.name };
+		case 'deletePet':
+			var newPets = state.pets.filter(item => item._id != action.payload.id)
+			return { ...state, pets: newPets };
 		case 'add_error':
 			return { ...state, errorMessage: action.payload };
+
 	}
 };
 
@@ -28,8 +33,8 @@ const getMyPets = dispatch => async () => {
 
 const savePet = dispatch => async ({ name, age, gender, species, photo }) => {
 	try {
-		const response = instance.post('/api/Pet/save', { name, age, gender, species, photo });
-		dispatch({ type: 'savePet', payload: response.data.pet });
+		const response = await instance.post('/api/Pet/save', { name, age, gender, species, photo });
+		dispatch({ type: 'savePet', payload: response.data });
 	} catch (error) {
 		dispatch({ type: 'add_error' });
 	}
@@ -50,9 +55,13 @@ const updateName = dispatch => async ({ name, id }) => {
 		dispatch({ type: 'add_error' });
 	}
 };
-const deletePet = () => async ({ id }) => {
-	await instance.get('/api/Pet/delete', { id });
-	navigate(loginFlow);
+const deletePet = dispatch => async ({ id }) => {
+	try {
+		instance.post('/api/Pet/delete', { id });
+		dispatch({ type: 'deletePet', payload: { id } })
+	} catch (error) {
+		dispatch({ type: 'add_error', payload: error });
+	}
 };
 
 export const { Provider, Context } = createDataContext(
