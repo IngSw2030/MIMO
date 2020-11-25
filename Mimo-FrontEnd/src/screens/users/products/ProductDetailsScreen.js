@@ -12,8 +12,8 @@ const ProductDetailsScreen = ({ navigation }) => {
 	const [totalAmount, setTotalAmount] = useState(0);
 	const { state: cart, addToCart } = useContext(ShoppingCartContext);
 	const product = navigation.getParam('product');
-	console.log(product);
-	console.log(product.price);
+	//console.log(product);
+	//console.log(product.price);
 	const price = usePrice(product.price);
 
 	useEffect(() => {
