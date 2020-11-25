@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
 		height: 150,
 		width: 150,
 		alignSelf: 'center',
-		marginTop: 50,
+		marginTop: 40,
 	},
 	titleStyle: {
-		fontSize: 20,
+		fontSize: 36,
 		fontWeight: 'bold',
 		marginBottom: 5,
 		marginLeft: 10,
@@ -95,21 +95,22 @@ const styles = StyleSheet.create({
 	},
 	addServiceStyle: {
 		flexDirection: 'row',
+		marginBottom: 5
 	},
 	pickerStyle: {
-		backgroundColor: '#88CCF2',
+		backgroundColor: '#E8916C',
 		marginRight: 10,
 		marginHorizontal: 10,
-		borderRadius: 10,
+		borderRadius: 25,
 		flexGrow: 1,
 	},
 	addButtonStyle: {
-		backgroundColor: '#88CCF2',
-		height: 40,
-		width: 40,
+		backgroundColor: '#B0EFEF',
+		height: 50,
+		width: 50,
 		justifyContent: 'center',
 		marginRight: 10,
-		borderRadius: 5,
+		borderRadius: 25,
 		alignSelf: 'center',
 	},
 });

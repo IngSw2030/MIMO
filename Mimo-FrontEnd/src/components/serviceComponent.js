@@ -19,7 +19,8 @@ const ServiceComponent = props => {
                 style={styles.componente}
 				onPress={() =>
 					
-                    navigate('ServiceDetails', {
+                    navigate(pantalla, {
+                        service: service,
 						data: 'servicio',
 						calificacion: service.avgScore,
 						descripcion: service.description,

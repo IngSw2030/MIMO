@@ -61,11 +61,12 @@ const ComProductDetailsScreen = ({ navigation }) => {
         pageStyle: {
             flex: 1,
             flexDirection: 'column',
-            backgroundColor: '#EDDF98',
+            backgroundColor: '#FFF7BB',
         },
         titleStyle: {
             fontSize: 30,
-            alignSelf: 'center',
+            marginVertical: 5,
+            fontWeight: 'bold'
         },
         imageStyle: {
             marginTop: 50,
@@ -87,25 +88,26 @@ const ComProductDetailsScreen = ({ navigation }) => {
             alignSelf:"center"
         },
         eraseStyle:{
-            height: 40,
+            height: 50,
             width: 150,
             backgroundColor: '#E8778B',
-            borderRadius: 15,
+            borderRadius: 25,
             marginRight: 20,
             flexDirection: "row",
+            justifyContent: 'center'
         },
         editStyle:{
-            height: 40,
+            height: 50,
             width: 150,
             backgroundColor: '#B8DC7D',
-            borderRadius: 15,
+            borderRadius: 25,
             marginRight: 20,
             flexDirection: "row",
+            justifyContent: 'center'
         },
         buttonText:{
             fontSize: 20,
             alignSelf: "center",
-            marginLeft: 15,
             fontWeight:"600"
 
         }
