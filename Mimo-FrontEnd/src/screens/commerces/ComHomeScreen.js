@@ -20,6 +20,7 @@ const ComHomeScreen = ({ navigation }) => {
 	const { state } = useContext(UserContext);
 	const { getUser } = useContext(UserContext);
 
+
 	return (
 		<View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
 			<View style={styles.parteSuperior}>

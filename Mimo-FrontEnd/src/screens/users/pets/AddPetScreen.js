@@ -17,13 +17,32 @@ const AddPetScreen = ({ navigation }) => {
 	const [imagenA, setImage] = useState();
 	const [estado, setEstado] = useState(false);
 
+	const aracnido = require( '../../../../assets/aracnido.png');
+    const ave = require( '../../../../assets/ave.png');
+    const caracol = require( '../../../../assets/caracol.png');
+    const crustaceo = require( '../../../../assets/crustaceo.png');
+    const hamster = require( '../../../../assets/hamster.png');
+    const serpiente = require( '../../../../assets/serpiente.png');
+    const tortuga = require( '../../../../assets/tortuga.png');
+    const perro = require( '../../../../assets/perro.png');
+    const gato = require( '../../../../assets/gato.png');
+    const pez = require( '../../../../assets/pez.png');
+    const conejo = require( '../../../../assets/conejo.png');
+
 	const [type, setType] = useState('');
 	const [escogerImagen] = uploadPhoto();
 	const buttons = [
-		{ name: 'dog', size: 80, color: 'black', type: 'Perro', petColor: '#9FCAE2' },
-		{ name: 'cat', size: 80, color: 'black', type: 'Gato', petColor: '#BCDB89' },
-		{ name: 'fish', size: 80, color: 'black', type: 'Pez', petColor: '#FFAFB6' },
-		{ name: 'rabbit', size: 80, color: 'black', type: 'Conejo', petColor: '#E8916C' }
+		{ name: 'dog',source: perro, style:{height: 70, width: 70, alignSelf: 'center'} , type: 'perro', petColor: '#9FCAE2' },
+		{ name: 'cat', source: gato, style:{height: 70, width: 70, alignSelf: 'center'}, type: 'gato', petColor: '#BCDB89' },
+		{ name: 'fish', source: pez, style:{height: 70, width: 70, alignSelf: 'center'}, type: 'pez', petColor: '#FFAFB6' },
+		{ name: 'rabbit', source: conejo,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'conejo', petColor: '#E8916C' },
+		{ name: 'hamster', source: hamster,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'hamster', petColor: '#9FCAE2'},
+		{ name: 'spider',source: aracnido,style:{height: 70, width: 70, alignSelf: 'center'} , type: 'aracnido', petColor: '#BCDB89' },
+		{ name: 'bird', source: ave,style:{height: 70, width: 70, alignSelf: 'center'},  type: 'ave', petColor: '#FFAFB6' },
+		{ name: 'snail', source: caracol,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'caracol', petColor: '#E8916C' },
+		{ name: 'crab', source: crustaceo,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'crustaceo', petColor: '#9FCAE2' },
+		{ name: 'snake', source: serpiente,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'serpiente', petColor: '#BCDB89'  },
+		{ name: 'turtle', source: tortuga,style:{height: 70, width: 70, alignSelf: 'center'}, type: 'tortuga', petColor: '#FFAFB6' }
 	];
 	let imagen = imagenA;
 
@@ -43,7 +62,7 @@ const AddPetScreen = ({ navigation }) => {
 					renderItem={({ item }) => {
 						return (
 							<TouchableOpacity style={{ backgroundColor: item.petColor, borderRadius: 50, margin: 10, marginTop: 5 }} onPress={() => setType(item.type)}>
-								<MaterialCommunityIcons name={item.name} size={item.size} color={item.color} />
+								<Image source={item.source} style = {item.style}/>
 							</TouchableOpacity>
 						);
 					}
