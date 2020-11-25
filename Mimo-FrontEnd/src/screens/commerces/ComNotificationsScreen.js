@@ -86,7 +86,7 @@ const ComNotificationsScreen = ({ navigation }) => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column' }}>
+		<View style={{ flex: 1, backgroundColor: '#FFF7BB', flexDirection: 'column' }}>
 			<Text style={styles.title}>Tus Ventas {' '}</Text>
 			<View style={styles.selectorContainerStyle}>
 				<TouchableOpacity

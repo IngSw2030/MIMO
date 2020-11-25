@@ -21,7 +21,7 @@ const ComHomeScreen = ({ navigation }) => {
     const foodText = 'Post';
     const dispatch = useDispatch();
     const { state: purchases, getMySells } = useContext(PurchaseContext);
-    const { state: user } = useContext(UserContext);
+    const { state } = useContext(UserContext);
     const { getUser } = useContext(UserContext);
 
 	return (

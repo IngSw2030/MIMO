@@ -5,7 +5,6 @@ import { TextInput } from 'react-native-gesture-handler';
 import { withNavigation } from 'react-navigation';
 import uploadPhoto from '../../../hooks/uploadPhoto';
 import { Entypo } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddPostScreen = ({ navigation }) => {
 	const { savePost, myPosts } = useContext(PostContext);
@@ -14,6 +13,18 @@ const AddPostScreen = ({ navigation }) => {
 	const [tags, setTags] = useState(['']);
 	const [foto, setFoto] = useState('')
 	const [buscarImagen] = uploadPhoto();
+	
+	const aracnido = require( '../../../../assets/aracnido.png');
+    const ave = require( '../../../../assets/ave.png');
+    const caracol = require( '../../../../assets/caracol.png');
+    const crustaceo = require( '../../../../assets/crustaceo.png');
+    const hamster = require( '../../../../assets/hamster.png');
+    const serpiente = require( '../../../../assets/serpiente.png');
+    const tortuga = require( '../../../../assets/tortuga.png');
+    const perro = require( '../../../../assets/perro.png');
+    const gato = require( '../../../../assets/gato.png');
+    const pez = require( '../../../../assets/pez.png');
+    const conejo = require( '../../../../assets/conejo.png');
 
 	return (
 		<ScrollView style={styles.general}>
@@ -53,18 +64,42 @@ const AddPostScreen = ({ navigation }) => {
 				/>
 			</View>
 			<View style={styles.selectType}>
-				<TouchableOpacity style={styles.typeDog} onPress={() => setTags([...tags,'perro'])}>
-					<MaterialCommunityIcons name='dog' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.typeCat} onPress={() => setTags([...tags,'gato'])}>
-					<MaterialCommunityIcons name='cat' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.typeFish} onPress={() => setTags([...tags,'pez'])}>
-					<MaterialCommunityIcons name='fish' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.typeRabbit} onPress={() => setTags([...tags,'conejo'])}>
-					<MaterialCommunityIcons name='rabbit' size={50} color='black' />
-				</TouchableOpacity>
+				<ScrollView horizontal = {true}>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setTags([...tags,'perro'])}>
+						<Image source={perro} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setTags([...tags,'gato'])}>
+						<Image source={gato} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setTags([...tags,'pez'])}>
+						<Image source={pez} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setTags([...tags,'conejo'])}>
+						<Image source={conejo} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setTags([...tags,'hamster'])}>
+						<Image source={hamster} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setTags([...tags,'aracnido'])}>
+						<Image source={aracnido} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setTags([...tags,'ave'])}>
+						<Image source={ave} style={{alignSelf: 'center', height: 65, width: 65}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setTags([...tags,'caracol'])}>
+						<Image source={caracol} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setTags([...tags,'crustaceo'])}>
+						<Image source={crustaceo} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setTags([...tags,'serpiente'])}>
+						<Image source={serpiente} style={{alignSelf: 'center', height: 70, width: 70}} />
+					</TouchableOpacity>
+					<TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setTags([...tags,'tortuga'])}>
+						<Image source={tortuga} style={{alignSelf: 'center', height: 60, width: 60}} />
+					</TouchableOpacity>
+                    
+                </ScrollView>
 			</View>
 			<View style={styles.finishButtons}>
 				<TouchableOpacity
@@ -154,42 +189,14 @@ const styles = StyleSheet.create({
 	phStyle: {
         alignSelf: 'center'
 	},
-	typeDog: {
+	type: {
 		backgroundColor: '#9FCAE2',
-		borderRadius: 30,
-		height: 60,
-		width: 60,
-		margin: 15,
-		marginBottom: '5%',
-		alignItems: 'center'
+		borderRadius: 35,
+		height: 70,
+		width: 70,
+		alignSelf: 'center',
+		margin: 5
 	},
-	typeCat: {
-		backgroundColor: '#BCDB89',
-		borderRadius: 30,
-		height: 60,
-		width: 60,
-		margin: 15,
-		marginBottom: '5%',
-		alignItems: 'center'
-	},
-	typeFish: {
-		backgroundColor: '#FFAFB6',
-		borderRadius: 30,
-		height: 60,
-		width: 60,
-		margin: 15,
-		marginBottom: '5%',
-		alignItems: 'center'
-	},
-	typeRabbit: {
-		backgroundColor: '#E8916C',
-		borderRadius: 30,
-		height: 60,
-		width: 60,
-		margin: 15,
-		marginBottom: '5%',
-		alignItems: 'center'
-    },
     selectType: {
 		alignSelf: 'center',
 		flexDirection: 'row',

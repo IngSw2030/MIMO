@@ -74,7 +74,7 @@ const ProductScreen = ({ navigation }) => {
 							>
 								<Image source={pez} style={{alignSelf: 'center', height: 70, width: 70}} />
 							</TouchableOpacity>
-							<Text style={styles.textoBotonAnimal}>Pescado</Text>
+							<Text style={styles.textoBotonAnimal}>Pez</Text>
 						</View>
 						<View>
 							<TouchableOpacity
@@ -229,6 +229,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
+		margin: 5,
 		backgroundColor: '#9FCAE2',
 	},
 	botonGato: {
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
+		margin: 5,
 		backgroundColor: '#BCDB89',
 	},
 	botonPez: {
@@ -243,6 +245,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
+		margin: 5,
 		backgroundColor: '#FF9AA2',
 	},
 	botonConejo: {
@@ -250,6 +253,7 @@ const styles = StyleSheet.create({
 		borderColor: 'black',
 		borderWidth: 0,
 		padding: 10,
+		margin: 5,
 		backgroundColor: '#E8916C',
 	},
 	botonesAnimales: {
