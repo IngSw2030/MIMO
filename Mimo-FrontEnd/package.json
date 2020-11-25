@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@react-native-community/cli": "^4.10.1",
-    "@react-native-community/datetimepicker": "3.0.0",
+    "@react-native-community/datetimepicker": "^3.0.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.5.2",
     "@react-navigation/drawer": "^5.10.0",
@@ -20,6 +20,7 @@
     "expo-cli": "^3.25.1",
     "expo-image-picker": "~9.1.0",
     "expo-status-bar": "~1.0.2",
+    "expo-updates": "~0.3.3",
     "ngrok": "^3.3.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -38,8 +39,7 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-socket.io": "^1.4.0",
-    "socket.io-client": "^2.3.0",
-    "expo-updates": "~0.3.3"
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",

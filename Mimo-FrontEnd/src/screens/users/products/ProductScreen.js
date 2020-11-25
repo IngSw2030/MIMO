@@ -18,9 +18,18 @@ const ProductScreen = ({ navigation }) => {
 	const cleaning = state.cleaning;
 	const others = state.others;
 
-	//const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
+	const aracnido = require( '../../../../assets/aracnido.png');
+    const ave = require( '../../../../assets/ave.png');
+    const caracol = require( '../../../../assets/caracol.png');
+    const crustaceo = require( '../../../../assets/crustaceo.png');
+    const hamster = require( '../../../../assets/hamster.png');
+    const serpiente = require( '../../../../assets/serpiente.png');
+    const tortuga = require( '../../../../assets/tortuga.png');
+    const perro = require( '../../../../assets/perro.png');
+    const gato = require( '../../../../assets/gato.png');
+    const pez = require( '../../../../assets/pez.png');
+    const conejo = require( '../../../../assets/conejo.png');
 
-	//Lista Inicial de productos se encuentra en ProductContext
 	return (
 		<View style={styles.pageStyle}>
 			<View style={styles.searchBarStyle}>
@@ -32,46 +41,130 @@ const ProductScreen = ({ navigation }) => {
 					<Image style={styles.logoStyle} source={mimoIcon} />
 				</View>
 				<View style={styles.botonesAnimales}>
-					<View>
-						<TouchableOpacity
-							onPress={() => {
-								getProduct({ name: '', pets: 'perro' });
-							}}
-						>
-							<MaterialCommunityIcons name='dog' size={70} color='black' style={styles.botonPerro} />
-						</TouchableOpacity>
-						<Text style={styles.textoBotonAnimal}>Perro</Text>
-					</View>
-					<View>
-						<TouchableOpacity
-							onPress={() => {
-								getProduct({ name: '', pets: 'gato' });
-							}}
-						>
-							<MaterialCommunityIcons name='cat' size={70} color='black' style={styles.botonGato} />
-						</TouchableOpacity>
-						<Text style={styles.textoBotonAnimal}>Gato</Text>
-					</View>
-					<View>
-						<TouchableOpacity
-							onPress={() => {
-								getProduct({ name: '', pets: 'pez' });
-							}}
-						>
-							<MaterialCommunityIcons name='fish' size={70} color='black' style={styles.botonPez} />
-						</TouchableOpacity>
-						<Text style={styles.textoBotonAnimal}>Pescado</Text>
-					</View>
-					<View>
-						<TouchableOpacity
-							onPress={() => {
-								getProduct({ name: '', pets: 'conejo' });
-							}}
-						>
-							<MaterialCommunityIcons name='rabbit' size={70} color='black' style={styles.botonConejo} />
-						</TouchableOpacity>
-						<Text style={styles.textoBotonAnimal}>Conejo</Text>
-					</View>
+					<ScrollView horizontal= {true}>
+
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPerro}
+								onPress={() => {
+									getProduct({ name: '', pets: 'perro' });
+								}}
+							>
+								<Image source={perro} style={{alignSelf: 'center', height: 70, width: 70,}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Perro</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonGato}
+								onPress={() => {
+									getProduct({ name: '', pets: 'gato' });
+								}}
+							>
+								<Image source={gato} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Gato</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPez}
+								onPress={() => {
+									getProduct({ name: '', pets: 'pez' });
+								}}
+							>
+								<Image source={pez} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Pescado</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonConejo}
+								onPress={() => {
+									getProduct({ name: '', pets: 'conejo' });
+								}}
+							>
+								<Image source={conejo} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Conejo</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPerro}
+								onPress={() => {
+									getProduct({ name: '', pets: 'hamster' });
+								}}
+							>
+								<Image source={hamster} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Hamster</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonGato}
+								onPress={() => {
+									getProduct({ name: '', pets: 'aracnido' });
+								}}
+							>
+								<Image source={aracnido} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Aracnido</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPez}
+								onPress={() => {
+									getProduct({ name: '', pets: 'ave' });
+								}}
+							>
+								<Image source={ave} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Ave</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonConejo}
+								onPress={() => {
+									getProduct({ name: '', pets: 'caracol' });
+								}}
+							>
+								<Image source={caracol} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Caracol </Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPerro}
+								onPress={() => {
+									getProduct({ name: '', pets: 'crustaceo' });
+								}}
+							>
+								<Image source={crustaceo} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Crustaceo</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonGato}
+								onPress={() => {
+									getProduct({ name: '', pets: 'serpiente' });
+								}}
+							>
+								<Image source={serpiente} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Serpiente</Text>
+						</View>
+						<View>
+							<TouchableOpacity
+								style = {styles.botonPez}
+								onPress={() => {
+									getProduct({ name: '', pets: 'tortuga' });
+								}}
+							>
+								<Image source={tortuga} style={{alignSelf: 'center', height: 70, width: 70}} />
+							</TouchableOpacity>
+							<Text style={styles.textoBotonAnimal}>Tortuga</Text>
+						</View>
+					</ScrollView>
 				</View>
 				<Text style={styles.tiposDeArticulos}>Comida</Text>
 				<View style={styles.productListStyle}>
