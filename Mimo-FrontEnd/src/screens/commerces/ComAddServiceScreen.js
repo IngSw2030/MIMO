@@ -155,8 +155,8 @@ const styles = StyleSheet.create({
 		//marginLeft: '25%'
 	},
 	image: {
-		width: 200,
-		height: 200,
+		width: 370,
+		height: 230,
 		borderRadius: 25,
 		alignSelf: 'center',
 		marginBottom: '5%',
