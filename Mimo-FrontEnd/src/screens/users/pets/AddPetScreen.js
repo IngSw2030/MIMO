@@ -14,24 +14,24 @@ const AddPetScreen = ({ navigation }) => {
 	const [name, setName] = useState('');
 	const [age, setAge] = useState('');
 	const [gender, setGender] = useState(true); //true = hembra false = macho
-	const [imagenA,setImage] = useState();
-	const [estado,setEstado]= useState(false);
+	const [imagenA, setImage] = useState();
+	const [estado, setEstado] = useState(false);
 
 	const [type, setType] = useState('');
 	const [escogerImagen] = uploadPhoto();
 	const buttons = [
-		{ name: 'dog', size: 60, color: 'black', type: 'Perro', petColor: '#9FCAE2' },
-		{ name: 'cat', size: 60, color: 'black', type: 'Gato', petColor: '#BCDB89' },
-		{ name: 'fish', size: 60, color: 'black', type: 'Pez', petColor: '#FFAFB6' },
-		{ name: 'rabbit', size: 60, color: 'black', type: 'Conejo', petColor: '#E8916C' }
+		{ name: 'dog', size: 80, color: 'black', type: 'Perro', petColor: '#9FCAE2' },
+		{ name: 'cat', size: 80, color: 'black', type: 'Gato', petColor: '#BCDB89' },
+		{ name: 'fish', size: 80, color: 'black', type: 'Pez', petColor: '#FFAFB6' },
+		{ name: 'rabbit', size: 80, color: 'black', type: 'Conejo', petColor: '#E8916C' }
 	];
-	let imagen=imagenA;
+	let imagen = imagenA;
 
 
 	return (
 		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
 			<Text style={styles.title}>Agregar una Mascota</Text>
-			<Text style={{ fontSize: 18, margin: '5%', fontWeight: 'bold', }}>Selecciona un tipo</Text>
+			<Text style={{ fontSize: 22, margin: '5%', fontWeight: 'bold', }}>Selecciona un tipo</Text>
 
 			<View>
 				<FlatList
@@ -56,35 +56,35 @@ const AddPetScreen = ({ navigation }) => {
 				<TextInput
 					style={styles.textInput}
 					value={name}
-					placeholder='		NOMBRE'
+					placeholder='NOMBRE'
 					onChangeText={name => setName(name)}
 				/>
 				<TextInput
 					style={styles.textInput}
 					keyboardType='numeric'
 					value={age}
-					placeholder='		Edad'
+					placeholder='Edad'
 					onChangeText={age => setAge(age)}
 				/>
 			</View>
 
 			<View style={styles.selectType}>
 				<TouchableOpacity style={styles.genderm} onPress={() => setGender(false)}>
-					<Text style={styles.text}>Macho {''}</Text>
+					<Text style={styles.text}>Macho {' '}</Text>
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.genderf} onPress={() => setGender(true)}>
-					<Text style={styles.text}>Hembra {''}</Text>
+					<Text style={styles.text}>Hembra {' '}</Text>
 				</TouchableOpacity>
 			</View>
 
-			<View style={{ flexDirection: 'row' }}>
-				<View>
+			<View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ flex: 1 }}>
 					<TouchableOpacity
-						style={styles.buttom}
+						style={[styles.buttom, { backgroundColor: '#0cd73d' }]}
 						onPress={async () => {
 							if (name.length > 0 && age.length > 0 && type.length > 0) {
 								const numberAge = age * 1;
-								await savePet({ name, numberAge, gender, species: type,photo:imagenA });
+								await savePet({ name, age: numberAge, gender, species: type, photo: imagenA });
 								navigation.navigate('Pets');
 							}
 							else {
@@ -92,18 +92,18 @@ const AddPetScreen = ({ navigation }) => {
 							}
 						}}
 					>
-						<Text style={styles.text}>Agregar {''}</Text>
+						<Text style={styles.text}>Guardar {' '}</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigation.navigate('Pets')}>
-					<Text style={styles.text}>Cancelar {''}</Text>
+					<TouchableOpacity style={[styles.buttom, { backgroundColor: '#c0392b' }]} onPress={() => navigation.navigate('Pets')}>
+						<Text style={styles.text}>Cancelar {' '}</Text>
 					</TouchableOpacity>
 				</View>
 
-				<View>
+				<View style={{ flex: 1 }}>
 					<TouchableOpacity style={styles.iconsStyle} onPress={async () => {
-							imagen = await escogerImagen();
-							setImage(imagen);
-						}
+						imagen = await escogerImagen();
+						setImage(imagen);
+					}
 					}>
 						{imagen ? (
 							<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
@@ -113,18 +113,18 @@ const AddPetScreen = ({ navigation }) => {
 					</TouchableOpacity>
 				</View>
 			</View>
-			<Modal 
+			<Modal
 				transparent={estado}
 				visible={estado}>
 				<View style={styles.popUp}>
 					<Text style={styles.text}>Advertencia</Text>
 					<View style={styles.inPopUp}>
 						<Text style={styles.text}>Faltan caracteristicas por llenar</Text>
-						<TouchableOpacity style={styles.volverButton} onPress ={()=>setEstado(false)}>
+						<TouchableOpacity style={styles.volverButton} onPress={() => setEstado(false)}>
 							<Text style={styles.text}>Volver</Text>
 						</TouchableOpacity>
 					</View>
-										
+
 				</View>
 			</Modal>
 		</View>
@@ -138,18 +138,17 @@ const styles = StyleSheet.create({
 		width: 120,
 		margin: 15,
 		borderRadius: 25,
-		//alignSelf: 'center',
 		marginBottom: 20,
 	},
 	inPopUp: {
 		backgroundColor: "#EEE096",
 		marginTop: '5%',
 		flex: 1,
-		
+
 	},
-	popUp:{
-		backgroundColor:"#F6BF2F",
-		flex:1,
+	popUp: {
+		backgroundColor: "#F6BF2F",
+		flex: 1,
 		marginTop: '60%',
 		marginBottom: '60%',
 		marginLeft: '10%',
@@ -164,30 +163,25 @@ const styles = StyleSheet.create({
 		marginLeft: 20,
 	},
 	text: {
-		fontSize: 18,
+		fontSize: 22,
 		fontWeight: 'bold',
-		alignSelf: 'center',
-		marginTop:'9%',
-		textAlign: 'center'
+		textAlign: 'center',
+		marginTop: '5%'
 	},
 	textInput: {
 		marginTop: 20,
 		alignSelf: 'center',
 		backgroundColor: '#BCDB89',
 		width: '90%',
-		//height: '50%',
 		height: 50,
 		borderRadius: 25,
-	},
-	textInputView: {
-		//height: '20%',
-		//flex: 1
+		paddingLeft: 20,
+		fontSize: 18
 	},
 	generalView: {
 		justifyContent: 'center',
 		flexDirection: 'row',
 		flexWrap: 'wrap',
-		//flex: 1,
 		backgroundColor: '#FFF7DB',
 	},
 	type: {
@@ -201,7 +195,6 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		flexDirection: 'row',
 		alignContent: "space-between",
-		
 	},
 	TypeText: {
 		marginLeft: 70
@@ -209,32 +202,28 @@ const styles = StyleSheet.create({
 	genderm: {
 		backgroundColor: '#E8916C',
 		height: 50,
-		//width: 100,
+		width: 170,
 		borderRadius: 25,
-		margin: '5%',
-		marginLeft:'10%'
+		margin: 10
 	},
 	genderf: {
 		backgroundColor: '#7E9FD1',
+		width: 170,
 		height: 50,
-		//width: 100,
 		borderRadius: 25,
-		margin: '5%',
+		margin: 10
 	},
 	buttom: {
 		backgroundColor: '#DBAB9C',
 		height: 50,
-		width: 150,
+		width: '100%',
 		borderRadius: 25,
-		marginLeft: '20%',
-		marginBottom: '5%',
+		marginLeft: '10%',
 		marginTop: '15%',
 	},
 	iconsStyle: {
 		alignSelf: 'center',
-		justifyContent: 'center',
 		marginTop: 30,
-		//marginLeft: '10%'
 	},
 	image: {
 		width: 130,
@@ -243,6 +232,9 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		marginBottom: '5%',
 	},
+	textInputView: {
+		marginBottom: 10
+	}
 });
 
 export default AddPetScreen;

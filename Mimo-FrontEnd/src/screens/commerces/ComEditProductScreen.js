@@ -73,14 +73,13 @@ const ComEditProductScreen = ({navigation}) => {
                     size="normal" 
                     value={available}
                     onValueChange={(value)=>setAvailability(value)}
-                    trackColor ={{true: 'blue'}}
+                    trackColor ={{true: "#BCDB89"}}
                 />
             </View>   
             
-            <View style={{ flexDirection: 'row' }}>
-				<View>
+            <View style={styles.finishButtons}>
 					<TouchableOpacity
-                        style={styles.buttom}
+                        style={styles.confirmButton}
 						onPress={() => {
                             console.log(available);
                             const numberPrice = precio * 1;
@@ -98,12 +97,10 @@ const ComEditProductScreen = ({navigation}) => {
 					>
 						<Text style={styles.text}>Aceptar</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigate('ComProduct')}>
+					<TouchableOpacity style={styles.cancelButton} onPress={() => navigate('ComProduct')}>
 						<Text style={styles.text}>Cancelar</Text>
 					</TouchableOpacity>
-				</View>
 			</View>
-
         </View>
     );
 }
@@ -140,16 +137,15 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		justifyContent: 'center',
         marginTop: 30,
-        height: 200,
-		width: 200,
+        height: 300,
+		width: 300,
 		//marginLeft: '25%'
     },
     image: {
-		width: 200,
-		height: 200,
+		width: 300,
+		height: 300,
 		borderRadius: 25,
 		alignSelf: 'center',
-		marginBottom: '5%',
     },
     buttom: {
 		backgroundColor: '#DBAB9C',
@@ -168,12 +164,33 @@ const styles = StyleSheet.create({
     pageStyle: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#EDDF98',
+        backgroundColor: '#FFF7BB',
     },
     switchView:{
         alignSelf:"center",
         height: 100,
         flexDirection: "row"
+    },
+    finishButtons:{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignContent: 'center',
+		marginHorizontal: 30,
+		paddingBottom: 20
+	},
+	confirmButton: {
+		backgroundColor: '#98E568',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+	},
+	cancelButton: {
+		backgroundColor: '#E8778B',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
     },
 })
 

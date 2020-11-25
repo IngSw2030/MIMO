@@ -20,7 +20,7 @@ const PetWalkerScreen = screenProps => {
 				data={servicios}
 				keyExtractor={item => item._id}
 				renderItem={({ item }) => {
-					return <ServiceComponent service={item} />;
+					return <ServiceComponent service={item} pantalla = {'ServiceDetails'}/>;
 				}}
 			/>
 		</View>

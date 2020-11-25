@@ -8,7 +8,7 @@ const mimoIcon = require('../../../../assets/mimo.png');
 
 const UserProfileScreen = ({ navigation }) => {
 
-	const { state } = useContext(UserContext);
+	const { state, deleteUser } = useContext(UserContext);
 	const  [estado,setEstado]= useState(false);
 	const { signout } = useContext(AuthContext);
 
@@ -44,10 +44,10 @@ const UserProfileScreen = ({ navigation }) => {
 				<View style ={styles.popUp}>
 					<Text style ={styles.text}>¿Seguro desea eliminar su cuenta?</Text>
 					<View style={styles.inPopUp} >	
-						<Text style={styles.text}>Se borrarán todos los datos asociados a su cuenta asi como los chats y transacciones que haya realizado</Text>
+						<Text style={{fontSize: 16, textAlign: 'center'}}>Se borrarán todos los datos asociados a su cuenta asi como los chats y transacciones que haya realizado</Text>
 						<View style={{flexDirection:'row'}}>
 							<TouchableOpacity style={styles.volverButton} onPress ={()=>setEstado(false)}>
-								<Text style={styles.text}>Volver</Text>
+								<Text style={{fontSize: 16, textAlign: 'center'}}>Volver</Text>
 							</TouchableOpacity>
 							<TouchableOpacity style={styles.deleButton} onPress={()=>
 								{	
@@ -56,7 +56,7 @@ const UserProfileScreen = ({ navigation }) => {
 									signout();
 								}
 								}>
-								<Text style={styles.text} >Si, borrar cuenta</Text>
+								<Text style={{fontSize: 16, textAlign: 'center'}} >Si, borrar cuenta</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
@@ -114,13 +114,14 @@ const styles = StyleSheet.create({
 		backgroundColor: "#EEE096",
 		marginTop: '5%',
 		flex: 1,
+		borderRadius: 10
 		
 	},
 	popUp:{
 		backgroundColor:"#F6BF2F",
 		flex:1,
 		marginTop: '60%',
-		marginBottom: '60%',
+		marginBottom: '70%',
 		marginLeft: '10%',
 		marginRight: '10%',
 		borderRadius: 10,
@@ -132,6 +133,25 @@ const styles = StyleSheet.create({
 		alignSelf: 'center',
 		textAlign:"center",
 		marginTop: 5,
+	},
+	deleButton:{
+		backgroundColor: '#E8916C',
+		height: 40,
+		width: 130,
+		margin: 15,
+		borderRadius: 25,
+		marginBottom: 20,
+		justifyContent:"center"
+	},
+	volverButton: {
+		backgroundColor: '#7E9FD1',
+		height: 40,
+		width: 130,
+		margin: 15,
+		borderRadius: 25,
+		justifyContent:"center",
+		//alignSelf: 'center',
+		marginBottom: 20,
 	},
 });
 export default UserProfileScreen;

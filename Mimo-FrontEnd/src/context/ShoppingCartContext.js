@@ -7,7 +7,7 @@ const userReducer = (state, action) => {
 		case 'getMyShopingCart':
 			return action.payload;
 		case 'delete_item':
-			return state.filter(purchase => purchase.id !== action.payload._id);
+			return state.filter(purchase => purchase.id !== action.payload.idPurchase);
 		case 'addItem':
 			return [...state, action.payload];
 		case 'clear_cart':
@@ -39,8 +39,8 @@ const addToCart = dispatch => async ({ idProduct, amount }) => {
 };
 const deleteCartItem = dispatch => async ({ idPurchase }) => {
 	try {
-		const response = await instance.post('/api/Purchase/delete', { idPurchase });
-		dispatch({ type: 'delete_item', payload: response.data.deletedItem });
+		instance.post('/api/Purchase/delete', { idPurchase });
+		dispatch({ type: 'delete_item', payload: { idPurchase } });
 	} catch (error) {
 		console.log('Error en deleteCartItem', error);
 	}

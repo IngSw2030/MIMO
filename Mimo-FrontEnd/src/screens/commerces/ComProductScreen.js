@@ -20,10 +20,10 @@ const ComProductScreen = () => {
             <ScrollView>
                 <View style={styles.topBanner}>
                     <View style={styles.infoStyle}>
-                        <Text style={{ fontWeight: 'bold' }}>Nombre: </Text>
-                        <Text>{state.name} </Text>
-                        <Text style={{ fontWeight: 'bold' }}>Correo: </Text>
-                        <Text>{state.email} </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Nombre: </Text>
+                        <Text style = {{fontSize: 18}}>{state.name} </Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: 18 }}>Correo: </Text>
+                        <Text style = {{fontSize: 18}}>{state.email} </Text>
                     </View>
                     <Image style={styles.logoStyle} source={mimoIcon} />
                 </View>
@@ -112,16 +112,15 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 	},
 	questionStyle: {
-		fontSize: 20,
+		fontSize: 28,
 		fontWeight: 'bold',
 		alignSelf: 'stretch',
 		marginBottom: 5,
-        marginLeft: 15,
+        marginLeft: 10,
         flex: 1
     },
     buttonText: {
 		fontSize: 15,
-		fontWeight: 'bold',
         alignSelf: 'center',
         marginLeft:5
 	},
@@ -153,7 +152,8 @@ const styles = StyleSheet.create({
 		marginLeft: 10,
 	},
     productListStyle: {
-		flex: 1,
+        flex: 1,
+        marginBottom: 5
 	},
 });
 

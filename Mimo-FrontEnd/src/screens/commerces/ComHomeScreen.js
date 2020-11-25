@@ -11,7 +11,7 @@ const ComHomeScreen = ({ navigation }) => {
 	const foodIcon = require('../../../assets/blog.png');
 	const accesoriesIcon = require('../../../assets/productos.png');
 	const servicesIcon = require('../../../assets/servicios.png');
-	const questionText = 'Administrar';
+	const questionText = 'Administra tus:';
 	const servicesText = 'Servicios';
 	const vetText = 'Veterinaria';
 	const accesoriesText = 'Productos';
@@ -33,10 +33,10 @@ const ComHomeScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.topBanner}>
 				<View style={styles.infoStyle}>
-					<Text style={{ fontWeight: 'bold' }}>Nombre: </Text>
-					<Text>{state.name} </Text>
-					<Text style={{ fontWeight: 'bold' }}>Correo: </Text>
-					<Text>{state.email} </Text>
+					<Text style={{ fontWeight: 'bold', fontSize: 18 }}>Nombre: </Text>
+					<Text style = {{fontSize: 18}}>{state.name} </Text>
+					<Text style={{ fontWeight: 'bold', fontSize: 18 }}>Correo: </Text>
+					<Text style = {{fontSize: 18}}>{state.email} </Text>
 				</View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 			</View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 	},
 	questionStyle: {
-		fontSize: 20,
+		fontSize: 36,
 		fontWeight: 'bold',
 		alignSelf: 'flex-start',
 		marginBottom: 5,

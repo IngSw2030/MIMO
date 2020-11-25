@@ -3,7 +3,7 @@ import { View, Text, StyleSheet,ScrollView, TouchableOpacity, Switch, TextInput,
 import { withNavigation } from 'react-navigation';
 import { Context as ServiceContext } from '../../context/ServiceContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
-import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
 
 const ComEditServiceScreen = ({ navigation }) => {
@@ -11,20 +11,22 @@ const ComEditServiceScreen = ({ navigation }) => {
 	const { updateService } = useContext(ServiceContext);
 	const { deleteService } = useContext(ServiceContext);
 	
+	console.log(service)
 	
 	const categoria = service.category;
 	const [nombre, setNombre] = useState(service.name);
-	const [precio, setPrecio] = useState(service.price + '');
+	const [precioMin, setPrecioMin] = useState(service.priceMin + '');
+	const [precioMax, setPrecioMax] = useState(service.priceMax + '');
 	const [descripcion, setDescripcion] = useState(service.description);
 	const [foto, setFoto] = useState(service.photo);
 	const [available, setAvailability] = useState(service.available);
 	const [buscarImagen] = uploadPhoto();
 
 	return (
-		<View style={styles.pageStyle}>
+		<ScrollView style={styles.pageStyle}>
 			<View>
 				<TouchableOpacity
-					style={styles.iconsStyle}
+					style={styles.inputImage}
 					onPress={async () => {
 						const imagen = await buscarImagen();
 						setFoto(imagen);
@@ -33,7 +35,10 @@ const ComEditServiceScreen = ({ navigation }) => {
 					{foto ? (
 						<Image source={{ uri: `data:image/gif;base64,${foto}` }} style={styles.image} />
 					) : (
-						<FontAwesome name='camera' size={130} color='#000000' style={{ marginLeft: '20%' }} />
+						<View style = {{alignSelf: 'center'}}>
+                                <Entypo name="plus" size = {50} color = 'black'/>
+                                <Entypo name="camera" size = {50} color = 'black'/>
+                        </View>
 					)}
 				</TouchableOpacity>
 			</View>
@@ -54,13 +59,26 @@ const ComEditServiceScreen = ({ navigation }) => {
 			</View>
 			<View style={styles.roundedContainerStyle}>
 				<TextInput
-					placeholder= {precio}
+					placeholder= {precioMin}
 					placeholderTextColor='#000'
 					autoCapitalize='none'
 					autoCorrect={false}
+					keyboardType= 'numeric'
 					style={styles.inputStyle}
-					value={precio}
-					onChangeText={newPrecio => setPrecio(newPrecio)}
+					value={precioMin}
+					onChangeText={newPrecioMin => setPrecioMin(newPrecioMin)}
+				/>
+			</View>
+			<View style={styles.roundedContainerStyle}>
+				<TextInput
+					placeholder= {precioMax}
+					placeholderTextColor='#000'
+					autoCapitalize='none'
+					autoCorrect={false}
+					keyboardType= 'numeric'
+					style={styles.inputStyle}
+					value={precioMax}
+					onChangeText={newPrecioMax => setPrecioMax(newPrecioMax)}
 				/>
 			</View>
 			<View style={styles.roundedContainerStyle}>
@@ -83,68 +101,67 @@ const ComEditServiceScreen = ({ navigation }) => {
                     size="normal" 
                     value={available}
                     onValueChange={(value)=>setAvailability(value)}
-                    trackColor ={{true: 'blue'}}
+                    trackColor ={{true: "#BCDB89"}}
                 />
             </View> 
-			<ScrollView>
-				<View style={{ flexDirection: 'row' }}>
-					<View>
-						<TouchableOpacity
-							style={styles.buttom}
-							onPress={() => {
-								const numberPrice = precio * 1;
-								updateService({
-									name:nombre, 
-									price: numberPrice, 
-									photo:foto, 
-									description:descripcion,
-									available: available,
-									id: service._id,
-								});
-								navigate('ComService');
-							}}
-						>
-							<Text style={styles.text}>Actualizar</Text>
-						</TouchableOpacity>
-						<TouchableOpacity 
-							style={styles.buttom} 
-							onPress={() => navigate('ComService')}>
-							<Text style={styles.text}>Cancelar</Text>
-						</TouchableOpacity>
-						<TouchableOpacity 
-							style={styles.buttom} 	
-							onPress={() => {
-								console.log(service._id);
-								deleteService({
-									id: service._id
-								});
-								navigate('ComService');
-							}}
-						>
-							<Text style={styles.text}>Eliminar Servicio</Text>
-						</TouchableOpacity>
-					</View>
-				</View>
-			</ScrollView>
-		</View>
+			<View style={styles.finishButtons}>
+				<TouchableOpacity
+					style={styles.confirmButton}
+					onPress={() => {
+						const numberPriceMin = precioMin * 1;
+						const numberPriceMax = precioMax * 1;
+						updateService({
+							name:nombre, 
+							priceMin: numberPriceMin,
+							priceMax: numberPriceMax, 
+							photo:foto, 
+							description:descripcion,
+							available: available,
+							id: service._id,
+						});
+						navigate('ComService');
+					}}
+				>
+					<Text style={styles.text}>Actualizar</Text>
+				</TouchableOpacity>
+				<TouchableOpacity 
+					style={styles.cancelButton} 
+					onPress={() => navigate('ComService')}>
+					<Text style={styles.text}>Cancelar</Text>
+				</TouchableOpacity>	
+			</View>
+			<TouchableOpacity 
+				style={styles.buttom} 	
+				onPress={() => {
+					console.log(service._id);
+					deleteService({
+						id: service._id
+					});
+					navigate('ComService');
+				}}
+			>
+				<Text style={styles.text}>Eliminar Servicio</Text>
+			</TouchableOpacity>
+		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
 	roundedContainerStyle: {
-		marginTop: 10,
-		marginLeft: 30,
 		backgroundColor: '#88CCF2',
-		height: 42,
-		width: 320,
-		borderRadius: 75,
-		justifyContent: 'center',
+        minHeight: 40,
+        width: 350,
+        borderRadius: 20,
+		alignSelf: 'center',
+		alignContent: 'center',
+		margin: 10
 	},
 	inputStyle: {
 		color: '#000',
 		fontSize: 18,
 		marginLeft: 15,
 		alignSelf: 'center',
+		textAlignVertical:'center'
 	},
 	type: {
 		backgroundColor: '#9FCAE2',
@@ -167,19 +184,20 @@ const styles = StyleSheet.create({
 		//marginLeft: '25%'
 	},
 	image: {
-		width: 200,
-		height: 200,
-		borderRadius: 25,
+		height:230,
+		width: 370,
 		alignSelf: 'center',
-		marginBottom: '5%',
+		borderRadius: 50,
+		margin: 10
 	},
 	buttom: {
-		backgroundColor: '#DBAB9C',
+		backgroundColor: '#E8778B',
 		height: 50,
 		width: 200,
 		borderRadius: 25,
-		marginLeft: '20%',
-		marginTop: '2%',
+		marginBottom: '4%',
+		alignSelf: 'center',
+		alignContent: 'center',
 	},
 	text: {
 		fontSize: 20,
@@ -195,8 +213,39 @@ const styles = StyleSheet.create({
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
-		backgroundColor: '#EDDF98',
+		backgroundColor: '#FFF7BB',
 	},
+	inputImage:{
+        backgroundColor: "#EEE096",
+        height: 230,
+        width: 370,
+        borderRadius: 45,
+		alignSelf: 'center',
+		justifyContent: 'center',
+		marginTop: '6%',
+		margin: '3%'
+	},
+	finishButtons:{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignContent: 'center',
+		marginHorizontal: 30,
+		paddingBottom: 20
+	},
+	confirmButton: {
+		backgroundColor: '#98E568',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+	},
+	cancelButton: {
+		backgroundColor: '#BAA0F2',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+    },
 });
 
 export default withNavigation(ComEditServiceScreen);

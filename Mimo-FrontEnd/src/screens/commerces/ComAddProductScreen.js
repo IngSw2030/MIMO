@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, Picker } fr
 import { withNavigation } from 'react-navigation';
 import {Context as ProductContext} from '../../context/ProductContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
-import { FontAwesome } from '@expo/vector-icons';
+import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
 
@@ -26,7 +26,7 @@ const ComAddProductScreen = () => {
     return (
         <View style={styles.pageStyle}>
             <View>
-                <TouchableOpacity style={styles.iconsStyle} onPress=
+                <TouchableOpacity style={styles.inputImage} onPress=
                     {async () => {
                         const imagen = await buscarImagen();
                         setFoto(imagen);
@@ -35,7 +35,10 @@ const ComAddProductScreen = () => {
                     {foto ? (
                         <Image source={{ uri: `data:image/gif;base64,${foto}` }} style={styles.image} />
                     ) : (
-                        <FontAwesome name='camera' size={130} color='#000000' style={{marginLeft: '20%'}}/>
+                        <View style = {{alignSelf: 'center'}}>
+                                <Entypo name="plus" size = {50} color = 'black'/>
+                                <Entypo name="camera" size = {50} color = 'black'/>
+                        </View>
                     )}
                 </TouchableOpacity>
             </View>
@@ -82,29 +85,25 @@ const ComAddProductScreen = () => {
             </View>
 
             <View style={styles.selectType}>
-				<TouchableOpacity style={styles.type} onPress={() => setMascotas([...mascotas,'perro'])}>
-					<MaterialCommunityIcons name='dog' size={50} color='black' />
+				<TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setMascotas([...mascotas,'perro'])}>
+					<MaterialCommunityIcons name='dog' size={65} color='black' style={{alignSelf: 'center'}}/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setMascotas([...mascotas,'gato'])}>
-					<MaterialCommunityIcons name='cat' size={50} color='black' />
+				<TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setMascotas([...mascotas,'gato'])}>
+					<MaterialCommunityIcons name='cat' size={65} color='black' style={{alignSelf: 'center'}}/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setMascotas([...mascotas,'hamster'])}>
-					<Text>Hamster</Text>
+				<TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setMascotas([...mascotas,'pez'])}>
+					<MaterialCommunityIcons name='fish' size={65} color='black' style={{alignSelf: 'center'}}/>
 				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setMascotas([...mascotas,'pez'])}>
-					<MaterialCommunityIcons name='fish' size={50} color='black' />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.type} onPress={() => setMascotas([...mascotas,'conejo'])}>
-					<MaterialCommunityIcons name='rabbit' size={50} color='black' />
+				<TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setMascotas([...mascotas,'conejo'])}>
+					<MaterialCommunityIcons name='rabbit' size={65} color='black' style={{alignSelf: 'center'}}/>
 				</TouchableOpacity>
 			</View>
 
             
             
-            <View style={{ flexDirection: 'row' }}>
-				<View>
+            <View style={styles.finishButtons}>
 					<TouchableOpacity
-						style={styles.buttom}
+						style={styles.confirmButton}
 						onPress={() => {
                             const numberPrice = precio * 1;
 							saveProduct({ 
@@ -120,10 +119,9 @@ const ComAddProductScreen = () => {
 					>
 						<Text style={styles.text}>Agregar</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigate('ComProduct')}>
+					<TouchableOpacity style={styles.cancelButton} onPress={() => navigate('ComProduct')}>
 						<Text style={styles.text}>Cancelar</Text>
 					</TouchableOpacity>
-				</View>
 			</View>
 
         </View>
@@ -132,13 +130,13 @@ const ComAddProductScreen = () => {
 
 const styles = StyleSheet.create({
     roundedContainerStyle: {
-        marginTop: 10,
-        marginLeft: 30,
-        backgroundColor: "#88CCF2",
-        height: 42,
-        width: 320,
-        borderRadius: 10,
-        justifyContent: 'center'
+        backgroundColor: '#B0EFEF',
+        minHeight: 40,
+        width: 350,
+        borderRadius: 20,
+		alignSelf: 'center',
+		alignContent: 'center',
+		margin: 10
     },
     inputStyle: {
         color: "#000",
@@ -148,15 +146,16 @@ const styles = StyleSheet.create({
     }, 
     type: {
 		backgroundColor: '#9FCAE2',
-		borderRadius: 25,
-		height: 50,
-		width: 50,
-		margin: 10,
+		borderRadius: 35,
+		height: 70,
+		width: 70,
+        alignSelf: 'center'
 		//marginBottom: '5%',
     },
     selectType: {
-		alignSelf: 'center',
-		flexDirection: 'row',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 10
 	},
     iconsStyle: {
 		alignSelf: 'center',
@@ -190,11 +189,43 @@ const styles = StyleSheet.create({
     pageStyle: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#EDDF98',
+        backgroundColor: '#FFF7BB',
     },
     pickerStyle: {
 		alignSelf: "center"
+    },
+    
+    inputImage:{
+        backgroundColor: "#EEE096",
+        height: 230,
+        width: 370,
+        borderRadius: 45,
+		alignSelf: 'center',
+		justifyContent: 'center',
+		marginTop: '6%',
+		margin: '3%'
 	},
+	finishButtons:{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignContent: 'center',
+		marginHorizontal: 30,
+		paddingBottom: 20
+	},
+	confirmButton: {
+		backgroundColor: '#98E568',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+	},
+	cancelButton: {
+		backgroundColor: '#E8778B',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+    },
 })
 
 export default withNavigation(ComAddProductScreen);

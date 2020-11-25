@@ -5,6 +5,7 @@ import { Context as ServiceContext } from '../../context/ServiceContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
 import { FontAwesome } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
+import { Entypo } from '@expo/vector-icons';
 
 const ComAddServiceScreen = ({ navigation }) => {
 	const { saveService } = useContext(ServiceContext);
@@ -21,7 +22,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 		<View style={styles.pageStyle}>
 			<View>
 				<TouchableOpacity
-					style={styles.iconsStyle}
+					style={styles.inputImage}
 					onPress={async () => {
 						const imagen = await buscarImagen();
 						setFoto(imagen);
@@ -30,7 +31,10 @@ const ComAddServiceScreen = ({ navigation }) => {
 					{foto ? (
 						<Image source={{ uri: `data:image/gif;base64,${foto}` }} style={styles.image} />
 					) : (
-						<FontAwesome name='camera' size={130} color='#000000' style={{ marginLeft: '20%' }} />
+						<View style = {{alignSelf: 'center'}}>
+                                <Entypo name="plus" size = {50} color = 'black'/>
+                                <Entypo name="camera" size = {50} color = 'black'/>
+                        </View>
 					)}
 				</TouchableOpacity>
 			</View>
@@ -86,31 +90,29 @@ const ComAddServiceScreen = ({ navigation }) => {
 				/>
 			</View>
 
-			<View style={{ flexDirection: 'row' }}>
-				<View>
-					<TouchableOpacity
-						style={styles.buttom}
-						onPress={() => {
-							const numberPriceMin = precioMin * 1;
-							const numberPriceMax = precioMax * 1;
-							saveService({
-								category: categoria,
-								name: nombre,
-								priceMin: numberPriceMin,
-								priceMax: numberPriceMax,
-								photo: foto,
-								description: descripcion,
-							});
-							console.log('Termina el save');
-							navigate('ComService');
-						}}
-					>
-						<Text style={styles.text}>Agregar</Text>
-					</TouchableOpacity>
-					<TouchableOpacity style={styles.buttom} onPress={() => navigate('ComService')}>
-						<Text style={styles.text}>Cancelar</Text>
-					</TouchableOpacity>
-				</View>
+			<View style={styles.finishButtons}>
+				<TouchableOpacity
+					style={styles.confirmButton}
+					onPress={() => {
+						const numberPriceMin = precioMin * 1;
+						const numberPriceMax = precioMax * 1;
+						saveService({
+							category: categoria,
+							name: nombre,
+							priceMin: numberPriceMin,
+							priceMax: numberPriceMax,
+							photo: foto,
+							description: descripcion,
+						});
+						console.log('Termina el save');
+						navigate('ComService');
+					}}
+				>
+					<Text style={styles.text}>Agregar</Text>
+				</TouchableOpacity>
+				<TouchableOpacity style={styles.cancelButton} onPress={() => navigate('ComService')}>
+					<Text style={styles.text}>Cancelar</Text>
+				</TouchableOpacity>
 			</View>
 		</View>
 	);
@@ -118,13 +120,13 @@ const ComAddServiceScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
 	roundedContainerStyle: {
-		marginTop: 10,
-		marginLeft: 30,
 		backgroundColor: '#88CCF2',
-		height: 42,
-		width: 320,
-		borderRadius: 75,
-		justifyContent: 'center',
+        minHeight: 40,
+        width: 350,
+        borderRadius: 20,
+		alignSelf: 'center',
+		alignContent: 'center',
+		margin: 10
 	},
 	inputStyle: {
 		color: '#000',
@@ -176,8 +178,40 @@ const styles = StyleSheet.create({
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
-		backgroundColor: '#EDDF98',
+		backgroundColor: '#FFF7BB',
 	},
+	inputImage:{
+        backgroundColor: "#EEE096",
+        height: 230,
+        width: 370,
+        borderRadius: 45,
+		alignSelf: 'center',
+		justifyContent: 'center',
+		marginTop: '6%',
+		margin: '3%'
+	},
+	finishButtons:{
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignContent: 'center',
+		marginHorizontal: 30,
+		paddingBottom: 20,
+		marginTop: 10
+	},
+	confirmButton: {
+		backgroundColor: '#98E568',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+	},
+	cancelButton: {
+		backgroundColor: '#E8778B',
+		height: 50,
+		width: 150,
+		borderRadius: 25,
+		justifyContent:'center'
+    },
 });
 
 export default withNavigation(ComAddServiceScreen);
