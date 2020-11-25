@@ -21,39 +21,37 @@ import { Provider as CommentProvider } from './src/context/CommentContext';
 import store from './src/context/ChatContext';
 
 export default () => {
-	return (
-		<ServiceContext>
-		<CommentProvider>
-			<ReviewsProvider>
-				<VetsProvider>
-					<SellsProvider>
-						<ShoppingCartProvider>
-							<PostContext>
-								<ProductContext>
-									<PurchaseContext>
-										<PetProvider>
-											<ChatProvider store={store}>
-												<UserProvider>
-													<AuthProvider>
-														<AppContainer
-															ref={navigator => {
-																setNavigator(navigator);
-															}}
-														/>
-													</AuthProvider>
-												</UserProvider>
-											</ChatProvider>
-										</PetProvider>
-									</PurchaseContext>
-								</ProductContext>
-							</PostContext>
-						</ShoppingCartProvider>
-					</SellsProvider>
-				</VetsProvider>
-			</ReviewsProvider>
-		
-		</CommentProvider>
-		</ServiceContext>
-
-	);
+    return (
+        <ServiceContext>
+            <CommentProvider>
+                <ReviewsProvider>
+                    <VetsProvider>
+                        <SellsProvider>
+                            <ShoppingCartProvider>
+                                <PostContext>
+                                    <ProductContext>
+                                        <PurchaseContext>
+                                            <PetProvider>
+                                                <ChatProvider store={store}>
+                                                    <UserProvider>
+                                                        <AuthProvider>
+                                                            <AppContainer
+                                                                ref={(navigator) => {
+                                                                    setNavigator(navigator);
+                                                                }}
+                                                            />
+                                                        </AuthProvider>
+                                                    </UserProvider>
+                                                </ChatProvider>
+                                            </PetProvider>
+                                        </PurchaseContext>
+                                    </ProductContext>
+                                </PostContext>
+                            </ShoppingCartProvider>
+                        </SellsProvider>
+                    </VetsProvider>
+                </ReviewsProvider>
+            </CommentProvider>
+        </ServiceContext>
+    );
 };
