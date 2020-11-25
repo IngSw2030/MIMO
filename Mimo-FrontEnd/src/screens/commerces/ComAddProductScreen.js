@@ -6,6 +6,7 @@ import uploadPhoto from '../../hooks/uploadPhoto';
 import { Entypo } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { navigate } from '../../navigationRef';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const ComAddProductScreen = () => {
 
@@ -20,7 +21,17 @@ const ComAddProductScreen = () => {
     const [selectedValue, setSelectedValue] = useState("");
 
     const [buscarImagen] = uploadPhoto();
-
+    const aracnido = require( '../../../assets/aracnido.png');
+    const ave = require( '../../../assets/ave.png');
+    const caracol = require( '../../../assets/caracol.png');
+    const crustaceo = require( '../../../assets/crustaceo.png');
+    const hamster = require( '../../../assets/hamster.png');
+    const serpiente = require( '../../../assets/serpiente.png');
+    const tortuga = require( '../../../assets/tortuga.png');
+    const perro = require( '../../../assets/perro.png');
+    const gato = require( '../../../assets/gato.png');
+    const pez = require( '../../../assets/pez.png');
+    const conejo = require( '../../../assets/conejo.png');
 
 
     return (
@@ -84,20 +95,44 @@ const ComAddProductScreen = () => {
                     onChangeText={(newDescripcion) => setDescripcion(newDescripcion)}
                 />
             </View>
-
+            
             <View style={styles.selectType}>
-				<TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setMascotas([...mascotas,'perro'])}>
-					<MaterialCommunityIcons name='dog' size={65} color='black' style={{alignSelf: 'center'}}/>
-				</TouchableOpacity>
-				<TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setMascotas([...mascotas,'gato'])}>
-					<MaterialCommunityIcons name='cat' size={65} color='black' style={{alignSelf: 'center'}}/>
-				</TouchableOpacity>
-				<TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setMascotas([...mascotas,'pez'])}>
-					<MaterialCommunityIcons name='fish' size={65} color='black' style={{alignSelf: 'center'}}/>
-				</TouchableOpacity>
-				<TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setMascotas([...mascotas,'conejo'])}>
-					<MaterialCommunityIcons name='rabbit' size={65} color='black' style={{alignSelf: 'center'}}/>
-				</TouchableOpacity>
+                <ScrollView horizontal = {true}>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setMascotas([...mascotas,'perro'])}>
+                        <Image source={perro} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setMascotas([...mascotas,'gato'])}>
+                        <Image source={gato} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setMascotas([...mascotas,'pez'])}>
+                        <Image source={pez} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setMascotas([...mascotas,'conejo'])}>
+                        <Image source={conejo} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setMascotas([...mascotas,'hamster'])}>
+                        <Image source={hamster} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setMascotas([...mascotas,'aracnido'])}>
+                        <Image source={aracnido} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setMascotas([...mascotas,'ave'])}>
+                        <Image source={ave} style={{alignSelf: 'center', height: 65, width: 65}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#E8916C'}]} onPress={() => setMascotas([...mascotas,'caracol'])}>
+                        <Image source={caracol} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#9FCAE2'}]} onPress={() => setMascotas([...mascotas,'crustaceo'])}>
+                        <Image source={crustaceo} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#BCDB89'}]} onPress={() => setMascotas([...mascotas,'serpiente'])}>
+                        <Image source={serpiente} style={{alignSelf: 'center', height: 70, width: 70}} />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.type, {backgroundColor: '#FF9AA2'}]} onPress={() => setMascotas([...mascotas,'tortuga'])}>
+                        <Image source={tortuga} style={{alignSelf: 'center', height: 60, width: 60}} />
+                    </TouchableOpacity>
+                    
+                </ScrollView>
 			</View>
 
             
@@ -139,7 +174,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
 		alignSelf: 'center',
 		alignContent: 'center',
-		margin: 10
+		margin: '1%'
     },
     inputStyle: {
         color: "#000",
@@ -155,8 +190,7 @@ const styles = StyleSheet.create({
 		borderRadius: 35,
 		height: 70,
 		width: 70,
-        alignSelf: 'center'
-		//marginBottom: '5%',
+        alignSelf: 'center',
     },
     selectType: {
         flexDirection: 'row',

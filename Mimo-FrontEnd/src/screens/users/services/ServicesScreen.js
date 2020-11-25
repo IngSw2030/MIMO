@@ -4,8 +4,11 @@ import { withNavigation } from 'react-navigation';
 import useSearch from '../../../hooks/useResultsServices';
 
 const ServicesScreen = ({ navigation }) => {
-	const mimoIcon = require('../../../../assets/mimo.png');
+	const mimoIcon = require('../../../../assets/servicios.png');
 	const mimoEstilista = require('../../../../assets/mimoEstilista.png');
+	const mimoCuidadores = require('../../../../assets/MimoCuidadores.png');
+	const mimoLimpieza = require('../../../../assets/mimoLimpiaPecera.png');
+	const mimoPaseos = require('../../../../assets/MimoPaseos.png');
 	const aquariumCleanerText = 'Limpieza de pecera';
 	const petWalkerText = 'Paseos';
 	const groomingText = 'Estilistas';
@@ -28,7 +31,7 @@ const ServicesScreen = ({ navigation }) => {
 							screenTitle: aquariumCleanerText, 
 							datos: limpiadores
 						})}>
-						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Image style={styles.imageStyle} source={mimoLimpieza} />
 						<Text style={styles.buttonNameStyle}>{aquariumCleanerText}</Text>
 					</TouchableOpacity>
 
@@ -37,7 +40,7 @@ const ServicesScreen = ({ navigation }) => {
 							screenTitle: petWalkerText, 
 							datos: paseadores 
 						})}>
-						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Image style={styles.imageStyle} source={mimoPaseos} />
 						<Text style={styles.buttonNameStyle}>{petWalkerText}</Text>
 					</TouchableOpacity>
 				</View>
@@ -47,7 +50,7 @@ const ServicesScreen = ({ navigation }) => {
 							screenTitle: groomingText, 
 							datos: estilistas  
 						})}>
-						<Image style={{ height: 125, width: 90, alignSelf: 'center' }} source={mimoEstilista} />
+						<Image style={styles.imageStyle} source={mimoEstilista} />
 						<Text style={styles.buttonNameStyle}>{groomingText}</Text>
 					</TouchableOpacity>
 
@@ -56,7 +59,7 @@ const ServicesScreen = ({ navigation }) => {
 							screenTitle: petSittingText, 
 							datos: cuidadores 
 						})}>
-						<Image style={{ height: 120, width: 110, alignSelf: 'center' }} source={mimoIcon} />
+						<Image style={styles.imageStyle} source={mimoCuidadores} />
 						<Text style={styles.buttonNameStyle}>{petSittingText}</Text>
 					</TouchableOpacity>
 				</View>
@@ -66,9 +69,10 @@ const ServicesScreen = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
 	logoStyle: {
-		height: 255,
-		width: 255,
+		height: 230,
+		width: 230,
 		alignSelf: 'center',
+		marginTop:30,
 	},
 	titleStyle: {
 		fontSize: 30,
@@ -81,8 +85,8 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 	},
 	iconStyle: {
-		height: 120,
-		width: 110,
+		height: 100,
+		width: 100,
 		alignSelf: 'center',
 		//flexGrow: 1,
 	},
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'space-around',
 	},
 	buttonNameStyle: {
-		fontSize: 23,
+		fontSize: 18,
 		textAlign: 'center',
 
 	},
@@ -136,5 +140,7 @@ const styles = StyleSheet.create({
 		paddingBottom: '5%',
 
 	},
+	imageStyle:
+	{ height: 110, width: 110, alignSelf: 'center' }
 });
 export default withNavigation(ServicesScreen);
