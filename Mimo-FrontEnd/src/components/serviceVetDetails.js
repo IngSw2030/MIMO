@@ -26,14 +26,16 @@ const ServiceDetails = ({
     const tipo = data;
     const mimoIcon = require('../../assets/mimo.png');
     const dispatch = useDispatch();
+    const mensaje = '¡Hola! Estoy interesado en adquirir el servicio ' + nombre + ' ¿Me podria dar mas información por favor?'
     const { state: user, getUser } = useContext(UserContext);
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
+    
     const mensajeDePrueba = {
         _id: '80c8d04d-b0a4-4da5-8d99-a6981925536c',
         createdAt: '2020-11-25T14:57:17.768Z',
-        text: 'Hola parce como va?',
+        text:  mensaje,
         user: {
-            _id: 'jorge2@nexus.com',
+            _id: 'jorge2@nexus.com', //usuario que manda el mensaje
         },
     };
     const messages = useSelector((state) => state.conversations).find(
@@ -103,17 +105,17 @@ const ServiceDetails = ({
                                 /* Agrega localmente el mensaje */
                                 type: 'private_message',
                                 /* userId es el email del receptor */
-                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' },
+                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
                             });
                             dispatch({
                                 /* Manda el mensaje al servidor para enviarlo al receptor */
                                 type: 'server/private_message',
                                 /* userId es el email del receptor */
-                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' },
+                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
                             });
                             navigation.navigate('Chat', {
                                 name: 'dan',
-                                userId: 'petshop@retail.com',
+                                userId: 'petshop@retail.com', //receptor del mensaje
                             });
                         }}>
                         <FontAwesome name='send-o' size={24} color='black' />
