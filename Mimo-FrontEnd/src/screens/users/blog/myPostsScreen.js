@@ -7,11 +7,8 @@ import MyPostsComponent from '../../../components/myPostComponent';
 
 const myPostsScreen = ({ navigation }) => {
 
-	const {state} = useContext(PostContext);
+	const {state, myPosts} = useContext(PostContext);
 
-	useEffect(() => {
-        
-	}, [state]);
 	
 	return (
 		<View style={styles.general}>

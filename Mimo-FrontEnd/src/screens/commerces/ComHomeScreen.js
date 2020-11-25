@@ -25,10 +25,10 @@ const ComHomeScreen = ({ navigation }) => {
 			<View style={styles.parteSuperior}>
 				<TouchableOpacity
 					onPress={() => {
-						navigation.navigate('NotifiScreen');
+						navigation.navigate('ComNotifications');
 					}}
 				>
-					<MaterialCommunityIcons name='point-of-sale' size={50} color='black' />
+					<MaterialCommunityIcons name='point-of-sale' size={60} color='black' />
 				</TouchableOpacity>
 			</View>
 			<View style={styles.topBanner}>

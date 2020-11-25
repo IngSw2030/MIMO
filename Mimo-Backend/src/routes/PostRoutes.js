@@ -10,13 +10,14 @@ router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
 	const { photo, title, content, tags } = req.body;
-
+	
 	try {
 		const post = new Post({
             photo,
             title,
             content,
-            tags,
+			tags,
+			dateCreated: Date.now(),
 			idUser: req.user._id,
 			poster: req.user.name
 		});

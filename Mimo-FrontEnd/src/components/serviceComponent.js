@@ -12,7 +12,6 @@ const ServiceComponent = props => {
 	const pantalla = props.pantalla;
 	const allowedTextSize = 15;
 
-
 	return (
         <View style={styles.body}>
             <TouchableOpacity

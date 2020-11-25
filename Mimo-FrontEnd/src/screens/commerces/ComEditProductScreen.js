@@ -61,6 +61,7 @@ const ComEditProductScreen = ({navigation}) => {
                     autoCorrect={false}
                     style={styles.inputStyle}
                     value={descripcion}
+                    multiline = {true}
                     onChangeText={(newDescripcion) => setDescripcion(newDescripcion)}
                 />
             </View>
@@ -119,7 +120,10 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 18,
         marginLeft: 15,
-        alignSelf: 'center'
+        alignSelf: 'center',
+		textAlign: 'center',
+        flexWrap: 'wrap',
+        minHeight: 50,
     }, 
     type: {
 		backgroundColor: '#9FCAE2',

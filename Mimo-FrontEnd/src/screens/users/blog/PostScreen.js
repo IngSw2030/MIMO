@@ -21,6 +21,10 @@ const PostScreen = ({ navigation }) => {
 
 		myPosts();
 		myPinnedPosts();
+		navigation.addListener('willFocus', async () => {
+			await searchApi();
+			await searchApi();
+		});
 
 		LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
 	}, []);

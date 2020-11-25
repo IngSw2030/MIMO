@@ -11,7 +11,7 @@ const ComAddProductScreen = () => {
 
     const {saveProduct} = useContext(ProductContext);
 
-    const [categoria, setCategoria] = useState('');
+    const [categoria, setCategoria] = useState('comida');
     const [nombre, setNombre] = useState('');
     const [precio, setPrecio] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -50,6 +50,7 @@ const ComAddProductScreen = () => {
 					<Picker.Item label='Otros' value='otros' style={styles.pickerStyle}/>
 				</Picker>
 			</View>
+            
             <View style={styles.roundedContainerStyle}>
                 <TextInput
                     placeholder="Nombre"
@@ -106,6 +107,7 @@ const ComAddProductScreen = () => {
 						style={styles.confirmButton}
 						onPress={() => {
                             const numberPrice = precio * 1;
+                            console.log(categoria, nombre, precio, descripcion, mascotas);
 							saveProduct({ 
                                 category:categoria, 
                                 name:nombre, 
@@ -115,6 +117,7 @@ const ComAddProductScreen = () => {
                                 pets:mascotas
                             });
                             navigate('ComProduct');
+                            setCategoria('comida');
 						}}
 					>
 						<Text style={styles.text}>Agregar</Text>
@@ -142,7 +145,10 @@ const styles = StyleSheet.create({
         color: "#000",
         fontSize: 18,
         marginLeft: 15,
-        alignSelf: 'center'
+        alignSelf: 'center',
+		textAlign: 'center',
+        flexWrap: 'wrap',
+        minHeight: 50,
     }, 
     type: {
 		backgroundColor: '#9FCAE2',
@@ -166,11 +172,10 @@ const styles = StyleSheet.create({
 		//marginLeft: '25%'
     },
     image: {
-		width: 200,
-		height: 200,
+		width: 370,
+		height: 230,
 		borderRadius: 25,
 		alignSelf: 'center',
-		marginBottom: '5%',
     },
     buttom: {
 		backgroundColor: '#DBAB9C',

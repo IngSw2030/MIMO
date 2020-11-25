@@ -12,8 +12,8 @@ const ProductDetailsScreen = ({ navigation }) => {
 	const [totalAmount, setTotalAmount] = useState(0);
 	const { state: cart, addToCart } = useContext(ShoppingCartContext);
 	const product = navigation.getParam('product');
-	console.log(product);
-	console.log(product.price);
+	
+
 	const price = usePrice(product.price);
 
 	useEffect(() => {
@@ -43,7 +43,9 @@ const ProductDetailsScreen = ({ navigation }) => {
 						<Entypo name='plus' size={36} color='black' />
 					</TouchableOpacity>
 
-					<TouchableOpacity
+					
+				</View>
+				<TouchableOpacity
 						style={styles.botonCarrito}
 						onPress={async () => {
 							try {
@@ -58,7 +60,6 @@ const ProductDetailsScreen = ({ navigation }) => {
 						<FontAwesome5 name='shopping-cart' size={40} color='black' />
 						<Text style={{ fontSize: 24 }}>Agregar al carrito</Text>
 					</TouchableOpacity>
-				</View>
 			</ScrollView>
 		</View>
 	);
@@ -67,10 +68,12 @@ const ProductDetailsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
 	scroll: {
 		flex: 1,
+		margin: '2%'
 	},
 
 	cantidadGeneral: {
 		flexDirection: 'row',
+		justifyContent: 'center'
 	},
 	cantidad: {
 		fontSize: 36,
@@ -79,8 +82,11 @@ const styles = StyleSheet.create({
 	},
 	botonCarrito: {
 		backgroundColor: '#E8916C',
-		borderRadius: 25,
-		padding: 8,
+		borderRadius: 30,
+		height: 50,
+		width: 300,
+		justifyContent: 'center',
+		alignSelf: 'center',
 		flexDirection: 'row',
 	},
 	textoNomal: {
@@ -89,11 +95,11 @@ const styles = StyleSheet.create({
 	pageStyle: {
 		flex: 1,
 		flexDirection: 'column',
-		backgroundColor: '#EDDF98',
+		backgroundColor: '#FFF7BB',
 	},
 	titleStyle: {
-		fontSize: 30,
-		alignSelf: 'center',
+		fontSize: 36,
+		fontWeight: 'bold',
 	},
 	productAttrStyle: {
 		flex: 1,
@@ -109,9 +115,6 @@ const styles = StyleSheet.create({
 	descriptionStyle: {
 		fontWeight: 'bold',
 		fontSize: 20,
-	},
-	descriptionViewStyle: {
-		minHeight: 200,
 	},
 });
 

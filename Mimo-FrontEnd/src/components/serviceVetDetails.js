@@ -14,6 +14,7 @@ const ServiceDetails = ({ data, calificacion, descripcion, nombre, id, openat, c
     const tipo = (data);
     const mimoIcon = require('../../assets/mimo.png');
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
+    console.log("Nombre en ServiceVet" + nombre)
 
     return (
         <View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>

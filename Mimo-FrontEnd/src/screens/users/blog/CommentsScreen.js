@@ -33,9 +33,9 @@ const CommentsScreen = ({ navigation }) => {
                     />
 
                 </View>
-                <TouchableOpacity onPress={() => {
-                    saveComment({ content: comment, idPost: id });
+                <TouchableOpacity onPress={async() => {
                     setComment('');
+                    await saveComment({ content: comment, idPost: id });
                     setEnviado(!enviado);
                 }}>
                     <View style={styles.send}>

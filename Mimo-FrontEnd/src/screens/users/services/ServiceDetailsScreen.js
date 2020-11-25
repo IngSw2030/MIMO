@@ -12,6 +12,8 @@ const ServiceDetailsScreen = (props) => {
     const foto = props.navigation.getParam('photo');
     const nombre = props.navigation.getParam('nombre');
     const id = props.navigation.getParam('id');
+    
+    console.log("Nombre en Service details" + nombre)
     return(
         <ServiceDetails 
             data = {data}
@@ -21,7 +23,7 @@ const ServiceDetailsScreen = (props) => {
             precioMin = {precioMin}
             photo = {foto}
             id = {id}
-            name = {nombre}
+            nombre = {nombre}
         />
     )
 }

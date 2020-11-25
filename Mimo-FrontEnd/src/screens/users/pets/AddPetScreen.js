@@ -29,7 +29,7 @@ const AddPetScreen = ({ navigation }) => {
 
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB' }}>
+		<View style={{ flex: 1, backgroundColor: '#FFF7BB' }}>
 			<Text style={styles.title}>Agregar una Mascota</Text>
 			<Text style={{ fontSize: 22, margin: '5%', fontWeight: 'bold', }}>Selecciona un tipo</Text>
 
@@ -108,7 +108,7 @@ const AddPetScreen = ({ navigation }) => {
 						{imagen ? (
 							<Image source={{ uri: `data:image/gif;base64,${imagen}` }} style={styles.image} />
 						) : (
-								<FontAwesome name='camera' size={100} color='#D1D1D1' />
+								<FontAwesome name='camera' size={100} color='black' />
 							)}
 					</TouchableOpacity>
 				</View>

@@ -10,11 +10,11 @@ router.use(requireAuth);
 
 router.post('/save', async (req, res) => {
 	const { content, idPost } = req.body;
-
 	try {
 		const comment = new Comment({
             content,
-            idPost,
+			idPost,
+			dateCreated: Date.now(),
 			idUser: req.user._id,
 		});
 		await comment.save();

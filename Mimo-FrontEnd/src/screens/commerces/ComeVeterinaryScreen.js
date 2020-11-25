@@ -9,7 +9,9 @@ const ComVeterinaryScreen = ({navigation}) => {
     
     useEffect(() => {
         getMyVets();
-        console.log(state.myVets);
+        navigation.addListener('willFocus', async () => {
+            await getMyVets();
+		});
     }, []);
 
     

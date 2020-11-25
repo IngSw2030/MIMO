@@ -14,7 +14,7 @@ const SaveModifyVetComponent = (props) => {
     const id = data._id;
 
     const placeName = props.name;
-    const placeNumber = props.number;
+    const placeNumber = props.number.toString();
     const placeAddress = props.address;
     const placeDescription = props.description;
     const placeOpen = props.openAt;
@@ -29,8 +29,7 @@ const SaveModifyVetComponent = (props) => {
     const [photo, setPhoto] = useState(data.photo);
     const [address, setAddress] = useState(data.address);
     const [description, setDescription] = useState(data.description);
-    const [contact, setContact] = useState(data.contact.toString());
-
+    const [contact, setContact] = useState(placeNumber);
     const [buscarImagen] = uploadPhoto();
 
 	const [selectOpen, setSelectOpen] = useState(false);
@@ -93,7 +92,7 @@ const SaveModifyVetComponent = (props) => {
 
             <View style = {styles.inputContainer}>
 				<TextInput 
-                    placeholder={placeNumber.toString()}
+                    placeholder={placeNumber}
                     keyboardType='numeric'
 					placeholderTextColor="#000"
 					style={styles.inputContainerText}
@@ -266,9 +265,10 @@ const styles = StyleSheet.create({
         backgroundColor: "#BCDB89",
         minHeight: 50,
         width: 350,
-        borderRadius: 20,
+        borderRadius: 30,
 		alignSelf: 'center',
 		alignContent: 'center',
+		textAlign: 'center',
 		margin: 10
 	},
 	inputContainerText:{

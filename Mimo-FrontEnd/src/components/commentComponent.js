@@ -12,7 +12,7 @@ const CommentComponent = props => {
 			</Text>
 			<View style={styles.info}>
 				<Text style={{ fontSize: 16 }}> {comment.idUser.name} {'  '}</Text>
-				<Text style={{ fontSize: 14 }}>{comment.dateCreated.slice(0, 10)} {comment.dateCreated.slice(14, 19)} {'  '}</Text>
+				<Text style={{ fontSize: 14 }}>{comment.dateCreated.slice(0, 10)} {comment.dateCreated.slice(11, 16)} {'  '}</Text>
 			</View>
 		</View>
 	);

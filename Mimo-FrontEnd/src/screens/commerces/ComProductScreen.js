@@ -1,13 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image,TouchableOpacity, FlatList, ScrollView} from 'react-native';
 import { withNavigation } from 'react-navigation';
-import { Context as UserContext } from '../../context/UserContext';          
+import { Context as UserContext } from '../../context/UserContext'; 
+import { Context as ProductContext } from '../../context/ProductContext';          
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import useSearch from '../../hooks/useResultsMyProduct';
 import ProductComponent from '../../components/productComponent';
 import { navigate } from '../../navigationRef';
 
-const ComProductScreen = () => {
+const ComProductScreen = ({ navigation }) => {
     const mimoIcon = require('../../../assets/mimo.png');
 	const questionText = 'Productos';
     const { state } = useContext(UserContext); 
@@ -15,6 +16,15 @@ const ComProductScreen = () => {
     const [term, setTerm] = useState('');
     const [searchApi, results, accesories, food, cleaning, others, errorMessage] = useSearch();
     
+    useEffect(() => {
+        //willFocus es un evento que indica si estamos viendo la pantalla.
+        
+		navigation.addListener('willFocus', async () => {
+            await searchApi('', '');
+            await searchApi('', '');
+		});
+	}, []);
+
     return (
         <View style={{ backgroundColor: '#FFF7BB', flex: 1, paddingTop: 20 }}>
             <ScrollView>

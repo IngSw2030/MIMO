@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Context as ServiceContext } from '../../context/ServiceContext';
 import uploadPhoto from '../../hooks/uploadPhoto';
@@ -19,7 +19,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 
 	const [buscarImagen] = uploadPhoto();
 	return (
-		<View style={styles.pageStyle}>
+		<ScrollView style={styles.pageStyle}>
 			<View>
 				<TouchableOpacity
 					style={styles.inputImage}
@@ -86,6 +86,8 @@ const ComAddServiceScreen = ({ navigation }) => {
 					autoCorrect={false}
 					style={styles.inputStyle}
 					value={descripcion}
+					editable={true}
+					multiline={true}
 					onChangeText={newDescripcion => setDescripcion(newDescripcion)}
 				/>
 			</View>
@@ -114,7 +116,7 @@ const ComAddServiceScreen = ({ navigation }) => {
 					<Text style={styles.text}>Cancelar</Text>
 				</TouchableOpacity>
 			</View>
-		</View>
+		</ScrollView>
 	);
 };
 
@@ -133,6 +135,9 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		marginLeft: 15,
 		alignSelf: 'center',
+		textAlign: 'center',
+        flexWrap: 'wrap',
+        minHeight: 50,
 	},
 	type: {
 		backgroundColor: '#9FCAE2',
@@ -155,11 +160,10 @@ const styles = StyleSheet.create({
 		//marginLeft: '25%'
 	},
 	image: {
-		width: 200,
-		height: 200,
+		width: 370,
+		height: 230,
 		borderRadius: 25,
 		alignSelf: 'center',
-		marginBottom: '5%',
 	},
 	buttom: {
 		backgroundColor: '#DBAB9C',

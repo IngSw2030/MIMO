@@ -108,7 +108,7 @@ router.post('/myProducts', async (req, res) => {
 					],
 				}
 			]
-		}).limit(25);
+		}).limit(30);
 
 		res.send({ products });
 	} catch (err) {

@@ -40,7 +40,7 @@ const PostComponent = props => {
 				<View style = {styles.info}>
 					<View style = {styles.nameDate}>
 						<Text>{post.idUser.name} {'  '}</Text>
-						<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(14, 19)} {'  '}</Text>
+						<Text>{post.dateCreated.slice(0, 10)} {post.dateCreated.slice(11, 16)} {'  '}</Text>
 					</View>
 					{
 						pinned ? 

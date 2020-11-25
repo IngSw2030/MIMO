@@ -40,7 +40,7 @@ const ShopingCartScreen = ({ navigation }) => {
 
 	return (
 		<View style={styles.generalViewStyle}>
-			<Text style={styles.titleStyle}>Carrito de Compras ''</Text>
+			<Text style={styles.titleStyle}>Carrito de Compras {' '}</Text>
 			<View style={styles.purchasesListStyle}>
 				<FlatList
 					keyExtractor={item => item.id}
@@ -123,7 +123,7 @@ const ShopingCartScreen = ({ navigation }) => {
 			<View style={styles.cancelConfirm}>
 				<TouchableOpacity onPress={() => navigation.goBack()}>
 					<View style={styles.roundedContainerStyleCa}>
-						<Text style={styles.totalStyle}>Cancelar ''</Text>
+						<Text style={styles.totalStyle}>Cancelar {' '}</Text>
 					</View>
 				</TouchableOpacity>
 
@@ -135,7 +135,7 @@ const ShopingCartScreen = ({ navigation }) => {
 					}}
 				>
 					<View style={styles.roundedContainerStyleCo}>
-						<Text style={styles.totalStyle}>Comprar ''</Text>
+						<Text style={styles.totalStyle}>Comprar {' '}</Text>
 					</View>
 				</TouchableOpacity>
 			</View>

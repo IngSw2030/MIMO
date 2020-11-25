@@ -49,17 +49,35 @@ const ComNotificationsScreen = ({ navigation }) => {
 		);
 	};
 	function renderPurchase(item, status) {
+		var color;
+		status == 'Completada' ?
+			color = '#B8DC7D'
+			: status == 'Pendiente' ?
+				color = '#E8916C'
+				: color = '#88CCF2'
 		if (item.purchase.status === status) {
 			return (
-				<View style={styles.containerPhoto}>
+				<View style={[styles.containerPhoto, { backgroundColor: color }]}>
 					<View style={{ flexDirection: 'column', justifyContent: 'center' }}>
 						<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
 					</View>
-					<View style={styles.infoContainerStyle}>
-						<Text style={styles.info}>Producto: {item.name}</Text>
-						<Text style={styles.info}>Unidades: {item.purchase.amount}</Text>
-						<Text style={styles.info}>Precio Total: {usePrice(item.price)}</Text>
-						<Text style={styles.infoId}>ID Venta: {item.purchase._id}</Text>
+					<View style={[styles.infoContainerStyle, { backgroundColor: color }]}>
+						<Text>
+							<Text style={{ fontSize: 16, fontWeight: 'bold' }}>Producto:</Text>
+							<Text style={styles.info}> {item.name}</Text>
+						</Text>
+						<Text>
+							<Text style={{ fontSize: 16, fontWeight: 'bold' }}>Unidades:</Text>
+							<Text style={styles.info}> {item.purchase.amount}</Text>
+						</Text>
+						<Text>
+							<Text style={{ fontSize: 16, fontWeight: 'bold' }}>Precio Total:</Text>
+							<Text style={styles.info}> {usePrice(item.price)}</Text>
+						</Text>
+						<Text>
+							<Text style={{ fontSize: 16, fontWeight: 'bold' }}>ID:</Text>
+							<Text style={styles.infoId}> {item.purchase._id}</Text>
+						</Text>
 						{estado === 'Pendiente' ? botonesRechazarConfirmar() : null}
 					</View>
 				</View>
@@ -68,23 +86,23 @@ const ComNotificationsScreen = ({ navigation }) => {
 	}
 
 	return (
-		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column', alignItems: 'stretch' }}>
-			<Text style={styles.title}>Historial de Ventas</Text>
+		<View style={{ flex: 1, backgroundColor: '#FCF4CB', flexDirection: 'column' }}>
+			<Text style={styles.title}>Tus Ventas {' '}</Text>
 			<View style={styles.selectorContainerStyle}>
 				<TouchableOpacity
-					style={estado === 'Completada' ? styles.desplegablesPressedStyle : styles.desplegables}
+					style={styles.desplegablesCompletada}
 					onPress={() => setEstado('Completada')}
 				>
 					<Text style={styles.textoDesplegable}>Completadas</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={estado === 'Pendiente' ? styles.desplegablesPressedStyle : styles.desplegables}
+					style={styles.desplegablesPendiente}
 					onPress={() => setEstado('Pendiente')}
 				>
 					<Text style={styles.textoDesplegable}>Por Confirmar</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					style={estado === 'Rechazada' ? styles.desplegablesPressedStyle : styles.desplegables}
+					style={styles.desplegablesRechazada}
 					onPress={() => setEstado('Rechazada')}
 				>
 					<Text style={styles.textoDesplegable}>Declinadas</Text>
@@ -130,9 +148,33 @@ const styles = StyleSheet.create({
 		height: 45,
 		width: '30%',
 	},
+	desplegablesCompletada: {
+		backgroundColor: '#B8DC7D',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
+	},
+	desplegablesPendiente: {
+		backgroundColor: '#E8916C',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
+	},
+	desplegablesRechazada: {
+		backgroundColor: '#88CCF2',
+		borderRadius: 25,
+		justifyContent: 'center',
+		includeFontPadding: true,
+		height: 45,
+		width: '30%',
+	},
 	title: {
 		marginTop: '5%',
-		fontSize: 25,
+		fontSize: 36,
 		fontWeight: 'bold',
 		alignSelf: 'center',
 	},
@@ -146,14 +188,13 @@ const styles = StyleSheet.create({
 		height: '85%',
 		width: 100,
 		borderRadius: 30,
-		marginLeft: '17%',
+		marginLeft: '10%',
 	},
 	info: {
-		fontSize: 13,
-		fontWeight: 'bold',
+		fontSize: 15,
 	},
 	infoId: {
-		fontSize: 12,
+		fontSize: 14,
 		alignSelf: 'center',
 	},
 	containerPhoto: {
@@ -165,9 +206,9 @@ const styles = StyleSheet.create({
 		borderRadius: 15,
 	},
 	infoContainerStyle: {
-		backgroundColor: '#BAA0F2',
-		flexGrow: 1,
-		flexWrap: 'wrap',
+		borderRadius: 25,
+		marginTop: '2%',
+		marginRight: '10%'
 	},
 	roundedContainerDeclineStyle: {
 		marginTop: 1,
