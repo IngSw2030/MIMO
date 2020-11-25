@@ -129,7 +129,7 @@ const ProductScreen = ({ navigation }) => {
 							>
 								<Image source={caracol} style={{alignSelf: 'center', height: 70, width: 70}} />
 							</TouchableOpacity>
-							<Text style={styles.textoBotonAnimal}>Gastropodo </Text>
+							<Text style={styles.textoBotonAnimal}>Caracol </Text>
 						</View>
 						<View>
 							<TouchableOpacity
