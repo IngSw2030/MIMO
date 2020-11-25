@@ -7,36 +7,27 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	Image,
-	SafeAreaView,
-	ScrollView,
-	StatusBar,
 } from 'react-native';
 import uploadPhoto from '../../../hooks/uploadPhoto';
-import { FontAwesome } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const PetsScreen = ({ navigation }) => {
-	const [escogerImagen, imagen] = uploadPhoto();
-	const { state, getMyPets } = useContext(PetContext); //state es la lista de perros. Viene del ultimo argumento en PetContext.js
+	const { state, getMyPets, deletePet } = useContext(PetContext); //state es la lista de perros. Viene del ultimo argumento en PetContext.js
 	//Hola leo, seguro te preguntas donde esta la lista de mascotas inicial. Eso se encuentra en PetContext.js
-	function petSex(item)
-	{
-		if(item.gender)
-		{
-		return(<Text style={styles.petInfo}>Género:Hembra{''}{' '}</Text>);
+	function petSex(item) {
+		if (item.gender) {
+			return (<Text style={styles.petInfo}>Género:Hembra{''}{' '}</Text>);
 		}
-		else{
-			return(<Text style={styles.petInfo}>Género:Macho {''}{' '}</Text>);
+		else {
+			return (<Text style={styles.petInfo}>Género:Macho {''}{' '}</Text>);
 		}
 	}
 	useEffect(() => {
 		getMyPets();
 	}, [])
-	console.log(state.pets);
 	return (
 		<View style={styles.generalView}>
-			<View>
-				<Text style={styles.title}>Mis mascotas</Text>
-			</View>
+			<Text style={styles.title}>Mis mascotas {' '}</Text>
 			<View style={styles.petsZone}>
 				<FlatList
 					data={state.pets}
@@ -45,66 +36,65 @@ const PetsScreen = ({ navigation }) => {
 					renderItem={({ item }) => {
 						return (
 							<View style={styles.containerPhoto}>
-								<View>
 								<Image style={styles.image} source={{ uri: `data:image/gif;base64,${item.photo}` }} />
+								<View style={{ flex: 1 }}>
+									<Text style={styles.petInfo}>
+										Nombre: {item.name} {' '}
+									</Text>
+									<Text style={styles.petInfo}>
+										Edad: {item.age} {' '}
+									</Text>
+									{petSex(item)}
+
+									<Text style={styles.petInfo}>
+										Tipo: {item.species} {' '}
+									</Text>
 								</View>
-								<View>
-									<Text style={styles.petInfo}>
-										Nombre: {item.name} {''}{' '}
-									</Text>
-									<Text style={styles.petInfo}>
-										Edad: {item.age} {''}{' '}
-									</Text>
-										 {petSex(item)}
-									
-									<Text style={styles.petInfo}>
-										Tipo: {item.species} {''}{' '}
-									</Text>
+								<View style={{ margin: 5 }}>
+									<TouchableOpacity
+										onPress={() => deletePet({ id: item._id })}
+									>
+										<Feather name="x-circle" size={28} color="black" />
+									</TouchableOpacity>
 								</View>
 							</View>
 						);
 					}}
 				/>
 			</View>
-
-			<View  >
-				<TouchableOpacity onPress={() => navigation.navigate('AddPet')} style={styles.petButtons}>
-					<Text style={styles.textButtons}>Agregar una mascota {''}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.petButtons}>
-					<Text style={styles.textButtons}>Eliminar una mascota {''}</Text>
-				</TouchableOpacity>
-			</View>
+			<TouchableOpacity onPress={() => navigation.navigate('AddPet')} style={styles.petButtons}>
+				<Text style={styles.textButtons}>Agregar una mascota {' '}</Text>
+			</TouchableOpacity>
 		</View>
 	);
 };
 const styles = StyleSheet.create({
 	title: {
-		marginTop: 70,
-		fontSize: 20,
+		marginTop: '10%',
+		fontSize: 40,
 		fontWeight: 'bold',
 		marginLeft: 20,
 		marginBottom: 30
 	},
 	textButtons: {
-		fontSize: 20,
+		fontSize: 25,
 		fontWeight: 'bold',
-		alignSelf: 'center',
-		//backgroundColor: '#DBAB9C'
+		textAlign: 'center',
 	},
 	generalView: {
 		justifyContent: 'center',
-		flexDirection: 'row',
-		flexWrap: 'wrap',
+		alignItems: 'center',
+		flexDirection: 'column',
 		backgroundColor: '#FFF7BB',
-		flex:1
+		flex: 1
 	},
 	petButtons: {
 		backgroundColor: 'rgba(159, 202, 226, 0.81)',
 		borderRadius: 25,
-		height: 40,
-		width: 300,
+		height: 50,
+		width: '80%',
 		margin: 15,
+		justifyContent: 'center'
 	},
 	container: {
 		height: 75,
@@ -114,31 +104,30 @@ const styles = StyleSheet.create({
 		marginLeft: 15,
 	},
 	containerPhoto: {
-		height: 100,
-		width: 300,
+		height: 110,
+		width: '85%',
 		backgroundColor: '#BCDB89',
-		marginBottom: 10,
-		marginLeft: 10,
+		marginBottom: 15,
+		alignSelf: 'center',
 		flexDirection: 'row',
 		borderRadius: 20,
-		//justifyContent:'space-between'
 	},
 	image: {
-		height: 80,
-		width: 80,
-		
+		height: 90,
+		width: 90,
 		borderRadius: 360,
-		alignSelf:'center',
-		alignContent: 'center',
+		alignSelf: 'center',
 		margin: 7,
 	},
 	petInfo: {
-		fontSize: 10,
+		fontSize: 15,
 		fontWeight: 'bold',
 		marginTop: 4,
 	},
-	petsZone:{
-		height:'50%'
+	petsZone: {
+		flex: 1,
+		flexDirection: 'column',
+		width: '100%'
 	}
 });
 

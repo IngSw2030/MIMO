@@ -29,25 +29,25 @@ router.post('/save', async (req, res) => {
 //Query para encontrar mis mascotas
 router.get('/myPets', async (req, res) => {
 
-    try {
-        const pets = await Pet.find({idUser: req.user._id});
-        res.send({ pets });
-    } catch (err) {
-        res.status(422).send({ error: "No se han encontrado mascotas" });
-    }
+	try {
+		const pets = await Pet.find({ idUser: req.user._id });
+		res.send({ pets });
+	} catch (err) {
+		res.status(422).send({ error: "No se han encontrado mascotas" });
+	}
 });
 
 router.post('/update', async (req, res) => {
-    try {
-        
-        const { 
-            name,
-            age,
-            species,
-            photo,
-            id
+	try {
+
+		const {
+			name,
+			age,
+			species,
+			photo,
+			id
 		} = req.body;
-		
+
 		const pet = await Pet.findOne({ _id: id });
 
 		let newName, newAge, newSpecies, newPhoto;
@@ -78,7 +78,7 @@ router.post('/update', async (req, res) => {
 	}
 });
 
-router.get('/delete', async (req, res) => {
+router.post('/delete', async (req, res) => {
 	const { id } = req.body;
 
 	try {
