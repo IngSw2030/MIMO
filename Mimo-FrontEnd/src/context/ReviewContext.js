@@ -6,7 +6,7 @@ const ReviewReducer = (state, action) => {
         case 'addVetReview':
             return { ...state, reviews: [...state.reviews, action.payload.review] };
         case 'addServiceReview':
-            return { ...state, reviews: action.payload };
+            return { ...state, reviews: [...state.reviews, action.payload.review] };
         case 'getVetReviews':
             return action.payload;
         case 'getServiceReviews':

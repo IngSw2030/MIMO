@@ -18,16 +18,19 @@ const ReviewsScreen = ({ navigation }) => {
     const [generalStarCount, setgeneralStarCount] = useState(calificacion);
     const [miCalificacion, setMiCalificacion] = useState(3);
     const [escribirComentario, setEscribirComentario] = useState(0);
+    const [cambio, setCambio] = useState(false);
 
     const onGeneralStarRatingPress = (ranting) => {
         setgeneralStarCount(ranting);
     }
 
     useEffect(() => {
-        !tipo ?
+        console.log("tipo en Review screen", tipo);
+        tipo!="service" ?
             getVetReviews({ idVet: id })
         : getServiceReviews({ idService: id })
-    }, [])
+        
+    }, [cambio])
 
     return (
 
@@ -79,10 +82,11 @@ const ReviewsScreen = ({ navigation }) => {
                             />
                             <TouchableOpacity
                                 style={styles.enviarReview}
-                                onPress={() => {
+                                onPress={async() => {
                                     !tipo ?
-                                        addVetReview({ comment: comentario, score: miCalificacion, idVet: id })
-                                    : addServiceReview({ comment: comentario, score: miCalificacion, idService: id });
+                                        await addVetReview({ comment: comentario, score: miCalificacion, idVet: id })
+                                    : await addServiceReview({ comment: comentario, score: miCalificacion, idService: id });
+                                    setCambio(!cambio);
                                     setEscribirComentario(0);
                                 }}
                             >
