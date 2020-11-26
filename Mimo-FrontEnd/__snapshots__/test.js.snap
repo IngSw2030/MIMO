@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddPetScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`AddPostScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`AquariumCleanerScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ChatScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComAddProductScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComAddServiceScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComAddVeterinaryScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComEditProductScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComEditServiceScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComHomeScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComNotificationsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComProductScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComServiceDetailsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComServiceScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComSettingsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComVeterinaryProfileScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ComVeterinaryScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`CommentsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`FriendListScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`GroomingScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`HistoryScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`HomeScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`JoinScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`LoadingScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`MassagesScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`PetScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`PetSittingScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`PetWalkerScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`PostDetailScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`PostScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ProductDetailsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ProductScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ReviewScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ServiceDetailsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ServicesScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`ShopingCartScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`SigninScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`SigninScreen se renderiza correctamente 2`] = `[Function]`;
+
+exports[`SignupScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`SignupScreen se renderiza correctamente 2`] = `[Function]`;
+
+exports[`StartScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`UserProfileScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`UserSettingsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`VeterinariesScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`VeterinaryProfileScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`myPostScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`pinnedPostsScreen se renderiza correctamente 1`] = `[Function]`;
+
+exports[`recommendedPostsScreen se renderiza correctamente 1`] = `[Function]`;
