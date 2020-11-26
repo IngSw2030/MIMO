@@ -10,7 +10,7 @@ const ReviewReducer = (state, action) => {
         case 'getVetReviews':
             return action.payload;
         case 'getServiceReviews':
-            return { ...state, reviews: action.payload };
+            return action.payload;
         case 'add_error':
             return { ...state };
     }
@@ -46,7 +46,7 @@ const addServiceReview = dispatch => async ({ comment, score, idService }) => {
             score,
             id: idService
         });
-        dispatch({ type: 'addServiceReview', payload: response.data });
+        dispatch({ type: 'addVetReview', payload: response.data });
     } catch (error) {
         dispatch({ type: 'add_error' });
     }

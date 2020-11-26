@@ -116,7 +116,7 @@ const ReviewsScreen = ({ navigation }) => {
                     return (
                         <View style={{ flexDirection: 'row', flex: 1, marginVertical: 15 }}>
                             {
-                                item.idUser.photo = ""
+                                !item.idUser.photo
                                     ?
                                     <Image style={styles.image} source={mimo} />
                                     :

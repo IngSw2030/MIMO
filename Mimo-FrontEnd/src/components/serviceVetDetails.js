@@ -90,6 +90,7 @@ const ServiceDetails = ({
                                 : navigate('Reviews', {
                                       id: id,
                                       calificacion: calificacion,
+                                      tipo: 'vet',
                                   })
                         }
                         style={styles.comentarios}>
