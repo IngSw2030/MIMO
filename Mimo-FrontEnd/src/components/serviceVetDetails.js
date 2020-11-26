@@ -38,9 +38,9 @@ const ServiceDetails = ({
             _id: 'jorge2@nexus.com', //usuario que manda el mensaje
         },
     };
-    const messages = useSelector((state) => state.conversations).find(
+    /* const messages = useSelector((state) => state.conversations).find(
         (thisConversation) => thisConversation.conversationId === 'petshop@retail.com'
-    ).messages;
+    ).messages; */
     return (
         <View style={{ backgroundColor: '#FFF7BB', flex: 1 }}>
             <ScrollView style={{ marginHorizontal: '3%', marginVertical: '6%' }}>
