@@ -99,24 +99,25 @@ const ServiceDetails = ({
                     <TouchableOpacity
                         style={styles.contactar}
                         onPress={() => {
-                            dispatch({ type: 'server/setUser', data: user.email });
-                            dispatch({ type: 'server/join', data: user.name });
-                            dispatch({
-                                /* Agrega localmente el mensaje */
-                                type: 'private_message',
-                                /* userId es el email del receptor */
-                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
-                            });
-                            dispatch({
-                                /* Manda el mensaje al servidor para enviarlo al receptor */
-                                type: 'server/private_message',
-                                /* userId es el email del receptor */
-                                data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
-                            });
-                            navigation.navigate('Chat', {
-                                name: 'dan',
-                                userId: 'petshop@retail.com', //receptor del mensaje
-                            });
+                            // dispatch({ type: 'server/setUser', data: user.email });
+                            // dispatch({ type: 'server/join', data: user.name });
+                            // dispatch({
+                            //     /* Agrega localmente el mensaje */
+                            //     type: 'private_message',
+                            //     /* userId es el email del receptor */
+                            //     data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
+                            // });
+                            // dispatch({
+                            //     /* Manda el mensaje al servidor para enviarlo al receptor */
+                            //     type: 'server/private_message',
+                            //     /* userId es el email del receptor */
+                            //     data: { message: mensajeDePrueba, conversationId: 'petshop@retail.com' }, //receptor del mensaje
+                            // });
+                            // navigation.navigate('Chat', {
+                            //     name: 'dan',
+                            //     userId: 'petshop@retail.com', //receptor del mensaje
+                            // });
+                            alert('Esto funcionara en la presentacion tranquis')
                         }}>
                         <FontAwesome name='send-o' size={24} color='black' />
 

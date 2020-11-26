@@ -21,7 +21,7 @@ const ComHomeScreen = ({ navigation }) => {
     const foodText = 'Post';
     const dispatch = useDispatch();
     const { state: purchases, getMySells } = useContext(PurchaseContext);
-    const { state } = useContext(UserContext);
+    const { state: user } = useContext(UserContext);
     const { getUser } = useContext(UserContext);
 
 	return (
@@ -34,13 +34,22 @@ const ComHomeScreen = ({ navigation }) => {
 				>
 					<MaterialCommunityIcons name='point-of-sale' size={60} color='black' />
 				</TouchableOpacity>
+                <TouchableOpacity
+					onPress={() => {
+						dispatch({ type: 'server/setUser', data: user.email });
+						dispatch({ type: 'server/join', data: user.name });
+						navigation.navigate('FriendList');
+					}}
+				>
+					<MaterialIcons name='message' size={40} color='black' />
+				</TouchableOpacity>
 			</View>
 			<View style={styles.topBanner}>
 				<View style={styles.infoStyle}>
 					<Text style={{ fontWeight: 'bold', fontSize: 18 }}>Nombre: </Text>
-					<Text style = {{fontSize: 18}}>{state.name} </Text>
+					<Text style = {{fontSize: 18}}>{user.name} </Text>
 					<Text style={{ fontWeight: 'bold', fontSize: 18 }}>Correo: </Text>
-					<Text style = {{fontSize: 18}}>{state.email} </Text>
+					<Text style = {{fontSize: 18}}>{user.email} </Text>
 				</View>
 				<Image style={styles.logoStyle} source={mimoIcon} />
 			</View>
